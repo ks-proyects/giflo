@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
+import { FirebaseModule } from './modules/firebase.module';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AngularMaterialModule } from './modules/angular-material.module';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
