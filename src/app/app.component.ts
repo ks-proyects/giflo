@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PushMessagingService } from './services/push-messaging.service';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,15 @@ import { PushMessagingService } from './services/push-messaging.service';
 export class AppComponent {
   title = 'giflo';
   msg: any = {};
-  constructor(private fpm: PushMessagingService ) {}
+  constructor(private fpm: PushMessagingService , private swUpdate: SwUpdate) {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(async () => {
+          if (confirm('Existe una nueva versión desea actualizar?')) {
+              window.location.reload();
+          }
+      });
+    }
+  }
   requestPermission() {
     this.fpm.requestPermission();
     this.fpm.listen();
