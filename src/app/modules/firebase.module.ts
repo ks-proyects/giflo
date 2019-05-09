@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 const firebaseConfig: any = {
   apiKey: 'AIzaSyDdCSeP_dUc-YM_cvaq9jxqhSKBvRMxLi0',
   authDomain: 'ksgiflo.firebaseapp.com',
@@ -17,7 +18,8 @@ const firebaseConfig: any = {
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireMessagingModule
+    AngularFireMessagingModule,
+    AngularFirestoreModule
   ]
 })
 export class FirebaseModule { }
