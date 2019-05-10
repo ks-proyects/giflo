@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 const firebaseConfig: any = {
   apiKey: 'AIzaSyDdCSeP_dUc-YM_cvaq9jxqhSKBvRMxLi0',
   authDomain: 'ksgiflo.firebaseapp.com',
@@ -19,7 +20,8 @@ const firebaseConfig: any = {
     CommonModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireMessagingModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ]
 })
 export class FirebaseModule { }

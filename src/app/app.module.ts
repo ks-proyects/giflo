@@ -7,11 +7,17 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { FirebaseModule } from './modules/firebase.module';
+import { GuardiaService } from './services/guardia.service';
+import { LoginComponent } from './components/public/login/login.component';
+import { HomeComponent } from './components/private/home/home.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +27,7 @@ import { FirebaseModule } from './modules/firebase.module';
     AngularMaterialModule,
     FirebaseModule
   ],
-  providers: [],
+  providers: [GuardiaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
