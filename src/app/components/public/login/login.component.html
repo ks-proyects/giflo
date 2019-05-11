@@ -1,2 +1,28 @@
-<button (click)="loginFacebook()" value="dddd">Login</button>
-
+<div layout="column" layout-align="center center" layout-fill="layout-fill">
+    <div layout="column" class="loginBox md-whiteframe-z1">
+      <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions fxLayout="column">
+              <button mat-raised-button  (click)="loginFacebook()" color="primary">Ingresar con Facebok</button>
+          </mat-card-actions>
+          <mat-card-content fxLayout="column"> 
+            <form class="my-form">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Correo electrónico" [(ngModel)]="email" name="username" required>
+                    </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Contraseña" [(ngModel)]="password"type="password" name="password" required>
+                </mat-form-field>
+            </form>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+          </mat-card-content>
+          <mat-card-actions fxLayout="column">
+            <button mat-raised-button (click)="login()" color="primary">Ingresar</button>
+            <button mat-raised-button (click)="login()" color="primary">Registrarse</button>
+          </mat-card-actions>
+    </mat-card>
+    </div>
+    </div>
+    

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 
@@ -9,13 +9,24 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  email: string;
+  @Input('password')
+  password: string;
+  showSpinner: boolean;
   constructor(private authSer: AuthenticationService,private routes: Router) { }
 
   ngOnInit() {
   }
   loginFacebook() {
-    this.authSer.loginFacebook().then((resp) => { 
+    this.showSpinner = true;
+    this.authSer.loginFacebook().then((resp) => {
       console.log('login sucess', resp);
-  }).catch((err) => {}).finally(() => { });
+    }).catch((err) => {}).finally(() => { this.showSpinner = false; });
+  }
+  login(): void {
+    this.showSpinner = true;
+    this.authSer.loginWithEmailAndPass(this.email, this.password).then((resp) => {
+      console.log('login sucess', resp);
+    }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
 }

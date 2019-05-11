@@ -10,6 +10,7 @@ import { FirebaseModule } from './modules/firebase.module';
 import { GuardiaService } from './services/guardia.service';
 import { LoginComponent } from './components/public/login/login.component';
 import { HomeComponent } from './components/private/home/home.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -25,7 +26,8 @@ import { HomeComponent } from './components/private/home/home.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
     AngularMaterialModule,
-    FirebaseModule
+    FirebaseModule,
+    FormsModule
   ],
   providers: [GuardiaService],
   bootstrap: [AppComponent]

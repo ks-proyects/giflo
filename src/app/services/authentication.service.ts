@@ -11,6 +11,9 @@ export class AuthenticationService {
   public loginFacebook = () => {
     return this.auth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
+  public loginWithEmailAndPass = (email, pass) => {
+    return this.auth.auth.signInWithEmailAndPassword(email, pass);
+  }
   public logout = () => {
     return this.auth.auth.signOut();
   }
