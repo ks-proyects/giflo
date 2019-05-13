@@ -1,0 +1,47 @@
+<mat-card fxLayout="column" fxLayoutAlign="center" >
+    <mat-card-header fxFlex="10">
+        <mat-card-title>Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxFlex="80" >
+        <form class="full-with" fxLayout="column">
+            {{user.fullNames}}
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tu cédula" [(ngModel)]="user.identificacion" type="text" name="identificacion" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tus nombres" [(ngModel)]="user.names" type="text" name="names" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tus apellidos" [(ngModel)]="user.lastName" name="lastName" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tu correo electrónico" [(ngModel)]="user.email" type="email" name="email" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput [matDatepicker]="picker" [value]="user.birthDate" placeholder="Selecciona tu fecha de nacimiento" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-select placeholder="Selecciona tu sexo" [(value)]="user.sexo">
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let sexo of listSexo" [value]="sexo.value">
+                        {{sexo.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-select placeholder="Selecciona el tipo de usuario " [(value)]="user.type" >
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let type of listType" [value]="type.value">
+                        {{type.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+    </mat-card-content>
+    <mat-card-actions fxFlex="10">
+        <button mat-raised-button (click)="finish()" color="primary">Finalizar</button>
+    </mat-card-actions>
+</mat-card>

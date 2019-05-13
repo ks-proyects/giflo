@@ -12,16 +12,16 @@ export class PushMessagingService {
   constructor(private afm: AngularFireMessaging,private afs: AngularFirestore) { }
   requestPermission() {
     this.afm.requestPermission.subscribe(
-      () => { console.log('Permission granted!'); }, 
+      () => { console.log('Permission granted!'); },
       (error) => { console.error(error)});
   }
-  requestPermission2() {
+  updateToken(user) {
     this.afm.requestPermission
       .pipe(mergeMapTo(this.afm.tokenChanges))
       .subscribe(
         (token) => {
-          console.log(token);
-          this.afs.collection('push').add({toke: token});
+          user.token = token;
+          this.afs.collection('user').doc(user.id).set({user});
         },
         (error) => { console.error(error); },
       );

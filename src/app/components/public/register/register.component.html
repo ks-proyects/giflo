@@ -1,0 +1,31 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" class="wind">
+    <mat-card fxFlex="50%" fxFlex.xs="90%">
+        <mat-card-header>
+            <mat-card-title>Registro</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions fxLayout="column">
+            <button mat-raised-button (click)="registerWithFacebook()" color="primary">Registrarse con Facebook</button>
+        </mat-card-actions>
+        <mat-card-actions fxLayout="column">
+            <button mat-raised-button (click)="registerWithGooogle()" color="primary">Registrarse con Google</button>
+        </mat-card-actions>
+        <mat-card-content fxLayout="column">
+            <form>
+                <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
+                    <input matInput placeholder="Correo electrónico" [(ngModel)]="email" name="username" required>
+                </mat-form-field>
+                <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
+                    <input matInput placeholder="Contraseña" [(ngModel)]="password" type="password" name="password" required>
+                </mat-form-field>
+            </form>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+        </mat-card-content>
+        <mat-card-actions fxLayout="column">
+            <button mat-raised-button (click)="registerWithEmailAndPass()" color="primary">Registrarme</button>
+        </mat-card-actions>
+        <mat-divider></mat-divider>
+        <mat-card-actions fxLayout="column">
+            <button fxFlex="50" mat-raised-button [routerLink]="['/homeLogin']" color="primary">Regresar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

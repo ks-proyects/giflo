@@ -11,14 +11,20 @@ import { GuardiaService } from './services/guardia.service';
 import { LoginComponent } from './components/public/login/login.component';
 import { HomeComponent } from './components/private/home/home.component';
 import { FormsModule } from '@angular/forms';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RegisterComponent } from './components/public/register/register.component';
+import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
+import { HomeLoginComponent } from './components/public/home-login/home-login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent,
+    RegisterUserDataComponent,
+    HomeLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     AngularMaterialModule,
     FirebaseModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [GuardiaService],
   bootstrap: [AppComponent]

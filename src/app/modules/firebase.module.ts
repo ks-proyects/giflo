@@ -20,7 +20,7 @@ const firebaseConfig: any = {
     CommonModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireMessagingModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule
   ]
 })

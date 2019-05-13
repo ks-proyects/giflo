@@ -10,16 +10,19 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   email: string;
-  @Input('password')
   password: string;
   showSpinner: boolean;
-  constructor(private authSer: AuthenticationService,private routes: Router) { }
+  constructor(private authSer: AuthenticationService, private routes: Router) { }
 
   ngOnInit() {
   }
   loginFacebook() {
     this.showSpinner = true;
-    this.authSer.loginFacebook().then((resp) => {
+    this.authSer.loginFacebook().then((resp) => {}).catch((err) => {}).finally(() => { this.showSpinner = false; });
+  }
+  loginGoogle() {
+    this.showSpinner = true;
+    this.authSer.loginWithGoogle().then((resp) => {
       console.log('login sucess', resp);
     }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }

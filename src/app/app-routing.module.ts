@@ -3,12 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/private/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { GuardiaService } from './services/guardia.service';
+import { RegisterComponent } from './components/public/register/register.component';
+import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
+import { HomeLoginComponent } from './components/public/home-login/home-login.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'homeLogin', component: HomeLoginComponent},
+  {path: 'registerData', component: RegisterUserDataComponent},
   {path: '', component: HomeComponent, canActivate: [GuardiaService]},
   {path: 'home', component: HomeComponent, canActivate: [GuardiaService]}
-  
 ];
 
 @NgModule({
