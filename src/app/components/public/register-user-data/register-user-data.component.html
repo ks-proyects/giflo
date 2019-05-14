@@ -18,9 +18,9 @@
                 <input matInput placeholder="Ingresa tu correo electrónico" [(ngModel)]="user.email" type="email" name="email" required>
             </mat-form-field>
             <mat-form-field class="input">
-                <input matInput [matDatepicker]="picker" [value]="user.birthDate" placeholder="Selecciona tu fecha de nacimiento" required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput [matDatepicker]="picker"  [value]="user.birthDate" placeholder="Selecciona tu fecha de nacimiento" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"  ></mat-datepicker-toggle>
+                <mat-datepicker  [touchUi]="isMobile" #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field class="input">
                 <mat-select placeholder="Selecciona tu sexo" [(value)]="user.sexo">

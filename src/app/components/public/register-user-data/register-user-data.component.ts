@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from 'src/app/model/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DaoUserService } from 'src/app/dao/dao-user.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-register-user-data',
@@ -37,7 +38,8 @@ export class RegisterUserDataComponent implements OnInit {
     private auth: AuthenticationService,
     private router: Router ,
     private arouter: ActivatedRoute,
-    private userDAO: DaoUserService) {
+    private userDAO: DaoUserService,
+    private breakpointObserver: BreakpointObserver) {
     const uid: any = arouter.snapshot.queryParams[1];
     this.auth.authState().subscribe(
       (result) => {
@@ -62,5 +64,8 @@ export class RegisterUserDataComponent implements OnInit {
       this.router.navigate(['/']);
     }).catch(err=>{console.log(err)});
   }
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
+}
 
 }

@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './components/public/register/register.component';
 import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
 import { HomeLoginComponent } from './components/public/home-login/home-login.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { HomeLoginComponent } from './components/public/home-login/home-login.co
     AngularMaterialModule,
     FirebaseModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    LayoutModule
   ],
   providers: [GuardiaService],
   bootstrap: [AppComponent]

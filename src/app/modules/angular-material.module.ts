@@ -1,35 +1,56 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, 
-  MatButtonModule, MatToolbar, MatToolbarModule, MatDatepicker, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatDividerModule } from '@angular/material';
+import { MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, 
+  MatButtonModule, MatToolbar, MatToolbarModule, 
+  MatDatepicker, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatDividerModule, MatButtonToggle, MatButtonToggleModule, MatSidenavModule, MatNavList, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatCheckboxModule, MatChipsModule, MatStepperModule, MatDialogModule, MatExpansionModule, MatGridListModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule, MatRadioModule, MatRippleModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatTooltipModule, MatTreeModule } from '@angular/material';
+import 'hammerjs';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatDividerModule
   ],
   exports: [
-    CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
+    CdkTableModule,
+    CdkTreeModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
     MatButtonModule,
-    MatToolbarModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
     MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
     MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
     MatSelectModule,
-    MatDividerModule
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    ScrollingModule,
 
   ]
 })
