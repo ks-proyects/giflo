@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PushMessagingService } from 'src/app/services/push-messaging.service';
 import { DaoUserService } from 'src/app/dao/dao-user.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/model/user';
 
 /** @title Responsive sidenav */
 @Component({
@@ -12,55 +13,50 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnDestroy {
-
   title = 'giflo';
   msg: any = {};
   isRegister:boolean = false;
-  currentUser: any = {fullNames: ''};
-
+  currentUser: User;
   mobileQuery: MediaQueryList;
-
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-
-  fillerContent = Array.from({length: 50}, () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
+  fillerNav = Array.from({length: 5}, (_, i) => `Nav Item ${i + 1}`);
+  fillerContent = Array.from({length: 1}, () =>
+      `Esta es una aplicacion enfocada a los pequeños negociantes de flore.`);
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef, 
+    private media: MediaMatcher,
     private auth: AuthenticationService,
     private fpm: PushMessagingService,
     private userDao: DaoUserService,
     private router: Router) {
+
       this.auth.authState().subscribe(
         (result) => {
           if ( result && result.uid) {
             this.userDao.findById(result.uid).then((doc) => {
               if (doc.exists) {
-                this.currentUser = doc.data();
+                this.currentUser = doc.data().user;
                 this.isRegister = true;
                 this.fpm.requestPermission();
                 this.fpm.updateToken(doc.data().user);
                 this.fpm.listen();
                 this.msg = this.fpm.subject;
               } else {
-                this.currentUser = {};
+                this.currentUser = null;
                 this.isRegister = false;
               }
             }).catch((error) => {
               console.log('Error en el guardia:', error);
             });
           } else {
-            this.currentUser = {};
+            this.currentUser = null;
             this.isRegister = false;
           }
         },
         (error) => {
-          this.currentUser = {};
+          this.currentUser = null;
           this.isRegister = false;
           console.log('Error Home: ', error)
         });
@@ -92,10 +88,4 @@ export class HomeComponent implements OnDestroy {
   logout() {
     this.auth.logout().then(() => { console.log('logout sucess'); }).catch((err) => {}).finally(() => { });
   }
-
 }
-
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */

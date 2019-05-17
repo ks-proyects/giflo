@@ -9,5 +9,4 @@ export interface User {
     type: string;
     identificacion: string;
     token: string;
-    
 }
