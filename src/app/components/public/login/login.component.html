@@ -1,34 +1,21 @@
-<div class="wind" fxLayout="row" fxLayout.md="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.md="center center" fxLayoutAlign.xs="center">
-        <mat-card fxFlex="0 1 calc(40% - 32px)" fxFlex.lg="0 1 calc(50% - 32px)" fxFlex.md="0 1 calc(60% - 32px)" fxFlex.sm="50%" fxFlex.xs="100%">
-            <mat-card-header>
-                <mat-card-title>Ingresar</mat-card-title>
-            </mat-card-header>
-            <mat-card-content fxLayout="row" fxLayout.xs="row" fxLayoutAlign="center">
-                <img fxLayout="column" mat-card-sm-image alt="Angular Logo" src="../assets/icons/icon-512x512.png">
-            </mat-card-content>
-            <mat-card-actions fxLayout="column">
-                <button mat-raised-button (click)="loginFacebook()" color="primary">Ingresar con Facebok</button>
-            </mat-card-actions>
-            <mat-card-actions fxLayout="column">
-                <button mat-raised-button (click)="loginGoogle()" color="primary">Ingresar con Google</button>
-            </mat-card-actions>
-            <mat-divider></mat-divider>
-            <mat-card-content fxLayout="column">
-                <form>
-                    <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
-                        <input matInput placeholder="Correo electrónico" [(ngModel)]="email" name="username" required>
-                    </mat-form-field>
-                    <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
-                        <input matInput placeholder="Contraseña" [(ngModel)]="password" type="password" name="password" required>
-                    </mat-form-field>
-                </form>
-                <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-            </mat-card-content>
-            <mat-card-actions fxLayout="column">
-                <button mat-raised-button (click)="login()" color="primary">Ingresar</button>
-            </mat-card-actions>
-            <mat-card-actions fxLayout="column">
-                <button fxFlex="50" mat-raised-button [routerLink]="['/homeLogin']" color="primary">Regresar</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
+<mat-sidenav-container class="container" [fxLayoutAlign]="'center center'" [fxLayout]="'row'">
+    <mat-sidenav-content [fxFlex]="mobileQuery.matches?90:30" [fxLayoutAlign]="'center center'" [fxLayout]="'column'" class="home-content">
+        <p class="{{mobileQuery.matches?'title-movile':'title-web'}}">Bienvenido a Giflo</p>
+        <img width="{{mobileQuery.matches?170:190}}" alt="Giflo Logo" src="../assets/icons/icon-512x512.png" />
+        <form class="home-toolbar">
+            <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
+                <input matInput placeholder="Correo electrónico" [(ngModel)]="email" name="username" required>
+            </mat-form-field>
+            <mat-form-field fxLayout="column" fxLayoutAlign="space-between">
+                <input matInput placeholder="Contraseña" [(ngModel)]="password" type="password" name="password" required>
+            </mat-form-field>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+            <button mat-raised-button (click)="login()" color="primary">Ingresar</button>
+        </form>
+        <div [fxFlex]="mobileQuery.matches?20:10" class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?4:5" [fxLayout]="'row'" [fxLayoutAlign]="'center start'">
+            <button class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?0:5" mat-raised-button (click)="loginFacebook()" color="primary">Ingresar con Facebok</button>
+            <button class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?4:5" mat-raised-button (click)="loginGoogle()" color="primary">Ingresar con Google</button>
+        </div>
+        <button mat-raised-button [routerLink]="['/homeLogin']" color="primary">Regresar</button>
+    </mat-sidenav-content>
+</mat-sidenav-container>

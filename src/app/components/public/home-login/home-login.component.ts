@@ -16,11 +16,11 @@ export class HomeLoginComponent implements OnInit {
     { value: "2", view: "Two" }
   ];
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
+  private mobileQueryListener: () => void;
   constructor(private media: MediaMatcher,private changeDetectorRef: ChangeDetectorRef) { 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 <mat-sidenav-container class="container" [fxLayoutAlign]="'center center'" [fxLayout]="'row'">
     <mat-sidenav-content [fxFlex]="mobileQuery.matches?90:60" [fxLayoutAlign]="'center center'" [fxLayout]="'column'" class="home-content">
         <p class="{{mobileQuery.matches?'title-movile':'title-web'}}">Bienvenido a Giflo</p>
-        <img width="{{mobileQuery.matches?170:250}}" alt="Giflo Logo" src="../assets/icons/icon-512x512.png" />
+        <img width="{{mobileQuery.matches?170:190}}" alt="Giflo Logo" src="../assets/icons/icon-512x512.png" />
         <div [fxLayout]="mobileQuery.matches?'column':'row'" [fxFlexOffset]="mobileQuery.matches?10:10" class="home-toolbar" [fxLayoutAlign]="'center end'" class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?6:2">
             <button [fxFlex]="mobileQuery.matches?0:40" class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?4:5" mat-raised-button [routerLink]="['/register']" color="primary">Registrarse</button>
             <div [fxFlex]="mobileQuery.matches?0:40" class="home-toolbar" [fxFlexOffset]="mobileQuery.matches?4:5" [fxLayout]="'column'" [fxLayoutAlign]="'center center'">

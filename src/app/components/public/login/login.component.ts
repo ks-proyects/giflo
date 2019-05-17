@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,14 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   showSpinner: boolean;
-  constructor(private authSer: AuthenticationService, private routes: Router) { }
+  mobileQuery: MediaQueryList;
+  private mobileQueryListener: () => void;
+  constructor(private authSer: AuthenticationService, private routes: Router,
+    private media: MediaMatcher, private changeDetectorRef: ChangeDetectorRef) {
+      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+      this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this.mobileQueryListener);
+    }
 
   ngOnInit() {
   }
