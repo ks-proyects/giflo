@@ -16,6 +16,8 @@ import { RegisterComponent } from './components/public/register/register.compone
 import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
 import { HomeLoginComponent } from './components/public/home-login/home-login.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AboutComponent } from './components/private/about/about.component';
+import { ContactoComponent } from './components/private/contacto/contacto.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     HomeComponent,
     RegisterComponent,
     RegisterUserDataComponent,
-    HomeLoginComponent
+    HomeLoginComponent,
+    AboutComponent,
+    ContactoComponent
   ],
   imports: [
     BrowserModule,

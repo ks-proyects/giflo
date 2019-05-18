@@ -85,7 +85,5 @@ export class HomeComponent implements OnDestroy {
   requestPermission4() {
     this.fpm.listen();
   }
-  logout() {
-    this.auth.logout().then(() => { console.log('logout sucess'); }).catch((err) => {}).finally(() => { });
-  }
+  
 }

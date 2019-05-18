@@ -14,7 +14,8 @@ export class GuardiaService implements CanActivate, CanActivateChild {
         if ( result && result.uid) {
           this.userDAO.findById(result.uid).then((doc) => {
             if (doc.exists) {
-              this.router.navigate(['/']);
+              console.log(this.router);
+              this.router.navigate([{outlets: { container: 'home'}}]);
             } else {
               this.router.navigate(['/registerData']);
             }
