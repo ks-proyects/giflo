@@ -4,6 +4,7 @@ import { User } from 'src/app/model/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DaoUserService } from 'src/app/dao/dao-user.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { PushMessagingService } from 'src/app/services/push-messaging.service';
 
 @Component({
   selector: 'app-register-user-data',
@@ -39,7 +40,8 @@ export class RegisterUserDataComponent implements OnInit {
     private router: Router ,
     private arouter: ActivatedRoute,
     private userDAO: DaoUserService,
-    private breakpointObserver: BreakpointObserver) {
+    private breakpointObserver: BreakpointObserver,
+    private msg: PushMessagingService) {
     const uid: any = arouter.snapshot.queryParams[1];
     this.auth.authState().subscribe(
       (result) => {
@@ -58,9 +60,12 @@ export class RegisterUserDataComponent implements OnInit {
   }
   finish = () => {
     this.user.fullNames = this.user.fullNames ? this.user.fullNames : this.user.names + ' ' + this.user.lastName;
+    this.msg.requestPermission();
+    this.msg.listen();
     this.userDAO.create(this.user).then((resp) => {
+      this.msg.updateToken(this.user);
       this.router.navigate(['/']);
-    }).catch(err=>{console.log(err)});
+    }).catch(err => {console.log(err); });
   }
   get isMobile() {
     return this.breakpointObserver.isMatched('(max-width: 767px)');

@@ -8,12 +8,13 @@ import { AboutComponent } from './components/private/about/about.component';
 import { AuthGuard } from './services/auth.guard';
 import { SecureInnerPagesGuard } from './services/secure-inner-pages.guard';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
+import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [SecureInnerPagesGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [SecureInnerPagesGuard]},
   {path: 'homeLogin', component: HomeLoginComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: 'registerData', component: SecureInnerPagesGuard},
+  {path: 'registerData', component: RegisterUserDataComponent, canActivate: [SecureInnerPagesGuard]},
   {path: '', component: HomeComponent, canActivate: [SecureInnerPagesGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'about', component: AboutComponent, canActivate: [AuthGuard]},

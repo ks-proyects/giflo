@@ -24,12 +24,13 @@ export class AuthenticationService {
           this.userAuthFire = userAuth;
           this.completRegister = false;
           this.userDAO.findById(userAuth.uid).then((doc) => {
+            debugger;
             if (doc.exists) {
               this.userDb = doc.data();
               this.completRegister = true;
               this.router.navigate(['/home']);
             } else {
-              this.router.navigate(['/homeLogin']);
+              this.router.navigate(['/registerData']);
             }
           }).catch((error) => {
             console.log('Error al consultar el usuario de la base ', error);

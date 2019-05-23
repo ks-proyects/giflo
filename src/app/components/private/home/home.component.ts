@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { BaseComponent } from '../../base.component';
+import { PushMessagingService } from 'src/app/services/push-messaging.service';
 
 /** @title Responsive sidenav */
 @Component({
@@ -24,9 +25,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
     private auth: AuthenticationService,
-    private router: Router) {
+    private router: Router,
+    private fpm: PushMessagingService ) {
         super(med, cdr);
         this.currentUser = this.auth.user();
+        this.msg = this.fpm.subject;
   }
   ngOnInit() {
   }
