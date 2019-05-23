@@ -19,19 +19,19 @@ export class RegisterComponent implements OnInit {
   registerWithFacebook() {
     this.showSpinner = true;
     this.authSer.registerWithFacebook().then((resp) => {
-      console.log('register sucess', resp);
+      console.log('register sucess');
     }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
   registerWithGooogle() {
     this.showSpinner = true;
     this.authSer.registerWithGoogle().then((resp) => {
-      console.log('register sucess', resp);
+      console.log('register sucess');
     }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
   registerWithEmailAndPass(): void {
     this.showSpinner = true;
     this.authSer.registerWithEmailAndPass(this.email, this.password).then((resp) => {
-      console.log('register sucess', resp);
+      console.log('register sucess');
     }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
 }

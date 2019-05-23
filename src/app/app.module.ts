@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { FirebaseModule } from './modules/firebase.module';
-import { GuardiaService } from './services/guardia.service';
 import { LoginComponent } from './components/public/login/login.component';
 import { HomeComponent } from './components/private/home/home.component';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +17,8 @@ import { HomeLoginComponent } from './components/public/home-login/home-login.co
 import { LayoutModule } from '@angular/cdk/layout';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
-
+import { BaseComponent } from './components/base.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { ContactoComponent } from './components/private/contacto/contacto.compon
     RegisterUserDataComponent,
     HomeLoginComponent,
     AboutComponent,
-    ContactoComponent
+    ContactoComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,7 @@ import { ContactoComponent } from './components/private/contacto/contacto.compon
     FlexLayoutModule,
     LayoutModule
   ],
-  providers: [GuardiaService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

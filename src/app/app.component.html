@@ -1,6 +1,5 @@
-<router-outlet *ngIf="!isRegister"></router-outlet>
-<div *ngIf="isRegister" class="container" [class.is-mobile]="mobileQuery.matches">
-    <mat-toolbar color="primary" class="toolbar">
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+    <mat-toolbar *ngIf="isHome()" color="primary" class="toolbar">
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
@@ -8,14 +7,15 @@
         <span class="spacer"></span>
         <button mat-button (click)="logout()">Cerrar Session</button>
     </mat-toolbar>
-    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-sidenav-container class="container" [style.marginTop.px]="isHome()?(mobileQuery.matches ? 56 : 56):0">
+        <mat-sidenav  #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
             <mat-nav-list>
-                <a *ngFor="let nav of fillerNav" mat-list-item [routerLink]="[{outlets: {'container': [nav.url]}}]" routerLinkActive="router-link-active"  >{{nav.label}}</a>
+                <a *ngFor="let nav of fillerNav" mat-list-item [routerLink]="[nav.url]" routerLinkActive="router-link-active">{{nav.label}}</a>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content style="text-align:center">
-            <router-outlet name="container"></router-outlet>
+        <mat-sidenav-content [fxFlex]="100" >
+            <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
+

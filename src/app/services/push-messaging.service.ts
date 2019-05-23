@@ -34,14 +34,11 @@ export class PushMessagingService {
   }
   listen() {
     this.afm.messages
-      .subscribe((message) => { 
-        console.log(message);
+      .subscribe((message) => {
         this.subject.next(message);
       });
 
-    this.afm.messaging.subscribe((message) => { 
-        console.log('metodo dos');
-        console.log(message);
+    this.afm.messaging.subscribe((message) => {
         this.subject.next(message);
       });
   }

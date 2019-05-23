@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   showSpinner: boolean;
   mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;
-  constructor(private authSer: AuthenticationService, private routes: Router,
+  constructor(private authSer: AuthenticationService, private router: Router,
     private media: MediaMatcher, private changeDetectorRef: ChangeDetectorRef) {
       this.mobileQuery = media.matchMedia('(max-width: 600px)');
       this.mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
   }
   loginFacebook() {
     this.showSpinner = true;
-    this.authSer.loginFacebook().then((resp) => {}).catch((err) => {}).finally(() => { this.showSpinner = false; });
+    this.authSer.loginFacebook().then((resp) => {
+    }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
   loginGoogle() {
     this.showSpinner = true;
@@ -37,7 +38,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.showSpinner = true;
     this.authSer.loginWithEmailAndPass(this.email, this.password).then((resp) => {
-      console.log('login sucess', resp);
     }).catch((err) => {}).finally(() => { this.showSpinner = false; });
   }
 }

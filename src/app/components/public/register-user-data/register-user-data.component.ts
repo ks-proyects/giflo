@@ -48,11 +48,9 @@ export class RegisterUserDataComponent implements OnInit {
           this.user.email = result.email ? result.email : '';
           this.user.id = result.uid;
         } else {
-          this.router.navigate([ '/login' ]);
         }
       },
       (error) => {
-        this.router.navigate([ '/' ]);
       });
   }
 
