@@ -1,0 +1,12 @@
+<mat-card class="allHeight" *ngIf="authService.userData as user" class="allHeight" fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header>
+        <mat-card-title>Perfil</mat-card-title>
+        <mat-card-subtitle>{{(user.displayName) ? user.displayName : 'User'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>User ID: <strong>{{user.uid}}</strong></p>
+        <p>Email: <strong>{{user.email}}</strong></p>
+        <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+        <p>Tipo: <strong>{{user.type}}</strong></p>
+    </mat-card-content>
+</mat-card>

@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/private/home/home.component';
-import { LoginComponent } from './components/public/login/login.component';
-import { RegisterComponent } from './components/public/register/register.component';
-import { HomeLoginComponent } from './components/public/home-login/home-login.component';
 import { AboutComponent } from './components/private/about/about.component';
-import { AuthGuard } from './services/auth.guard';
-import { SecureInnerPagesGuard } from './services/secure-inner-pages.guard';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
-import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AuthGuard } from './shared/guard/auth.guard';
+import { SecureInnerPagesGuard } from './shared/guard/secure-inner-pages.guard';
+import { SaveUserDataComponent } from './components/save-user-data/save-user-data.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: 'homeLogin', component: HomeLoginComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: 'registerData', component: RegisterUserDataComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: '', component: HomeComponent, canActivate: [SecureInnerPagesGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'about', component: AboutComponent, canActivate: [AuthGuard]},
-  {path: 'contact', component: ContactoComponent, canActivate: [AuthGuard]},
+  { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
+  { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard]},
+  { path: 'contact', component: ContactoComponent, canActivate: [AuthGuard]},
+  { path: 'save-user-data', component: SaveUserDataComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -7,30 +7,34 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { FirebaseModule } from './modules/firebase.module';
-import { LoginComponent } from './components/public/login/login.component';
 import { HomeComponent } from './components/private/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RegisterComponent } from './components/public/register/register.component';
-import { RegisterUserDataComponent } from './components/public/register-user-data/register-user-data.component';
-import { HomeLoginComponent } from './components/public/home-login/home-login.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
 import { BaseComponent } from './components/base.component';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthService } from './services/auth.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { SaveUserDataComponent } from './components/save-user-data/save-user-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
-    RegisterComponent,
-    RegisterUserDataComponent,
-    HomeLoginComponent,
     AboutComponent,
     ContactoComponent,
-    BaseComponent
+    BaseComponent,
+    DashboardComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
+    SaveUserDataComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,7 @@ import { AuthenticationService } from './services/authentication.service';
     FlexLayoutModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,5 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { BaseComponent } from '../../base.component';
@@ -24,18 +23,13 @@ export class HomeComponent extends BaseComponent implements OnInit {
   constructor(
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    private auth: AuthenticationService,
     private router: Router,
     private fpm: PushMessagingService ) {
         super(med, cdr);
-        this.currentUser = this.auth.user();
         this.msg = this.fpm.subject;
   }
   ngOnInit() {
   }
-  logout() {
-    this.auth.logout().then(() => {
-    }).catch((err) => {}).finally(() => { });
-  }
+ 
   
 }

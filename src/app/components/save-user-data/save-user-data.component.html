@@ -1,0 +1,45 @@
+<mat-card *ngIf="authService.userData as user" class="allHeight" fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header class="{{mq.matches?'form-login-m':'form-login-w'}}">
+        <mat-card-title>Registro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="{{mq.matches?'form-login-m':'form-login-w'}}">
+        <form  fxLayout="column"  fxLayout="column" fxLayoutAlign="center">
+            <h1>{{user.fullNames}}</h1>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tu cédula" #identificacion type="text" name="identificacion" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tus nombres" #names type="text" name="names" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput placeholder="Ingresa tus apellidos" #lastName name="lastName" required>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput [matDatepicker]="picker" #birthDate placeholder="Selecciona tu fecha de nacimiento" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker [touchUi]="mq.matches" #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-select placeholder="Selecciona tu sexo" #sexo>
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let sexo of listSexo" [value]="sexo.value">
+                        {{sexo.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="input">
+                <mat-select placeholder="Selecciona el tipo de usuario " #type>
+                    <mat-option></mat-option>
+                    <mat-option *ngFor="let type of listType" [value]="type.value">
+                        {{type.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions class="{{mq.matches?'form-login-m':'form-login-w'}}">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" style="width: 100%;">
+            <mat-button-toggle [fxFlex]="100" (click)="authService.FinishSaveData(identificacion.value,names.value,lastName.value,birthDate.value,sexo.value,type.value)">Finalizar</mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card-actions>
+</mat-card>

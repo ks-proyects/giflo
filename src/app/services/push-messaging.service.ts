@@ -9,7 +9,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 export class PushMessagingService {
 
   subject = new Rx.BehaviorSubject({});
-  constructor(private afm: AngularFireMessaging,private afs: AngularFirestore) { }
+  constructor(private afm: AngularFireMessaging, private afs: AngularFirestore) { }
   requestPermission() {
     this.afm.requestPermission.subscribe(
       () => { console.log('Permission granted!'); },
@@ -24,12 +24,6 @@ export class PushMessagingService {
           this.afs.collection('user').doc(user.id).set({user});
         },
         (error) => { console.error(error); },
-      );
-  }
-  requestPermission3() {
-    this.afm.requestToken.subscribe(
-        (token) => { console.log(token); },
-        (error) => { console.error(error) },
       );
   }
   listen() {

@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from './components/base.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent extends BaseComponent implements OnInit {
       private swUpdate: SwUpdate,
       private med: MediaMatcher,
       private cdr: ChangeDetectorRef,
-      private auth: AuthenticationService) {
+      public authService: AuthService) {
       super(med, cdr);
       if (this.swUpdate.isEnabled) {
           this.swUpdate.available.subscribe(async () => {
@@ -43,11 +43,6 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
   isHome() {
-    return this.router.url !== '/register' &&  this.router.url !== '/homeLogin' &&  this.router.url !== '/login';
-  }
-
-  logout() {
-    this.auth.logout().then(() => {
-    }).catch((err) => {}).finally(() => { });
+    return this.router.url !== '/sign-in' &&  this.router.url !== '/register-user' &&  this.router.url !== '/ave-user-data';
   }
 }
