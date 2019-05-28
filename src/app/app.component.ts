@@ -3,7 +3,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { BaseComponent } from './components/base.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',

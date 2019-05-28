@@ -14,7 +14,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
 import { BaseComponent } from './components/base.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';

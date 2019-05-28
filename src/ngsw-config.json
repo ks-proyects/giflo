@@ -23,5 +23,44 @@
         ]
       }
     }
+  ],
+  "dataGroups":[
+    {
+      "name":"Facebook",
+      "urls":[
+        "https://graph.facebook.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"freshness",
+        "maxAge":"1d",
+        "maxSize":20,
+        "timeout":"2s"
+      }
+    },
+    {
+      "name":"Google",
+      "urls":[
+        "https://fonts.googleapis.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"freshness",
+        "maxAge":"1d",
+        "maxSize":100,
+        "timeout":"2s"
+      }
+    },
+    {
+      "name":"FirebaseAPI",
+      "urls":[
+        "https://ksgiflo.firebaseio.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"freshness",
+        "maxAge":"2h",
+        "maxSize":100,
+        "timeout":"5s"
+      }
+    }
   ]
+
 }

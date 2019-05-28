@@ -9,9 +9,9 @@
         <mat-form-field >
             <input matInput placeholder="Contraseña" #password type="password" name="password" required>
         </mat-form-field>
-        <button mat-raised-button (click)="authService.SignIn(email.value, password.value)" color="primary">Ingresar</button>
-        <button mat-raised-button fxFlexOffset="2" (click)="authService.FacebookAuth()" color="warn"> Ingresar con Facebok</button>
-        <button mat-raised-button fxFlexOffset="2" (click)="authService.GoogleAuth()" color="warn">Ingresar con Google</button>
+        <button mat-raised-button (click)="authService.loginWithEmailPass(email.value, password.value)" color="primary">Ingresar</button>
+        <button mat-raised-button fxFlexOffset="2" (click)="authService.loginWithFacebook()" color="warn"> Ingresar con Facebok</button>
+        <button mat-raised-button fxFlexOffset="2" (click)="authService.loginWithGoogle()" color="warn">Ingresar con Google</button>
         <mat-button-toggle-group fxFlexOffset="2"  name="fontStyle" aria-label="Font Style" style="width: 100%;">
                 <mat-button-toggle [fxFlex]="50" [routerLink]="['/forgot-password']" routerLinkActive="router-link-active"  >Recuperar Contraseña</mat-button-toggle>
                 <mat-button-toggle [fxFlex]="50" [routerLink]="['/register-user']" routerLinkActive="router-link-active"  >Registrarse</mat-button-toggle>

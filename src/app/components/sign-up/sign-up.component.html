@@ -10,9 +10,7 @@
             <input matInput placeholder="Contraseña" #password type="password" name="password" required>
         </mat-form-field>
         
-        <button mat-raised-button (click)="authService.SignUp(email.value, password.value)" color="primary">Registrarse</button>
-        <button mat-raised-button fxFlexOffset="2" (click)="authService.FacebookAuth()" color="warn">Registrarse con Facebok</button>
-        <button mat-raised-button fxFlexOffset="2" (click)="authService.GoogleAuth()" color="warn">Registrarse con Google</button>
+        <button mat-raised-button (click)="authService.registerByEmailPass(email.value, password.value)" color="primary">Registrarse</button>
         <p>¿Ya tienes una cuenta?</p>
         <mat-button-toggle-group fxFlexOffset="2"  name="fontStyle" aria-label="Font Style" style="width: 100%;">
             <mat-button-toggle [fxFlex]="100" [routerLink]="['/sign-in']" routerLinkActive="router-link-active">Ingresar</mat-button-toggle>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { User } from '../model/user';
 import { map } from 'rxjs/operators';
+import { User } from '../shared/model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class DaoUserService {
     this.collection = afs.collection<User>('user');
   }
   create(user: User) {
-      return this.collection.doc(user.id).set(user);
+      return this.collection.doc(user.uid).set(user);
   }
   list() {
       return this.collection.snapshotChanges().pipe(
