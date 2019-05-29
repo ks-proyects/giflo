@@ -13,6 +13,10 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent extends BaseComponent implements OnInit {
   fillerNav = [
     {
+      url: 'companyList',
+      label: 'Empresas'
+    },
+    {
       url: 'home',
       label: 'Principal'
     },

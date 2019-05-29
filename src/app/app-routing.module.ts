@@ -11,6 +11,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { AuthGuard } from './shared/guard/auth.guard';
 import { SecureInnerPagesGuard } from './shared/guard/secure-inner-pages.guard';
 import { SaveUserDataComponent } from './components/save-user-data/save-user-data.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -22,7 +24,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'about', component: AboutComponent, canActivate: [AuthGuard]},
   { path: 'contact', component: ContactoComponent, canActivate: [AuthGuard]},
-  { path: 'save-user-data', component: SaveUserDataComponent, canActivate: [AuthGuard]}
+  { path: 'save-user-data', component: SaveUserDataComponent, canActivate: [AuthGuard]},
+  { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
+  { path: 'companyList', component: CompanyListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

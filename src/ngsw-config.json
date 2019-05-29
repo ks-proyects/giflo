@@ -31,10 +31,9 @@
         "https://graph.facebook.com/**"
       ],
       "cacheConfig":{
-        "strategy":"freshness",
+        "strategy":"performance",
         "maxAge":"1d",
-        "maxSize":20,
-        "timeout":"2s"
+        "maxSize":10
       }
     },
     {
@@ -43,10 +42,9 @@
         "https://fonts.googleapis.com/**"
       ],
       "cacheConfig":{
-        "strategy":"freshness",
+        "strategy":"performance",
         "maxAge":"1d",
-        "maxSize":100,
-        "timeout":"2s"
+        "maxSize":10
       }
     },
     {
@@ -62,5 +60,4 @@
       }
     }
   ]
-
 }

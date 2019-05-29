@@ -5,12 +5,13 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { User } from '../model/user';
 import * as firebase from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-
+import * as Rx from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  subject = new Rx.BehaviorSubject({});
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -77,6 +78,7 @@ export class AuthService {
   }
 
   private SendSaveData = (user) => {
+    
     return this.afm.requestToken.subscribe((token) => {
       this.afs.collection<User>('users').doc(this.afAuth.auth.currentUser.uid).ref.get().then((doc) => {
         if (doc.exists) {
@@ -98,6 +100,12 @@ export class AuthService {
         window.alert(error.message);
       });
       console.log('Permission granted! Save to the server!', token);
+      this.afm.messages.subscribe((message) => {
+        this.subject.next(message);
+      });
+      this.afm.messaging.subscribe((message) => {
+          this.subject.next(message);
+        });
     },
       (error) => {window.alert(error.message); },
     );

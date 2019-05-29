@@ -2,7 +2,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../../base.component';
-import { PushMessagingService } from 'src/app/shared/services/push-messaging.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 /** @title Responsive sidenav */
 @Component({
@@ -11,8 +11,6 @@ import { PushMessagingService } from 'src/app/shared/services/push-messaging.ser
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent extends BaseComponent implements OnInit {
-  
-  msg: any = {};
   fillerContent = Array.from({
           length: 1
       }, () =>
@@ -20,10 +18,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   constructor(
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    private router: Router,
-    private fpm: PushMessagingService ) {
+    private auth: AuthService) {
         super(med, cdr);
-        this.msg = this.fpm.subject;
   }
   ngOnInit() {
   }

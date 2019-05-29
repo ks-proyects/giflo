@@ -21,6 +21,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { SaveUserDataComponent } from './components/save-user-data/save-user-data.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
+import { CompanyService } from './dao/company.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { SaveUserDataComponent } from './components/save-user-data/save-user-dat
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    SaveUserDataComponent
+    SaveUserDataComponent,
+    CompanyComponent,
+    CompanyListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,7 @@ import { SaveUserDataComponent } from './components/save-user-data/save-user-dat
     FlexLayoutModule,
     LayoutModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
