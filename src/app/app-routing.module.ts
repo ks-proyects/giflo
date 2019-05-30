@@ -13,6 +13,9 @@ import { SecureInnerPagesGuard } from './shared/guard/secure-inner-pages.guard';
 import { SaveUserDataComponent } from './components/save-user-data/save-user-data.component';
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
+import { CompanyList2Component } from './components/company-list2/company-list2.component';
+import { NavComponent } from './components/nav/nav.component';
+import { AdressComponent } from './components/adress/adress.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -26,7 +29,10 @@ const routes: Routes = [
   { path: 'contact', component: ContactoComponent, canActivate: [AuthGuard]},
   { path: 'save-user-data', component: SaveUserDataComponent, canActivate: [AuthGuard]},
   { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
-  { path: 'companyList', component: CompanyListComponent, canActivate: [AuthGuard] }
+  { path: 'companyList', component: CompanyListComponent, canActivate: [AuthGuard] },
+  { path: 'companyList2', component: CompanyList2Component, canActivate: [AuthGuard] },
+  { path: 'nav', component: NavComponent, canActivate: [AuthGuard] },
+  { path: 'address', component: AdressComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

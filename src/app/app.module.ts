@@ -8,10 +8,12 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './modules/angular-material.module';
 import { FirebaseModule } from './modules/firebase.module';
-import { HomeComponent } from './components/private/home/home.component';
-import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
+
+import { HomeComponent } from './components/private/home/home.component';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
 import { BaseComponent } from './components/base.component';
@@ -26,6 +28,10 @@ import { CompanyComponent } from './components/company/company.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { CompanyService } from './dao/company.service';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { CompanyList2Component } from './components/company-list2/company-list2.component';
+import { NavComponent } from './components/nav/nav.component';
+import { AdressComponent } from './components/adress/adress.component';
+
 
 @NgModule({
   declarations: [
@@ -42,7 +48,10 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     SaveUserDataComponent,
     CompanyComponent,
     CompanyListComponent,
-    PerfilComponent
+    PerfilComponent,
+    CompanyList2Component,
+    NavComponent,
+    AdressComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +63,9 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     FormsModule,
     FlexLayoutModule,
     LayoutModule,
-    ImageCropperModule
+    ImageCropperModule,
+    ReactiveFormsModule,
+    ScrollingModule
   ],
   providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
