@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyService } from 'src/app/dao/company.service';
 
 @Component({
   selector: 'app-company-list',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyListComponent implements OnInit {
 
-  constructor() { }
+  constructor(public daoComp: CompanyService) { }
 
   ngOnInit() {
   }

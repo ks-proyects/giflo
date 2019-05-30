@@ -1,3 +1,8 @@
-<p>
-  company-list works!
-</p>
+<mat-list>
+  <h3 mat-subheader>Folders</h3>
+  <mat-list-item *ngFor="let comp of daoComp.findAll">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <h4 mat-line>{{comp.name}}</h4>
+    <p mat-line> {{comp.fechaRegistro | date}} </p>
+  </mat-list-item>
+</mat-list>

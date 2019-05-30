@@ -17,6 +17,10 @@ export class AppComponent extends BaseComponent implements OnInit {
       label: 'Empresas'
     },
     {
+      url: 'company',
+      label: 'Empresas3'
+    },
+    {
       url: 'home',
       label: 'Principal'
     },

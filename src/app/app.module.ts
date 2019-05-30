@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { SaveUserDataComponent } from './components/save-user-data/save-user-dat
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { CompanyService } from './dao/company.service';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { CompanyService } from './dao/company.service';
     VerifyEmailComponent,
     SaveUserDataComponent,
     CompanyComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { CompanyService } from './dao/company.service';
     FirebaseModule,
     FormsModule,
     FlexLayoutModule,
-    LayoutModule
+    LayoutModule,
+    ImageCropperModule
   ],
   providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
