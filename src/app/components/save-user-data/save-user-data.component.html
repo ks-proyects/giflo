@@ -1,4 +1,4 @@
-<form class="allHeight">
+<form class="allHeight" [formGroup]="userForm" novalidate (ngSubmit)="onSubmit()">
     <mat-card *ngIf="authService.userData as user" fxFlex="100" fxLayout="column" fxLayoutAlign="start center">
         <mat-card-header class="{{mq.matches?'form-login-m':'form-login-w'}}">
             <mat-card-title>Ingresa tus datos {{user.displayName}}</mat-card-title>
@@ -6,32 +6,44 @@
         <mat-card-content class="{{mq.matches?'form-login-m':'form-login-w'}}">
             <div fxLayout="column" fxLayout="column" fxLayoutAlign="center">
                 <mat-form-field class="input">
-                    <mat-select placeholder="Selecciona el tipo de usuario " #type>
+                    <mat-select placeholder="Tipo de Usuario" #type  formControlName="type" >
                         <mat-option></mat-option>
                         <mat-option *ngFor="let type of listType" [value]="type.value">
                             {{type.viewValue}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="userForm.controls['type'].hasError('required')">
+                            Es <strong>requerido</strong>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="input">
-                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" #identificacion type="text" name="identificacion" required>
+                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" formControlName="identificacion" type="{{type.value==='COMPANY'?'text':'number'}}" required>
+                    <mat-error *ngIf="userForm.controls['identificacion'].hasError('required')">
+                            Es <strong>requerido</strong>
+                    </mat-error>
                 </mat-form-field>
                 <div fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}">
-                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Comercial.':'Nombres.'}}" #names type="text" name="names" required>
+                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Comercial.':'Nombres.'}}" formControlName="names"  type="text" required>
+                        <mat-error *ngIf="userForm.controls['names'].hasError('required')">
+                                Es <strong>requerido</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}">
-                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Corto.':'Apellidos.'}}" #lastName name="lastName" required>
+                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Corto.':'Apellidos.'}}" formControlName="lastName"   required>
+                        <mat-error *ngIf="userForm.controls['lastName'].hasError('required')">
+                                Es <strong>requerido</strong>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div fxLayout="{{mq.matches?'column':'row'}}" >
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" [style.display]="type.value!=='COMPANY'?'':'none'">
-                        <input matInput [matDatepicker]="picker" #birthDate placeholder="Fecha de Nacimiento.">
+                        <input matInput [matDatepicker]="picker"  formControlName="birthDate" placeholder="Fecha de Nacimiento.">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker [touchUi]="mq.matches" #picker></mat-datepicker>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}" [style.display]="type.value!=='COMPANY'?'':'none'">
-                        <mat-select placeholder="Sexo" #sexo>
+                        <mat-select placeholder="Sexo" formControlName="sexo" >
                             <mat-option></mat-option>
                             <mat-option *ngFor="let sexo of listSexo" [value]="sexo.value">
                                 {{sexo.viewValue}}
@@ -42,8 +54,8 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="{{mq.matches?'form-login-m':'form-login-w'}}">
-            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" style="width: 100%;">
-                <mat-button-toggle [fxFlex]="100" (click)="authService.finishSaveData(identificacion.value,names.value,lastName.value,birthDate.value,sexo.value,type.value)">Finalizar</mat-button-toggle>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" style="width: 100%;">                
+                <button mat-raised-button [fxFlex]="100" color="primary" type="submit">Finalizar</button>
             </mat-button-toggle-group>
         </mat-card-actions>
     </mat-card>
