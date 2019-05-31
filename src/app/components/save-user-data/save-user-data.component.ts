@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CompanyService } from '../../dao/company.service';
+import { CompanyModel } from '../../shared/model/company-model';
 
 @Component({
   selector: 'app-save-user-data',
@@ -35,22 +37,33 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
     public authService: AuthService,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder,
+    private daoCom: CompanyService) {
     super(med, cdr);
   }
 
   ngOnInit() {
   }
   onSubmit() {
-    this.authService.finishSaveData(
-      this.userForm.controls.identificacion.value,
-      this.userForm.controls.names.value,
-      this.userForm.controls.lastName.value,
-      this.userForm.controls.birthDate.value,
-      this.userForm.controls.sexo.value,
-      this.userForm.controls.type.value,
-    );
-
+    if (!this.userForm.invalid) {
+      if (this.userForm.controls.type.value === 'COMPANY' ) {
+        const company: CompanyModel = {
+          name : this.userForm.controls.names.value,
+          ruc: this.userForm.controls.identificacion.value,
+          fechaRegistro: new Date(),
+          status: 'INRESADO'
+        };
+        this.daoCom.create(company);
+      }
+      this.authService.finishSaveData(
+        this.userForm.controls.identificacion.value,
+        this.userForm.controls.names.value,
+        this.userForm.controls.lastName.value,
+        this.userForm.controls.birthDate.value,
+        this.userForm.controls.sexo.value,
+        this.userForm.controls.type.value,
+      );
+    }
   }
 
 }

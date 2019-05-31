@@ -17,20 +17,20 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="input">
-                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" formControlName="identificacion" type="{{type.value==='COMPANY'?'text':'number'}}" required>
+                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" formControlName="identificacion" type="{{type.value==='COMPANY'?'text':'number'}}">
                     <mat-error *ngIf="userForm.controls['identificacion'].hasError('required')">
                             Es <strong>requerido</strong>
                     </mat-error>
                 </mat-form-field>
                 <div fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}">
-                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Comercial.':'Nombres.'}}" formControlName="names"  type="text" required>
+                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Comercial.':'Nombres.'}}" formControlName="names"  type="text">
                         <mat-error *ngIf="userForm.controls['names'].hasError('required')">
                                 Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}">
-                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Corto.':'Apellidos.'}}" formControlName="lastName"   required>
+                        <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Corto.':'Apellidos.'}}" formControlName="lastName" >
                         <mat-error *ngIf="userForm.controls['lastName'].hasError('required')">
                                 Es <strong>requerido</strong>
                         </mat-error>

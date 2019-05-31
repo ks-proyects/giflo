@@ -37,17 +37,6 @@
       }
     },
     {
-      "name":"Google",
-      "urls":[
-        "https://fonts.googleapis.com/**"
-      ],
-      "cacheConfig":{
-        "strategy":"performance",
-        "maxAge":"1d",
-        "maxSize":10
-      }
-    },
-    {
       "name":"FirebaseAPI",
       "urls":[
         "https://ksgiflo.firebaseio.com/**"
