@@ -14,7 +14,7 @@
         <button mat-raised-button fxFlexOffset="2" (click)="authService.loginWithGoogle()" color="warn">Ingresar con Google</button>
         <mat-button-toggle-group fxFlexOffset="2"  name="fontStyle" aria-label="Font Style" style="width: 100%;">
                 <mat-button-toggle [fxFlex]="50" [routerLink]="['/forgot-password']" routerLinkActive="router-link-active"  >Recuperar Contraseña</mat-button-toggle>
-                <mat-button-toggle [fxFlex]="50" [routerLink]="['/register-user']" routerLinkActive="router-link-active"  >Registrarse</mat-button-toggle>
+                <mat-button-toggle [fxFlex]="50" [routerLink]="['/sign-up']" routerLinkActive="router-link-active"  >Registrarse</mat-button-toggle>
         </mat-button-toggle-group>
     </form>
 </mat-card>

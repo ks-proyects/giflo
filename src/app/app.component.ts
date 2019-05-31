@@ -55,6 +55,6 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
   isHome() {
-    return this.router.url !== '/sign-in' &&  this.router.url !== '/register-user' &&  this.router.url !== '/ave-user-data';
+    return this.router.url !== '/sign-in' &&  this.router.url !== '/sign-up' &&  this.router.url !== '/save-user-data';
   }
 }

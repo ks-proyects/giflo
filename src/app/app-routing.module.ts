@@ -20,7 +20,7 @@ import { AdressComponent } from './components/adress/adress.component';
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
   { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPagesGuard]},
-  { path: 'register-user', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
+  { path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [SecureInnerPagesGuard] },
   { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [AuthGuard] },

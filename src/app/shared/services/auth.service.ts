@@ -37,7 +37,7 @@ export class AuthService {
    */
   public loginWithEmailPass = (email, password) => {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password).then((result) => {
-      this.SendSaveData(result.user);
+      this.sendSaveData(result.user);
     }).catch((error) => {
       window.alert(error.message);
     });
@@ -59,9 +59,7 @@ export class AuthService {
    */
   private WithPopup = (provider) => {
     return this.afAuth.auth.signInWithPopup(provider).then((result) => {
-      this.ngZone.run(() => {
-        this.SendSaveData(result.user);
-      });
+      this.sendSaveData(result.user);
     }).catch((error) => {
       window.alert(error);
     });
@@ -71,34 +69,42 @@ export class AuthService {
    */
   public registerByEmailPass = ( email, pass) => {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((result) => {
-      this.SendSaveData(result.user);
+      this.sendSaveData(result.user);
     }).catch((error) => {
       window.alert(error.message);
     });
   }
 
-  private SendSaveData = (user) => {
-    
-    return this.afm.requestToken.subscribe((token) => {
-      this.afs.collection<User>('users').doc(this.afAuth.auth.currentUser.uid).ref.get().then((doc) => {
-        if (doc.exists) {
-          this.updateToken(user, token);
-          if (!this.afAuth.auth.currentUser.emailVerified) {
-            this.sendVerificationMail();
-          } else {
-            this.ngZone.run(() => {
-              this.router.navigate(['dashboard']);
+  public sendSaveData = (user) => {
+    return this.afs.collection<User>('users').doc(this.afAuth.auth.currentUser.uid).ref.get().then((doc) => {
+      if (doc.exists) {
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
+        this.afm.requestToken.subscribe(
+          (token) => {
+            console.log('Permission granted! Save to the server!', token);
+            this.updateToken(user, token);
+            this.afm.messages.subscribe((message) => {
+              this.subject.next(message);
             });
-          }
-        } else {
-          this.ngZone.run(() => {
-            this.router.navigate(['save-user-data']);
-          });
-          this.setTokenUser(user, token);
-        }
-      }).catch((error) => {
-        window.alert(error.message);
-      });
+            this.afm.messaging.subscribe((message) => {
+                this.subject.next(message);
+            });
+          },
+          (error) => {
+            window.alert(error.message);
+          },
+        );
+      } else {
+        this.ngZone.run(() => {
+          this.router.navigate(['save-user-data']);
+        });
+      }
+    }).catch((error) => {
+      window.alert(error.message);
+    });
+    return this.afm.requestToken.subscribe((token) => {
       console.log('Permission granted! Save to the server!', token);
       this.afm.messages.subscribe((message) => {
         this.subject.next(message);
@@ -113,32 +119,32 @@ export class AuthService {
 
   sendVerificationMail = () => {
     return this.afAuth.auth.currentUser.sendEmailVerification().then(() => {
-      this.router.navigate(['verify-email-address']);
+      this.ngZone.run(() => {
+        this.router.navigate(['verify-email-address']);
+      });
     }).catch((error) => {
       window.alert(error.message);
     });
   }
   finishSaveData = (id, namesp, lastNamep, birthDatep, sexop, typep) => {
-    const uid = this.afAuth.auth.currentUser.uid;
-    this.ngZone.run(() => {
-      const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
-      const userData: User = {
-        identificacion: id,
-        names: namesp,
-        lastName: lastNamep,
-        birthDate: birthDatep,
-        sexo: sexop,
-        type: typep
-      };
-      return userRef.set(userData, {
-        merge: true
-      });
-    });
-    if (!this.afAuth.auth.currentUser.emailVerified){
-      this.sendVerificationMail();
-    } else {
-      this.router.navigate(['dashboard']);
-    }
+    this.afm.requestToken.subscribe(
+      (token) => {
+        console.log('Permission granted! Save to the server!', token);
+        this.saveUserData(this.afAuth.auth.currentUser, token, id, namesp, lastNamep, birthDatep, sexop, typep);
+        this.afm.messages.subscribe((message) => {
+          this.subject.next(message);
+        });
+        this.afm.messaging.subscribe((message) => {
+            this.subject.next(message);
+        });
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
+      },
+      (error) => {
+        window.alert(error.message);
+      },
+    );
   }
   /**
    * Método cuando se olvida el password
@@ -155,7 +161,7 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null /*&& user.emailVerified !== false*/) ? true : false;
   }
-  private setTokenUser = (user, tok) => {
+  private saveUserData = (user, tok, ID, pnames, pLastName, pBirthDate, pSexo, pType) => {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
@@ -163,8 +169,14 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      token: tok
-    }
+      token: tok,
+      identificacion: ID,
+      names: pnames,
+      lastName: pLastName,
+      birthDate: pBirthDate ? pBirthDate : '',
+      sexo: pSexo ? pSexo : '',
+      type: pType
+    };
     return userRef.set(userData, {
       merge: true
     });

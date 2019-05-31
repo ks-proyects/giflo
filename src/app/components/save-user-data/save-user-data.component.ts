@@ -16,8 +16,8 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
     {value: 'Otro', viewValue: 'Otro'}
   ];
   listType: any[] = [
-    {value: 'Personal', viewValue: 'Personal'},
-    {value: 'Empresarial', viewValue: 'Empresarial'}
+    {value: 'PERSON', viewValue: 'Personal'},
+    {value: 'COMPANY', viewValue: 'Empresarial'}
   ];
   constructor(
     public authService: AuthService,
