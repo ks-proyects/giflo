@@ -1,0 +1,100 @@
+{
+  "configVersion": 1,
+  "timestamp": 1559303646062,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/5.a0532d2daff3894685ed.js",
+        "/es2015-polyfills.c5dd28b362270c767b34.js",
+        "/favicon.ico",
+        "/firebase-messaging-sw.js",
+        "/index.html",
+        "/main.155d31fd594695cc3e82.js",
+        "/polyfills.8bbb231b43165d65d357.js",
+        "/runtime.d5a37fd92b16a0608f6c.js",
+        "/styles.a8239bc99038674422a9.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "Facebook",
+      "patterns": [
+        "https:\\/\\/graph\\.facebook\\.com\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 10,
+      "maxAge": 86400000,
+      "version": 1
+    },
+    {
+      "name": "FirebaseAPI",
+      "patterns": [
+        "https:\\/\\/ksgiflo\\.firebaseio\\.com\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 100,
+      "maxAge": 7200000,
+      "timeoutMs": 5000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/5.a0532d2daff3894685ed.js": "04789772ea783b0b655464a4fc786e93eb687d4b",
+    "/assets/icons/icon-128x128.png": "62cf24d96cb5294c044a5d068c95ef74412e3056",
+    "/assets/icons/icon-144x144.png": "f6fb8e79c63655ec366a6701302d8b17d42e14d8",
+    "/assets/icons/icon-152x152.png": "3068e3316af98d6c33442668678984ac37cdbc56",
+    "/assets/icons/icon-192x192.png": "e77edab76242048c90bbf12dda0bc376c1b2ebc6",
+    "/assets/icons/icon-384x384.png": "b7ab6039db2b9f7f1c5297bad59425d06ec7e3fa",
+    "/assets/icons/icon-512x512.png": "25b25552770ce01fcd88153db6f57eb5f766b46a",
+    "/assets/icons/icon-72x72.png": "a3dc32b2d199f8cff3fa744b29fb028ecd1e955f",
+    "/assets/icons/icon-96x96.png": "d9da1ad1285282e44a4ddb25729acd59ec142591",
+    "/es2015-polyfills.c5dd28b362270c767b34.js": "b7a81c61d32b0b12737f0c13f45973ba391cd7f9",
+    "/favicon.ico": "a6566dc2e4352b1cdbe145026476724bf2eecff6",
+    "/firebase-messaging-sw.js": "bf6993c0b44137d0b41733421fdf24a0033e8884",
+    "/index.html": "11e1d045bfc161e797097cba60fc79efd04394a8",
+    "/main.155d31fd594695cc3e82.js": "e1702ba0531769db0a7de8784988eaf965780804",
+    "/polyfills.8bbb231b43165d65d357.js": "ffa449995bf2eba2ccd0a002417214f7eb75e7b5",
+    "/runtime.d5a37fd92b16a0608f6c.js": "05da5031304e0e1b31b0c5b9d66c459367a515ba",
+    "/styles.a8239bc99038674422a9.css": "5405fb5c980546e9c18e4a01aa7e64a139808185"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
