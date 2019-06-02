@@ -41,8 +41,8 @@
                 <a *ngFor="let nav of fillerNav" mat-list-item [routerLink]="[nav.url]" routerLinkActive="router-link-active">{{nav.label}}</a>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content [fxFlex]="100">
-            <router-outlet></router-outlet>
+        <mat-sidenav-content fxFlex="100"  fxLayout="column">
+            <router-outlet class="allHeight"></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
