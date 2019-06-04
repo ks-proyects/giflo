@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { User } from '../shared/model/user';
 
@@ -9,7 +9,7 @@ import { User } from '../shared/model/user';
 export class DaoUserService {
   collection: AngularFirestoreCollection<any>;
   constructor(private afs: AngularFirestore) {
-    this.collection = afs.collection<User>('user');
+    this.collection = afs.collection<User>('users');
   }
   create(user: User) {
       return this.collection.doc(user.uid).set(user);
@@ -34,4 +34,8 @@ export class DaoUserService {
   findById(id) {
     return this.collection.doc(id).ref.get();
   }
+  findByIdRef(uid): AngularFirestoreDocument<User> {
+    return this.afs.doc(`users/${uid}`);
+  }
+
 }

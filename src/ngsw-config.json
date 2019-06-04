@@ -45,7 +45,7 @@
         "strategy":"freshness",
         "maxAge":"2h",
         "maxSize":100,
-        "timeout":"5s"
+        "timeout":"2s"
       }
     }
   ]

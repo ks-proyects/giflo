@@ -13,16 +13,8 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent extends BaseComponent implements OnInit {
   fillerNav = [
     {
-      url: 'companyList',
-      label: 'Empresas'
-    },
-    {
       url: 'companyList2',
-      label: 'Empresas 2'
-    },
-    {
-      url: 'company',
-      label: 'Empresas3'
+      label: 'Empresas'
     },
     {
       url: 'home',
@@ -55,6 +47,6 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
   isHome() {
-    return this.router.url !== '/sign-in' &&  this.router.url !== '/sign-up' &&  this.router.url !== '/save-user-data';
+    return this.router.url !== '/sign-in' &&  this.router.url !== '/sign-up' &&  this.router.url !== '/sign-up-data';
   }
 }

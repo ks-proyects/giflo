@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SaveUserDataComponent } from './save-user-data.component';
+import { SignUpDataComponent } from './sign-up-data.component';
 
-describe('SaveUserDataComponent', () => {
-  let component: SaveUserDataComponent;
-  let fixture: ComponentFixture<SaveUserDataComponent>;
+describe('SignUpDataComponent', () => {
+  let component: SignUpDataComponent;
+  let fixture: ComponentFixture<SignUpDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SaveUserDataComponent ]
+      declarations: [ SignUpDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SaveUserDataComponent);
+    fixture = TestBed.createComponent(SignUpDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

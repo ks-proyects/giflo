@@ -6,5 +6,8 @@ export interface CompanyModel {
     status?: string;
     code?: string;
     fechaRegistro?: Date;
+    address?: string;
+    phone?: string;
+    convetional?: string;
 }
 

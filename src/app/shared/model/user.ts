@@ -11,4 +11,6 @@ export interface User {
     birthDate?: Date;
     sexo?: string;
     type?: string;
+    phone?: string;
+    convetional?: string;
 }

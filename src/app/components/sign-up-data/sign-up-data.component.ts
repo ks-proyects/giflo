@@ -1,18 +1,17 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyService } from '../../dao/company.service';
-import { CompanyModel } from '../../shared/model/company-model';
+import { CompanyService } from 'src/app/dao/company.service';
+import { CompanyModel } from 'src/app/shared/model/company-model';
+import { BaseComponent } from '../base.component';
 
 @Component({
-  selector: 'app-save-user-data',
-  templateUrl: './save-user-data.component.html',
-  styleUrls: ['./save-user-data.component.less']
+  selector: 'app-sign-up-data',
+  templateUrl: './sign-up-data.component.html',
+  styleUrls: ['./sign-up-data.component.less']
 })
-export class SaveUserDataComponent extends BaseComponent implements OnInit {
-
+export class SignUpDataComponent extends BaseComponent implements OnInit {
   userForm = this.fb.group({
     type: [null, Validators.required],
     company: null,
@@ -21,9 +20,10 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
     address: [null, Validators.required],
     identificacion: [null, Validators.required],
     birthDate: null,
-    sexo: null
+    sexo: null,
+    phone: [null, Validators.required],
+    convetional: null
   });
-
   listSexo: any[] = [
     {value: 'Masculino', viewValue: 'Masculino'},
     {value: 'Femenino', viewValue: 'Femenino'},
@@ -39,8 +39,8 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private daoCom: CompanyService) {
-    super(med, cdr);
-  }
+      super(med, cdr);
+    }
 
   ngOnInit() {
   }
@@ -51,7 +51,10 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
           name : this.userForm.controls.names.value,
           ruc: this.userForm.controls.identificacion.value,
           fechaRegistro: new Date(),
-          status: 'INRESADO'
+          status: 'INRESADO',
+          address: this.userForm.controls.address.value,
+          phone: this.userForm.controls.phone.value,
+          convetional: this.userForm.controls.convetional.value
         };
         this.daoCom.create(company);
       }
@@ -62,8 +65,9 @@ export class SaveUserDataComponent extends BaseComponent implements OnInit {
         this.userForm.controls.birthDate.value,
         this.userForm.controls.sexo.value,
         this.userForm.controls.type.value,
+        this.userForm.controls.phone.value,
+        this.userForm.controls.convetional.value
       );
     }
   }
-
 }

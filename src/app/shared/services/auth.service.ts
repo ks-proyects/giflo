@@ -6,24 +6,35 @@ import { User } from '../model/user';
 import * as firebase from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import * as Rx from 'rxjs';
+import { DaoUserService } from 'src/app/dao/dao-user.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  userDB: User;
   subject = new Rx.BehaviorSubject({});
   constructor(
-    public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public afm: AngularFireMessaging
+    public afm: AngularFireMessaging,
+    private daoU: DaoUserService
     ) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
           JSON.parse(localStorage.getItem('user'));
+          this.daoU.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
+            if (doc.exists) {
+              this.saveLocalUserDB(doc.data());
+            } else {
+              this.saveLocalUserDB(null);
+            }
+          }).catch((error) => {
+            window.alert(error.message);
+          });
         } else {
           localStorage.setItem('user', null);
           JSON.parse(localStorage.getItem('user'));
@@ -76,14 +87,11 @@ export class AuthService {
   }
 
   public sendSaveData = (user) => {
-    return this.afs.collection<User>('users').doc(this.afAuth.auth.currentUser.uid).ref.get().then((doc) => {
+    return this.daoU.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
       if (doc.exists) {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        });
         this.afm.requestToken.subscribe(
           (token) => {
-            console.log('Permission granted! Save to the server!', token);
+            console.log('Permiso consedido y se guarda en el servidor!');
             this.updateToken(user, token);
             this.afm.messages.subscribe((message) => {
               this.subject.next(message);
@@ -96,41 +104,22 @@ export class AuthService {
             window.alert(error.message);
           },
         );
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
       } else {
         this.ngZone.run(() => {
-          this.router.navigate(['save-user-data']);
+          this.router.navigate(['sign-up-data']);
         });
       }
     }).catch((error) => {
       window.alert(error.message);
     });
-    return this.afm.requestToken.subscribe((token) => {
-      console.log('Permission granted! Save to the server!', token);
-      this.afm.messages.subscribe((message) => {
-        this.subject.next(message);
-      });
-      this.afm.messaging.subscribe((message) => {
-          this.subject.next(message);
-        });
-    },
-      (error) => {window.alert(error.message); },
-    );
   }
-
-  sendVerificationMail = () => {
-    return this.afAuth.auth.currentUser.sendEmailVerification().then(() => {
-      this.ngZone.run(() => {
-        this.router.navigate(['verify-email-address']);
-      });
-    }).catch((error) => {
-      window.alert(error.message);
-    });
-  }
-  finishSaveData = (id, namesp, lastNamep, birthDatep, sexop, typep) => {
+  finishSaveData = (id, namesp, lastNamep, birthDatep, sexop, typep, phone, convetional) => {
     this.afm.requestToken.subscribe(
       (token) => {
         console.log('Permission granted! Save to the server!', token);
-        this.saveUserData(this.afAuth.auth.currentUser, token, id, namesp, lastNamep, birthDatep, sexop, typep);
         this.afm.messages.subscribe((message) => {
           this.subject.next(message);
         });
@@ -140,6 +129,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
+        this.saveUserData(this.afAuth.auth.currentUser, token, id, namesp, lastNamep, birthDatep, sexop, typep ,phone, convetional);
       },
       (error) => {
         window.alert(error.message);
@@ -156,13 +146,13 @@ export class AuthService {
       window.alert(error);
     });
   }
-  // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
+  get isRgister(): boolean {
+    const userDB = JSON.parse(localStorage.getItem('userDB'));
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null /*&& user.emailVerified !== false*/) ? true : false;
+    return (user !== null && userDB !== null) ? true : false;
   }
-  private saveUserData = (user, tok, ID, pnames, pLastName, pBirthDate, pSexo, pType) => {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+  private saveUserData = (user, tok, ID, pnames, pLastName, pBirthDate, pSexo, pType, phonep, convetionalP) => {
+    const userRef: AngularFirestoreDocument<User> = this.daoU.findByIdRef(user.id);
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -175,14 +165,18 @@ export class AuthService {
       lastName: pLastName,
       birthDate: pBirthDate ? pBirthDate : '',
       sexo: pSexo ? pSexo : '',
-      type: pType
+      type: pType,
+      phone: phonep,
+      convetional: convetionalP
     };
+    this.saveLocalUserDB(userData);
     return userRef.set(userData, {
       merge: true
     });
+
   }
   private updateToken = (user, tok) => {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<any> = this.daoU.findByIdRef(user.id);
     const userData: User = {
       token: tok
     };
@@ -193,7 +187,13 @@ export class AuthService {
   public logout = () => {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
+      localStorage.removeItem('userDB');
       this.router.navigate(['sign-in']);
     });
+  }
+  saveLocalUserDB(userDB) {
+    this.userDB = userDB;
+    localStorage.setItem('userDB', JSON.stringify(this.userDB));
+    JSON.parse(localStorage.getItem('userDB'));
   }
 }

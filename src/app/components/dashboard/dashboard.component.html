@@ -1,4 +1,4 @@
-<mat-card class="allHeight" *ngIf="authService.userData as user" class="allHeight" fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
+<mat-card class="allHeight" *ngIf="authService.userDB as user" class="allHeight" fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
     <mat-card-header>
         <mat-card-title>Perfil</mat-card-title>
         <mat-card-subtitle>{{(user.displayName) ? user.displayName : 'User'}}</mat-card-subtitle>

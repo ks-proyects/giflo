@@ -39,6 +39,7 @@ const EXAMPLE_DATA: CompanyList2Item[] = [
  * (including sorting, pagination, and filtering).
  */
 export class CompanyList2DataSource extends DataSource<CompanyList2Item> {
+  debugger;
   data: CompanyList2Item[] = EXAMPLE_DATA;
 
   constructor(private paginator: MatPaginator, private sort: MatSort) {
