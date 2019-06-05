@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, 
-  MatButtonModule, MatToolbar, MatToolbarModule, 
-  MatDatepicker, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatDividerModule, MatButtonToggle, MatButtonToggleModule, MatSidenavModule, MatNavList, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule, MatCheckboxModule, MatChipsModule, MatStepperModule, MatDialogModule, MatExpansionModule, MatGridListModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule, MatRadioModule, MatRippleModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatTooltipModule, MatTreeModule } from '@angular/material';
+import { MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
+  MatButtonModule, MatToolbar, MatToolbarModule,
+  MatDatepicker, MatDatepickerModule, MatNativeDateModule,
+  MatSelectModule, MatDividerModule, MatButtonToggle, MatButtonToggleModule,
+  MatSidenavModule, MatNavList, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule,
+  MatCheckboxModule, MatChipsModule, MatStepperModule, MatDialogModule, MatExpansionModule,
+  MatGridListModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule,
+  MatRadioModule, MatRippleModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule,
+  MatTableModule, MatTabsModule, MatTooltipModule, MatTreeModule } from '@angular/material';
 import 'hammerjs';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';

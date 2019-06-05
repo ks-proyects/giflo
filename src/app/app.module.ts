@@ -1,17 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './modules/angular-material.module';
-import { FirebaseModule } from './modules/firebase.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
+import { AngularMaterialModule } from './modules/angular-material.module';
+import { FirebaseModule } from './modules/firebase.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 import { HomeComponent } from './components/private/home/home.component';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
@@ -24,11 +27,12 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { NavComponent } from './components/nav/nav.component';
 import { AdressComponent } from './components/adress/adress.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { CompanyDaoService } from './dao/company-dao.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
+import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
+
 
 
 @NgModule({
@@ -47,7 +51,8 @@ import { CompanyListComponent } from './components/company-list/company-list.com
     PerfilComponent,
     NavComponent,
     AdressComponent,
-    SignUpDataComponent
+    SignUpDataComponent,
+    ScrollContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -62,11 +67,7 @@ import { CompanyListComponent } from './components/company-list/company-list.com
     ImageCropperModule,
     ReactiveFormsModule,
     ScrollingModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule
+    InfiniteScrollModule
   ],
   providers: [AuthService, CompanyDaoService],
   bootstrap: [AppComponent]

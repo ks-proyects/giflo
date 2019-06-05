@@ -28,7 +28,9 @@
     "core-js": "^2.5.4",
     "firebase": "^6.0.1",
     "hammerjs": "^2.0.8",
+    "lodash": "^4.17.11",
     "ngx-image-cropper": "^1.3.10",
+    "ngx-infinite-scroll": "^7.1.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

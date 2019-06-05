@@ -1,21 +1,25 @@
-.grid-container {
-  margin: 20px;
+:host {
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
 }
 
-.dashboard-card {
+app-scroll-container {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+app-scroll-container.full {
+  flex-basis: auto;
+}
+
+app-scroll-container.part {
+  flex-basis: 200px;
+}
+
+.buttons {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-}
-
-.more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-.dashboard-card-content {
-  text-align: center;
+  top: 0;
+  right: 0;
+  z-index: 1000;
 }

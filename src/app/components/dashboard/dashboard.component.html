@@ -1,24 +1,22 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<app-scroll-container [more]="hasMore()"
+                      [scrollOffset]="2500"
+                      [scrollDelay]="3000"
+                      (scrolled)="handleScroll($event)"
+                      [class.full]="full"
+                      [class.part]="!full">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container *ngFor="let column of displayedColumns"
+                  [matColumnDef]="column">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column | titlecase }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let item">{{ item[column] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</app-scroll-container>
+<div class="buttons">
+  <button (click)="full = !full">{{ full ? 'Part' : 'Full' }}</button>
 </div>
