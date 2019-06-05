@@ -16,19 +16,19 @@ import { HomeComponent } from './components/private/home/home.component';
 import { AboutComponent } from './components/private/about/about.component';
 import { ContactoComponent } from './components/private/contacto/contacto.component';
 import { BaseComponent } from './components/base.component';
-import { AuthService } from './shared/services/auth.service';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CompanyComponent } from './components/company/company.component';
-import { CompanyListComponent } from './components/company-list/company-list.component';
-import { CompanyService } from './dao/company.service';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { CompanyList2Component } from './components/company-list2/company-list2.component';
 import { NavComponent } from './components/nav/nav.component';
 import { AdressComponent } from './components/adress/adress.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { CompanyDaoService } from './dao/company-dao.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthService } from './shared/services/auth.service';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 
 
 @NgModule({
@@ -45,7 +45,6 @@ import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.comp
     CompanyComponent,
     CompanyListComponent,
     PerfilComponent,
-    CompanyList2Component,
     NavComponent,
     AdressComponent,
     SignUpDataComponent
@@ -62,9 +61,14 @@ import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.comp
     LayoutModule,
     ImageCropperModule,
     ReactiveFormsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
-  providers: [AuthService, CompanyService],
+  providers: [AuthService, CompanyDaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

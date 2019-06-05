@@ -6,7 +6,7 @@ import { User } from '../model/user';
 import * as firebase from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import * as Rx from 'rxjs';
-import { DaoUserService } from 'src/app/dao/dao-user.service';
+import { UserDaoService } from 'src/app/dao/user-dao.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,14 +19,14 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public afm: AngularFireMessaging,
-    private daoU: DaoUserService
+    private userDao: UserDaoService
     ) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
           JSON.parse(localStorage.getItem('user'));
-          this.daoU.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
+          this.userDao.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
             if (doc.exists) {
               this.saveLocalUserDB(doc.data());
             } else {
@@ -87,7 +87,7 @@ export class AuthService {
   }
 
   public sendSaveData = (user) => {
-    return this.daoU.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
+    return this.userDao.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
       if (doc.exists) {
         this.afm.requestToken.subscribe(
           (token) => {
@@ -152,7 +152,7 @@ export class AuthService {
     return (user !== null && userDB !== null) ? true : false;
   }
   private saveUserData = (user, tok, ID, pnames, pLastName, pBirthDate, pSexo, pType, phonep, convetionalP) => {
-    const userRef: AngularFirestoreDocument<User> = this.daoU.findByIdRef(user.id);
+    const userRef: AngularFirestoreDocument<User> = this.userDao.findByIdRef(user.uid);
     const userData: User = {
       uid: user.uid,
       email: user.email,
@@ -176,7 +176,7 @@ export class AuthService {
 
   }
   private updateToken = (user, tok) => {
-    const userRef: AngularFirestoreDocument<any> = this.daoU.findByIdRef(user.id);
+    const userRef: AngularFirestoreDocument<any> = this.userDao.findByIdRef(user.id);
     const userData: User = {
       token: tok
     };

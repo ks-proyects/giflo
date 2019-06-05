@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/dao/company.service';
+import { CompanyDaoService } from 'src/app/dao/company-dao.service';
 import { CompanyModel } from 'src/app/shared/model/company-model';
 import { BaseComponent } from '../base.component';
 
@@ -38,7 +38,7 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
-    private daoCom: CompanyService) {
+    private daoCom: CompanyDaoService) {
       super(med, cdr);
     }
 
@@ -48,6 +48,7 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
     if (!this.userForm.invalid) {
       if (this.userForm.controls.type.value === 'COMPANY' ) {
         const company: CompanyModel = {
+          id : this.authService.afAuth.auth.currentUser.uid,
           name : this.userForm.controls.names.value,
           ruc: this.userForm.controls.identificacion.value,
           fechaRegistro: new Date(),

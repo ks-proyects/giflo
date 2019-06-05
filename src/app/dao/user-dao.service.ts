@@ -6,7 +6,7 @@ import { User } from '../shared/model/user';
 @Injectable({
   providedIn: 'root'
 })
-export class DaoUserService {
+export class UserDaoService {
   collection: AngularFirestoreCollection<any>;
   constructor(private afs: AngularFirestore) {
     this.collection = afs.collection<User>('users');

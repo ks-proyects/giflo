@@ -7,13 +7,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class CompanyDaoService {
   list: AngularFirestoreCollection<CompanyModel>;
-  constructor(private db: AngularFirestore,public afAuth: AngularFireAuth) {
+  constructor(private db: AngularFirestore) {
     this.list = db.collection<CompanyModel>('Companies');
   }
   create(companie: CompanyModel) {
-    companie.id = this.afAuth.auth.currentUser.uid;
     return this.list.doc(companie.id).set(companie);
   }
   findAll() {
@@ -22,7 +21,7 @@ export class CompanyService {
           a => {
             const data = a.payload.doc.data() as CompanyModel;
             const id = a.payload.doc.id;
-            return {id, ...data};
+            return data;
           }
         ))
       );
