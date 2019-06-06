@@ -16,7 +16,7 @@ export class SecureInnerPagesGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if (this.authService.isRgister) {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['home']);
       }
       return true;
   }

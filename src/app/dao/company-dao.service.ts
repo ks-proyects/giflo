@@ -16,15 +16,7 @@ export class CompanyDaoService {
     return this.list.doc(companie.id).set(companie);
   }
   findAll() {
-      return this.list.snapshotChanges().pipe(
-        map(actions =>  actions.map(
-          a => {
-            const data = a.payload.doc.data() as CompanyModel;
-            const id = a.payload.doc.id;
-            return data;
-          }
-        ))
-      );
+      return this.list.snapshotChanges();
   }
   update(user: CompanyModel) {
       return this.list.doc(user.id).set(user);

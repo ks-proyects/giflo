@@ -105,7 +105,7 @@ export class AuthService {
           },
         );
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
       } else {
         this.ngZone.run(() => {
@@ -127,7 +127,7 @@ export class AuthService {
             this.subject.next(message);
         });
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
         this.saveUserData(this.afAuth.auth.currentUser, token, id, namesp, lastNamep, birthDatep, sexop, typep ,phone, convetional);
       },

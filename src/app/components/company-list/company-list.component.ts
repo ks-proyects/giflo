@@ -1,23 +1,47 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
-import { CompanyListDataSource } from './company-list-datasource';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Sort, MatSort, MatTableDataSource } from '@angular/material';
+import { noop as _noop } from 'lodash';
 import { CompanyDaoService } from 'src/app/dao/company-dao.service';
+import { CompanyModel } from 'src/app/shared/model/company-model';
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.css']
+  styleUrls: ['./company-list.component.less']
 })
 export class CompanyListComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<CompanyModel>;
+  limit: number = 1000;
+  displayedColumns: string[] = ['name', 'ruc', 'status', 'phone','convetional'];
+  full: boolean = true;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: CompanyListDataSource;
+  constructor(private comDao: CompanyDaoService) { }
 
-  constructor( private comDao: CompanyDaoService) {
-  }
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
   ngOnInit() {
-    this.dataSource = new CompanyListDataSource(this.paginator, this.sort, this.comDao);
+    this.getData();
+  }
+
+  handleScroll = (scrolled: boolean) => {
+    scrolled ? this.getData() : _noop();
+  }
+  hasMore = () => {
+    debugger;
+    return !this.dataSource || this.dataSource.data.length < this.limit;
+  }
+
+  getData() {
+    let data: CompanyModel[] = [];
+    this.comDao.findAll().subscribe(dataRes => {
+      data = dataRes.map(e => {
+        return {
+            ...e.payload.doc.data()
+        } as {};
+      });
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+    });
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

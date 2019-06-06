@@ -25,10 +25,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { CompanyComponent } from './components/company/company.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { NavComponent } from './components/nav/nav.component';
-import { AdressComponent } from './components/adress/adress.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
 import { CompanyDaoService } from './dao/company-dao.service';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
@@ -42,7 +40,6 @@ import { ScrollContainerComponent } from './components/scroll-container/scroll-c
     AboutComponent,
     ContactoComponent,
     BaseComponent,
-    DashboardComponent,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
@@ -50,7 +47,6 @@ import { ScrollContainerComponent } from './components/scroll-container/scroll-c
     CompanyListComponent,
     PerfilComponent,
     NavComponent,
-    AdressComponent,
     SignUpDataComponent,
     ScrollContainerComponent
   ],
