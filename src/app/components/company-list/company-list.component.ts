@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sort, MatSort, MatTableDataSource } from '@angular/material';
 import { noop as _noop } from 'lodash';
-import { CompanyDaoService } from 'src/app/dao/company-dao.service';
+import { CompanyService } from 'src/app/dao/company.service';
 import { CompanyModel } from 'src/app/shared/model/company-model';
 
 @Component({
@@ -15,7 +15,7 @@ export class CompanyListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'ruc', 'status', 'phone','convetional'];
   full: boolean = true;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private comDao: CompanyDaoService) { }
+  constructor(private comDao: CompanyService) { }
 
   ngOnInit() {
     this.getData();

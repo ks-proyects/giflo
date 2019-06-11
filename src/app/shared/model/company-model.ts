@@ -1,6 +1,7 @@
 export interface CompanyModel {
     id?: string;
     name?: string;
+    email?: string;
     ruc?: string;
     logo?: string;
     status?: string;

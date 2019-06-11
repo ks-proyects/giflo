@@ -26,7 +26,7 @@ import { CompanyComponent } from './components/company/company.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
-import { CompanyDaoService } from './dao/company-dao.service';
+import { CompanyService } from './dao/company.service';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
@@ -65,7 +65,7 @@ import { ScrollContainerComponent } from './components/scroll-container/scroll-c
     ScrollingModule,
     InfiniteScrollModule
   ],
-  providers: [AuthService, CompanyDaoService],
+  providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

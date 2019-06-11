@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyDaoService } from 'src/app/dao/company-dao.service';
+import { CompanyService } from 'src/app/dao/company.service';
 import { CompanyModel } from 'src/app/shared/model/company-model';
 import { BaseComponent } from '../base.component';
 
@@ -38,7 +38,7 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
-    private daoCom: CompanyDaoService) {
+    private daoCom: CompanyService) {
       super(med, cdr);
     }
 
