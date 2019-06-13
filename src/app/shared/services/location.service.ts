@@ -8,10 +8,10 @@ export class LocationService {
   constructor() { }
 
   getLocation() {
-    if(navigator.geolocation) {
+    if( navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
     } else {
-      console.log("Geo Location not supported by browser");
+      console.log('Geo Location not supported by browser');
     }
   }
   showPosition(position) {

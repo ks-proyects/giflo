@@ -3,7 +3,7 @@
             <button mat-icon-button (click)="snav.toggle()">
                 <mat-icon>apps</mat-icon>
             </button>
-            <h1 class="app-name">{{title}}</h1>
+            <h1 class="app-name"><a style="color: rgb(255, 255, 255); text-decoration: blink; " [routerLink]="['/home']" routerLinkActive="router-link-active">{{title}}</a></h1>
             <span class="spacer"></span>
             <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.userDB as userp"> 
                 <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (userp.photoURL?userp.photoURL:'/assets/icons/icon-72x72.png') + ')'}"></div>
@@ -12,11 +12,7 @@
                 <mat-card class="card-menu" *ngIf="authService.userDB as user">
                     <mat-card-header>
                         <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (user.photoURL?user.photoURL:'/assets/icons/icon-72x72.png') + ')'}"></div>
-                        <mat-card-title>
-                            <a style="color: rgb(255, 255, 255); text-decoration: blink; " [routerLink]="['/home']" routerLinkActive="router-link-active">
-                                {{(user.displayName) ? user.displayName : 'User'}}
-                            </a>
-                        </mat-card-title>
+                        <mat-card-title>{{(user.displayName) ? user.displayName : 'User'}}</mat-card-title>
                         <mat-card-subtitle>{{(user.email) ? user.email : 'Email'}}</mat-card-subtitle>
                     </mat-card-header>
                 </mat-card>
@@ -25,7 +21,7 @@
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Cerrar Sessión</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item [routerLink]="['/profile']" routerLinkActive="router-link-active" >
                     <mat-icon>settings</mat-icon>
                     <span>Editar mis Datos</span>
                 </button>

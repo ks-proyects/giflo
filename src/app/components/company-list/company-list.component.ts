@@ -13,7 +13,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 })
 export class CompanyListComponent implements OnInit {
   dataSource: MatTableDataSource<CompanyModel>;
-  displayedColumns: string[] = ['name', 'email', 'status', 'phone' , 'convetional', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'status', 'phone' , 'actions'];
 
   limit: number = 1000;
   full: boolean = true;
@@ -74,14 +74,6 @@ export class CompanyListComponent implements OnInit {
     }
   }
 
-  onDelete($key) {
-    this.dialogService.openConfirmDialog('¿Está seguro de eliminar este registro?').afterClosed().subscribe(res =>{
-      if (res) {
-        this.comDao.deleteCompany($key);
-        this.messageService.warn('Borrado exitosamente!');
-      }
-    });
-  }
   onActive(row) {
     try {
       const isActive = row.status === 'ACTIVO';
@@ -98,5 +90,4 @@ export class CompanyListComponent implements OnInit {
       console.log(error);
     }
   }
-
 }

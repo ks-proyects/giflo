@@ -1,12 +1,6 @@
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field>
 <div class="search-div">
-  <button mat-raised-button  (click)="onCreate()">
-    <mat-icon>add</mat-icon>Create
-  </button>
   <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <input matInput [(ngModel)]="searchKey" placeholder="BUscar" autocomplete="off" (keyup)="applyFilter()">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
       <mat-icon>close</mat-icon>
     </button>
@@ -19,15 +13,15 @@
                       [class.full]="full"
                       [class.part]="!full">
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="name" colspan="3">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Nombre</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="email">
+    <ng-container matColumnDef="email" colspan="3">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Email</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="status">
+    <ng-container matColumnDef="status" colspan="2">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Estado</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <mat-slide-toggle 
@@ -37,15 +31,11 @@
       </mat-slide-toggle>
       </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Celular</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.phone}}</mat-cell>
+    <ng-container matColumnDef="phone" colspan="2">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Celular/Teléfono</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.phone?element.phone:element.convetional}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="convetional">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Telefono</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.convetional}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions">
+    <ng-container matColumnDef="actions" colspan="1">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let myRowData,let element">
         <button mat-icon-button (click)="onEdit(myRowData)"><mat-icon>launch</mat-icon></button>

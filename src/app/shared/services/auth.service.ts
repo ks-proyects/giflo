@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import * as Rx from 'rxjs';
 import { UserDaoService } from 'src/app/dao/user-dao.service';
+import { LocationService } from './location.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +20,8 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public afm: AngularFireMessaging,
-    private userDao: UserDaoService
+    private userDao: UserDaoService,
+    private location: LocationService
     ) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
@@ -89,6 +91,7 @@ export class AuthService {
   public sendSaveData = (user) => {
     return this.userDao.findById(this.afAuth.auth.currentUser.uid).then((doc) => {
       if (doc.exists) {
+        this.location.getLocation();
         this.afm.requestToken.subscribe(
           (token) => {
             console.log('Permiso consedido y se guarda en el servidor!');
@@ -117,6 +120,7 @@ export class AuthService {
     });
   }
   finishSaveData = (id, namesp, lastNamep, birthDatep, sexop, typep, phone, convetional) => {
+    this.location.getLocation();
     this.afm.requestToken.subscribe(
       (token) => {
         console.log('Permission granted! Save to the server!', token);

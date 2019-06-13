@@ -13,6 +13,7 @@ import { CompanyListComponent } from './components/company-list/company-list.com
 import { NavComponent } from './components/nav/nav.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
 import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-confirm-dialog.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'companyList', component: CompanyListComponent, canActivate: [AuthGuard] },
   { path: 'nav', component: NavComponent, canActivate: [AuthGuard] },
   { path: 'confirm', component: MatConfirmDialogComponent, canActivate: [AuthGuard]},
+  { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
