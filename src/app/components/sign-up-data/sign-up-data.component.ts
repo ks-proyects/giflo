@@ -50,12 +50,15 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
         const company: CompanyModel = {
           id : this.authService.afAuth.auth.currentUser.uid,
           name : this.userForm.controls.names.value,
+          email: this.authService.afAuth.auth.currentUser.email,
           ruc: this.userForm.controls.identificacion.value,
+          logo: '',
+          status: 'INACTIVO',
+          code: '',
           fechaRegistro: new Date(),
-          status: 'INRESADO',
           address: this.userForm.controls.address.value,
-          phone: this.userForm.controls.phone.value,
-          convetional: this.userForm.controls.convetional.value
+          phone: this.userForm.controls.phone.value.toString(),
+          convetional: this.userForm.controls.convetional.value.toString()
         };
         this.daoCom.create(company);
       }

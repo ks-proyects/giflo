@@ -10,6 +10,7 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class CompanyService {
   form: FormGroup = new FormGroup({
+    id: new FormControl(null),
     $key: new FormControl(null),
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
@@ -26,11 +27,12 @@ export class CompanyService {
   constructor(
     private db: AngularFirestore,
     public authService: AuthService) {
-    this.list = db.collection<CompanyModel>('Companies');
+    this.list = db.collection<CompanyModel>('companies');
   }
   initializeFormGroup() {
     this.form.setValue({
       $key: null,
+      id: '',
       name: '',
       email: '',
       ruc: '',
@@ -53,7 +55,7 @@ export class CompanyService {
       name : compa.name,
       ruc: compa.ruc,
       fechaRegistro: compa.fechaRegistro,
-      status: 'INRESADO',
+      status: 'INACTIVO',
       address: compa.address,
       phone: compa.phone,
       convetional: compa.convetional
@@ -62,15 +64,19 @@ export class CompanyService {
   }
 
   updateCompany(compa) {
+    debugger;
     const company: CompanyModel = {
       id : compa.$key,
       name : compa.name,
       ruc: compa.ruc,
       fechaRegistro: compa.fechaRegistro,
-      status: 'INRESADO',
+      status: compa.status,
       address: compa.address,
       phone: compa.phone,
-      convetional: compa.convetional
+      convetional: compa.convetional,
+      email: compa.email,
+      logo: compa.logo,
+      code: compa.code
     };
     return this.list.doc(company.id).set(company);
   }
@@ -85,9 +91,6 @@ export class CompanyService {
 
   create(companie: CompanyModel) {
     return this.list.doc(companie.id).set(companie);
-  }
-  findAll() {
-      return this.list.snapshotChanges();
   }
   update(user: CompanyModel) {
       return this.list.doc(user.id).set(user);

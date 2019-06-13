@@ -30,6 +30,7 @@ import { CompanyService } from './dao/company.service';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
+import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-confirm-dialog.component';
 
 
 
@@ -48,7 +49,8 @@ import { ScrollContainerComponent } from './components/scroll-container/scroll-c
     PerfilComponent,
     NavComponent,
     SignUpDataComponent,
-    ScrollContainerComponent
+    ScrollContainerComponent,
+    MatConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

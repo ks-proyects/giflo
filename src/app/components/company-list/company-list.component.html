@@ -1,6 +1,17 @@
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
+<div class="search-div">
+  <button mat-raised-button  (click)="onCreate()">
+    <mat-icon>add</mat-icon>Create
+  </button>
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 <app-scroll-container [more]="hasMore()"
                       [scrollOffset]="2500"
                       [scrollDelay]="3000"
@@ -8,15 +19,43 @@
                       [class.full]="full"
                       [class.part]="!full">
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container *ngFor="let column of displayedColumns"
-                  [matColumnDef]="column">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ column | titlecase }}
-      </mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item[column] }}</mat-cell>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Nombre</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Estado</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-slide-toggle 
+          color="accent"
+          [checked]="element.status=='ACTIVO'"
+          [disabled]="element.status=='INACTIVO'">
+      </mat-slide-toggle>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Celular</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.phone}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="convetional">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Telefono</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.convetional}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let myRowData,let element">
+        <button mat-icon-button (click)="onEdit(myRowData)"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color="accent" (click)="onActive(myRowData)">
+          <mat-icon>{{element.status=='ACTIVO'?'cancel':'offline_pin'}}</mat-icon>
+        </button>
+      </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <mat-row *matRowDef="let myRowData; columns: displayedColumns"></mat-row>
   </mat-table>
 </app-scroll-container>
 <div class="buttons">
