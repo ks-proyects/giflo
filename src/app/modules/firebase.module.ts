@@ -4,6 +4,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 const firebaseConfig: any = {
   apiKey: 'AIzaSyDdCSeP_dUc-YM_cvaq9jxqhSKBvRMxLi0',
   authDomain: 'ksgiflo.firebaseapp.com',
@@ -21,7 +22,8 @@ const firebaseConfig: any = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireMessagingModule,
     AngularFirestoreModule.enablePersistence(),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireFunctionsModule
   ]
 })
 export class FirebaseModule { }

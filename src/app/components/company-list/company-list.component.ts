@@ -19,10 +19,13 @@ export class CompanyListComponent implements OnInit {
   full: boolean = true;
   @ViewChild(MatSort) sort: MatSort;
   searchKey: string;
+  data$: any;
   constructor(
     private comDao: CompanyService,
     private dialogService: DialogService,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+    ) {
+    }
 
   ngOnInit() {
     this.getData();
@@ -39,7 +42,6 @@ export class CompanyListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate = ( data , filter) => {
-        
         return this.displayedColumns.some(ele => {
           return data[ele] != undefined ? (ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1):false;
         });
@@ -47,7 +49,7 @@ export class CompanyListComponent implements OnInit {
     });
   }
   onSearchClear() {
-    this.searchKey = "";
+    this.searchKey = '';
     this.applyFilter();
   }
 
@@ -77,13 +79,18 @@ export class CompanyListComponent implements OnInit {
   onActive(row) {
     try {
       const isActive = row.status === 'ACTIVO';
-      this.comDao.populateForm(row);
       this.dialogService.openConfirmDialog('¿Está seguro de ' +
       (isActive ? 'INACTIVAR' : 'ACTIVAR') + ' esta empresa?').afterClosed().subscribe(res => {
         if (res) {
           row.status = (isActive ? 'INACTIVO' : 'ACTIVO');
-          this.comDao.updateCompany(this.comDao.form.value);
-          this.messageService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
+          this.comDao.populateForm(row);
+          this.comDao.updateCompany(this.comDao.form.value).then((res) => {
+            console.log('sucess', res);
+            this.messageService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
+          }).catch((err)=>{
+            console.log('error',err);
+          });
+          
         }
       });
     } catch (error) {

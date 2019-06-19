@@ -64,7 +64,6 @@ export class CompanyService {
   }
 
   updateCompany(compa) {
-    debugger;
     const company: CompanyModel = {
       id : compa.$key,
       name : compa.name,
