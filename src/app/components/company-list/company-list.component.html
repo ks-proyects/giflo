@@ -38,7 +38,7 @@
     <ng-container matColumnDef="actions" colspan="1">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let myRowData,let element">
-        <button mat-icon-button (click)="onEdit(myRowData)"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button (click)="onView(myRowData)"><mat-icon>launch</mat-icon></button>
         <button mat-icon-button color="accent" (click)="onActive(myRowData)">
           <mat-icon>{{element.status=='ACTIVO'?'cancel':'offline_pin'}}</mat-icon>
         </button>

@@ -4,6 +4,7 @@ import { CompanyModel } from '../shared/model/company-model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { AuthService } from '../shared/services/auth.service';
+import { isNull } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class CompanyService {
     logo: new FormControl(''),
     status: new FormControl(''),
     code: new FormControl(''),
-    fechaRegistro: new FormControl(''),
+    fechaRegistro: new FormControl(null),
     address: new FormControl(''),
     phone: new FormControl(),
     convetional: new FormControl()
@@ -39,7 +40,7 @@ export class CompanyService {
       logo: '',
       status: '',
       code: '',
-      fechaRegistro: '',
+      fechaRegistro: null,
       address: '',
       phone: '',
       convetional: ''

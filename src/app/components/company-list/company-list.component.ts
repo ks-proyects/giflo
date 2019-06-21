@@ -5,6 +5,7 @@ import { CompanyService } from 'src/app/dao/company.service';
 import { CompanyModel } from 'src/app/shared/model/company-model';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { MessageService } from 'src/app/shared/services/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-list',
@@ -23,7 +24,8 @@ export class CompanyListComponent implements OnInit {
   constructor(
     private comDao: CompanyService,
     private dialogService: DialogService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    public router: Router
     ) {
     }
 
@@ -33,6 +35,7 @@ export class CompanyListComponent implements OnInit {
   getData() {
     let data: CompanyModel[] = [];
     this.comDao.getEmployees().subscribe(dataRes => {
+
       data = dataRes.map(e => {
         return {
           $key: e.payload.doc.data().id,
@@ -68,9 +71,10 @@ export class CompanyListComponent implements OnInit {
     this.comDao.initializeFormGroup();
   }
 
-  onEdit(row) {
+  onView(row) {
     try {
       this.comDao.populateForm(row);
+      this.router.navigate(['company']);
     } catch (error) {
       console.log(error);
     }
@@ -86,11 +90,10 @@ export class CompanyListComponent implements OnInit {
           this.comDao.populateForm(row);
           this.comDao.updateCompany(this.comDao.form.value).then((res) => {
             console.log('sucess', res);
-            this.messageService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
           }).catch((err)=>{
             console.log('error',err);
           });
-          
+          this.messageService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
         }
       });
     } catch (error) {
