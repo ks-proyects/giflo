@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { BaseComponent } from '../base.component';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',

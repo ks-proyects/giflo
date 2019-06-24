@@ -1,4 +1,4 @@
-<form class="allHeight" [formGroup]="userForm" novalidate (ngSubmit)="onSubmit()">
+<form class="allHeight" [formGroup]="ds.form" novalidate (ngSubmit)="onSubmit()">
     <mat-card *ngIf="authService.userData as user" fxFlex="100" fxLayout="column" fxLayoutAlign="start center">
         <mat-card-header class="{{mq.matches?'form-login-m':'form-login-w'}}">
             <mat-card-title>Ingresa tus datos {{user.displayName}}</mat-card-title>
@@ -12,33 +12,39 @@
                             {{type.viewValue}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="userForm.controls['type'].hasError('required')">
+                    <mat-error *ngIf="ds.form.controls['type'].hasError('required')">
                         Es <strong>requerido</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" formControlName="identificacion" type="{{type.value==='COMPANY'?'text':'number'}}">
-                    <mat-error *ngIf="userForm.controls['identificacion'].hasError('required')">
+                    <input matInput placeholder="{{type.value==='COMPANY'?'RUC.':'Cédula.'}}" formControlName="id" type="{{type.value==='COMPANY'?'text':'number'}}">
+                    <mat-error *ngIf="ds.form.controls['id'].hasError('required')">
                         Es <strong>requerido</strong>
                     </mat-error>
                 </mat-form-field>
                 <div fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}">
                         <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Comercial.':'Nombres.'}}" formControlName="names" type="text">
-                        <mat-error *ngIf="userForm.controls['names'].hasError('required')">
+                        <mat-error *ngIf="ds.form.controls['names'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}">
                         <input matInput placeholder="{{type.value==='COMPANY'?'Nombre Corto.':'Apellidos.'}}" formControlName="lastName">
-                        <mat-error *ngIf="userForm.controls['lastName'].hasError('required')">
+                        <mat-error *ngIf="ds.form.controls['lastName'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <mat-form-field>
-                    <input matInput placeholder="Dirección." formControlName="address" type="text">
-                    <mat-error *ngIf="userForm.controls['address'].hasError('required')">
+                <mat-form-field formGroupName="address">
+                    <input matInput placeholder="Calle Principal." formControlName="mainStreet" type="text">
+                    <mat-error *ngIf="ds.form.controls.address.controls['mainStreet'].hasError('required')">
+                        Es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field formGroupName="address">
+                    <input matInput placeholder="Interseccion." formControlName="intersection" type="text">
+                    <mat-error *ngIf="ds.form.controls.address.controls['intersection'].hasError('required')">
                         Es <strong>requerido</strong>
                     </mat-error>
                 </mat-form-field>
@@ -57,16 +63,16 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div fxLayout="{{mq.matches?'column':'row'}}">
+                <div formGroupName="address" fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}">
                         <input matInput placeholder="Celular" formControlName="phone" type="number">
-                        <mat-error *ngIf="userForm.controls['phone'].hasError('required')">
+                        <mat-error *ngIf="ds.form.controls.address.controls['phone'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}">
                         <input matInput placeholder="Telefono Convencional" formControlName="convetional" type="number">
-                        <mat-error *ngIf="userForm.controls['convetional'].hasError('required')">
+                        <mat-error *ngIf="ds.form.controls.address.controls['convetional'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>

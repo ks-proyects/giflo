@@ -1,8 +1,8 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseComponent } from '../../base.component';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { BaseComponent } from '../base.component';
+import { AuthService } from '../../shared/services/auth.service';
 
 /** @title Responsive sidenav */
 @Component({

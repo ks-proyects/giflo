@@ -1,16 +1,20 @@
 export interface User {
-    uid?: string;
+    id?: string;
+    fullName?: string;
     email?: string;
-    displayName?: string;
-    photoURL?: string;
-    emailVerified?: boolean;
-    token?: string;
-    identificacion?: string;
     names?: string;
     lastName?: string;
     birthDate?: Date;
+    token?: string;
+    urlPhoto?: string;
     sexo?: string;
     type?: string;
-    phone?: string;
-    convetional?: string;
+    status?: string;
+    address?: {
+        mainStreet?: string,
+        intersection?: string,
+        phone?: string;
+        convetional?: string;
+    };
+    company?: User;
 }

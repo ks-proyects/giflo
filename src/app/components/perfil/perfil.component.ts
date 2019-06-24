@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { User } from 'src/app/shared/model/user';
 import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { User } from '../../shared/model/user';
 
 @Component({
   selector: 'app-perfil',

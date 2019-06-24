@@ -1,6 +1,6 @@
-<div class="search-div">
-  <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="BUscar" autocomplete="off" (keyup)="applyFilter()">
+<div class="search-div" fxFlex="100">
+  <mat-form-field class="search-form-field" floatLabel="never" fxFlex="100">
+    <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
     <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey"  (click)="onSearchClear()">
       <mat-icon>close</mat-icon>
     </button>
@@ -13,9 +13,9 @@
                       [class.full]="full"
                       [class.part]="!full">
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="name" colspan="3">
+    <ng-container matColumnDef="names" colspan="3">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Nombre</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.names}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="email" colspan="3">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Email</mat-header-cell>
@@ -33,7 +33,7 @@
     </ng-container>
     <ng-container matColumnDef="phone" colspan="2">
       <mat-header-cell *matHeaderCellDef  mat-sort-header>Celular/Teléfono</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.phone?element.phone:element.convetional}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{element.address.phone?element.address.phone:element.address.convetional}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions" colspan="1">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -48,6 +48,3 @@
     <mat-row *matRowDef="let myRowData; columns: displayedColumns"></mat-row>
   </mat-table>
 </app-scroll-container>
-<div class="buttons">
-  <button (click)="full = !full">{{ full ? 'Part' : 'Full' }}</button>
-</div>

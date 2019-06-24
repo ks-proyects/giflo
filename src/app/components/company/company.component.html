@@ -8,11 +8,11 @@
                 <div>
                     <mat-card>
                         <mat-card-title>Nombre</mat-card-title>
-                        <div>{{company.name}}</div>
+                        <div>{{company.names}}</div>
                     </mat-card>
                     <mat-card>
                         <mat-card-title>RUC</mat-card-title>
-                        <div>{{company.ruc}}</div>
+                        <div>{{company.id}}</div>
                     </mat-card>
                 </div>
             </mat-tab>
@@ -20,7 +20,7 @@
                 <div>
                     <mat-card>
                         <mat-card-title>Fecha de Registro</mat-card-title>
-                        <div>{{company.fechaRegistro*1000 | date:'medium'}} </div>
+                        <div>{{company.birthDate*1000 | date:'medium'}} </div>
                     </mat-card>
                     <mat-card>
                         <mat-card-title>Estado</mat-card-title>
@@ -32,11 +32,11 @@
                 <div>
                     <mat-card>
                         <mat-card-title>Celular</mat-card-title>
-                        <div>{{company.phone}}</div>
+                        <div>{{company.address.phone}}</div>
                     </mat-card>
                     <mat-card>
                         <mat-card-title>Teléfono</mat-card-title>
-                        <div>{{company.convetional}}</div>
+                        <div>{{company.address.convetional}}</div>
                     </mat-card>
                     <mat-card>
                         <mat-card-title>Email</mat-card-title>
@@ -44,7 +44,7 @@
                     </mat-card>
                     <mat-card>
                         <mat-card-title>Dirección</mat-card-title>
-                        <div>{{company.address}}</div>
+                        <div>{{company.address.mainStreet}} y {{company.address.intersection}}</div>
                     </mat-card>
                 </div>
             </mat-tab>

@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserService } from '../../shared/datasource/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,6 +12,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class SignUpComponent extends BaseComponent implements OnInit, OnDestroy {
 
   constructor(
+    public ds: UserService,
     public authService: AuthService,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef) {
@@ -18,6 +20,12 @@ export class SignUpComponent extends BaseComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit() {
+    this.ds.initFormUser();
   }
 
+  registerByEmailPass() {
+    if (this.ds.formRegister.valid) {
+      this.authService.registerByEmailPass(this.ds.formRegister.value.email, this.ds.formRegister.value.pass);
+    }
+  }
 }

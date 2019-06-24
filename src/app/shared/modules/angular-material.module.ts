@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
-  MatButtonModule, MatToolbar, MatToolbarModule,
-  MatDatepicker, MatDatepickerModule, MatNativeDateModule,
-  MatSelectModule, MatDividerModule, MatButtonToggle, MatButtonToggleModule,
-  MatSidenavModule, MatNavList, MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule,
+  MatButtonModule, MatToolbarModule,
+   MatDatepickerModule, MatNativeDateModule,
+  MatSelectModule, MatDividerModule,  MatButtonToggleModule,
+  MatSidenavModule,  MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule,
   MatCheckboxModule, MatChipsModule, MatStepperModule, MatDialogModule, MatExpansionModule,
   MatGridListModule, MatListModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule,
   MatRadioModule, MatRippleModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule,
@@ -11,8 +11,6 @@ import { MatIconModule, MatCardModule, MatFormFieldModule, MatInputModule, MatPr
 import 'hammerjs';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -66,7 +64,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule
   ]
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule
+ { }

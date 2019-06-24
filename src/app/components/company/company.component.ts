@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { CompanyService } from 'src/app/dao/company.service';
-import { MessageService } from 'src/app/shared/services/message.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/services/dialog.service';
+import { CompanyService } from '../../shared/datasource/company.service';
+import { MessageService } from '../../shared/services/message.service';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-company',
@@ -33,15 +32,14 @@ export class CompanyComponent extends BaseComponent implements OnInit {
     }
     onClear() {
         this.service.form.reset();
-        this.service.initializeFormGroup();
+        this.service.initFormCompany();
         this.router.navigate(['companyList']);
     }
       onSubmit() {
       }
       onClose() {
-        
         this.service.form.reset();
-        this.service.initializeFormGroup();
+        this.service.initFormCompany();
         this.router.navigate(['company']);
       }
       onActive() {
@@ -51,12 +49,8 @@ export class CompanyComponent extends BaseComponent implements OnInit {
           (isActive ? 'INACTIVAR' : 'ACTIVAR') + ' esta empresa?').afterClosed().subscribe(res => {
             if (res) {
               this.company.status = (isActive ? 'INACTIVO' : 'ACTIVO');
-              this.service.populateForm(this.company);
-              this.service.updateCompany(this.service.form.value).then((res) => {
-                console.log('sucess', res);
-              }).catch((err)=>{
-                console.log('error',err);
-              });
+              this.service.populateFormCompany(this.company);
+              this.service.updateCompanyForm(this.service.form.value, this.service.form.value.$key);
               this.notificationService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
             }
           });
@@ -65,7 +59,6 @@ export class CompanyComponent extends BaseComponent implements OnInit {
         }
       }
       hasMore = () => {
-        
       }
       handleScroll = (scrolled: boolean) => {
         true;

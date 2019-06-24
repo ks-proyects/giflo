@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/dao/company.service';
-import { CompanyModel } from 'src/app/shared/model/company-model';
 import { BaseComponent } from '../base.component';
+import { AuthService } from '../../shared/services/auth.service';
+import { UserService } from '../../shared/datasource/user.service';
 
 @Component({
   selector: 'app-sign-up-data',
@@ -12,18 +11,6 @@ import { BaseComponent } from '../base.component';
   styleUrls: ['./sign-up-data.component.less']
 })
 export class SignUpDataComponent extends BaseComponent implements OnInit {
-  userForm = this.fb.group({
-    type: [null, Validators.required],
-    company: null,
-    names: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    identificacion: [null, Validators.required],
-    birthDate: null,
-    sexo: null,
-    phone: [null, Validators.required],
-    convetional: null
-  });
   listSexo: any[] = [
     {value: 'Masculino', viewValue: 'Masculino'},
     {value: 'Femenino', viewValue: 'Femenino'},
@@ -37,41 +24,24 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
     public authService: AuthService,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    private fb: FormBuilder,
-    private daoCom: CompanyService) {
+    public ds: UserService) {
       super(med, cdr);
     }
 
   ngOnInit() {
+    this.ds.initFormUser();
   }
   onSubmit() {
-    if (!this.userForm.invalid) {
-      if (this.userForm.controls.type.value === 'COMPANY' ) {
-        const company: CompanyModel = {
-          id : this.authService.afAuth.auth.currentUser.uid,
-          name : this.userForm.controls.names.value,
-          email: this.authService.afAuth.auth.currentUser.email,
-          ruc: this.userForm.controls.identificacion.value,
-          logo: '',
-          status: 'INACTIVO',
-          code: '',
-          fechaRegistro: new Date(),
-          address: this.userForm.controls.address.value,
-          phone: this.userForm.controls.phone.value.toString(),
-          convetional: this.userForm.controls.convetional.value.toString()
-        };
-        this.daoCom.create(company);
-      }
+    if (!this.ds.form.invalid) {
+      this.ds.form.value.email = this.ds.formRegister.value.email;
+      this.ds.form.value.status = 'INGRESADO';
+      this.ds.form.value.fullName = this.ds.form.value.type === 'COMPANY'?
+      this.ds.form.value.names  : this.ds.form.value.names + ' ' + this.ds.form.value.lastName;
       this.authService.finishSaveData(
-        this.userForm.controls.identificacion.value,
-        this.userForm.controls.names.value,
-        this.userForm.controls.lastName.value,
-        this.userForm.controls.birthDate.value,
-        this.userForm.controls.sexo.value,
-        this.userForm.controls.type.value,
-        this.userForm.controls.phone.value,
-        this.userForm.controls.convetional.value
+        this.ds.form.value
       );
+    } else {
+      window.alert(this.ds.form.getError);
     }
   }
 }

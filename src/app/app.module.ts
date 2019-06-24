@@ -7,33 +7,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './shared/modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { AngularMaterialModule } from './modules/angular-material.module';
-import { FirebaseModule } from './modules/firebase.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-import { HomeComponent } from './components/private/home/home.component';
-import { AboutComponent } from './components/private/about/about.component';
-import { ContactoComponent } from './components/private/contacto/contacto.component';
 import { BaseComponent } from './components/base.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CompanyComponent } from './components/company/company.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { NavComponent } from './components/nav/nav.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
-import { CompanyService } from './dao/company.service';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
 import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-confirm-dialog.component';
-
-
-
+import { AngularMaterialModule } from './shared/modules/angular-material.module';
+import { FirebaseModule } from './shared/modules/firebase.module';
+import { CompanyService } from './shared/datasource/company.service';
+import { UserService } from './shared/datasource/user.service';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactoComponent } from './components/contacto/contacto.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,11 +38,9 @@ import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-c
     BaseComponent,
     SignInComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
     CompanyComponent,
     CompanyListComponent,
     PerfilComponent,
-    NavComponent,
     SignUpDataComponent,
     ScrollContainerComponent,
     MatConfirmDialogComponent,
@@ -67,7 +60,7 @@ import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-c
     ScrollingModule,
     InfiniteScrollModule
   ],
-  providers: [AuthService, CompanyService],
+  providers: [UserService, AuthService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
