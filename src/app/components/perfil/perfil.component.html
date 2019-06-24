@@ -1,4 +1,62 @@
-<p>
-  Hola
-  {{user.displayName}}
-</p>
+<mat-card fxFlex="100" fxLayout="column">
+  <mat-card-header>
+      <mat-card-title>Perfil</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="column" fxLayoutAlign="center">
+      <mat-tab-group>
+          <mat-tab label="Datos" >
+              <div>
+                  <mat-card>
+                      <mat-card-title>Nombre</mat-card-title>
+                      <div>{{user.names}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>RUC</mat-card-title>
+                      <div>{{user.id}}</div>
+                  </mat-card>
+              </div>
+          </mat-tab>
+          <mat-tab label="Info">
+              <div>
+                  <mat-card>
+                      <mat-card-title>Fecha de Registro</mat-card-title>
+                      <div>{{user.birthDate*1000 | date:'medium'}} </div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Estado</mat-card-title>
+                      <div>{{user.status}}</div>
+                  </mat-card>
+              </div>
+          </mat-tab>
+          <mat-tab label="Contacto">
+              <div>
+                  <mat-card>
+                      <mat-card-title>Celular</mat-card-title>
+                      <div>{{user.address.phone}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Teléfono</mat-card-title>
+                      <div>{{user.address.convetional}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Email</mat-card-title>
+                      <div>{{user.email}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Dirección</mat-card-title>
+                      <div>{{user.address.mainStreet}} y {{user.address.intersection}}</div>
+                  </mat-card>
+              </div>
+          </mat-tab>
+          <mat-tab label="Empresa">
+            <div *ngIf="user.type=='PERSON'">
+                <mat-card>
+                    <mat-card-title>Celular</mat-card-title>
+                    <div>{{user.address.phone}}</div>
+                </mat-card>
+            </div>
+          </mat-tab>
+          
+      </mat-tab-group>
+  </mat-card-content>
+</mat-card>
