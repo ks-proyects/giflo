@@ -102,14 +102,14 @@ export class AuthService {
             this.afm.messaging.subscribe((message) => {
                 this.subject.next(message);
             });
+            this.ngZone.run(() => {
+              this.router.navigate(['home']);
+            });
           },
           (error) => {
             window.alert(error.message);
           },
         );
-        this.ngZone.run(() => {
-          this.router.navigate(['home']);
-        });
       } else {
         this.ngZone.run(() => {
           this.router.navigate(['sign-up-data']);
@@ -120,7 +120,6 @@ export class AuthService {
     });
   }
   finishSaveData = (user: User) => {
-    
     this.afm.requestToken.subscribe(
       (token) => {
         console.log('Permission granted! Save to the server!', token);

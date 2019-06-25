@@ -20,8 +20,6 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
 import { AuthService } from './shared/services/auth.service';
 import { CompanyListComponent } from './components/company-list/company-list.component';
-import { ScrollContainerComponent } from './components/scroll-container/scroll-container.component';
-import { MatConfirmDialogComponent } from './components/mat-confirm-dialog/mat-confirm-dialog.component';
 import { AngularMaterialModule } from './shared/modules/angular-material.module';
 import { FirebaseModule } from './shared/modules/firebase.module';
 import { CompanyService } from './shared/datasource/company.service';
@@ -29,6 +27,8 @@ import { UserService } from './shared/datasource/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
+import { MatConfirmDialogComponent } from './components/common/mat-confirm-dialog/mat-confirm-dialog.component';
+import { ScrollContainerComponent } from './components/common/scroll-container/scroll-container.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -103,4 +103,5 @@ export class CompanyService {
   findByIdCompany(id) {
     return this.listCompany.doc(id).ref.get();
   }
+
 }

@@ -6,7 +6,7 @@
     <form [formGroup]="ds.formRegister" novalidate
     class="{{mq.matches?'form-login-m':'form-login-w'}}" fxLayout="column" fxLayoutAlign="center">
         <mat-form-field  >
-            <input matInput placeholder="Correo electrónico" formControlName="email">
+            <input matInput placeholder="Correo electrónico" formControlName="email" type="email">
         </mat-form-field>
         <mat-form-field >
             <input matInput placeholder="Contraseña" formControlName="pass" type="password"  name="password">

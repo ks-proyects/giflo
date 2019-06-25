@@ -34,6 +34,7 @@ export class UserService {
     pass:  new FormControl('', [Validators.required, Validators.minLength(6)])
   });
   listUser: AngularFirestoreCollection<User>;
+  listUserFilter: AngularFirestoreCollection<User>;
   constructor(
     private afs: AngularFirestore,
     private fb: FormBuilder,
@@ -90,25 +91,8 @@ export class UserService {
     };
     return this.createUpdateUser(userny, customId);
   }
-  /**
-   * Actualiza
-   * @param user Form Data
-   */
-  updateusernyForm(user, customId: string) {
-    const userny: User = {
-      names : user.name,
-      id: user.ruc,
-      birthDate: user.fechaRegistro,
-      status: user.status,
-      address: user.address,
-      email: user.email
-    };
-    userny.address = {
-      phone: user.phone,
-      convetional: user.convetional
-    };
-    return this.createUpdateUser(userny, customId);
-  }
+  
+  
   /**
    * Eliminar
    * @param $key Primary Key Form
@@ -139,7 +123,14 @@ export class UserService {
     return this.listUser.doc(id).ref.get();
   }
   private findByIdRef(uid): AngularFirestoreDocument<User> {
-    return this.afs.doc(`users/${uid}`);
+    return this.listUser.doc(uid);
+  }
+  findByIdCompanySnapshoot(id) {
+    return this.listUser.doc(id).snapshotChanges();
+  }
+  findById(id: string) {
+    return this.afs.collection<User>('users', ref => 
+    ref.where('status', '==', 'ACTIVO').where('type', '==', 'COMPANY').where('id', '==', id.toString())).snapshotChanges();
   }
   public updateToken = (user, tok) => {
     const userRef: AngularFirestoreDocument<any> = this.findByIdRef(user.id);

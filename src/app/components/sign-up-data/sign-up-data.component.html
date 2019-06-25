@@ -50,7 +50,7 @@
                 </mat-form-field>
                 <div fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" [style.display]="type.value!=='COMPANY'?'':'none'">
-                        <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="Fecha de Nacimiento.">
+                        <input matInput [matDatepicker]="picker" formControlName="birthDate" type="date" placeholder="Fecha de Nacimiento.">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker [touchUi]="mq.matches" #picker></mat-datepicker>
                     </mat-form-field>
@@ -65,13 +65,13 @@
                 </div>
                 <div formGroupName="address" fxLayout="{{mq.matches?'column':'row'}}">
                     <mat-form-field fxFlex="{{mq.matches?100:50}}">
-                        <input matInput placeholder="Celular" formControlName="phone" type="number">
+                        <input matInput placeholder="Celular" formControlName="phone" type="tel">
                         <mat-error *ngIf="ds.form.controls.address.controls['phone'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="{{mq.matches?100:50}}" fxFlexOffset="{{mq.matches?0:2}}">
-                        <input matInput placeholder="Telefono Convencional" formControlName="convetional" type="number">
+                        <input matInput placeholder="Telefono Convencional" formControlName="convetional" type="tel">
                         <mat-error *ngIf="ds.form.controls.address.controls['convetional'].hasError('required')">
                             Es <strong>requerido</strong>
                         </mat-error>

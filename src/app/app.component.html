@@ -4,14 +4,15 @@
                 <mat-icon>apps</mat-icon>
             </button>
             <h1 class="app-name"><a style="color: rgb(255, 255, 255); text-decoration: blink; " [routerLink]="['/home']" routerLinkActive="router-link-active">{{title}}</a></h1>
+           <h2>{{router.url}}</h2>
             <span class="spacer"></span>
             <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.userDB as userp"> 
-                <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (userp.photoURL?userp.photoURL:'/assets/icons/icon-72x72.png') + ')'}"></div>
+                <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (userp.urlPhoto?userp.urlPhoto:'/assets/icons/icon-72x72.png') + ')'}"></div>
             </button>
             <mat-menu #menu="matMenu" >
                 <mat-card class="card-menu" *ngIf="authService.userDB as user">
                     <mat-card-header>
-                        <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (user.photoURL?user.photoURL:'/assets/icons/icon-72x72.png') + ')'}"></div>
+                        <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (user.urlPhoto?user.urlPhoto:'/assets/icons/icon-72x72.png') + ')'}"></div>
                         <mat-card-title>{{(user.displayName) ? user.displayName : 'User'}}</mat-card-title>
                         <mat-card-subtitle>{{(user.email) ? user.email : 'Email'}}</mat-card-subtitle>
                     </mat-card-header>

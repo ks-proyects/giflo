@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Sort, MatSort, MatTableDataSource, MatDialogConfig } from '@angular/material';
+import { MatSort, MatTableDataSource, MatDialogConfig } from '@angular/material';
 import { noop as _noop } from 'lodash';
 import { Router } from '@angular/router';
 import { CompanyService } from '../../shared/datasource/company.service';
@@ -72,7 +72,6 @@ export class CompanyListComponent implements OnInit {
 
   onView(row) {
     try {
-      debugger;
       this.comDao.populateFormCompany(row);
       this.router.navigate(['company']);
     } catch (error) {
