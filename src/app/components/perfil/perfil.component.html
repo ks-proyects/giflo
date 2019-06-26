@@ -18,9 +18,9 @@
           </mat-tab>
           <mat-tab label="Info">
               <div>
-                  <mat-card>
+                  <mat-card >
                       <mat-card-title>Fecha de Registro</mat-card-title>
-                      <div>{{user.birthDate.toDate() | date: 'medium'}} </div>
+                      <div *ngIf="user.birthDate">{{user.birthDate.toDate() | date: 'medium'}} </div>
                   </mat-card>
                   <mat-card>
                       <mat-card-title>Estado</mat-card-title>

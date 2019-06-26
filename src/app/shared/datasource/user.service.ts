@@ -133,7 +133,7 @@ export class UserService {
     ref.where('status', '==', 'ACTIVO').where('type', '==', 'COMPANY').where('id', '==', id.toString())).snapshotChanges();
   }
   public updateToken = (user, tok) => {
-    const userRef: AngularFirestoreDocument<any> = this.findByIdRef(user.id);
+    const userRef: AngularFirestoreDocument<any> = this.findByIdRef(user.uid);
     const userData: User = {
       token: tok
     };

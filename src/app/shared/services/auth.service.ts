@@ -94,6 +94,7 @@ export class AuthService {
         this.location.getLocation();
         this.afm.requestToken.subscribe(
           (token) => {
+            debugger;
             console.log('Permiso consedido y se guarda en el servidor!');
             this.ds.updateToken(user, token);
             this.afm.messages.subscribe((message) => {
