@@ -8,7 +8,7 @@
   "short_name": "Giflo",
   "theme_color": "transparent",
   "description": "Aplicación para la gestión de rosas de invernadero",
-  "orientation": "any",
+  "orientation": "natural",
   "background_color": "transparent",
   "related_applications": [],
   "prefer_related_applications": false,
