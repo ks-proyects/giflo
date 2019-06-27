@@ -16,7 +16,8 @@ export class ItemMenuService {
   }
   getMenu(rol: string) {
     this.validMenu();
-    this.db.collection<ItemMenu>('itemMenu', ref => ref.where('rol', '==', rol.toString())).snapshotChanges().subscribe(dataRes => {
+    this.db.collection<ItemMenu>('itemMenu', ref => ref.where('rol', '==', rol.toString())
+    .orderBy('opcion.name')).snapshotChanges().subscribe(dataRes => {
       if (dataRes.length > 0) {
         this.menuItems = dataRes.map(e => {
           return e.payload.doc.data();

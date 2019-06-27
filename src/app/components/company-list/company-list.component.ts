@@ -86,7 +86,7 @@ export class CompanyListComponent implements OnInit {
       (isActive ? 'INACTIVAR' : 'ACTIVAR') + ' esta empresa?').afterClosed().subscribe(res => {
         if (res) {
           row.status = (isActive ? 'INACTIVO' : 'ACTIVO');
-          row.rol = (isActive ? 'ADMIN' : 'DEFAULT');
+          row.rol = (isActive ? 'DEFAULT' : 'ADMIN');
           this.comDao.populateFormCompany(row);
           this.comDao.updateCompanyForm(this.comDao.form.value, row.$key);
           this.messageService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
