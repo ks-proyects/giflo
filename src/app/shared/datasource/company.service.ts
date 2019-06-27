@@ -24,6 +24,7 @@ export class CompanyService {
     sexo: new FormControl(''),
     type: new FormControl(),
     status: new FormControl(),
+    rol: new FormControl(),
     address: new FormGroup({
       mainStreet: new FormControl(null),
       intersection: new FormControl(null),
@@ -52,6 +53,7 @@ export class CompanyService {
       sexo: '',
       type: '',
       status: '',
+      rol: '',
       address: {
         mainStreet: '',
         intersection: '',

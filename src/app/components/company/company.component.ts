@@ -49,7 +49,6 @@ export class CompanyComponent extends BaseComponent implements OnInit {
           (isActive ? 'INACTIVAR' : 'ACTIVAR') + ' esta empresa?').afterClosed().subscribe(res => {
             if (res) {
               this.company.status = (isActive ? 'INACTIVO' : 'ACTIVO');
-              this.company.rol = (isActive ? 'ADMIN' : 'DEFAULT');
               this.service.populateFormCompany(this.company);
               this.service.updateCompanyForm(this.service.form.value, this.service.form.value.$key);
               this.notificationService.warn((isActive ? 'Inactivado' : 'Activado') + ' exitosamente!');
