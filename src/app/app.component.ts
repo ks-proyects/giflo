@@ -4,6 +4,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { BaseComponent } from './components/base.component';
 import { AuthService } from './shared/services/auth.service';
+import { ItemMenuService } from './shared/datasource/item-menu.service';
+import { ItemMenu } from './shared/model/item-menu';
 
 @Component({
   selector: 'app-root',
@@ -11,30 +13,13 @@ import { AuthService } from './shared/services/auth.service';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent extends BaseComponent implements OnInit {
-  fillerNav = [
-    {
-      url: 'companyList',
-      label: 'Empresas'
-    },
-    {
-      url: 'home',
-      label: 'Principal'
-    },
-    {
-      url: 'about',
-      label: 'Acerca de Nosotros'
-    },
-    {
-      url: 'contact',
-      label: 'Contacto'
-    }
-  ];
   constructor(
       public router: Router,
       private swUpdate: SwUpdate,
       private med: MediaMatcher,
       private cdr: ChangeDetectorRef,
-      public authService: AuthService) {
+      public authService: AuthService,
+      public dsm: ItemMenuService) {
       super(med, cdr);
       if (this.swUpdate.isEnabled) {
           this.swUpdate.available.subscribe(async () => {

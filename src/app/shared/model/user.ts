@@ -3,6 +3,7 @@ export interface User {
     fullName?: string;
     email?: string;
     names?: string;
+    rol?: string;
     lastName?: string;
     birthDate?: Date;
     token?: string;

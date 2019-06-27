@@ -22,11 +22,11 @@
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Cerrar Sessión</span>
                 </button>
-                <button mat-menu-item [routerLink]="['/profile']" routerLinkActive="router-link-active" >
+                <button mat-menu-item [routerLink]="['/profile']" (click)="snav.close();" routerLinkActive="router-link-active" >
                     <mat-icon>settings</mat-icon>
                     <span>Editar mis Datos</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="snav.close();">
                     <mat-icon>notifications_on</mat-icon>
                     <span>Notificaciones</span>
                 </button>
@@ -35,7 +35,7 @@
     <mat-sidenav-container class="container" [style.marginTop.px]="isHome()?(mq.matches ? 55 : 64):0">
         <mat-sidenav #snav [mode]="mq.matches ? 'over' : 'side'" [fixedInViewport]="mq.matches" [fixedTopGap]="(mq.matches ? 55 : 64)">
             <mat-nav-list>
-                <a (click)="snav.close();" *ngFor="let nav of fillerNav" mat-list-item [routerLink]="[nav.url]" routerLinkActive="router-link-active">{{nav.label}}</a>
+                <a (click)="snav.close();" *ngFor="let nav of dsm.menuItems" mat-list-item [routerLink]="[nav.opcion.url]" routerLinkActive="router-link-active">{{nav.opcion.name}}</a>
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content fxFlex="100"  fxLayout="column">

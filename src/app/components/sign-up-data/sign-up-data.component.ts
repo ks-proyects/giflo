@@ -33,11 +33,6 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
   }
   onSubmit() {
     if (!this.ds.form.invalid) {
-      this.ds.form.value.email = this.ds.formRegister.value.email;
-      this.ds.form.value.status = 'INGRESADO';
-      this.ds.form.value.fullName = this.ds.form.value.type === 'COMPANY' ?
-      this.ds.form.value.names  : this.ds.form.value.names + ' ' + this.ds.form.value.lastName;
-      this.ds.form.value.birthDate = this.ds.form.value.birthDate ? this.ds.form.value.birthDate : new Date();
       this.authService.finishSaveData(
         this.ds.form.value
       );

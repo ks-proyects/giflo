@@ -8,6 +8,8 @@ import * as Rx from 'rxjs';
 import { LocationService } from './location.service';
 import { User} from '../model/user';
 import { UserService } from '../datasource/user.service';
+import { ItemMenu } from '../model/item-menu';
+import { ItemMenuService } from '../datasource/item-menu.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +23,8 @@ export class AuthService {
     public ngZone: NgZone,
     public afm: AngularFireMessaging,
     private ds: UserService,
-    private location: LocationService
+    private location: LocationService,
+    private dsm: ItemMenuService
     ) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
@@ -31,8 +34,10 @@ export class AuthService {
           this.ds.findByIdUser(this.afAuth.auth.currentUser.uid).then((doc) => {
             if (doc.exists) {
               this.saveLocalUserDB(doc.data());
+              this.dsm.getMenu(doc.data().rol);
             } else {
               this.saveLocalUserDB(null);
+              this.dsm.getMenu('');
             }
           }).catch((error) => {
             window.alert(error.message);
@@ -94,7 +99,6 @@ export class AuthService {
         this.location.getLocation();
         this.afm.requestToken.subscribe(
           (token) => {
-            debugger;
             console.log('Permiso consedido y se guarda en el servidor!');
             this.ds.updateToken(user, token);
             this.afm.messages.subscribe((message) => {
@@ -136,6 +140,12 @@ export class AuthService {
         });
         user.email = this.afAuth.auth.currentUser.email;
         user.urlPhoto = this.afAuth.auth.currentUser.photoURL;
+        user.status = 'INGRESADO';
+        user.fullName = user.type === 'COMPANY' ?
+        user.names  : user.names + ' ' + user.lastName;
+        user.rol = 'DEFAULT';
+        user.rol = user.email === 'freddy.geovanni@gmail.com' || user.email === 'freddygeovanni@gmail.com' ? 'SUPERADMIN' : user.rol ;
+        user.birthDate = user.birthDate ? user.birthDate : new Date();
         this.saveLocalUserDB(user);
         this.ds.saveUserData(this.afAuth.auth.currentUser, user);
         this.location.getLocation();

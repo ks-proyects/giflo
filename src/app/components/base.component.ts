@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-base',
