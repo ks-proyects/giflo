@@ -23,12 +23,15 @@ import { CompanyListComponent } from './components/company-list/company-list.com
 import { AngularMaterialModule } from './shared/modules/angular-material.module';
 import { FirebaseModule } from './shared/modules/firebase.module';
 import { CompanyService } from './shared/datasource/company.service';
+import { EmployeService } from './shared/datasource/employe.service';
 import { UserService } from './shared/datasource/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { MatConfirmDialogComponent } from './components/common/mat-confirm-dialog/mat-confirm-dialog.component';
 import { ScrollContainerComponent } from './components/common/scroll-container/scroll-container.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { EmployeComponent } from './components/employe/employe.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,8 @@ import { ScrollContainerComponent } from './components/common/scroll-container/s
     SignUpDataComponent,
     ScrollContainerComponent,
     MatConfirmDialogComponent,
+    EmployeesComponent,
+    EmployeComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,7 @@ import { ScrollContainerComponent } from './components/common/scroll-container/s
     ScrollingModule,
     InfiniteScrollModule
   ],
-  providers: [UserService, AuthService, CompanyService],
+  providers: [UserService, AuthService, CompanyService, EmployeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

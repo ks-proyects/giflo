@@ -9,6 +9,14 @@ import { OpcionMenu } from '../model/opcion-menu';
 export class ItemMenuService {
   menuItems: ItemMenu[] = [];
   listItemMenu: AngularFirestoreCollection<ItemMenu>;
+  superAdmin = 'SUPERADMIN';
+  default = 'DEFAULT';
+  admin = 'ADMIN';
+  cultivador = 'CULTIVADOR';
+  supervisor = 'SUPERVISOR';
+  clasificador = 'CLASIFICADOR';
+
+  rolesEmploye: string[] = [this.default, this.cultivador, this.supervisor, this.clasificador];
   constructor(
     private db: AngularFirestore
   ) {
@@ -40,24 +48,24 @@ export class ItemMenuService {
     const optHome: OpcionMenu = {url: 'home', name: 'Principal'};
     const optAbout: OpcionMenu = {url: 'about', name: 'Acerca de Nosotros'};
     const optContact: OpcionMenu = {url: 'contact', name: 'Contacto'};
-    const optEmpleados: OpcionMenu = {url: 'contact', name: 'Empleados'};
+    const optEmpleados: OpcionMenu = {url: 'employees', name: 'Empleados'};
     const optBloques: OpcionMenu = {url: 'contact', name: 'Bloques'};
     const optNaves: OpcionMenu = {url: 'contact', name: 'Naves'};
     const optProduccion: OpcionMenu = {url: 'contact', name: 'Producción'};
     const optProduccionIng: OpcionMenu = {url: 'contact', name: 'Ingreso Producción'};
     //SUPERADMIN
-    let rolPage = 'SUPERADMIN';
+    let rolPage = this.superAdmin;
     this.createUpdateMenu({opcion: optCompany, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optHome, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optAbout, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optContact, rol: rolPage, estado: true});
 
-    rolPage = 'DEFAULT';
+    rolPage = this.default;
     this.createUpdateMenu({opcion: optHome, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optAbout, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optContact, rol: rolPage, estado: true});
 
-    rolPage = 'ADMIN';
+    rolPage = this.admin;
     this.createUpdateMenu({opcion: optEmpleados, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optBloques, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optNaves, rol: rolPage, estado: true});
@@ -66,11 +74,11 @@ export class ItemMenuService {
     this.createUpdateMenu({opcion: optAbout, rol: rolPage, estado: true});
     this.createUpdateMenu({opcion: optContact, rol: rolPage, estado: true});
 
-    rolPage = 'CULTIVADOR';
+    rolPage = this.cultivador;
     this.createUpdateMenu({opcion: optProduccionIng, rol: rolPage, estado: true});
-    rolPage = 'SUPERVISOR';
+    rolPage = this.supervisor;
     this.createUpdateMenu({opcion: optProduccion, rol: rolPage, estado: true});
-    rolPage = 'CLASIFICADOR';
+    rolPage = this.clasificador;
     this.createUpdateMenu({opcion: optProduccion, rol: rolPage, estado: true});
   }
   createUpdateMenu(menu: ItemMenu) {

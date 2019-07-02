@@ -12,6 +12,8 @@ import { PerfilComponent } from '../../components/perfil/perfil.component';
 import { AboutComponent } from '../../components/about/about.component';
 import { ContactoComponent } from '../../components/contacto/contacto.component';
 import { MatConfirmDialogComponent } from '../../components/common/mat-confirm-dialog/mat-confirm-dialog.component';
+import { EmployeesComponent } from 'src/app/components/employees/employees.component';
+import { EmployeComponent } from 'src/app/components/employe/employe.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -25,6 +27,8 @@ const routes: Routes = [
   { path: 'companyList', component: CompanyListComponent, canActivate: [AuthGuard] },
   { path: 'confirm', component: MatConfirmDialogComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: PerfilComponent, canActivate: [AuthGuard]},
+  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},
+  { path: 'employe', component: EmployeComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -26,6 +26,8 @@ export class AuthService {
     private location: LocationService,
     private dsm: ItemMenuService
     ) {
+      this.userData =  JSON.parse(localStorage.getItem('user'));
+      this.userDB = JSON.parse(localStorage.getItem('userDB'));
       this.afAuth.authState.subscribe(user => {
         if (user) {
           this.userData = user;
