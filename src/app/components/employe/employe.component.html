@@ -1,3 +1,65 @@
-<p>
-  employe works!
-</p>
+<mat-card fxFlex="100" fxLayout="column">
+  <mat-card-header>
+      <mat-card-title>Empresa</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="column" fxLayoutAlign="center">
+      <mat-tab-group>
+          <mat-tab label="Datos" >
+              <div>
+                  <mat-card>
+                      <mat-card-title>Nombre</mat-card-title>
+                      <div>{{company.names}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Cédula</mat-card-title>
+                      <div>{{company.id}}</div>
+                  </mat-card>
+                  <mat-card>
+                    <mat-card-title>Rol</mat-card-title>
+                    <div>
+                      <mat-radio-group aria-label="Select an option" [(ngModel)]="company.rol">
+                        <mat-radio-button *ngFor="let rol of menu.rolesEmploye" [value]="rol">{{rol}}</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                </mat-card>
+              </div>
+          </mat-tab>
+          <mat-tab label="Info">
+              <div>
+                  <mat-card>
+                      <mat-card-title>Fecha de Nacimiento</mat-card-title>
+                      <div>{{company.birthDate*1000 | date:'medium'}} </div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Estado</mat-card-title>
+                      <div>{{company.status}}</div>
+                  </mat-card>
+              </div>
+          </mat-tab>
+          <mat-tab label="Contacto">
+              <div>
+                  <mat-card>
+                      <mat-card-title>Celular</mat-card-title>
+                      <div>{{company.address.phone}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Teléfono</mat-card-title>
+                      <div>{{company.address.convetional}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Email</mat-card-title>
+                      <div>{{company.email}}</div>
+                  </mat-card>
+                  <mat-card>
+                      <mat-card-title>Dirección</mat-card-title>
+                      <div>{{company.address.mainStreet}} y {{company.address.intersection}}</div>
+                  </mat-card>
+              </div>
+          </mat-tab>
+      </mat-tab-group>
+  </mat-card-content>
+  <mat-card-actions>
+      <button mat-button (click)="onClear()">Regresar</button>
+      <button mat-button (click)="onActive()">Guardar</button>
+  </mat-card-actions>
+</mat-card>
