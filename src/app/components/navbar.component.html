@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink="">giflo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <button (click)="snav.toggle()" class="navbar-toggler" type="button" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div *ngIf="user" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+               
+            </li>
+            <!-- START LINK MENU -->
+            <li class="nav-item" routerLinkActive="active">
+               <a class="nav-link" routerLink="/estadocivils">EstadoCivil</a>
+            </li>
+        
+            <li class="nav-item" routerLinkActive="active">
+               <a class="nav-link" routerLink="/estados">Estado</a>
+            </li>
+        
+            <li class="nav-item" routerLinkActive="active">
+               <a class="nav-link" routerLink="/menuitems">MenuItem</a>
+            </li>
+        
+            <li class="nav-item" routerLinkActive="active">
+               <a class="nav-link" routerLink="/paginas">Pagina</a>
+            </li>
+        
+            <li class="nav-item" routerLinkActive="active">
+               <a class="nav-link" routerLink="/rols">Rol</a>
+            </li>
+        
+ <!-- END LINK MENU -->
+        </ul>
+    </div>
+    <div *ngIf="user" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Welcome {{user.displayName}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" (click)="authenticationService.logout()">Logout</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<mat-sidenav-container  [style.marginTop.px]="55">
+    <mat-sidenav #snav [mode]="'over'" [fixedInViewport]="true" [fixedTopGap]="56">
+        <mat-nav-list>
+                <a class="nav-link" routerLink="/home">Home </a>
+                <a class="nav-link" (click)="snav.close();"  routerLink="/rols">Rol</a>
+            <!--<a (click)="snav.close();" *ngFor="let nav of dsm.menuItems" mat-list-item [routerLink]="[nav.opcion.url]" routerLinkActive="router-link-active">{{nav.opcion.name}}</a>-->
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>

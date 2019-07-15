@@ -1,45 +1,16 @@
-<div class="container" [class.is-mobile]="mq.matches">
-    <mat-toolbar  *ngIf="isHome()"  color="primary" class="toolbar" >
-            <button mat-icon-button (click)="snav.toggle()">
-                <mat-icon>apps</mat-icon>
-            </button>
-            <h1 class="app-name"><a style="color: rgb(255, 255, 255); text-decoration: blink; " [routerLink]="['/home']" routerLinkActive="router-link-active">{{title}}</a></h1>
-           <h2>{{router.url}}</h2>
-            <span class="spacer"></span>
-            <button mat-button [matMenuTriggerFor]="menu" *ngIf="authService.userDB as userp"> 
-                <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (userp.urlPhoto?userp.urlPhoto:'/assets/icons/icon-72x72.png') + ')'}"></div>
-            </button>
-            <mat-menu #menu="matMenu" >
-                <mat-card class="card-menu" *ngIf="authService.userDB as user">
-                    <mat-card-header>
-                        <div mat-card-avatar class="header-image" [ngStyle]="{background: 'url(' + (user.urlPhoto?user.urlPhoto:'/assets/icons/icon-72x72.png') + ')'}"></div>
-                        <mat-card-title>{{(user.displayName) ? user.displayName : 'User'}}</mat-card-title>
-                        <mat-card-subtitle>{{(user.email) ? user.email : 'Email'}}</mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
-                <mat-divider></mat-divider>
-                <button mat-menu-item (click)="authService.logout();snav.close();">
-                    <mat-icon>exit_to_app</mat-icon>
-                    <span>Cerrar Sessión</span>
-                </button>
-                <button mat-menu-item [routerLink]="['/profile']" (click)="snav.close();" routerLinkActive="router-link-active" >
-                    <mat-icon>settings</mat-icon>
-                    <span>Editar mis Datos</span>
-                </button>
-                <button mat-menu-item (click)="snav.close();">
-                    <mat-icon>notifications_on</mat-icon>
-                    <span>Notificaciones</span>
-                </button>
-            </mat-menu>
-    </mat-toolbar>
-    <mat-sidenav-container class="container" [style.marginTop.px]="isHome()?(mq.matches ? 55 : 64):0">
-        <mat-sidenav #snav [mode]="mq.matches ? 'over' : 'side'" [fixedInViewport]="mq.matches" [fixedTopGap]="(mq.matches ? 55 : 64)">
-            <mat-nav-list>
-                <a (click)="snav.close();" *ngFor="let nav of dsm.menuItems" mat-list-item [routerLink]="[nav.opcion.url]" routerLinkActive="router-link-active">{{nav.opcion.name}}</a>
-            </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content fxFlex="100"  fxLayout="column">
-            <router-outlet class="allHeight"></router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+<!-- NAVBAR -->
+<app-navbar></app-navbar>
+<!-- CONTENT -->
+<div class="container-fluid mb-40">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- FOOTER -->
+<div class="footer">
+    Created by
+    <a href="http://www.keysist.com" target="_blank">&copy; KeySist</a>
 </div>

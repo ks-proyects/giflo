@@ -1,14 +1,12 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import * as Rx from 'rxjs';
 import { LocationService } from './location.service';
 import { User} from '../model/user';
 import { UserService } from '../datasource/user.service';
-import { ItemMenu } from '../model/item-menu';
 import { ItemMenuService } from '../datasource/item-menu.service';
 @Injectable({
   providedIn: 'root'
