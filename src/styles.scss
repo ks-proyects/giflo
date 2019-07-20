@@ -1,21 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
 
-$color_blue: #007BFF;
+$color_blue: #B72F05;
 $color_white: #ffffff;
 $color_orange: #ff6b35;
 
-$color_google_btn: #737373;
+$color_google_btn: #D51818;
 $color_google_btn_active: #e5e5e5;
+.grid-container{
+    display: grid;
+    grid-template: 1.5fr 20fr 0.5fr / 1fr minmax(250px,2fr) 1fr;
+    grid-gap: 10px;
+    height: 100vh;
+    
+}
+.grid-item{
+    background-color: #D51818;
+    border: 1px solid #ff6b35;
+}
+.grid-item:nth-of-type(1){
+    grid-column: 1 / -1;
+}
+.grid-item:nth-of-type(5){
+    grid-column: 1 / -1;
+}
+.grid-item:nth-of-type(5){
+    background: #B72F05;
+    overflow: auto;
+    display: grid;
+    grid-template: 1fr 1fr/ 1fr;
+}
+.grid-item .grid-item{
+    background: wheat;
+}
 
 /* GENERAL */
 html {
     position: relative;
     min-height: 100%;
 }
-
+body{
+   
+}
 .dropdown-item {
     cursor: pointer;
 }
+
 
 /* FOOTER */
 

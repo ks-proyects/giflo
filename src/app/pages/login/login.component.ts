@@ -21,4 +21,7 @@ export class LoginComponent {
     login() {
         this.authenticationService.login();
     }
+    loginFacebook() {
+        this.authenticationService.loginFacebook();
+    }
 }

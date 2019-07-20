@@ -3,7 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BaseComponent } from '../base.component';
 import { AuthService } from '../../shared/services/auth.service';
-import { UserService } from '../../shared/datasource/user.service';
+import { UserDBService } from '../../shared/datasource/user.db.service';
 
 @Component({
   selector: 'app-sign-up-data',
@@ -24,7 +24,7 @@ export class SignUpDataComponent extends BaseComponent implements OnInit {
     public authService: AuthService,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    public ds: UserService) {
+    public ds: UserDBService) {
       super(med, cdr);
     }
 

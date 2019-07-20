@@ -53,6 +53,10 @@ import { Contacto } from '../../domain/giflo_db/contacto';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
+		contacto: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
 	}
  *
  */
@@ -69,6 +73,21 @@ export class ContactoBaseService {
 
 
     // CRUD METHODS
+
+    /**
+    * ContactoService.list
+    *   @description CRUD ACTION list
+    *
+    */
+    list(): Observable<Contacto[]> {
+        return this.afs.collection('contacto').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Contacto;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
 
 
     // Custom APIs

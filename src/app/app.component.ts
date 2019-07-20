@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { BaseComponent } from './components/base.component';
 import { AuthService } from './shared/services/auth.service';
 import { ItemMenuService } from './shared/datasource/item-menu.service';
-import { ItemMenu } from './shared/model/item-menu';
+import { User } from 'firebase';
+import { AuthenticationService } from './security/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +14,15 @@ import { ItemMenu } from './shared/model/item-menu';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent extends BaseComponent implements OnInit {
+  user: User;
   constructor(
       public router: Router,
       private swUpdate: SwUpdate,
       private med: MediaMatcher,
       private cdr: ChangeDetectorRef,
       public authService: AuthService,
-      public dsm: ItemMenuService) {
+      public dsm: ItemMenuService,
+      public authenticationService: AuthenticationService) {
       super(med, cdr);
       if (this.swUpdate.isEnabled) {
           this.swUpdate.available.subscribe(async () => {
@@ -30,8 +33,6 @@ export class AppComponent extends BaseComponent implements OnInit {
       }
   }
   ngOnInit() {
-  }
-  isHome() {
-    return this.router.url !== '/sign-in' &&  this.router.url !== '/sign-up' &&  this.router.url !== '/sign-up-data';
+    this.authenticationService.getUser().subscribe(user => this.user = user, err => this.user = null);
   }
 }

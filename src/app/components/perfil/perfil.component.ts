@@ -3,7 +3,7 @@ import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/model/user';
-import { UserService } from '../../shared/datasource/user.service';
+import { UserDBService } from '../../shared/datasource/user.db.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -22,7 +22,7 @@ export class PerfilComponent extends BaseComponent implements OnInit {
     public afAuth: AngularFireAuth,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef,
-    private ds: UserService
+    private ds: UserDBService
   ) {
     super(med, cdr);
   }

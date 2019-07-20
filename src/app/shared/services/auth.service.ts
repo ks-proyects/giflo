@@ -6,7 +6,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import * as Rx from 'rxjs';
 import { LocationService } from './location.service';
 import { User} from '../model/user';
-import { UserService } from '../datasource/user.service';
+import { UserDBService } from '../datasource/user.db.service';
 import { ItemMenuService } from '../datasource/item-menu.service';
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone,
     public afm: AngularFireMessaging,
-    private ds: UserService,
+    private ds: UserDBService,
     private location: LocationService,
     private dsm: ItemMenuService
     ) {

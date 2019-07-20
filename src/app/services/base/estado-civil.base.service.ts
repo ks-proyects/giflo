@@ -41,6 +41,10 @@ import { EstadoCivil } from '../../domain/giflo_db/estado-civil';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
+		estadoCivil: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
 	}
  *
  */

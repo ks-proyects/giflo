@@ -53,6 +53,10 @@ import { Direccion } from '../../domain/giflo_db/direccion';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
+		direccion: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
 	}
  *
  */
@@ -69,6 +73,21 @@ export class DireccionBaseService {
 
 
     // CRUD METHODS
+
+    /**
+    * DireccionService.list
+    *   @description CRUD ACTION list
+    *
+    */
+    list(): Observable<Direccion[]> {
+        return this.afs.collection('direccion').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Direccion;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
 
 
     // Custom APIs

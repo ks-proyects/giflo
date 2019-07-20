@@ -49,6 +49,10 @@ import { Rol } from '../../domain/giflo_db/rol';
 			type: Schema.ObjectId,
 			ref : "MenuItem"
 		},
+		rol: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
 	}
  *
  */

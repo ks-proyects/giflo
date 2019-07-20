@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { noop as _noop } from 'lodash';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { UserService } from 'src/app/shared/datasource/user.service';
 import { EmployeService } from 'src/app/shared/datasource/employe.service';
 import { ItemMenuService } from 'src/app/shared/datasource/item-menu.service';
 import { BaseComponent } from '../base.component';

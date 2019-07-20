@@ -58,6 +58,14 @@ import { User } from '../../domain/giflo_db/user';
 		},
 		//RELATIONS
 		//EXTERNAL RELATIONS
+		user: {
+			type: Schema.ObjectId,
+			ref : "Empresa"
+		},
+		user: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
 	}
  *
  */

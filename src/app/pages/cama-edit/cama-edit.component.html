@@ -1,0 +1,81 @@
+<!-- TITLE -->
+<div class="mb-40 mt-40">
+    <h1>Cama Edit</h1>
+</div>
+<div class="card mb-40">
+    <div class="card-header">
+        <i class="fa fa-edit"></i> Edit
+    </div>
+    <div class="card-body">
+        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel" >
+                    </div>
+                    <div class="form-group">
+                        <label for="orden">Orden</label>
+                        <input type="number" class="form-control" id="orden" [(ngModel)]="item.orden" name="orden" #orden="ngModel" >
+                    </div>
+                    <!-- RELATIONS -->
+                    <h2 class="mb-20">Relations</h2>
+
+                    <label for="Estado">Estado</label>
+                    <select name="estado" id="estado" [(ngModel)]="item.estado" class="form-control" #estado="ngModel"  >
+                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.id}}</option>
+                    </select>
+                    <label for="Nave">Nave</label>
+                    <select name="nave" id="nave" [(ngModel)]="item.nave" class="form-control" #nave="ngModel"  >
+                        <option *ngFor="let item of listNave" [value]="item.id">{{item.id}}</option>
+                    </select>
+                    <label for="Empleado">Empleado</label>
+                    <select name="supervisor" id="supervisor" [(ngModel)]="item.supervisor" class="form-control" #supervisor="ngModel"  >
+                        <option *ngFor="let item of listSupervisor" [value]="item.id">{{item.id}}</option>
+                    </select>
+                    <label for="Empleado">Empleado</label>
+                    <select name="trabajador" id="trabajador" [(ngModel)]="item.trabajador" class="form-control" #trabajador="ngModel"  >
+                        <option *ngFor="let item of listTrabajador" [value]="item.id">{{item.id}}</option>
+                    </select>
+                    <div class="pb-30">
+                        <div class="mb-20">
+                            <label>Variedad</label>
+
+                            <span class="dropdown ml-20">
+                                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenuButtonvariedad" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Add
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonvariedad">
+                                    <button class="dropdown-item" *ngFor="let item of listVariedad" [class.disabled]="containVariedad(item.id)" (click)="$event.preventDefault(); containVariedad(item.id) || addVariedad(item.id)">{{item.id}}
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="mb-40">
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item found</li>
+                                <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
+                                    {{obj}}
+
+                                    <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+        
+
+                    <!-- BUTTON BAR -->
+                    <div class="mt-40">
+                        <button class="btn btn-primary pull-right" (click)="save(editForm.valid)">Save</button>
+                        <button class="btn btn-secondary pull-right mr-2" (click)="goBack()">Back To List</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

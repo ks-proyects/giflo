@@ -9,7 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserDBService {
   form: FormGroup = new FormGroup({
     id: new FormControl(null, [Validators.required, Validators.minLength(10)]),
     fullName: new FormControl(''),

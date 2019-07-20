@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '../../shared/services/auth.service';
-import { UserService } from '../../shared/datasource/user.service';
+import { UserDBService } from '../../shared/datasource/user.db.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +12,7 @@ import { UserService } from '../../shared/datasource/user.service';
 export class SignUpComponent extends BaseComponent implements OnInit, OnDestroy {
 
   constructor(
-    public ds: UserService,
+    public ds: UserDBService,
     public authService: AuthService,
     private med: MediaMatcher,
     private cdr: ChangeDetectorRef) {

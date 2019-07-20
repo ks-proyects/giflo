@@ -23,6 +23,12 @@ export class AuthenticationService {
                 this.router.navigate(['/']);
         });
     }
+    loginFacebook() {
+        this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(user => {
+            if (user.user)
+                this.router.navigate(['/']);
+        });
+    }
 
     /**
      * Logout function

@@ -47,6 +47,26 @@ import { Estado } from '../../domain/giflo_db/estado';
 		},
 		estado: {
 			type: Schema.ObjectId,
+			ref : "Empresa"
+		},
+		estado: {
+			type: Schema.ObjectId,
+			ref : "Empleado"
+		},
+		estado: {
+			type: Schema.ObjectId,
+			ref : "Bloque"
+		},
+		estado: {
+			type: Schema.ObjectId,
+			ref : "Cama"
+		},
+		estado: {
+			type: Schema.ObjectId,
+			ref : "Nave"
+		},
+		estado: {
+			type: Schema.ObjectId,
 			ref : "Pagina"
 		},
 	}
