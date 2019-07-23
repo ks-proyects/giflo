@@ -30,21 +30,23 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { BaseComponent } from './components/base.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { CompanyComponent } from './components/company/company.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
-import { CompanyListComponent } from './components/company-list/company-list.component';
 import { CoreMaterialModule } from './core.material.module';
 
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { MatConfirmDialogComponent } from './components/common/mat-confirm-dialog/mat-confirm-dialog.component';
 import { ScrollContainerComponent } from './components/common/scroll-container/scroll-container.component';
-import { EmployeesComponent } from './components/employees/employees.component';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './pages/login/login.component';
+import { AboutComponent } from './components/about/about.component';
+import { CompanyComponent } from './components/company/company.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
 import { EmployeComponent } from './components/employe/employe.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
+import { HomeComponent } from './components/home/home.component';
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [
@@ -66,27 +68,31 @@ import { EmployeComponent } from './components/employe/employe.component';
     ImageCropperModule,
     ReactiveFormsModule,
     ScrollingModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    CommonModule,
+    FormsModule,
+    CoreMaterialModule
   ],
   declarations: [
     // LAYOUT
     AppComponent,
     NavbarComponent,
     MailValidator,
-    HomeComponent,
-    AboutComponent,
     ContactoComponent,
     BaseComponent,
-    SignInComponent,
-    SignUpComponent,
-    CompanyComponent,
-    CompanyListComponent,
-    PerfilComponent,
-    SignUpDataComponent,
     ScrollContainerComponent,
     MatConfirmDialogComponent,
-    EmployeesComponent,
+    LoginComponent,
+    AboutComponent,
+    CompanyComponent,
+    CompanyListComponent,
     EmployeComponent,
+    EmployeesComponent,
+    HomeComponent,
+    PerfilComponent,
+    SignInComponent,
+    SignUpComponent,
+    SignUpDataComponent
   ],
   providers: [],
 })

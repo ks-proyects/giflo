@@ -4,18 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactoComponent } from './components/contacto/contacto.component';
-import { CompanyComponent } from './components/company/company.component';
-import { CompanyListComponent } from './components/company-list/company-list.component';
-import { MatConfirmDialogComponent } from './components/common/mat-confirm-dialog/mat-confirm-dialog.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { EmployeesComponent } from './components/employees/employees.component';
-import { EmployeComponent } from './components/employe/employe.component';
+import { LoginComponent } from './pages/login/login.component';
 
 /**
  * WEB APP ROUTES
@@ -36,8 +25,10 @@ const routes: Routes = [
     { path: 'empresas/:id', loadChildren: './pages/empresa-edit/empresa-edit.module#EmpresaEditModule', canActivate: [AuthGuard] },
     { path: 'empresas', loadChildren: './pages/empresa-list/empresa-list.module#EmpresaListModule', canActivate: [AuthGuard] },
     { path: 'empresas', loadChildren: './pages/empresa-list/empresa-list.module#EmpresaListModule', canActivate: [AuthGuard] },
-    { path: 'estadocivils/:id', loadChildren: './pages/estado-civil-edit/estado-civil-edit.module#EstadoCivilEditModule', canActivate: [AuthGuard] },
-    { path: 'estadocivils', loadChildren: './pages/estado-civil-list/estado-civil-list.module#EstadoCivilListModule', canActivate: [AuthGuard] },
+    { path: 'estadocivils/:id',
+    loadChildren: './pages/estado-civil-edit/estado-civil-edit.module#EstadoCivilEditModule', canActivate: [AuthGuard] },
+    { path: 'estadocivils',
+    loadChildren: './pages/estado-civil-list/estado-civil-list.module#EstadoCivilListModule', canActivate: [AuthGuard] },
     { path: 'estados/:id', loadChildren: './pages/estado-edit/estado-edit.module#EstadoEditModule', canActivate: [AuthGuard] },
     { path: 'estados', loadChildren: './pages/estado-list/estado-list.module#EstadoListModule', canActivate: [AuthGuard] },
     { path: 'home', loadChildren: './pages/home/home.module#HomeModule', canActivate: [AuthGuard] },
@@ -54,9 +45,10 @@ const routes: Routes = [
 
  /* END MY VIEWS */
     // SECURITY
-    { path: 'login', loadChildren: './pages/login/login.module#LoginModule' },
-    { path: 'sign-in', component: SignInComponent},
-    { path: 'sign-up', component: SignUpComponent},
+    {
+        path: 'login',
+        component: LoginComponent
+      }
 ];
 
 /**
