@@ -15,6 +15,7 @@ import { AuthenticationService } from './security/authentication.service';
 })
 export class AppComponent extends BaseComponent implements OnInit {
   user: User;
+  offline: boolean;
   constructor(
       public router: Router,
       private swUpdate: SwUpdate,

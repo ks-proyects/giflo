@@ -12,16 +12,16 @@ export class LoginComponent {
     public apiKey: string = environment.firebase.apiKey;
 
     constructor(
-        public authenticationService: AuthenticationService,
+        public authSer: AuthenticationService,
     ) { }
 
     /**
      * Login function
      */
     login() {
-        this.authenticationService.login();
+        this.authSer.login();
     }
     loginFacebook() {
-        this.authenticationService.loginFacebook();
+        this.authSer.loginFacebook();
     }
 }

@@ -18,15 +18,39 @@ export class AuthenticationService {
      * Login function
      */
     login() {
-        this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(user => {
-            if (user.user)
+        return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(user => {
+            if (user.user) {
                 this.router.navigate(['/']);
+            }
+        }).catch((error) => {
+            window.alert(error);
+          });
+    }
+    loginWithEmailPass(email, password){
+        return this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
+            if (user.user) {
+                this.router.navigate(['/']);
+            }
+        }).catch((error) => {
+          window.alert(error.message);
+        });
+      }
+    loginFacebook() {
+        return this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(user => {
+            if (user.user) {
+                this.router.navigate(['/']);
+            }
+        }).catch((error) => {
+            window.alert(error);
         });
     }
-    loginFacebook() {
-        this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(user => {
-            if (user.user)
+    loginGoogle() {
+        return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(user => {
+            if (user.user) {
                 this.router.navigate(['/']);
+            }
+        }).catch((error) => {
+            window.alert(error);
         });
     }
 

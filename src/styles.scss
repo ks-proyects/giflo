@@ -6,31 +6,12 @@ $color_orange: #ff6b35;
 
 $color_google_btn: #D51818;
 $color_google_btn_active: #e5e5e5;
-.grid-container{
-    display: grid;
-    grid-template: 1.5fr 20fr 0.5fr / 1fr minmax(250px,2fr) 1fr;
-    grid-gap: 10px;
+.allHeight{
     height: 100vh;
-    
 }
-.grid-item{
-    background-color: #D51818;
-    border: 1px solid #ff6b35;
-}
-.grid-item:nth-of-type(1){
-    grid-column: 1 / -1;
-}
-.grid-item:nth-of-type(5){
-    grid-column: 1 / -1;
-}
-.grid-item:nth-of-type(5){
-    background: #B72F05;
-    overflow: auto;
-    display: grid;
-    grid-template: 1fr 1fr/ 1fr;
-}
-.grid-item .grid-item{
-    background: wheat;
+body{
+    background: rgb(136,51,14);
+background: linear-gradient(18deg, rgba(136,51,14,0.33657212885154064) 5%, rgba(255,255,255,0.6615021008403361) 30%, rgba(140,24,24,0.38699229691876746) 53%, rgba(255,255,255,0.28335084033613445) 76%, rgba(35,74,13,0.3785889355742297) 96%);    
 }
 
 /* GENERAL */
@@ -39,7 +20,7 @@ html {
     min-height: 100%;
 }
 body{
-   
+    background-color: #ffffff;
 }
 .dropdown-item {
     cursor: pointer;
