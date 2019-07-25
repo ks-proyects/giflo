@@ -44,9 +44,9 @@ import { EmployeComponent } from './components/employe/employe.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpDataComponent } from './components/sign-up-data/sign-up-data.component';
 import { HomeComponent } from './components/home/home.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [

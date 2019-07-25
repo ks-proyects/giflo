@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -11,22 +11,20 @@ import { auth } from 'firebase/app';
 export class AuthenticationService {
     constructor(
         public afAuth: AngularFireAuth,
-        private router: Router,
+        private router: Router
     ) { }
 
-    /**
-     * Login function
-     */
-    login() {
-        return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(user => {
+    registerByEmailPass = ( email, pass) => {
+        return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((user) => {
             if (user.user) {
                 this.router.navigate(['/']);
             }
         }).catch((error) => {
-            window.alert(error);
-          });
-    }
-    loginWithEmailPass(email, password){
+          window.alert(error.message);
+        });
+      }
+
+    loginWithEmailPass(email, password) {
         return this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
             if (user.user) {
                 this.router.navigate(['/']);
@@ -36,16 +34,13 @@ export class AuthenticationService {
         });
       }
     loginFacebook() {
-        return this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(user => {
-            if (user.user) {
-                this.router.navigate(['/']);
-            }
-        }).catch((error) => {
-            window.alert(error);
-        });
+        return this.loginProvider(new auth.FacebookAuthProvider());
     }
     loginGoogle() {
-        return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(user => {
+        return this.loginProvider(new auth.GoogleAuthProvider());
+    }
+    loginProvider(provider) {
+        return this.afAuth.auth.signInWithPopup(provider).then(user => {
             if (user.user) {
                 this.router.navigate(['/']);
             }

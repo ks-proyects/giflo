@@ -2,7 +2,7 @@
 <!-- NAVBAR -->
 <app-navbar class="{{user?'top-bar':''}}" *ngIf="user" ></app-navbar>
 <!-- CONTENT -->
-<div class="container-fluid">
+<div class="{{user?'container-fluid page-content':'container-fluid'}}">
     <router-outlet></router-outlet>
 </div>
 

@@ -10,18 +10,8 @@ import { environment } from 'src/environments/environment.prod';
 export class LoginComponent {
 
     public apiKey: string = environment.firebase.apiKey;
-
+    hide = true;
     constructor(
         public authSer: AuthenticationService,
     ) { }
-
-    /**
-     * Login function
-     */
-    login() {
-        this.authSer.login();
-    }
-    loginFacebook() {
-        this.authSer.loginFacebook();
-    }
 }
