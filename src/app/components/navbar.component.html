@@ -3,6 +3,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div *ngIf="offline">Offline</div>
+        <div>{{router.url}}</div>
         <a class="navbar-brand" routerLink="">Giflo</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -38,7 +39,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Bi {{user.displayName}}
+                        Bi {{user?user.displayName:''}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-divider"></div>
@@ -51,7 +52,7 @@
     </nav>
     <mat-sidenav-container class="sidenac-menu">
         <mat-sidenav #snav [mode]="'over'" [fixedInViewport]="true" [fixedTopGap]="64">
-            Welcome {{user.displayName}}
+            Welcome {{user?user.displayName:''}}
             <a class="nav-link" (click)="authenticationService.logout()">Logout </a>
             <mat-nav-list>
                 <a class="nav-link" routerLink="/home">Home </a>

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { SearchPipe } from '../pipes/search.pipe';
+import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [],

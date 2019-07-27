@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { User } from 'firebase';
+import { Router } from '@angular/router';
 
 /**
  * This component manage the NavBar
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
     user: User;
     offline: boolean;
-    constructor(public authenticationService: AuthenticationService) { }
+    constructor(public authenticationService: AuthenticationService,public router: Router) { }
 
     ngOnInit() {
         window.addEventListener('online',  this.onNetworkStatusChange.bind(this));

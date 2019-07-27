@@ -1,8 +1,4 @@
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Rol List</h1>
-</div>
-
+<section class="grid-content allHeight">
 <!-- SEARCH FORM -->
 <div class="card">
 
@@ -24,10 +20,10 @@
 </div>
 
 <!-- TABLE -->
+<div class="table-responsive-sm">
 <table class="table mt-40">
     <thead>
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">nombre</th>
             <th>Remove</th>
         </tr>
@@ -36,9 +32,8 @@
         <tr *ngFor="let item of list | async | search: { 'nombre': search.nombre }">
             <!-- ATTRIBUTES -->
             <td>
-                <a [routerLink]="['/rols', item.id]">{{item.id}}</a>
+                <a [routerLink]="['/rols', item.id]">{{item.nombre}}</a>
             </td>
-            <td>{{item.nombre }}</td>
 
             <!-- DELETE BUTTON -->
             <td>
@@ -54,7 +49,7 @@
         No items found
     </div>
 </table>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -85,3 +80,4 @@
 </button>
 
 <div class="clearfix"></div>
+</section>

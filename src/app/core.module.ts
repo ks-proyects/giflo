@@ -21,10 +21,6 @@ import { VariedadService } from './services/variedad.service';
 
 import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
-import { AuthService } from './shared/services/auth.service';
-import { CompanyService } from './shared/datasource/company.service';
-import { EmployeService } from './shared/datasource/employe.service';
-import { UserDBService } from './shared/datasource/user.db.service';
 
 @NgModule({
   imports: [],
@@ -48,11 +44,7 @@ import { UserDBService } from './shared/datasource/user.db.service';
  /* END PROVIDERS */
     // SECURITY
     AuthGuard,
-    AuthenticationService,
-    AuthService,
-    CompanyService,
-    EmployeService,
-    UserDBService
+    AuthenticationService
   ],
   exports: []
 })
