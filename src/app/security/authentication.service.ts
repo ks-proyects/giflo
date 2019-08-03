@@ -48,7 +48,7 @@ export class AuthenticationService {
           }
       }
     loginWithEmailPass(email, password) {
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
+        this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
             if (user.user) {
                 this.router.navigate(['/']);
             }
@@ -57,17 +57,15 @@ export class AuthenticationService {
         });
       }
     loginFacebook() {
-        return this.loginProvider(new auth.FacebookAuthProvider());
+        this.loginProvider(new auth.FacebookAuthProvider());
     }
     loginGoogle() {
-        return this.loginProvider(new auth.GoogleAuthProvider());
+        this.loginProvider(new auth.GoogleAuthProvider());
     }
     loginProvider(provider) {
-        return this.afAuth.auth.signInWithPopup(provider).then(user => {
-            window.alert('ingresaste...');
+        this.afAuth.auth.signInWithPopup(provider).then(user => {
             if (user.user) {
-                window.alert('ingresaste...2');
-                //this.router.navigate(['/']);
+                this.router.navigate(['/']);
             }
         }).catch((error) => {
             window.alert(error);

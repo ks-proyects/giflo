@@ -1,7 +1,5 @@
 <!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Empleado Edit</h1>
-</div>
+<section class="grid-content allHeight">
 <div class="card mb-40">
     <div class="card-header">
         <i class="fa fa-edit"></i> Edit
@@ -34,8 +32,6 @@
                         <label for="urlFoto">UrlFoto</label>
                         <input type="text" class="form-control" id="urlFoto" [(ngModel)]="item.urlFoto" name="urlFoto" #urlFoto="ngModel" >
                     </div>
-                    <!-- RELATIONS -->
-                    <h2 class="mb-20">Relations</h2>
 
                     <label for="Contacto">Contacto</label>
                     <select name="contacto" id="contacto" [(ngModel)]="item.contacto" class="form-control" #contacto="ngModel"  >
@@ -47,28 +43,24 @@
                     </select>
                     <label for="Empresa">Empresa</label>
                     <select name="empresa" id="empresa" [(ngModel)]="item.empresa" class="form-control" #empresa="ngModel"  >
-                        <option *ngFor="let item of listEmpresa" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listEmpresa" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <label for="Estado">Estado</label>
                     <select name="estado" id="estado" [(ngModel)]="item.estado" class="form-control" #estado="ngModel"  >
-                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <label for="EstadoCivil">EstadoCivil</label>
                     <select name="estadoCivil" id="estadoCivil" [(ngModel)]="item.estadoCivil" class="form-control" #estadoCivil="ngModel"  >
-                        <option *ngFor="let item of listEstadoCivil" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listEstadoCivil" [value]="item.id">{{item.nombre}}</option>
                     </select>
                     <label for="Rol">Rol</label>
                     <select name="rol" id="rol" [(ngModel)]="item.rol" class="form-control" #rol="ngModel"  >
-                        <option *ngFor="let item of listRol" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</option>
                     </select>
-                    <label for="Empresa">Empresa</label>
+                    <label for="Empresa">Usuario</label>
                     <select name="user" id="user" [(ngModel)]="item.user" class="form-control" #user="ngModel"  >
-                        <option *ngFor="let item of listUser" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listUser" [value]="item.id">{{item.nombre}}</option>
                     </select>
-
-                    
-        
-
                     <!-- BUTTON BAR -->
                     <div class="mt-40">
                         <button class="btn btn-primary pull-right" (click)="save(editForm.valid)">Save</button>
@@ -79,3 +71,4 @@
         </form>
     </div>
 </div>
+</section>

@@ -30,8 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './pages/login/login.component';
-import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { MatSidenavModule, MatListModule } from '@angular/material';
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [
@@ -41,12 +40,10 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     AppRoutingModule, // ROUTES
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     SharedModule,
     CoreModule,
     CoreFirebaseModule,
-    CoreMaterialModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FlexLayoutModule,
     LayoutModule,
@@ -56,15 +53,14 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     InfiniteScrollModule,
     CommonModule,
     FormsModule,
-    CoreMaterialModule
+    MatSidenavModule,
+    MatListModule
   ],
   declarations: [
     // LAYOUT
     AppComponent,
     NavbarComponent,
-    MailValidator,
-    SignUpComponent,
-    LoginComponent
+    MailValidator
   ],
   providers: [],
 })

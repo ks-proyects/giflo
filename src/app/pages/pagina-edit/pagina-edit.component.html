@@ -1,7 +1,4 @@
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Pagina Edit</h1>
-</div>
+<section class="grid-content allHeight">
 <div class="card mb-40">
     <div class="card-header">
         <i class="fa fa-edit"></i> Edit
@@ -22,16 +19,11 @@
                         <label for="path">Path</label>
                         <input type="text" class="form-control" id="path" [(ngModel)]="item.path" name="path" #path="ngModel" >
                     </div>
-                    <!-- RELATIONS -->
-                    <h2 class="mb-20">Relations</h2>
 
                     <label for="Estado">Estado</label>
                     <select name="estado" id="estado" [(ngModel)]="item.estado" class="form-control" #estado="ngModel"  >
-                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}</option>
                     </select>
-
-                    
-        
 
                     <!-- BUTTON BAR -->
                     <div class="mt-40">
@@ -43,3 +35,4 @@
         </form>
     </div>
 </div>
+</section>

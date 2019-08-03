@@ -1,7 +1,4 @@
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Empleado List</h1>
-</div>
+<section class="grid-content allHeight">
 
 <!-- SEARCH FORM -->
 <div class="card">
@@ -44,12 +41,12 @@
 </div>
 
 <!-- TABLE -->
+<div class="table-responsive-sm">
 <table class="table mt-40">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">apellidos</th>
             <th scope="col">cedula</th>
+            <th scope="col">apellidos</th>
             <th scope="col">fechaNacimiento</th>
             <th scope="col">nombres</th>
             <th scope="col">tipoIdentificacion</th>
@@ -61,10 +58,9 @@
         <tr *ngFor="let item of list | async | search: { 'apellidos': search.apellidos, 'cedula': search.cedula, 'fechaNacimiento': search.fechaNacimiento, 'nombres': search.nombres, 'tipoIdentificacion': search.tipoIdentificacion, 'urlFoto': search.urlFoto }">
             <!-- ATTRIBUTES -->
             <td>
-                <a [routerLink]="['/empleados', item.id]">{{item.id}}</a>
+                <a [routerLink]="['/empleados', item.id]">{{item.cedula}}</a>
             </td>
             <td>{{item.apellidos }}</td>
-            <td>{{item.cedula }}</td>
             <td>{{item.fechaNacimiento | date }}</td>
             <td>{{item.nombres }}</td>
             <td>{{item.tipoIdentificacion }}</td>
@@ -84,7 +80,7 @@
         No items found
     </div>
 </table>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -115,3 +111,4 @@
 </button>
 
 <div class="clearfix"></div>
+</section>

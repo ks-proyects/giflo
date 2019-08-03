@@ -1,12 +1,8 @@
 // DEPENDENCIES
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
-import { LoginComponent } from './pages/login/login.component';
-import { SignUpComponent } from './pages/sign-up/sign-up.component';
-
 /**
  * WEB APP ROUTES
  */
@@ -43,14 +39,10 @@ const routes: Routes = [
     { path: 'rols', loadChildren: './pages/rol-list/rol-list.module#RolListModule', canActivate: [AuthGuard] },
     { path: 'variedads/:id', loadChildren: './pages/variedad-edit/variedad-edit.module#VariedadEditModule', canActivate: [AuthGuard] },
     { path: 'variedads', loadChildren: './pages/variedad-list/variedad-list.module#VariedadListModule', canActivate: [AuthGuard] },
-    { path: 'sign-up', component: SignUpComponent },
-    
+    { path: 'sign-up', loadChildren: './pages/sign-up/sign-up.module#SignUpModule' },
  /* END MY VIEWS */
     // SECURITY
-    {
-        path: 'login',
-        component: LoginComponent
-      }
+    { path: 'login', loadChildren: './pages/login/login.module#LoginModule' }
 ];
 
 /**

@@ -1,7 +1,4 @@
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>MenuItem Edit</h1>
-</div>
+<section class="grid-content allHeight">
 <div class="card mb-40">
     <div class="card-header">
         <i class="fa fa-edit"></i> Edit
@@ -14,20 +11,15 @@
                         <label for="estado">Estado</label>
                     </div>
                     <!-- RELATIONS -->
-                    <h2 class="mb-20">Relations</h2>
 
                     <label for="Pagina">Pagina</label>
                     <select name="pagina" id="pagina" [(ngModel)]="item.pagina" class="form-control" #pagina="ngModel"  >
-                        <option *ngFor="let item of listPagina" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listPagina" [value]="item.id">{{item.path}}</option>
                     </select>
                     <label for="Rol">Rol</label>
                     <select name="rol" id="rol" [(ngModel)]="item.rol" class="form-control" #rol="ngModel"  >
-                        <option *ngFor="let item of listRol" [value]="item.id">{{item.id}}</option>
+                        <option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</option>
                     </select>
-
-                    
-        
-
                     <!-- BUTTON BAR -->
                     <div class="mt-40">
                         <button class="btn btn-primary pull-right" (click)="save(editForm.valid)">Save</button>
@@ -38,3 +30,4 @@
         </form>
     </div>
 </div>
+</section>

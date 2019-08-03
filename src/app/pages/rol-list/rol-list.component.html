@@ -1,9 +1,8 @@
 <section class="grid-content allHeight">
 <!-- SEARCH FORM -->
 <div class="card">
-
     <div class="card-header">
-        <i class="fa fa-search"></i> Search
+        <i class="fa fa-search"></i> Buscar
     </div>
     <div class="card-body">
         <form #searchForm="ngForm">
@@ -24,8 +23,8 @@
 <table class="table mt-40">
     <thead>
         <tr>
-            <th scope="col">nombre</th>
-            <th>Remove</th>
+            <th scope="col">Nombre</th>
+            <th>Eliminar</th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +45,7 @@
         </tr>
     </tbody>
     <div class="no-result" *ngIf="(list | async |  search: {   'nombre': search.nombre  }).length == 0">
-        No items found
+        No existe Registros
     </div>
 </table>
 </div>
@@ -62,11 +61,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Do you want remove item?
+                Deseas eliminar este registro?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">SI</button>
             </div>
         </div>
     </div>
