@@ -91,6 +91,10 @@ export class UserBaseService {
     create(item: User): Promise<DocumentReference> {
         return this.userCollection.add(item);
     }
+    createCustom(item: User): Promise<void> {
+        return this.userCollection.doc(item.id).set(item);
+    }
+    
 
     /**
     * UserService.delete

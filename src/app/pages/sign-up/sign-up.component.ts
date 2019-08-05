@@ -26,9 +26,10 @@ export class SignUpComponent  implements OnInit {
   }
 
   registerByEmailPass() {
-    debugger;
     if (this.form.valid) {
       this.authSer.registerByEmailPass(this.form.value.email, this.form.value.password);
+    }else{
+      window.alert(this.form.errors);
     }
   }
 }

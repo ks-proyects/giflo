@@ -6,15 +6,19 @@ import { auth } from 'firebase/app';
 import { UserService } from '../services/user.service';
 import { UserBase } from '../domain/giflo_db/base/user.base';
 import { User } from '../domain/giflo_db/user';
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 /**
  * This service manage the Authentication
  */
 @Injectable()
 export class AuthenticationService {
-    user: UserBase;
+    userDoc:AngularFirestoreDocument<any>;
+    user: any = {};
     constructor(
         public afAuth: AngularFireAuth,
+        public afm: AngularFireMessaging,
         private router: Router,
         private userService: UserService,
     ) { }
@@ -29,24 +33,42 @@ export class AuthenticationService {
           window.alert(error.message);
         });
       }
-      public createUpdateUser(user){
-          debugger;
-          const userRet: any = this.userService.get(user.uid);
-          if (!userRet) {
-            const userNew: User = {
-                id: user.user.uid,
-                mail: user.user.email,
-                name: user.user.displayName,
-                username: user.user.email,
-                password : '',
-                roles: [''],
-                surname: '',
-                token: user.getIdToken()
-
-            };
-            this.userService.create(userNew);
-          }
-      }
+      public createUpdateUser(userL){
+        this.afm.requestToken.subscribe(
+            (tokenGen) => {
+                this.userDoc=this.userService.get(userL.uid);
+                this.userDoc.snapshotChanges().subscribe(item =>
+                    { 
+                        let userNew: User;
+                        this.user = item.payload;
+                        if (!this.user.exists) {
+                            userNew = {
+                                id: userL.uid,
+                                mail: userL.email,
+                                name: userL.displayName?userL.displayName:userL.email.split('@')[0],
+                                username: userL.email.split('@')[0],
+                                password : '',
+                                roles: ['DEFAULT'],
+                                surname: '',
+                                token: tokenGen
+                
+                            };
+                            this.userService.createCustom(userNew);
+                          }else{
+                            this.userDoc.set({token: tokenGen}, {
+                                merge: true
+                              });
+                          }
+                          this.router.navigate(['/']);
+                    });
+                
+            },
+            (error) => {
+              window.alert(error.message);
+            },
+          );
+          
+       }
     loginWithEmailPass(email, password) {
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
             if (user.user) {
@@ -65,7 +87,7 @@ export class AuthenticationService {
     loginProvider(provider) {
         this.afAuth.auth.signInWithPopup(provider).then(user => {
             if (user.user) {
-                this.router.navigate(['/']);
+                this.createUpdateUser(user.user);
             }
         }).catch((error) => {
             window.alert(error);
