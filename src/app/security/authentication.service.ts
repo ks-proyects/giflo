@@ -9,75 +9,82 @@ import { User } from '../domain/giflo_db/user';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 
+
 /**
  * This service manage the Authentication
  */
 @Injectable()
 export class AuthenticationService {
-    userDoc:AngularFirestoreDocument<any>;
+    userDoc: AngularFirestoreDocument < any > ;
     user: any = {};
     constructor(
         public afAuth: AngularFireAuth,
         public afm: AngularFireMessaging,
         private router: Router,
         private userService: UserService,
-    ) { }
+    ) {}
 
-    registerByEmailPass = ( email, pass) => {
+    registerByEmailPass = (email, pass) => {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((user) => {
             if (user.user) {
                 this.createUpdateUser(user.user);
                 this.router.navigate(['/']);
             }
         }).catch((error) => {
-          window.alert(error.message);
+            window.alert(error.message);
         });
-      }
-      public createUpdateUser(userL){
+    }
+    public createUpdateUser(userL) {
         this.afm.requestToken.subscribe(
             (tokenGen) => {
-                this.userDoc=this.userService.get(userL.uid);
-                this.userDoc.snapshotChanges().subscribe(item =>
-                    { 
-                        let userNew: User;
-                        this.user = item.payload;
-                        if (!this.user.exists) {
-                            userNew = {
-                                id: userL.uid,
-                                mail: userL.email,
-                                name: userL.displayName?userL.displayName:userL.email.split('@')[0],
-                                username: userL.email.split('@')[0],
-                                password : '',
-                                roles: ['DEFAULT'],
-                                surname: '',
-                                token: tokenGen
-                
-                            };
-                            this.userService.createCustom(userNew);
-                          }else{
-                            this.userDoc.set({token: tokenGen}, {
-                                merge: true
-                              });
-                          }
-                          this.router.navigate(['/']);
-                    });
-                
+                this.userDoc = this.userService.get(userL.uid);
+                this.userDoc.snapshotChanges().subscribe(item => {
+                    debugger;
+                    let userNew: User;
+                    this.user = item.payload;
+                    if (!this.user.exists) {
+                        userNew = {
+                            id: userL.uid,
+                            mail: userL.email,
+                            name: userL.displayName ? userL.displayName : userL.email.split('@')[0],
+                            username: userL.email.split('@')[0],
+                            password: '',
+                            roles: ['DEFAULT'],
+                            surname: '',
+                            token: [tokenGen]
+                        };
+                        this.userService.createCustom(userNew);
+                    } else {
+                        let rols = item.payload.data().token;
+                        rols.push(tokenGen);
+                        rols = rols.filter(this.onlyUnique);
+                        this.userDoc.set({
+                            token: rols
+                        }, {
+                            merge: true
+                        });
+                    }
+                    this.router.navigate(['/']);
+                });
             },
             (error) => {
-              window.alert(error.message);
+                window.alert(error.message);
             },
-          );
-          
-       }
+        );
+
+    }
+    onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
     loginWithEmailPass(email, password) {
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
             if (user.user) {
                 this.router.navigate(['/']);
             }
         }).catch((error) => {
-          window.alert(error.message);
+            window.alert(error.message);
         });
-      }
+    }
     loginFacebook() {
         this.loginProvider(new auth.FacebookAuthProvider());
     }
@@ -105,8 +112,7 @@ export class AuthenticationService {
     /**
      * Get the logged user
      */
-    public getUser(): Observable<firebase.User> {
+    public getUser(): Observable < firebase.User > {
         return this.afAuth.user;
     }
-
 }
