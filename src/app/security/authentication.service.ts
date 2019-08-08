@@ -39,7 +39,6 @@ export class AuthenticationService {
             (tokenGen) => {
                 this.userDoc = this.userService.get(userL.uid);
                 this.userDoc.snapshotChanges().subscribe(item => {
-                    debugger;
                     let userNew: User;
                     this.user = item.payload;
                     if (!this.user.exists) {
