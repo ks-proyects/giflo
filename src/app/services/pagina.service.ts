@@ -3,7 +3,8 @@ import { PaginaBaseService } from './base/pagina.base.service';
 import { AngularFirestore, DocumentReference, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Pagina } from '../domain/giflo_db/pagina';
-
+import { Injectable } from '@angular/core';
+@Injectable()
 export class PaginaService extends PaginaBaseService {
 
     private paginaCollection2: AngularFirestoreCollection<Pagina>;
@@ -15,7 +16,7 @@ export class PaginaService extends PaginaBaseService {
         this.paginaCollection2 = afs2.collection<Pagina>('pagina');
     }
     init() {
-        this.paginaCollection2.valueChanges().subscribe((rols: Pagina[]) => {
+        this.list().subscribe((rols: Pagina[]) => {
             if (rols.length === 0) {
                 let item: Pagina = {id : 'home', component: 'Home', path: '/home', estado: 'ACT'};
                 this.create2(item);

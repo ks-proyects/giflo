@@ -16,16 +16,8 @@ import { Estado } from '../domain/giflo_db/estado';
  * YOU CAN OVERRIDE HERE EstadoBaseService
  */
 export class EstadoService extends EstadoBaseService {
-
-    constructor(
-        private afs2: AngularFirestore,
-        private fns2: AngularFireFunctions
-    ) {
-        super(afs2, fns2);
-    }
-
     init() {
-        this.afs2.collection<Estado>('estado').valueChanges().subscribe((estados: Estado[]) => {
+        this.list().subscribe((estados: Estado[]) => {
             if (estados.length === 0) {
                 let item: Estado = {id : 'ACT', nombre: 'ACTIVO'};
                 this.create(item);

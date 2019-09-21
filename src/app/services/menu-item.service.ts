@@ -20,26 +20,52 @@ import { Pagina } from '../domain/giflo_db/pagina';
  * YOU CAN OVERRIDE HERE MenuItemBaseService
  */
 export class MenuItemService extends MenuItemBaseService {
-
-    private menuitemCollection2: AngularFirestoreCollection<MenuItem>;
-    constructor(
-        private afs2: AngularFirestore,
-        private fns2: AngularFireFunctions,
-        private rolService: RolService,
-        private paginaService: PaginaService,
-    ) {
-        super(afs2, fns2);
-        this.menuitemCollection2 = afs2.collection<MenuItem>('menuitem');
-    }
-    init() {
-        this.menuitemCollection2.valueChanges().subscribe((menuItem: MenuItem[]) => {
+    init(rolService: RolService, paginaService: PaginaService) {
+        this.list().subscribe((menuItem: MenuItem[]) => {
             if (menuItem.length === 0) {
-                this.rolService.list().subscribe((rols: Rol[]) => {
-                    this.paginaService.list().subscribe((paginas: Pagina[]) => {
+                rolService.list().subscribe((rols: Rol[]) => {
+                    paginaService.list().subscribe((paginas: Pagina[]) => {
                         rols.forEach(rol => {
-                            if (rol.id === 'DEFAULT' ) {
+                            if (rol.id === 'DEF' ) {
                                 paginas.forEach(pagina => {
-                                    if (pagina.id === 'HOME') {
+                                    if (pagina.id === 'home') {
+                                        const newMenuItem: MenuItem = {id: '', pagina: pagina.id, rol: rol.id, estado: true};
+                                        this.create(newMenuItem);
+                                    }
+                                });
+                            }
+                            if (rol.id === 'ADM' ) {
+                                paginas.forEach(pagina => {
+                                    if (pagina.id === 'home'
+                                    || pagina.id === 'empresas'
+                                    || pagina.id === 'estadocivils'
+                                    || pagina.id === 'estados'
+                                    || pagina.id === 'paginas'
+                                    || pagina.id === 'rols'
+                                    ) {
+                                        const newMenuItem: MenuItem = {id: '', pagina: pagina.id, rol: rol.id, estado: true};
+                                        this.create(newMenuItem);
+                                    }
+                                });
+                            }
+                            if (rol.id === 'GERENTE' ) {
+                                paginas.forEach(pagina => {
+                                    if (pagina.id === 'home'
+                                    || pagina.id === 'empleados'
+                                    || pagina.id === 'variedads'
+                                    || pagina.id === 'bloques'
+                                    ) {
+                                        const newMenuItem: MenuItem = {id: '', pagina: pagina.id, rol: rol.id, estado: true};
+                                        this.create(newMenuItem);
+                                    }
+                                });
+                            }
+                            if (rol.id === 'SUPCU' ) {
+                                paginas.forEach(pagina => {
+                                    if (pagina.id === 'home'
+                                    || pagina.id === 'camas'
+                                    || pagina.id === 'naves'
+                                    ) {
                                         const newMenuItem: MenuItem = {id: '', pagina: pagina.id, rol: rol.id, estado: true};
                                         this.create(newMenuItem);
                                     }
@@ -50,5 +76,8 @@ export class MenuItemService extends MenuItemBaseService {
                 });
             }
         });
+    }
+    createMenu(roles: string[]) {
+        console.log(roles);
     }
 }

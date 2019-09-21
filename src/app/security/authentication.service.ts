@@ -38,7 +38,7 @@ export class AuthenticationService {
         rolService.init();
         estadoService.init();
         paginaService.init();
-        menuItemService.init();
+        menuItemService.init(rolService, paginaService);
     }
 
     registerByEmailPass = (email, pass) => {
@@ -61,7 +61,7 @@ export class AuthenticationService {
                     this.user = item.payload;
                     if (!this.user.exists) {
                         debugger;
-                        this.rolDefaultDoc = this.rolService.get('DEFAULT');
+                        this.rolDefaultDoc = this.rolService.get('DEF');
                         this.rolDefaultDoc.valueChanges().subscribe(itemRol => {
                             this.rolDefault = itemRol;
                             userNew = {
@@ -70,11 +70,13 @@ export class AuthenticationService {
                                 name: userL.displayName ? userL.displayName : userL.email.split('@')[0],
                                 username: userL.email.split('@')[0],
                                 password: '',
-                                roles: this.rolDefault,
+                                roles: [this.rolDefault.id],
                                 surname: '',
                                 token: [tokenGen]
                             };
-                            this.userService.createCustom(userNew);
+                            this.userService.createCustom(userNew).then(() => {
+                                this.menuItemService.createMenu(userNew.roles);
+                            });
                         });
                     } else {
                         let tokens = this.user.data().token;
@@ -84,6 +86,8 @@ export class AuthenticationService {
                             token: tokens
                         }, {
                             merge: true
+                        }).then(() => {
+                            this.menuItemService.createMenu(this.user.data().roles);
                         });
                     }
                     this.router.navigate(['/']);

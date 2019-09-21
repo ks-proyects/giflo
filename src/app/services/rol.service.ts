@@ -16,14 +16,8 @@ import { Rol } from '../domain/giflo_db/rol';
  * YOU CAN OVERRIDE HERE RolBaseService
  */
 export class RolService extends RolBaseService {
-    constructor(
-        private afs2: AngularFirestore,
-        private fns2: AngularFireFunctions
-    ) {
-        super(afs2, fns2);
-    }
     init() {
-        this.afs2.collection<Rol>('rol').valueChanges().subscribe((rols: Rol[]) => {
+        this.list().subscribe((rols: Rol[]) => {
             if (rols.length === 0) {
                 let item: Rol = {id : 'DEF', nombre: 'DEFAULT', activo: 'ACT'};
                 this.create(item);
@@ -42,6 +36,8 @@ export class RolService extends RolBaseService {
                 item = {id : 'SUPPOST', nombre: 'SUPERVISOR DE POSTCOSECHA', activo: 'ACT'};
                 this.create(item);
                 item = {id : 'VEND', nombre: 'VENDEDOR', activo: 'ACT'};
+                this.create(item);
+                item = {id : 'ADM', nombre: 'ADMINISTRADOR', activo: 'ACT'};
                 this.create(item);
             }
         });
