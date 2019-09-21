@@ -91,8 +91,8 @@ export class EstadoBaseService {
     *   @description CRUD ACTION create
     *
     */
-    create(item: Estado): Promise<DocumentReference> {
-        return this.estadoCollection.add(item);
+    create(item: Estado): Promise<void> {
+        return this.estadoCollection.doc(item.id).set(item);
     }
 
     /**

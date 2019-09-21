@@ -24,7 +24,7 @@
     <thead>
         <tr>
             <th scope="col">Nombre</th>
-            <th>Eliminar</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
@@ -33,15 +33,10 @@
             <td>
                 <a [routerLink]="['/rols', item.id]">{{item.nombre}}</a>
             </td>
-
-            <!-- DELETE BUTTON -->
             <td>
-                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item.id)">
-                    <span>
-                        <i class="fa fa-trash"></i>
-                    </span>
-                </button>
+                {{item.activo}}
             </td>
+           
         </tr>
     </tbody>
     <div class="no-result" *ngIf="(list | async |  search: {   'nombre': search.nombre  }).length == 0">
@@ -49,34 +44,6 @@
     </div>
 </table>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Deseas eliminar este registro?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">SI</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- BUTTON -->
-<button class="btn btn-primary text-center pull-right mb-20" routerLink="/rols/new">
-    <span>
-        <i class="fa fa-plus"></i>
-    </span>
-</button>
 
 <div class="clearfix"></div>
 </section>

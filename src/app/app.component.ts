@@ -4,6 +4,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 import { AuthenticationService } from './security/authentication.service';
+import { MenuItem } from './domain/giflo_db/menu-item';
+import { Pagina } from './domain/giflo_db/pagina';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,7 @@ import { AuthenticationService } from './security/authentication.service';
 export class AppComponent  implements OnInit {
   user: User;
   offline: boolean;
+  listaMenu: Pagina[];
   constructor(
       public router: Router,
       private swUpdate: SwUpdate,

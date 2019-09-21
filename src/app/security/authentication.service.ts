@@ -8,6 +8,12 @@ import { UserBase } from '../domain/giflo_db/base/user.base';
 import { User } from '../domain/giflo_db/user';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { Rol } from '../domain/giflo_db/rol';
+import { RolService } from '../services/rol.service';
+import { EstadoService } from '../services/estado.service';
+import { MenuItemService } from '../services/menu-item.service';
+import { PaginaService } from '../services/pagina.service';
+
 
 
 /**
@@ -17,12 +23,23 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 export class AuthenticationService {
     userDoc: AngularFirestoreDocument < any > ;
     user: any = {};
+    rolDefault: any = {};
+    rolDefaultDoc: AngularFirestoreDocument<Rol>;
     constructor(
         public afAuth: AngularFireAuth,
         public afm: AngularFireMessaging,
         private router: Router,
         private userService: UserService,
-    ) {}
+        private rolService: RolService,
+        private estadoService: EstadoService,
+        private paginaService: PaginaService,
+        private menuItemService: MenuItemService
+    ) {
+        rolService.init();
+        estadoService.init();
+        paginaService.init();
+        menuItemService.init();
+    }
 
     registerByEmailPass = (email, pass) => {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((user) => {
@@ -39,26 +56,32 @@ export class AuthenticationService {
             (tokenGen) => {
                 this.userDoc = this.userService.get(userL.uid);
                 this.userDoc.snapshotChanges().subscribe(item => {
+                    debugger;
                     let userNew: User;
                     this.user = item.payload;
                     if (!this.user.exists) {
-                        userNew = {
-                            id: userL.uid,
-                            mail: userL.email,
-                            name: userL.displayName ? userL.displayName : userL.email.split('@')[0],
-                            username: userL.email.split('@')[0],
-                            password: '',
-                            roles: ['DEFAULT'],
-                            surname: '',
-                            token: [tokenGen]
-                        };
-                        this.userService.createCustom(userNew);
+                        debugger;
+                        this.rolDefaultDoc = this.rolService.get('DEFAULT');
+                        this.rolDefaultDoc.valueChanges().subscribe(itemRol => {
+                            this.rolDefault = itemRol;
+                            userNew = {
+                                id: userL.uid,
+                                mail: userL.email,
+                                name: userL.displayName ? userL.displayName : userL.email.split('@')[0],
+                                username: userL.email.split('@')[0],
+                                password: '',
+                                roles: this.rolDefault,
+                                surname: '',
+                                token: [tokenGen]
+                            };
+                            this.userService.createCustom(userNew);
+                        });
                     } else {
-                        let rols = item.payload.data().token;
-                        rols.push(tokenGen);
-                        rols = rols.filter(this.onlyUnique);
+                        let tokens = this.user.data().token;
+                        tokens.push(tokenGen);
+                        tokens = tokens.filter(this.onlyUnique);
                         this.userDoc.set({
-                            token: rols
+                            token: tokens
                         }, {
                             merge: true
                         });

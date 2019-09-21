@@ -58,7 +58,7 @@ import { Rol } from '../../domain/giflo_db/rol';
  */
 @Injectable()
 export class RolBaseService {
-
+    
     private rolCollection: AngularFirestoreCollection<Rol>;
     constructor(
         private afs: AngularFirestore,
@@ -67,16 +67,14 @@ export class RolBaseService {
         this.rolCollection = afs.collection<Rol>('rol');
     }
 
-
     // CRUD METHODS
-
     /**
     * RolService.create
     *   @description CRUD ACTION create
     *
     */
-    create(item: Rol): Promise<DocumentReference> {
-        return this.rolCollection.add(item);
+    create(item: Rol): Promise<void> {
+        return this.rolCollection.doc(item.id).set(item);
     }
 
     /**
