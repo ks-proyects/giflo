@@ -1,0 +1,49 @@
+<section class="grid-content allHeight">
+<!-- SEARCH FORM -->
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-search"></i> Buscar
+    </div>
+    <div class="card-body">
+        <form #searchForm="ngForm">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" [(ngModel)]="search.nombre" name="nombre" #nombre="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-responsive-sm">
+<table class="table mt-40">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | async | search: { 'nombre': search.nombre }">
+            <!-- ATTRIBUTES -->
+            <td>
+                <a [routerLink]="['/rols', item.id]">{{item.nombre}}</a>
+            </td>
+            <td>
+                {{item.activo}}
+            </td>
+           
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | async |  search: {   'nombre': search.nombre  }).length == 0">
+        No existe Registros
+    </div>
+</table>
+</div>
+
+<div class="clearfix"></div>
+</section>

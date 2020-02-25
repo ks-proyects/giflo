@@ -1,0 +1,114 @@
+<section class="grid-content allHeight">
+
+<!-- SEARCH FORM -->
+<div class="card">
+
+    <div class="card-header">
+        <i class="fa fa-search"></i> Search
+    </div>
+    <div class="card-body">
+        <form #searchForm="ngForm">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" [(ngModel)]="search.apellidos" name="apellidos" #apellidos="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="cedula">Cedula</label>
+                        <input type="text" class="form-control" id="cedula" [(ngModel)]="search.cedula" name="cedula" #cedula="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNacimiento">FechaNacimiento</label>
+                        <input type="date" class="form-control" id="fechaNacimiento" [(ngModel)]="search.fechaNacimiento" name="fechaNacimiento" #fechaNacimiento="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" class="form-control" id="nombres" [(ngModel)]="search.nombres" name="nombres" #nombres="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoIdentificacion">TipoIdentificacion</label>
+                        <input type="text" class="form-control" id="tipoIdentificacion" [(ngModel)]="search.tipoIdentificacion" name="tipoIdentificacion" #tipoIdentificacion="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlFoto">UrlFoto</label>
+                        <input type="text" class="form-control" id="urlFoto" [(ngModel)]="search.urlFoto" name="urlFoto" #urlFoto="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-responsive-sm">
+<table class="table mt-40">
+    <thead>
+        <tr>
+            <th scope="col">cedula</th>
+            <th scope="col">apellidos</th>
+            <th scope="col">fechaNacimiento</th>
+            <th scope="col">nombres</th>
+            <th scope="col">tipoIdentificacion</th>
+            <th scope="col">urlFoto</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | async | search: { 'apellidos': search.apellidos, 'cedula': search.cedula, 'fechaNacimiento': search.fechaNacimiento, 'nombres': search.nombres, 'tipoIdentificacion': search.tipoIdentificacion, 'urlFoto': search.urlFoto }">
+            <!-- ATTRIBUTES -->
+            <td>
+                <a [routerLink]="['/empleados', item.id]">{{item.cedula}}</a>
+            </td>
+            <td>{{item.apellidos }}</td>
+            <td>{{item.fechaNacimiento | date }}</td>
+            <td>{{item.nombres }}</td>
+            <td>{{item.tipoIdentificacion }}</td>
+            <td>{{item.urlFoto }}</td>
+
+            <!-- DELETE BUTTON -->
+            <td>
+                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item.id)">
+                    <span>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | async |  search: {   'apellidos': search.apellidos ,  'cedula': search.cedula ,  'fechaNacimiento': search.fechaNacimiento ,  'nombres': search.nombres ,  'tipoIdentificacion': search.tipoIdentificacion ,  'urlFoto': search.urlFoto  }).length == 0">
+        No items found
+    </div>
+</table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want remove item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUTTON -->
+<button class="btn btn-primary text-center pull-right mb-20" routerLink="/empleados/new">
+    <span>
+        <i class="fa fa-plus"></i>
+    </span>
+</button>
+
+<div class="clearfix"></div>
+</section>

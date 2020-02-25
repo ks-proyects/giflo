@@ -1,0 +1,97 @@
+<section class="grid-content allHeight">
+
+<!-- SEARCH FORM -->
+<div class="card">
+
+    <div class="card-header">
+        <i class="fa fa-search"></i> Search
+    </div>
+    <div class="card-body">
+        <form #searchForm="ngForm">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="component">Component</label>
+                        <input type="text" class="form-control" id="component" [(ngModel)]="search.component" name="component" #component="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="loadChildren">LoadChildren</label>
+                        <input type="text" class="form-control" id="loadChildren" [(ngModel)]="search.loadChildren" name="loadChildren" #loadChildren="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="path">Path</label>
+                        <input type="text" class="form-control" id="path" [(ngModel)]="search.path" name="path" #path="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-responsive-sm">
+<table class="table mt-40">
+    <thead>
+        <tr>
+            <th scope="col">component</th>
+            <th scope="col">loadChildren</th>
+            <th scope="col">path</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | async | search: { 'component': search.component, 'loadChildren': search.loadChildren, 'path': search.path }">
+            <!-- ATTRIBUTES -->
+            <td>
+                <a [routerLink]="['/paginas', item.id]">{{item.component}}</a>
+            </td>
+            <td>{{item.loadChildren }}</td>
+            <td>{{item.path }}</td>
+
+            <!-- DELETE BUTTON -->
+            <td>
+                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item.id)">
+                    <span>
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | async |  search: {   'component': search.component ,  'loadChildren': search.loadChildren ,  'path': search.path  }).length == 0">
+        No items found
+    </div>
+</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want remove item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUTTON -->
+<button class="btn btn-primary text-center pull-right mb-20" routerLink="/paginas/new">
+    <span>
+        <i class="fa fa-plus"></i>
+    </span>
+</button>
+
+<div class="clearfix"></div>
+</section>

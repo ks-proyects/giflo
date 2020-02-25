@@ -1,10 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
+import { User } from 'firebase';
+import { AuthenticationService } from './security/authentication.service';
+import { MenuItem } from './domain/giflo_db/menu-item';
+import { Pagina } from './domain/giflo_db/pagina';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
-  title = 'giflo';
+export class AppComponent  implements OnInit {
+  user: User;
+  offline: boolean;
+  listaMenu: Pagina[];
+  constructor(
+      public router: Router,
+      private swUpdate: SwUpdate,
+      private med: MediaMatcher,
+      private cdr: ChangeDetectorRef,
+      public authenticationService: AuthenticationService) {
+      if (this.swUpdate.isEnabled) {
+          this.swUpdate.available.subscribe(async () => {
+              if (confirm('Existe una nueva versión desea actualizar?')) {
+                  window.location.reload();
+              }
+          });
+      }
+  }
+  ngOnInit() {
+    this.authenticationService.getUser().subscribe(user => this.user = user, err => this.user = null);
+  }
 }

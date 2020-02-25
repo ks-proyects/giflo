@@ -23,5 +23,30 @@
         ]
       }
     }
+  ],
+  "dataGroups":[
+    {
+      "name":"Facebook",
+      "urls":[
+        "https://graph.facebook.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"performance",
+        "maxAge":"1d",
+        "maxSize":10
+      }
+    },
+    {
+      "name":"FirebaseAPI",
+      "urls":[
+        "https://ksgiflo.firebaseio.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"freshness",
+        "maxAge":"2h",
+        "maxSize":100,
+        "timeout":"2s"
+      }
+    }
   ]
 }
