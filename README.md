@@ -1,7 +1,8 @@
 # Giflo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
-
+## Instalar angular
+npm install -g @angular/cli
 ## Comando para angregar angular amterial
 ng add @angular/material
 
