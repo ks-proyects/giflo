@@ -5,6 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 npm install -g @angular/cli
 ## Instalar phytob
 https://www.python.org/downloads/release/python-381/
+npm install --global --production windows-build-tools
+npm install node-gyp
 ## Comando para angregar angular amterial
 ng add @angular/material
 
