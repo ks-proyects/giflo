@@ -3,6 +3,8 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 ## Instalar angular
 npm install -g @angular/cli
+## Instalar phytob
+https://www.python.org/downloads/release/python-381/
 ## Comando para angregar angular amterial
 ng add @angular/material
 
