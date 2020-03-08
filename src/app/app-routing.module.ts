@@ -3,10 +3,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
+import { BlankComponent } from './layout/blank/blank.component';
 /**
  * WEB APP ROUTES
  */
 const routes: Routes = [
+    {
+        path: '',
+        component: BlankComponent,
+        children: [
+          
+          { path: '', redirectTo: 'main', pathMatch: 'full' },
+      
+      { path: 'main', loadChildren: './pages/public/main/main.module#MainModule' },
+        ]
+    },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     /* START MY VIEWS */
 
@@ -28,6 +39,7 @@ const routes: Routes = [
     loadChildren: './pages/estado-civil-list/estado-civil-list.module#EstadoCivilListModule', canActivate: [AuthGuard] },
     { path: 'estados/:id', loadChildren: './pages/estado-edit/estado-edit.module#EstadoEditModule', canActivate: [AuthGuard] },
     { path: 'estados', loadChildren: './pages/estado-list/estado-list.module#EstadoListModule', canActivate: [AuthGuard] },
+    
     { path: 'home', loadChildren: './pages/home/home.module#HomeModule', canActivate: [AuthGuard] },
     { path: 'menuitems/:id', loadChildren: './pages/menu-item-edit/menu-item-edit.module#MenuItemEditModule', canActivate: [AuthGuard] },
     { path: 'menuitems', loadChildren: './pages/menu-item-list/menu-item-list.module#MenuItemListModule', canActivate: [AuthGuard] },

@@ -4,7 +4,7 @@ import { MatToolbarModule ,MatIconModule, MatButtonModule,MatSidenavModule, MatL
   MatCheckboxModule} from '@angular/material';
 
 @NgModule({
-  declarations: [BlankComponent],
+  declarations: [],
   imports: [
     
   ],

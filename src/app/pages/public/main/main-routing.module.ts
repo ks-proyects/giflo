@@ -4,15 +4,8 @@ import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
-    path: 'main',
-    component: MainComponent,
-    data: {
-      title: 'Inicio',
-      urls: [
-        { title: 'Dashboard', url: '/dashboard' },
-        { title: 'Dashboard 1' }
-      ]
-    }
+    path: '',
+    component: MainComponent
   },
 ];
 

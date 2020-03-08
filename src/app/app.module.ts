@@ -30,8 +30,52 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
-import { MatSidenavModule, MatListModule } from '@angular/material';
+import { MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+  MatBadgeModule} from '@angular/material';
 import { SpinnerComponent } from './shared/spiner/spinner.component';
+import { BlankComponent } from './layout/blank/blank.component';
+import { AppHeaderComponent } from './layout/full/header/header.component';
+import { AppSidebarComponent } from './layout/full/sidebar/sidebar.component';
+import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 2,
+  wheelPropagation: true
+};
+
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [
@@ -54,16 +98,58 @@ import { SpinnerComponent } from './shared/spiner/spinner.component';
     InfiniteScrollModule,
     CommonModule,
     FormsModule,
-    MatSidenavModule,
-    MatListModule
+    
+    PerfectScrollbarModule,
+    
+
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+  MatBadgeModule
   ],
   declarations: [
     // LAYOUT
     AppComponent,
     NavbarComponent,
     MailValidator,
-    SpinnerComponent
+    SpinnerComponent,
+    BlankComponent,
+    AppHeaderComponent,
+    AppSidebarComponent,
+	  AppBreadcrumbComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
 })
 export class AppModule { }
