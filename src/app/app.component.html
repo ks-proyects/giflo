@@ -3,6 +3,8 @@
 <app-navbar class="{{user?'top-bar':''}}" *ngIf="user" ></app-navbar>
 <!-- CONTENT -->
 <div class="{{user?'container-fluid page-content':'container-fluid'}}">
-    <router-outlet></router-outlet>
+    <router-outlet>
+        <app-spinner></app-spinner>
+    </router-outlet>
 </div>
 

@@ -31,6 +31,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatListModule } from '@angular/material';
+import { SpinnerComponent } from './shared/spiner/spinner.component';
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [
@@ -60,7 +61,8 @@ import { MatSidenavModule, MatListModule } from '@angular/material';
     // LAYOUT
     AppComponent,
     NavbarComponent,
-    MailValidator
+    MailValidator,
+    SpinnerComponent
   ],
   providers: [],
 })
