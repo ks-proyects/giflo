@@ -30,8 +30,6 @@ export class BlankComponent implements OnDestroy {
   sidebarOpened;
   status = false;
 
-  public showSearch = false;
-
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
 

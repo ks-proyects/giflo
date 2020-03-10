@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
 import { BlankComponent } from './layout/blank/blank.component';
+import { FullComponent } from './layout/full/full.component';
 /**
  * WEB APP ROUTES
  */
@@ -13,10 +14,18 @@ const routes: Routes = [
         component: BlankComponent,
         children: [
           
-          { path: '', redirectTo: 'main', pathMatch: 'full' },
-      
-      { path: 'main', loadChildren: './pages/public/main/main.module#MainModule' },
+          { path: '', redirectTo: '', pathMatch: 'full' },
+          { path: '', loadChildren: './pages/public/main/main.module#MainModule' },
         ]
+    },
+    {
+        path: '',
+        component: FullComponent,
+        children: [
+          { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
+          { path: 'home', loadChildren: './pages/home/home.module#HomeModule', canActivate: [AuthGuard] },
+        ],
+        canActivate: [AuthGuard]
     },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     /* START MY VIEWS */

@@ -19,9 +19,10 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         // Return observable
         return new Observable<boolean>((ob: any) => {
-
+            debugger;
             this.afAuth.user.subscribe(user => {
                 // Get logged user
+                debugger;
                 if (user) {
                     ob.next(true);
                 } else {

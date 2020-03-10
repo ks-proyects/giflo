@@ -63,6 +63,7 @@ import { MatAutocompleteModule,
   MatBadgeModule} from '@angular/material';
 import { SpinnerComponent } from './shared/spiner/spinner.component';
 import { BlankComponent } from './layout/blank/blank.component';
+import { FullComponent } from './layout/full/full.component';
 import { AppHeaderComponent } from './layout/full/header/header.component';
 import { AppSidebarComponent } from './layout/full/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.component';
@@ -141,6 +142,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MailValidator,
     SpinnerComponent,
     BlankComponent,
+    FullComponent,
     AppHeaderComponent,
     AppSidebarComponent,
 	  AppBreadcrumbComponent

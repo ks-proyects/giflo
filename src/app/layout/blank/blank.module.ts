@@ -9,12 +9,6 @@ import { MatToolbarModule ,MatIconModule, MatButtonModule,MatSidenavModule, MatL
     
   ],
   exports:[
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCheckboxModule
   ]
 })
 export class BlankModule { }
