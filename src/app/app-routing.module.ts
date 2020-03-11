@@ -3,15 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
-import { BlankComponent } from './layout/blank/blank.component';
+import { LandingComponent } from './layout/landing/landing.component';
 import { FullComponent } from './layout/full/full.component';
+import { AppBlankComponent } from './layout/blank/blank.component';
 /**
  * WEB APP ROUTES
  */
 const routes: Routes = [
     {
         path: '',
-        component: BlankComponent,
+        component: LandingComponent,
         children: [
           
           { path: '', redirectTo: '', pathMatch: 'full' },
@@ -26,6 +27,17 @@ const routes: Routes = [
           { path: 'home', loadChildren: './pages/home/home.module#HomeModule', canActivate: [AuthGuard] },
         ],
         canActivate: [AuthGuard]
+    },
+    {
+      path: '',
+      component: AppBlankComponent,
+      children: [
+        {
+          path: 'authentication',
+          loadChildren:
+            './pages/authentication/authentication.module#AuthenticationModule'
+        }
+      ]
     },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     /* START MY VIEWS */
