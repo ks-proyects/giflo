@@ -14,9 +14,8 @@ const routes: Routes = [
         path: '',
         component: LandingComponent,
         children: [
-          
           { path: '', redirectTo: '', pathMatch: 'full' },
-          { path: '', loadChildren: './pages/public/main/main.module#MainModule' },
+          { path: '', loadChildren: './pages/public/public.module#PublicModule' },
         ]
     },
     {
@@ -24,7 +23,7 @@ const routes: Routes = [
         component: FullComponent,
         children: [
           { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
-          { path: 'home', loadChildren: './pages/home/home.module#HomeModule', canActivate: [AuthGuard] },
+          { path: 'home', loadChildren: './pages/private/bloque-list/bloque-list.module#BloqueListModule', canActivate: [AuthGuard] },
         ],
         canActivate: [AuthGuard]
     },
