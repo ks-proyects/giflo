@@ -1,6 +1,6 @@
 // DEPENDENCIES
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
 import { LandingComponent } from './layout/landing/landing.component';
@@ -14,16 +14,19 @@ const routes: Routes = [
         path: '',
         component: LandingComponent,
         children: [
-          { path: '', redirectTo: '', pathMatch: 'full' },
-          { path: '', loadChildren: './pages/public/public.module#PublicModule' },
+          {
+            path: '',
+            loadChildren: './pages/public/public.module#PublicModule'
+          },
         ]
     },
     {
         path: '',
         component: FullComponent,
         children: [
-          { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
-          { path: 'home', loadChildren: './pages/private/bloque-list/bloque-list.module#BloqueListModule', canActivate: [AuthGuard] },
+          { path: 'private',
+            loadChildren: './pages/private/private.module#PrivateModule'
+          },
         ],
         canActivate: [AuthGuard]
     },

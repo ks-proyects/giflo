@@ -3,184 +3,183 @@
 <!-- ============================================================== -->
 
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-  <div class="container">
-    <div class="mat-toolbar-header">
-    <div class="navbar-header">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <!-- Logo icon -->
-        <b>
+    <div class="container">
+        <div class="mat-toolbar-header">
+            <div class="navbar-header">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <!-- Logo icon -->
+                    <b>
           <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
           <!-- Dark Logo icon -->
           <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
           <!-- Light Logo icon -->
           <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo">
         </b>
-        <!--End Logo icon -->
-        <!-- Logo text -->
-        <span fxShow="false" fxShow.gt-xs>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                    <span fxShow="false" fxShow.gt-xs>
           <!-- dark Logo text -->
           <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
           <!-- Light Logo text -->
           <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
         </span>
-      </a>
-    </div>
-  </div>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                </a>
+            </div>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
        <mat-icon>menu</mat-icon>
     </button>
-    <div #snav id="navbarResponsive" class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">Nosotros</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#features">Nuestros Servicios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Contactanos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" [routerLink]="['/', 'home']" >Ingresar</a>
-        </li>
-      </ul>
+        <div #snav id="navbarResponsive" class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#features">Nuestros Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#contact">Contactanos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" [routerLink]="['/private', 'bloques']">Ingresar</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 <header class="masthead">
-  <div class="container h-100">
-    <div class="row h-100">
-      <div class="col-lg-7 my-auto">
-        <div class="header-content mx-auto">
-          <h1 class="mb-5">Sistema de Gestión Floricola</h1>
-          <a  [routerLink]="['/', 'home']" class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
-        </div>
-      </div>
-      <div class="col-lg-5 my-auto">
-        <div class="device-container">
-          <div class="device-mockup iphone6_plus portrait white">
-            <div class="device">
-              <div class="screen">
-                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                <img src="assets/images/landing-page/rosa.png" class="img-fluid" alt="">
-              </div>
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-lg-7 my-auto">
+                <div class="header-content mx-auto">
+                    <h1 class="mb-5">Sistema de Gestión Floricola</h1>
+                    <a [routerLink]="['/private', 'bloques']" class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
+                </div>
             </div>
-          </div>
+            <div class="col-lg-5 my-auto">
+                <div class="device-container">
+                    <div class="device-mockup iphone6_plus portrait white">
+                        <div class="device">
+                            <div class="screen">
+                                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                <img src="assets/images/landing-page/rosa.png" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 <section class="cta" id="about">
-  <div class="cta-content">
-    <div class="container">
-      <h2>Detente.<br>Y pierdete un momento en nuestro mundo.</h2>
-      <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Escribenos</a>
+    <div class="cta-content">
+        <div class="container">
+            <h2>Detente.<br>Y pierdete un momento en nuestro mundo.</h2>
+            <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Escribenos</a>
+        </div>
     </div>
-  </div>
-  <div class="overlay"></div>
+    <div class="overlay"></div>
 </section>
 <section class="features" id="features">
-  <div class="container">
-    <div class="section-heading text-center">
-      <h2>Unlimited Features, Unlimited Fun</h2>
-      <p class="text-muted">Check out what you can do with this app theme!</p>
-      <hr>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 my-auto">
-        <div class="device-container">
-          <div class="device-mockup iphone6_plus portrait white">
-            <div class="device">
-              <div class="screen">
-                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                <img src="assets/images/landing-page/demo-screen-1.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="button">
-                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
-              </div>
-            </div>
-          </div>
+    <div class="container">
+        <div class="section-heading text-center">
+            <h2>Unlimited Features, Unlimited Fun</h2>
+            <p class="text-muted">Check out what you can do with this app theme!</p>
+            <hr>
         </div>
-      </div>
-      <div class="col-lg-8 my-auto">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="feature-item">
-                <i class="icon-screen-smartphone text-primary"></i>
-                <h3>Device Mockups</h3>
-                <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
-              </div>
+        <div class="row">
+            <div class="col-lg-4 my-auto">
+                <div class="device-container">
+                    <div class="device-mockup iphone6_plus portrait white">
+                        <div class="device">
+                            <div class="screen">
+                                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                <img src="assets/images/landing-page/demo-screen-1.jpg" class="img-fluid" alt="">
+                            </div>
+                            <div class="button">
+                                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6">
-              <div class="feature-item">
-                <i class="icon-camera text-primary"></i>
-                <h3>Flexible Use</h3>
-                <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
-              </div>
+            <div class="col-lg-8 my-auto">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <i class="icon-screen-smartphone text-primary"></i>
+                                <h3>Device Mockups</h3>
+                                <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <i class="icon-camera text-primary"></i>
+                                <h3>Flexible Use</h3>
+                                <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <i class="icon-present text-primary"></i>
+                                <h3>Free to Use</h3>
+                                <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="feature-item">
+                                <i class="icon-lock-open text-primary"></i>
+                                <h3>Open Source</h3>
+                                <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="feature-item">
-                <i class="icon-present text-primary"></i>
-                <h3>Free to Use</h3>
-                <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="feature-item">
-                <i class="icon-lock-open text-primary"></i>
-                <h3>Open Source</h3>
-                <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 <section class="contact bg-primary" id="contact">
-  <div class="container">
-    <h2>We
-      <i class="fas fa-heart"></i>
-      new friends!</h2>
-    <ul class="list-inline list-social">
-      <li class="list-inline-item social-twitter">
-        <a href="#">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="list-inline-item social-facebook">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-inline-item social-google-plus">
-        <a href="#">
-          <i class="fab fa-google-plus-g"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="container">
+        <h2>We
+            <i class="fas fa-heart"></i> new friends!</h2>
+        <ul class="list-inline list-social">
+            <li class="list-inline-item social-twitter">
+                <a href="#">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li class="list-inline-item social-facebook">
+                <a href="#">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </li>
+            <li class="list-inline-item social-google-plus">
+                <a href="#">
+                    <i class="fab fa-google-plus-g"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 </section>
 
 <footer>
-  <div class="container">
-    <p>&copy; Your Website 2019. All Rights Reserved.</p>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        <a href="#">Privacy</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="#">Terms</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="#">FAQ</a>
-      </li>
-    </ul>
-  </div>
+    <div class="container">
+        <p>&copy; Your Website 2019. All Rights Reserved.</p>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="#">Privacy</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#">Terms</a>
+            </li>
+            <li class="list-inline-item">
+                <a href="#">FAQ</a>
+            </li>
+        </ul>
+    </div>
 </footer>
