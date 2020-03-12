@@ -1,3 +1,37 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+
+
+/**
+ * Table Of Content
+ *
+ * 	1. Globals
+ *	2. Headers
+ *	3. Navigations
+ *	4. Banners
+ *	5. Footers
+ *	6. app
+ *	7. Widgets
+ *	8. Custom Templates
+ */
+
+ @import 'assets/style/variable';
+ @import 'assets/style/icons/themify-icons/themify-icons.css';
+ @import 'assets/style/icons/font-awesome/css/font-awesome.css';
+ @import 'assets/style/spinner';
+ @import 'assets/style/app';
+ @import 'assets/style/header';
+ @import 'assets/style/widgets';
+ @import 'assets/style/pages';
+ @import 'assets/style/sidebar';
+ @import 'assets/style/dark-sidebar';
+ @import 'assets/style/responsive';
+ @import 'assets/style/rtl';
+
 /* You can add global styles to this file, and also import other style files */
 
 $color_blue: #B72F05;
@@ -6,6 +40,35 @@ $color_orange: #ff6b35;
 
 $color_google_btn: #D51818;
 $color_google_btn_active: #e5e5e5;
+
+
+
+// Red Theme
+.danger {
+    @import 'assets/style/colors/red';
+    @include angular-material-theme($red-app-theme);
+}
+
+// Blue Theme
+.blue {
+    @import 'assets/style/colors/blue';
+    @include angular-material-theme($blue-app-theme);
+}
+
+// Green Theme
+.green {
+    @import 'assets/style/colors/green';
+    @include angular-material-theme($green-app-theme);
+}
+
+// Dark Theme
+.dark {
+    @import 'assets/style/colors/dark';
+    @include angular-material-theme($dark-theme);
+}
+
+$custom-typography: mat-typography-config( $font-family: 'Poppins');
+@include mat-core($custom-typography);
 .allHeight{
     height: 100vh;
 }
@@ -130,3 +193,4 @@ body{
     font-weight: bold;
     font-family: 'Roboto', arial, sans-serif;
 }
+

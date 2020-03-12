@@ -32,13 +32,16 @@
     <div #snav id="navbarResponsive" class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#download">Nosotros</a>
+          <a class="nav-link js-scroll-trigger" href="#about">Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#features">Servicios</a>
+          <a class="nav-link js-scroll-trigger" href="#features">Nuestros Servicios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#contact">Ingresar</a>
+          <a class="nav-link js-scroll-trigger" href="#contact">Contactanos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/', 'home']" >Ingresar</a>
         </li>
       </ul>
     </div>
@@ -51,8 +54,7 @@
       <div class="col-lg-7 my-auto">
         <div class="header-content mx-auto">
           <h1 class="mb-5">Sistema de Gestión Floricola</h1>
-          <a  [routerLink]="['/', 'home']"  
-          class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
+          <a  [routerLink]="['/', 'home']" class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
         </div>
       </div>
       <div class="col-lg-5 my-auto">
@@ -73,22 +75,15 @@
     </div>
   </div>
 </header>
-
-<section class="download bg-primary text-center" id="download">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <h2 class="section-heading">Discover what all the buzz is about!</h2>
-        <p>Our app is available on any mobile device! Download now to get started!</p>
-        <div class="badges">
-          <a class="badge-link" href="#"><img src="assets/images/landing-page/google-play-badge.svg" alt=""></a>
-          <a class="badge-link" href="#"><img src="assets/images/landing-page/app-store-badge.svg" alt=""></a>
-        </div>
-      </div>
+<section class="cta" id="about">
+  <div class="cta-content">
+    <div class="container">
+      <h2>Stop waiting.<br>Start building.</h2>
+      <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
     </div>
   </div>
+  <div class="overlay"></div>
 </section>
-
 <section class="features" id="features">
   <div class="container">
     <div class="section-heading text-center">
@@ -151,17 +146,6 @@
     </div>
   </div>
 </section>
-
-<section class="cta">
-  <div class="cta-content">
-    <div class="container">
-      <h2>Stop waiting.<br>Start building.</h2>
-      <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
-    </div>
-  </div>
-  <div class="overlay"></div>
-</section>
-
 <section class="contact bg-primary" id="contact">
   <div class="container">
     <h2>We
