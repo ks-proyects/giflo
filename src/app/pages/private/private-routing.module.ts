@@ -33,7 +33,15 @@ export const routes: Routes = [
       },
       {
         path: 'bloques',
-        component: BloqueListComponent
+        component: BloqueListComponent,
+        data: {
+          title: 'Bloques',
+          urls: [
+            { title: 'Bloques', url: '/dashboard' },
+            { title: 'Bloques' }
+          ]
+        }
+      },
       },
       {
         path: 'camas/:id',

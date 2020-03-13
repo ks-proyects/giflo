@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { BloqueService } from '../../../services/bloque.service';
 // Import Models
 import { Bloque } from '../../../domain/giflo_db/bloque';
+import { MatTableDataSource } from '@angular/material';
 
 // START - USED SERVICES
 /**
@@ -29,6 +30,9 @@ import { Bloque } from '../../../domain/giflo_db/bloque';
     styleUrls: ['./bloque-list.component.css']
 })
 export class BloqueListComponent implements OnInit {
+    displayedColumns = ['id', 'name', 'progress', 'color'];
+  dataSource: MatTableDataSource<Bloque>;
+  
     list: Observable<any[]>;
     search: any = {};
     idSelected: string;
