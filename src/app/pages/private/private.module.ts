@@ -24,6 +24,7 @@ import { RolEditComponent } from './rol-edit/rol-edit.component';
 import { RolListComponent } from './rol-list/rol-list.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
+import { MenuItemListComponent } from './menu-item-list/menu-item-list.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
     EstadoEditComponent,
     EstadoListComponent,
     MenuItemEditComponent,
+    MenuItemListComponent,
     NaveEditComponent,
     NaveListComponent,
     PaginaEditComponent,

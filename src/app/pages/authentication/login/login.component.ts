@@ -6,6 +6,7 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import {
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router,public authSer: AuthenticationService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
