@@ -22,6 +22,7 @@ import { RolEditComponent } from './rol-edit/rol-edit.component';
 import { RolListComponent } from './rol-list/rol-list.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
+import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 export const routes: Routes = [
   {
     path: '',
@@ -56,7 +57,7 @@ export const routes: Routes = [
       },
       {
         path: 'empresas',
-        component: EmpleadoListComponent
+        component: EmpresaListComponent
       },
       {
         path: 'estadocivils/:id',

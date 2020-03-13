@@ -25,6 +25,7 @@ import { RolListComponent } from './rol-list/rol-list.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { MenuItemListComponent } from './menu-item-list/menu-item-list.component';
+import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { MenuItemListComponent } from './menu-item-list/menu-item-list.component
     EmpleadoEditComponent,
     EmpleadoListComponent,
     EmpresaEditComponent,
+    EmpresaListComponent,
     EstadoCivilEditComponent,
     EstadoCivilListComponent,
     EstadoEditComponent,

@@ -23,7 +23,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -67,9 +66,7 @@ import { FullComponent } from './layout/full/full.component';
 import { AppHeaderComponent } from './layout/full/header/header.component';
 import { AppSidebarComponent } from './layout/full/sidebar/sidebar.component';
 import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.component';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppBlankComponent } from './layout/blank/blank.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -97,7 +94,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ImageCropperModule,
     ReactiveFormsModule,
     ScrollingModule,
-    InfiniteScrollModule,
     CommonModule,
     FormsModule,
     PerfectScrollbarModule,
