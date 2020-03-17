@@ -2,7 +2,6 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
             <mat-card-content>
-                <mat-card-title>Data table with sorting, pagination, and filtering.</mat-card-title>
                 <div class="bg-light p-10 p-r-20 p-l-20">
                     <mat-form-field>
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -10,138 +9,40 @@
                 </div>
                 <div class="responsive-table">
                     <mat-table [dataSource]="dataSource" matSort>
-
-                        <!-- ID Column -->
+                        <!-- Acciones Column -->
                         <ng-container matColumnDef="id">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-cell> 
+                                    <button mat-icon-button  [routerLink]="['/private/bloques', row.id]">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openConfirm('Delete',row.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </mat-cell>
                         </ng-container>
-
-                        <!-- Progress Column -->
-                        <ng-container matColumnDef="progress">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
-                        </ng-container>
-
                         <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+                        <ng-container matColumnDef="nombre">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
                         </ng-container>
-
-                        <!-- Color Column -->
-                        <ng-container matColumnDef="color">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
-                            <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="estado">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.estado=='INA'?'Inactivo':'Activo'}}</mat-cell>
                         </ng-container>
-
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;">
                         </mat-row>
                     </mat-table>
-
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <mat-paginator [pageSizeOptions]="[5, 90,5]"></mat-paginator>
                 </div>
+                <button mat-button routerLink="/private/bloques/new" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
             </mat-card-content>
         </mat-card>
     </div>
 </div>
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Bloque List</h1>
-</div>
-
-<!-- SEARCH FORM -->
-<div class="card">
-
-    <div class="card-header">
-        <i class="fa fa-search"></i> Search
-    </div>
-    <div class="card-body">
-        <form #searchForm="ngForm">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <label for="direccion">Direccion</label>
-                        <input type="text" class="form-control" id="direccion" [(ngModel)]="search.direccion" name="direccion" #direccion="ngModel">
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" [(ngModel)]="search.nombre" name="nombre" #nombre="ngModel">
-                    </div>
-                    <div class="form-group">
-                        <label for="orden">Orden</label>
-                        <input type="number" class="form-control" id="orden" [(ngModel)]="search.orden" name="orden" #orden="ngModel">
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- TABLE -->
-<table class="table mt-40">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">direccion</th>
-            <th scope="col">nombre</th>
-            <th scope="col">orden</th>
-            <th>Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of list | async | search: { 'direccion': search.direccion, 'nombre': search.nombre, 'orden': search.orden }">
-            <!-- ATTRIBUTES -->
-            <td>
-                <a [routerLink]="['/bloques', item.id]">{{item.id}}</a>
-            </td>
-            <td>{{item.direccion }}</td>
-            <td>{{item.nombre }}</td>
-            <td>{{item.orden }}</td>
-
-            <!-- DELETE BUTTON -->
-            <td>
-                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item.id)">
-                    <span>
-                        <i class="fa fa-trash"></i>
-                    </span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-    <div class="no-result" *ngIf="(list | async |  search: {   'direccion': search.direccion ,  'nombre': search.nombre ,  'orden': search.orden  }).length == 0">
-        No items found
-    </div>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Do you want remove item?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- BUTTON -->
-<button class="btn btn-primary text-center pull-right mb-20" routerLink="/bloques/new">
-    <span>
-        <i class="fa fa-plus"></i>
-    </span>
-</button>
-
-<div class="clearfix"></div>

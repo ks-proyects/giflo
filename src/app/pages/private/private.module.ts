@@ -26,13 +26,37 @@ import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { MenuItemListComponent } from './menu-item-list/menu-item-list.component';
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
+import { MatAutocompleteModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule,
+  MatIconModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatSelect,
+  MatSelectModule,
+  MatCheckboxModule} from '@angular/material';
 
 @NgModule({
   imports: [
     PrivateRoutingModule,
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule
+
   ],
   declarations: [
     BloqueEditComponent,

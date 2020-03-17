@@ -56,11 +56,11 @@ export class AuthenticationService {
             (tokenGen) => {
                 this.userDoc = this.userService.get(userL.uid);
                 this.userDoc.snapshotChanges().subscribe(item => {
-                    debugger;
+                    
                     let userNew: User;
                     this.user = item.payload;
                     if (!this.user.exists) {
-                        debugger;
+                        
                         this.rolDefaultDoc = this.rolService.get('DEF');
                         this.rolDefaultDoc.valueChanges().subscribe(itemRol => {
                             this.rolDefault = itemRol;
@@ -103,7 +103,9 @@ export class AuthenticationService {
         return self.indexOf(value) === index;
     }
     loginWithEmailPass(email, password) {
+        debugger;
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
+            debugger;
             if (user.user) {
                 this.router.navigate(['/']);
             }

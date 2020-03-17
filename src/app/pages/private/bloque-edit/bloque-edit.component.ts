@@ -13,6 +13,7 @@ import { EmpresaService } from '../../../services/empresa.service';
 import { Bloque } from '../../../domain/giflo_db/bloque';
 import { Empresa } from '../../../domain/giflo_db/empresa';
 import { Estado } from '../../../domain/giflo_db/estado';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 // START - USED SERVICES
 /**
@@ -60,7 +61,7 @@ export class BloqueEditComponent implements OnInit {
         private empresaService: EmpresaService,
         private route: ActivatedRoute,
         private location: Location) {
-        // Init list
+            
     }
 
     /**
@@ -90,6 +91,7 @@ export class BloqueEditComponent implements OnInit {
      * @param Bloque item Bloque to save
      */
     save(formValid: boolean): void {
+        debugger;
         this.formValid = formValid;
         if (formValid) {
             if (this.isNew) {

@@ -40,6 +40,10 @@
                             <button mat-raised-button color="warn" class="btn-block btn-lg m-t-20 m-b-20" type="button" (click)="authSer.loginFacebook()">Ingresar con Facebook</button>
                         </div>
                         <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <button mat-raised-button color="warn" class="btn-block btn-lg m-t-20 m-b-20" type="button" (click)="authSer.loginGoogle()">Ingresar con Google</button>
+                        </div>
+                        <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
                             <span>No tienes una cuenta?
                                 <a [routerLink]="['/authentication/register']" class="text-info link">Registrate</a>

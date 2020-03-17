@@ -42,7 +42,6 @@ export const routes: Routes = [
           ]
         }
       },
-      },
       {
         path: 'camas/:id',
         component: CamaEditComponent
