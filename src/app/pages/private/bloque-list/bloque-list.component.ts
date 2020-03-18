@@ -1,15 +1,14 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 // Import Services
 import { BloqueService } from '../../../services/bloque.service';
 // Import Models
 import { Bloque } from '../../../domain/giflo_db/bloque';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
-import { DialogData, MatDialogComponent } from '../../common/mat-dialog/mat-dialog.component';
+import { DialogData } from '../../common/mat-dialog/mat-dialog.component';
 
 // START - USED SERVICES
 /**
@@ -38,14 +37,9 @@ export class BloqueListComponent implements OnInit {
 
   @ViewChild(MatPaginator, {}) paginator: MatPaginator;
   @ViewChild(MatSort, {}) sort: MatSort;
-
-  list: Observable<any[]>;
-  search: any = {};
-  idSelected: string;
   constructor(
     private bloqueService: BloqueService,
     private breakpointObserver: BreakpointObserver,
-    public dialog: MatDialog,
     private disSer: DialogService
   ) {
     this.dataSource = new MatTableDataSource([]);
@@ -55,13 +49,11 @@ export class BloqueListComponent implements OnInit {
         ['id', 'nombre', 'estado'];
     });
   }
-
   /**
    * Init
    */
   ngOnInit(): void {
-    this.list = this.bloqueService.list();
-    this.list.subscribe(arrayData => {
+    this.bloqueService.list().subscribe(arrayData => {
       this.dataSource = new MatTableDataSource(arrayData);
     }
     );
@@ -75,8 +67,8 @@ export class BloqueListComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  openConfirm(action, id){
-    const dialogData: DialogData = { id: id, action: action ,msg:'Desea eliminar el regestro'};
+  openConfirm(action, id) {
+    const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
     const dialogRef = this.disSer.openDialog(dialogData);
     dialogRef.afterClosed().subscribe(result => {
       if (result.event == 'Delete') {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,6 +6,10 @@ import { Observable } from 'rxjs';
 import { EstadoCivilService } from '../../../services/estado-civil.service';
 // Import Models
 import { EstadoCivil } from '../../../domain/giflo_db/estado-civil';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogData } from '../../common/mat-dialog/mat-dialog.component';
 
 // START - USED SERVICES
 /**
@@ -29,34 +33,46 @@ import { EstadoCivil } from '../../../domain/giflo_db/estado-civil';
     styleUrls: ['./estado-civil-list.component.css']
 })
 export class EstadoCivilListComponent implements OnInit {
-    list: Observable<any[]>;
-    search: any = {};
-    idSelected: string;
+
+    displayedColumns = ['acciones', 'descripcion'];
+    dataSource: MatTableDataSource<EstadoCivil>;
+    @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+    @ViewChild(MatSort, {}) sort: MatSort;
     constructor(
         private estadocivilService: EstadoCivilService,
-    ) { }
-
-    /**
-     * Init
-     */
+        private breakpointObserver: BreakpointObserver,
+        private disSer: DialogService
+    ) {
+        this.dataSource = new MatTableDataSource([]);
+        breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+            this.displayedColumns = result.matches ?
+                ['acciones', 'descripcion'] :
+                ['acciones', 'descripcion'];
+        });
+    }
     ngOnInit(): void {
-        this.list = this.estadocivilService.list();
+        this.estadocivilService.list().subscribe(arrayData => {
+            this.dataSource = new MatTableDataSource(arrayData);
+        }
+        );
     }
-
-    /**
-     * Select EstadoCivil to remove
-     *
-     * @param {string} id Id of the EstadoCivil to remove
-     */
-    selectId(id: string) {
-        this.idSelected = id;
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
-
-    /**
-     * Remove selected EstadoCivil
-     */
-    deleteItem() {
-        this.estadocivilService.remove(this.idSelected);
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    }
+    openConfirm(action, id) {
+        const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
+        const dialogRef = this.disSer.openDialog(dialogData);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result.event == 'Delete') {
+                this.estadocivilService.remove(result.data.id);
+            }
+        });
     }
 
 }

@@ -1,33 +1,44 @@
-<section class="grid-content allHeight">
-<div class="card mb-40">
-    <div class="card-header">
-        <i class="fa fa-edit"></i> Edit
-    </div>
-    <div class="card-body">
-        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10">
-                    <div class="form-group ">
-                        <label for="estado">Estado</label>
-                    </div>
-                    <!-- RELATIONS -->
-
-                    <label for="Pagina">Pagina</label>
-                    <select name="pagina" id="pagina" [(ngModel)]="item.pagina" class="form-control" #pagina="ngModel"  >
-                        <option *ngFor="let item of listPagina" [value]="item.id">{{item.path}}</option>
-                    </select>
-                    <label for="Rol">Rol</label>
-                    <select name="rol" id="rol" [(ngModel)]="item.rol" class="form-control" #rol="ngModel"  >
-                        <option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</option>
-                    </select>
-                    <!-- BUTTON BAR -->
-                    <div class="mt-40">
-                        <button class="btn btn-primary pull-right" (click)="save(editForm.valid)">Save</button>
-                        <button class="btn btn-secondary pull-right mr-2" (click)="goBack()">Back To List</button>
-                    </div>
-                </div>
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <!-- ============================================================== -->
+          <!-- column -->
+          <!-- basic-form ============================================================== -->
+          <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+            <div fxLayout="row wrap">
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select name="pagina" id="pagina" [(ngModel)]="item.pagina" #pagina="ngModel">
+                    <mat-option>-- Ninguno --</mat-option>
+                    <mat-option *ngFor="let item of listPagina" [value]="item.id">{{item.pagina}}</mat-option>
+                  </mat-select>
+                  <mat-placeholder>
+                    Pagina
+                  </mat-placeholder>
+                </mat-form-field>
+              </div>
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select name="rol" id="rol" [(ngModel)]="item.rol" #rol="ngModel">
+                    <mat-option>-- Ninguno --</mat-option>
+                    <mat-option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</mat-option>
+                  </mat-select>
+                  <mat-placeholder>
+                    listRol
+                  </mat-placeholder>
+                </mat-form-field>
+              </div>
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+              </div>
             </div>
-        </form>
+          </form>
+        </mat-card-content>
+      </mat-card>
     </div>
-</div>
-</section>
+  </div>

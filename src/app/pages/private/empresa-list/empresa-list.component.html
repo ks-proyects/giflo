@@ -1,98 +1,50 @@
-<!-- TITLE -->
-<section class="grid-content allHeight">
-
-<!-- SEARCH FORM -->
-<div class="card">
-
-    <div class="card-header">
-        <i class="fa fa-search"></i> Search
-    </div>
-    <div class="card-body">
-        <form #searchForm="ngForm">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" [(ngModel)]="search.nombre" name="nombre" #nombre="ngModel">
-                    </div>
-                    <div class="form-group">
-                        <label for="ruc">Ruc</label>
-                        <input type="text" class="form-control" id="ruc" [(ngModel)]="search.ruc" name="ruc" #ruc="ngModel">
-                    </div>
-                    <div class="form-group">
-                        <label for="urlLogo">UrlLogo</label>
-                        <input type="text" class="form-control" id="urlLogo" [(ngModel)]="search.urlLogo" name="urlLogo" #urlLogo="ngModel">
-                    </div>
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="bg-light p-10 p-r-20 p-l-20">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                    </mat-form-field>
                 </div>
-            </div>
-        </form>
-    </div>
-</div>
+                <div class="responsive-table">
+                    <mat-table [dataSource]="dataSource" matSort>
+                        <!-- Acciones Column -->
+                        <ng-container matColumnDef="accion">
+                            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-cell> 
+                                    <button mat-icon-button  [routerLink]="['/private/empresas', row.id]">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openConfirm('Delete',row.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="ruc">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> RUC </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.ruc}}</mat-cell>
+                        </ng-container>
 
-<!-- TABLE -->
-<div class="table-responsive-sm">
-<table class="table mt-40">
-    <thead>
-        <tr>
-            <th scope="col">nombre</th>
-            <th scope="col">ruc</th>
-            <th scope="col">urlLogo</th>
-            <th>Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of list | async | search: { 'nombre': search.nombre, 'ruc': search.ruc, 'urlLogo': search.urlLogo }">
-            <!-- ATTRIBUTES -->
-            <td>
-                <a [routerLink]="['/empresas', item.id]">{{item.ruc}}</a>
-            </td>
-            <td>{{item.nombre }}</td>
-            <td>{{item.urlLogo }}</td>
-
-            <!-- DELETE BUTTON -->
-            <td>
-                <button class="btn btn-danger text-center" data-toggle="modal" data-target="#deleteModal" (click)="selectId(item.id)">
-                    <span>
-                        <i class="fa fa-trash"></i>
-                    </span>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="nombre">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
+                        </ng-container>
+                        
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <mat-paginator [pageSizeOptions]="[10, 20,90]"></mat-paginator>
+                </div>
+                <button mat-button routerLink="/private/empresas/new" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
                 </button>
-            </td>
-        </tr>
-    </tbody>
-    <div class="no-result" *ngIf="(list | async |  search: {   'nombre': search.nombre ,  'ruc': search.ruc ,  'urlLogo': search.urlLogo  }).length == 0">
-        No items found
-    </div>
-</table>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <i class="fa fa-times-circle"></i>&nbsp;&nbsp;Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Do you want remove item?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteItem()">YES</button>
-            </div>
-        </div>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
-
-<!-- BUTTON -->
-<button class="btn btn-primary text-center pull-right mb-20" routerLink="/empresas/new">
-    <span>
-        <i class="fa fa-plus"></i>
-    </span>
-</button>
-
-<div class="clearfix"></div>
-</section>

@@ -38,7 +38,6 @@ export class AuthenticationService {
         rolService.init();
         estadoService.init();
         paginaService.init();
-        menuItemService.init(rolService, paginaService);
     }
 
     registerByEmailPass = (email, pass) => {

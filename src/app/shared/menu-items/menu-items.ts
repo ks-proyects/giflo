@@ -32,14 +32,8 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    state: '',
-    name: 'Administrador',
-    type: 'saperator',
-    icon: 'av_timer'
-  },
-  {
     state: 'private',
-    name: 'Catalogo',
+    name: 'Catálogo',
     type: 'sub',
     icon: 'widgets',
     children: [
@@ -49,7 +43,7 @@ const MENUITEMS = [
   },
   {
     state: 'private',
-    name: 'Seguridad',
+    name: 'Permisos',
     type: 'sub',
     icon: 'apps',
     children: [
@@ -60,14 +54,8 @@ const MENUITEMS = [
     ]
   },
   {
-    state: '',
-    name: 'Gestión',
-    type: 'saperator',
-    icon: 'av_timer'
-  },
-  {
     state: 'private',
-    name: 'Administrador',
+    name: 'Adminsitración',
     type: 'sub',
     icon: 'border_all',
     children: [
@@ -79,7 +67,7 @@ const MENUITEMS = [
   },
   {
     state: 'private',
-    name: 'Tables',
+    name: 'Gestión',
     type: 'sub',
     icon: 'star',
     children: [

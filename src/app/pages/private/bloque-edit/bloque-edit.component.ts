@@ -91,7 +91,6 @@ export class BloqueEditComponent implements OnInit {
      * @param Bloque item Bloque to save
      */
     save(formValid: boolean): void {
-        debugger;
         this.formValid = formValid;
         if (formValid) {
             if (this.isNew) {

@@ -32,7 +32,7 @@
               <mat-form-field>
                 <mat-select name="empresa" id="empresa" [(ngModel)]="item.empresa" #empresa="ngModel">
                   <mat-option>-- Ninguno --</mat-option>
-                  <mat-option *ngFor="let item of listEmpresa" [value]="item.id">{{item.id}}</mat-option>
+                  <mat-option *ngFor="let item of listEmpresa" [value]="item.id">{{item.nombre}}</mat-option>
                 </mat-select>
                 <mat-placeholder>
                   Empresa
@@ -44,7 +44,7 @@
               <mat-form-field>
                 <mat-select name="estado" id="estado" [(ngModel)]="item.estado" #estado="ngModel">
                   <mat-option>-- Ninguno --</mat-option>
-                  <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.id=='ACT'?'ACTIVO':'INACTIVO'}}</mat-option>
+                  <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}</mat-option>
                 </mat-select>
                 <mat-placeholder>
                   Estado

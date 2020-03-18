@@ -4,14 +4,14 @@
             <mat-card-content>
                 <div class="bg-light p-10 p-r-20 p-l-20">
                     <mat-form-field>
-                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
                     </mat-form-field>
                 </div>
                 <div class="responsive-table">
                     <mat-table [dataSource]="dataSource" matSort>
                         <!-- Acciones Column -->
                         <ng-container matColumnDef="id">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                             <mat-cell *matCellDef="let row">
                                 <mat-cell> 
                                     <button mat-icon-button  [routerLink]="['/private/bloques', row.id]">
