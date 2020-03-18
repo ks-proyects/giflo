@@ -1,15 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 // Import Services
 import { CamaService } from '../../../../services/cama.service';
 // Import Models
-import { Cama } from '../../../../domain/giflo_db/cama';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
+import { ListComponentService } from 'src/app/services/generic/list-component.service';
 
 // START - USED SERVICES
 /**
@@ -32,17 +31,13 @@ import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component
     templateUrl: './cama-list.component.html',
     styleUrls: ['./cama-list.component.css']
 })
-export class CamaListComponent implements OnInit {
-    displayedColumns = ['id', 'nombre', 'estado'];
-    dataSource: MatTableDataSource<Cama>;
-
-    @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-    @ViewChild(MatSort, {}) sort: MatSort;
+export class CamaListComponent extends ListComponentService implements OnInit {
     constructor(
         private camaService: CamaService,
         private breakpointObserver: BreakpointObserver,
         private disSer: DialogService
     ) {
+        super();
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
@@ -56,15 +51,7 @@ export class CamaListComponent implements OnInit {
         }
         );
     }
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
-    }
+
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
         const dialogRef = this.disSer.openDialog(dialogData);
