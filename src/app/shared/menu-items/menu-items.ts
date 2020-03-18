@@ -32,29 +32,7 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    state: 'private',
-    name: 'Catálogo',
-    type: 'sub',
-    icon: 'widgets',
-    children: [
-      { state: 'estados', name: 'Estados', type: 'link' },
-      { state: 'estadocivils', name: 'Estados Civiles', type: 'link' }
-    ]
-  },
-  {
-    state: 'private',
-    name: 'Permisos',
-    type: 'sub',
-    icon: 'apps',
-    children: [
-      { state: 'empresas', name: 'Empresas', type: 'link' },
-      { state: 'rols', name: 'Roles', type: 'link' },
-      { state: 'paginas', name: 'Páginas', type: 'link' },
-      { state: 'menuitems', name: 'Menu Items', type: 'link' },
-    ]
-  },
-  {
-    state: 'private',
+    state: 'admin',
     name: 'Adminsitración',
     type: 'sub',
     icon: 'border_all',
@@ -66,12 +44,34 @@ const MENUITEMS = [
     ]
   },
   {
-    state: 'private',
+    state: 'catalog',
+    name: 'Catálogo',
+    type: 'sub',
+    icon: 'widgets',
+    children: [
+      { state: 'estados', name: 'Estados', type: 'link' },
+      { state: 'estadocivils', name: 'Estados Civiles', type: 'link' }
+    ]
+  },
+  {
+    state: 'management',
     name: 'Gestión',
     type: 'sub',
     icon: 'star',
     children: [
       { state: 'empleados', name: 'Empleados', type: 'link' },
+    ]
+  },
+  {
+    state: 'security',
+    name: 'Permisos',
+    type: 'sub',
+    icon: 'apps',
+    children: [
+      { state: 'empresas', name: 'Empresas', type: 'link' },
+      { state: 'rols', name: 'Roles', type: 'link' },
+      { state: 'paginas', name: 'Páginas', type: 'link' },
+      { state: 'menuitems', name: 'Menu Items', type: 'link' },
     ]
   }
 ];

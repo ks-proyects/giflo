@@ -10,45 +10,79 @@ import { AppBlankComponent } from './layout/blank/blank.component';
  * WEB APP ROUTES
  */
 const routes: Routes = [
-    {
+  {
+    path: '',
+    component: LandingComponent,
+    children: [
+      {
         path: '',
-        component: LandingComponent,
-        children: [
-          {
-            path: '',
-            loadChildren: './pages/public/public.module#PublicModule'
-          },
-        ]
-    },
-    {
-        path: '',
-        component: FullComponent,
-        children: [
-          { path: 'private',
-            loadChildren: './pages/private/private.module#PrivateModule'
-          },
-        ],
-        canActivate: [AuthGuard]
-    },
-    {
-      path: '',
-      component: AppBlankComponent,
-      children: [
-        {
-          path: 'authentication',
-          loadChildren:
-            './pages/authentication/authentication.module#AuthenticationModule'
-        }
-      ]
-    },
+        loadChildren: './pages/public/public.module#PublicModule'
+      },
+    ]
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {
+        path: 'admin',
+        loadChildren: './pages/private/admin/admin.module#AdminModule'
+      },
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {
+        path: 'catalog',
+        loadChildren: './pages/private/catalog/catalog.module#CatalogModule'
+      },
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {
+        path: 'management',
+        loadChildren: './pages/private/management/management.module#ManagementModule'
+      },
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {
+        path: 'security',
+        loadChildren: './pages/private/security/security.module#SecurityModule'
+      },
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    component: AppBlankComponent,
+    children: [
+      {
+        path: 'authentication',
+        loadChildren:
+          './pages/authentication/authentication.module#AuthenticationModule'
+      }
+    ]
+  },
 ];
 
 /**
  * ROUTING MODULE
  */
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 
 export class AppRoutingModule { }
