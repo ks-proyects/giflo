@@ -1,81 +1,119 @@
-<!-- TITLE -->
-<div class="mb-40 mt-40">
-    <h1>Cama Edit</h1>
-</div>
-<div class="card mb-40">
-    <div class="card-header">
-        <i class="fa fa-edit"></i> Edit
-    </div>
-    <div class="card-body">
-        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel" >
-                    </div>
-                    <div class="form-group">
-                        <label for="orden">Orden</label>
-                        <input type="number" class="form-control" id="orden" [(ngModel)]="item.orden" name="orden" #orden="ngModel" >
-                    </div>
-                    <!-- RELATIONS -->
-                    <h2 class="mb-20">Relations</h2>
-
-                    <label for="Estado">Estado</label>
-                    <select name="estado" id="estado" [(ngModel)]="item.estado" class="form-control" #estado="ngModel"  >
-                        <option *ngFor="let item of listEstado" [value]="item.id">{{item.id}}</option>
-                    </select>
-                    <label for="Nave">Nave</label>
-                    <select name="nave" id="nave" [(ngModel)]="item.nave" class="form-control" #nave="ngModel"  >
-                        <option *ngFor="let item of listNave" [value]="item.id">{{item.id}}</option>
-                    </select>
-                    <label for="Empleado">Empleado</label>
-                    <select name="supervisor" id="supervisor" [(ngModel)]="item.supervisor" class="form-control" #supervisor="ngModel"  >
-                        <option *ngFor="let item of listSupervisor" [value]="item.id">{{item.id}}</option>
-                    </select>
-                    <label for="Empleado">Empleado</label>
-                    <select name="trabajador" id="trabajador" [(ngModel)]="item.trabajador" class="form-control" #trabajador="ngModel"  >
-                        <option *ngFor="let item of listTrabajador" [value]="item.id">{{item.id}}</option>
-                    </select>
-                    <div class="pb-30">
-                        <div class="mb-20">
-                            <label>Variedad</label>
-
-                            <span class="dropdown ml-20">
-                                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenuButtonvariedad" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    Add
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonvariedad">
-                                    <button class="dropdown-item" *ngFor="let item of listVariedad" [class.disabled]="containVariedad(item.id)" (click)="$event.preventDefault(); containVariedad(item.id) || addVariedad(item.id)">{{item.id}}
-                                    </button>
-                                </div>
-                            </span>
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombre" [(ngModel)]="item.nombre" name="nombre"
+                                    #nombre="ngModel">
+                            </mat-form-field>
                         </div>
-                        <div class="mb-40">
-                            <ul class="list-group">
-                                <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item found</li>
-                                <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
-                                    {{obj}}
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Orden" [(ngModel)]="item.orden" name="orden"
+                                    #orden="ngModel">
+                            </mat-form-field>
+                        </div>
 
-                                    <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
-                                        <i class="fa fa-trash"></i>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="nave" id="nave" [(ngModel)]="item.nave" #nave="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listNave" [value]="item.id">{{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Nave
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="supervisor" id="supervisor" [(ngModel)]="item.supervisor"
+                                    #supervisor="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listSupervisor" [value]="item.id">{{item.nombres}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Supervisor
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="trabajador" id="trabajador" [(ngModel)]="item.trabajador"
+                                    #trabajador="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listTrabajador" [value]="item.id">{{item.nombres}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Responsable
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="estado" id="estado" [(ngModel)]="item.estado" #estado="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Estado
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div class="mb-20">
+                                <label>Variedad</label>
+                                <span class="dropdown ml-20">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button"
+                                        id="dropdownMenuButtonvariedad" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Add
                                     </button>
-                                </li>
-                            </ul>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonvariedad">
+                                        <button class="dropdown-item" *ngFor="let item of listVariedad"
+                                            [class.disabled]="containVariedad(item.id)"
+                                            (click)="$event.preventDefault(); containVariedad(item.id) || addVariedad(item.id)">{{item.nombreComun}}
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="mb-40">
+                                <ul class="list-group">
+                                    <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item
+                                        found</li>
+                                    <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
+                                        {{obj}}
+                                        <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
                         </div>
                     </div>
-
-                    
-        
-
-                    <!-- BUTTON BAR -->
-                    <div class="mt-40">
-                        <button class="btn btn-primary pull-right" (click)="save(editForm.valid)">Save</button>
-                        <button class="btn btn-secondary pull-right mr-2" (click)="goBack()">Back To List</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+                </form>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

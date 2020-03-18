@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
 import { VariedadService } from '../../../../services/variedad.service';
 // Import Models
 import { Variedad } from '../../../../domain/giflo_db/variedad';
+import { ListComponentService } from 'src/app/services/generic/list-component.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { DialogService } from 'src/app/shared/dialog.service';
+import { MatTableDataSource } from '@angular/material';
+import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
 
 // START - USED SERVICES
 /**
@@ -28,35 +33,34 @@ import { Variedad } from '../../../../domain/giflo_db/variedad';
     templateUrl: './variedad-list.component.html',
     styleUrls: ['./variedad-list.component.css']
 })
-export class VariedadListComponent implements OnInit {
-    list: Observable<any[]>;
-    search: any = {};
-    idSelected: string;
+export class VariedadListComponent extends ListComponentService implements OnInit {
     constructor(
         private variedadService: VariedadService,
-    ) { }
-
-    /**
-     * Init
-     */
+        private breakpointObserver: BreakpointObserver,
+        private disSer: DialogService
+    ) {
+        super();
+        this.dataSource = new MatTableDataSource([]);
+        breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+            this.displayedColumns = result.matches ?
+                ['id', 'nombreComun','color'] :
+                ['id', 'nombreComun','color'];
+        });
+    }
     ngOnInit(): void {
-        this.list = this.variedadService.list();
+        this.variedadService.list().subscribe(arrayData => {
+            this.dataSource = new MatTableDataSource(arrayData);
+        }
+        );
     }
-
-    /**
-     * Select Variedad to remove
-     *
-     * @param {string} id Id of the Variedad to remove
-     */
-    selectId(id: string) {
-        this.idSelected = id;
-    }
-
-    /**
-     * Remove selected Variedad
-     */
-    deleteItem() {
-        this.variedadService.remove(this.idSelected);
+    openConfirm(action, id) {
+        const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
+        const dialogRef = this.disSer.openDialog(dialogData);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result.event == 'Delete') {
+                this.variedadService.remove(result.data.id);
+            }
+        });
     }
 
 }
