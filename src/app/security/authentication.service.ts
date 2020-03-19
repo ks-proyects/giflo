@@ -38,6 +38,9 @@ export class AuthenticationService {
         rolService.init();
         estadoService.init();
         paginaService.init();
+        this.afAuth.user.subscribe(user => {
+            debugger;
+        });
     }
 
     registerByEmailPass = (email, pass) => {
