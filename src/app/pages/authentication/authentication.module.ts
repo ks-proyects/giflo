@@ -9,6 +9,13 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { MatIconModule, MatCardModule, MatInputModule, MatCheckboxModule, MatButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 2,
+  wheelPropagation: true
+};
 
 @NgModule({
   imports: [
@@ -22,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PerfectScrollbarModule
   ],
   declarations: [
     ErrorComponent,
@@ -30,6 +38,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LockscreenComponent,
     LoginComponent,
     RegisterComponent
+  ],
+  providers:[
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ]
 })
 export class AuthenticationModule {}

@@ -21,7 +21,7 @@ import { PaginaService } from '../services/pagina.service';
  */
 @Injectable()
 export class AuthenticationService {
-    userDoc: AngularFirestoreDocument < any > ;
+    userDoc: AngularFirestoreDocument<any>;
     user: any = {};
     rolDefault: any = {};
     rolDefaultDoc: AngularFirestoreDocument<Rol>;
@@ -55,11 +55,10 @@ export class AuthenticationService {
             (tokenGen) => {
                 this.userDoc = this.userService.get(userL.uid);
                 this.userDoc.snapshotChanges().subscribe(item => {
-                    
                     let userNew: User;
                     this.user = item.payload;
                     if (!this.user.exists) {
-                        
+
                         this.rolDefaultDoc = this.rolService.get('DEF');
                         this.rolDefaultDoc.valueChanges().subscribe(itemRol => {
                             this.rolDefault = itemRol;
@@ -102,11 +101,9 @@ export class AuthenticationService {
         return self.indexOf(value) === index;
     }
     loginWithEmailPass(email, password) {
-        debugger;
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
-            debugger;
             if (user.user) {
-                this.router.navigate(['/']);
+                this.router.navigate(['/admin/bloques']);
             }
         }).catch((error) => {
             window.alert(error.message);
@@ -133,13 +130,13 @@ export class AuthenticationService {
      */
     public logout() {
         this.afAuth.auth.signOut();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
     }
 
     /**
      * Get the logged user
      */
-    public getUser(): Observable < firebase.User > {
+    public getUser(): Observable<firebase.User> {
         return this.afAuth.user;
     }
 }

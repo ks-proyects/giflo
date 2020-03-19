@@ -85,7 +85,6 @@
     <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
       <div class="scroll">
         <mat-nav-list>
-
           <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
           <mat-list-item>
             <mat-slide-toggle color="warn" (change)="dir = (dir == 'rtl' ? 'ltr' : 'rtl')">RTL</mat-slide-toggle>
@@ -119,9 +118,9 @@
     <!-- ============================================================== -->
     <!-- Page container - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
+    <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''" [perfectScrollbar]="config">
       <app-breadcrumb></app-breadcrumb>
-      <div class="page-content">
+      <div class="page-content" >
         <router-outlet>
           <app-spinner></app-spinner>
         </router-outlet>

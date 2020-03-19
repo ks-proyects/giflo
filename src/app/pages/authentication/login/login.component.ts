@@ -7,6 +7,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { AuthenticationService } from 'src/app/security/authentication.service';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-login',
@@ -14,17 +15,23 @@ import { AuthenticationService } from 'src/app/security/authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  hide = true;
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router,public authSer: AuthenticationService) {}
+  public config: PerfectScrollbarConfigInterface = {};
+  constructor(private fb: FormBuilder, private router: Router, public authSer: AuthenticationService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
-      uname: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])]
     });
   }
 
   onSubmit() {
-    this.router.navigate(['/home']);
+    try {
+      this.authSer.loginWithEmailPass(this.form.value.email, this.form.value.password);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

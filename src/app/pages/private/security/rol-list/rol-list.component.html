@@ -14,7 +14,7 @@
                             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                             <mat-cell *matCellDef="let row">
                                 <mat-cell> 
-                                    <button mat-icon-button  [routerLink]="['/private/rols', row.id]">
+                                    <button mat-icon-button  [routerLink]="['/security/rols', row.id]">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-icon-button (click)="openConfirm('Delete',row.id)">
@@ -38,7 +38,7 @@
                     </mat-table>
                     <mat-paginator [pageSizeOptions]="[5, 90,10]"></mat-paginator>
                 </div>
-                <button mat-button routerLink="/private/rols/new" mat-flat-button color="primary">
+                <button mat-button routerLink="/security/rols/new" mat-flat-button color="primary">
                     <mat-icon>add</mat-icon>
                 </button>
             </mat-card-content>

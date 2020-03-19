@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -72,4 +73,5 @@ export class AppHeaderComponent {
       time: '9:00 AM'
     }
   ];
+  constructor(public authSer: AuthenticationService) { }
 }
