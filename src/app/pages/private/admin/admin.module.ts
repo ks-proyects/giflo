@@ -24,6 +24,7 @@ import { NaveListComponent } from './nave-list/nave-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { PrivateComponent } from '../private.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { AdminRoutingModule } from './admin-routing.module';
     NaveEditComponent,
     NaveListComponent,
     VariedadEditComponent,
-    VariedadListComponent
+    VariedadListComponent,
+    PrivateComponent
   ]
 })
 export class AdminModule { }

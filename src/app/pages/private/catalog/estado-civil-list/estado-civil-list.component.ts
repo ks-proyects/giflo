@@ -10,6 +10,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
+import { ListComponentService } from 'src/app/services/generic/list-component.service';
 
 // START - USED SERVICES
 /**
@@ -32,17 +33,13 @@ import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
     templateUrl: './estado-civil-list.component.html',
     styleUrls: ['./estado-civil-list.component.css']
 })
-export class EstadoCivilListComponent implements OnInit {
-
-    displayedColumns = ['acciones', 'descripcion'];
-    dataSource: MatTableDataSource<EstadoCivil>;
-    @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-    @ViewChild(MatSort, {}) sort: MatSort;
+export class EstadoCivilListComponent extends ListComponentService implements OnInit {
     constructor(
         private estadocivilService: EstadoCivilService,
         private breakpointObserver: BreakpointObserver,
         private disSer: DialogService
     ) {
+        super();
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
@@ -55,15 +52,6 @@ export class EstadoCivilListComponent implements OnInit {
             this.dataSource = new MatTableDataSource(arrayData);
         }
         );
-    }
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
     }
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };

@@ -10,6 +10,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
+import { ListComponentService } from 'src/app/services/generic/list-component.service';
 
 // START - USED SERVICES
 /**
@@ -32,19 +33,13 @@ import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
   templateUrl: './estado-list.component.html',
   styleUrls: ['./estado-list.component.css']
 })
-export class EstadoListComponent implements OnInit {
-
-  displayedColumns = ['acciones', 'descripcion'];
-  dataSource: MatTableDataSource<Estado>;
-
-  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-  @ViewChild(MatSort, {}) sort: MatSort;
+export class EstadoListComponent extends ListComponentService implements OnInit {
   constructor(
     private estadoService: EstadoService,
     private breakpointObserver: BreakpointObserver,
     private disSer: DialogService
   ) {
-
+    super();
     this.dataSource = new MatTableDataSource([]);
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
       this.displayedColumns = result.matches ?
@@ -52,7 +47,6 @@ export class EstadoListComponent implements OnInit {
         ['acciones', 'descripcion'];
     });
   }
-
   /**
    * Init
    */
@@ -61,15 +55,6 @@ export class EstadoListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(arrayData);
     }
     );
-  }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
   }
   openConfirm(action, id) {
     const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };

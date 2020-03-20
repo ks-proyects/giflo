@@ -10,6 +10,7 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
+import { ListComponentService } from 'src/app/services/generic/list-component.service';
 
 // START - USED SERVICES
 /**
@@ -32,22 +33,19 @@ import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
     templateUrl: './pagina-list.component.html',
     styleUrls: ['./pagina-list.component.css']
 })
-export class PaginaListComponent implements OnInit {
-    displayedColumns = ['accion', 'component', 'loadChildren','path'];
-    dataSource: MatTableDataSource<Pagina>;
+export class PaginaListComponent extends ListComponentService implements OnInit {
 
-    @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-    @ViewChild(MatSort, {}) sort: MatSort;
     constructor(
         private paginaService: PaginaService,
         private breakpointObserver: BreakpointObserver,
         private disSer: DialogService
-    ) { 
+    ) {
+        super();
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
-                ['accion', 'component','path'] :
-                ['accion', 'component', 'loadChildren','path'];
+                ['accion', 'component', 'path'] :
+                ['accion', 'component', 'loadChildren', 'path'];
         });
     }
     /**
@@ -55,18 +53,9 @@ export class PaginaListComponent implements OnInit {
      */
     ngOnInit(): void {
         this.paginaService.list().subscribe(arrayData => {
-                this.dataSource = new MatTableDataSource(arrayData);
-            }
+            this.dataSource = new MatTableDataSource(arrayData);
+        }
         );
-    }
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-    }
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
     }
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
@@ -77,7 +66,4 @@ export class PaginaListComponent implements OnInit {
             }
         });
     }
-
-    
-
 }

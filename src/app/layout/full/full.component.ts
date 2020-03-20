@@ -10,14 +10,15 @@ import {
   Directive
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { AuthenticationService } from 'src/app/security/authentication.service';
+import { User } from 'src/app/domain/giflo_db/user';
+import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-blank',
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.less']
 })
 export class FullComponent implements OnDestroy {
-
-  
   mobileQuery: MediaQueryList;
   dir = 'ltr';
   green: boolean;
@@ -30,9 +31,7 @@ export class FullComponent implements OnDestroy {
   url: string;
   sidebarOpened;
   status = false;
-
-  public showSearch = false;
-
+  user: User;
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
 
@@ -43,12 +42,20 @@ export class FullComponent implements OnDestroy {
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-  ) {this.mobileQuery = media.matchMedia('(min-width: 768px)');
-  this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-  this.mobileQuery.addListener(this._mobileQueryListener);
-}
+    public auth: SessionService
+  ) {
+    this.mobileQuery = media.matchMedia('(min-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+    auth.currentUser.subscribe(user => {
+      debugger;
+      if (user) {
+        this.user = user;
+      }
+    });
+  }
 
-ngOnDestroy(): void {
-  this.mobileQuery.removeListener(this._mobileQueryListener);
-}
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
 }

@@ -9,14 +9,33 @@ import { NaveEditComponent } from './nave-edit/nave-edit.component';
 import { NaveListComponent } from './nave-list/nave-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
+import { PrivateComponent } from '../private.component';
 
 export const routes: Routes = [
   {
     path: '',
     children: [
       {
+        path: 'home',
+        component: PrivateComponent,
+        data: {
+          title: 'Home',
+          urls: [
+            { title: 'home', url: '/admin/home' },
+            { title: 'home' }
+          ]
+        }
+      },
+      {
         path: 'bloques/:id',
-        component: BloqueEditComponent
+        component: BloqueEditComponent,
+        data: {
+          title: 'Bloques',
+          urls: [
+            { title: 'List', url: '/admin/bloques' },
+            { title: 'Edit' }
+          ]
+        }
       },
       {
         path: 'bloques',

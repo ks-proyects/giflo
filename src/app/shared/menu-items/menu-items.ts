@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-
+import { AngularFireAuth } from '@angular/fire/auth';
+import { MenuItemService } from '../../services/menu-item.service';
 export interface BadgeItem {
   type: string;
   value: string;
@@ -78,6 +79,8 @@ const MENUITEMS = [
 
 @Injectable()
 export class MenuItems {
+  constructor(private menuItem: MenuItemService) {
+  }
   getMenuitem(): Menu[] {
     return MENUITEMS;
   }

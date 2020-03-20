@@ -10,6 +10,7 @@ import {
   Directive
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-blank',
   templateUrl: './landing.component.html',
@@ -40,6 +41,7 @@ export class LandingComponent implements OnDestroy {
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    session: SessionService
   ) {this.mobileQuery = media.matchMedia('(min-width: 768px)');
   this._mobileQueryListener = () => changeDetectorRef.detectChanges();
   this.mobileQuery.addListener(this._mobileQueryListener);

@@ -14,13 +14,11 @@ import { Router } from '@angular/router';
     templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
-
     user: User;
     offline: boolean;
-    constructor(public authenticationService: AuthenticationService,public router: Router) { }
-
+    constructor(public authenticationService: AuthenticationService, public router: Router) { }
     ngOnInit() {
-        window.addEventListener('online',  this.onNetworkStatusChange.bind(this));
+        window.addEventListener('online', this.onNetworkStatusChange.bind(this));
         window.addEventListener('offline', this.onNetworkStatusChange.bind(this));
         this.authenticationService.getUser().subscribe(user => this.user = user, err => this.user = null);
     }

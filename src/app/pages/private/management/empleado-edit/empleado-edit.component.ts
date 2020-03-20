@@ -99,7 +99,7 @@ export class EmpleadoEditComponent implements OnInit {
             // Get relations
             this.contactoService.list().subscribe(list => this.listContacto = list);
             this.direccionService.list().subscribe(list => this.listDireccion = list);
-            this.empresaService.list().subscribe(list => this.listEmpresa = list);
+            this.empresaService.listByUser().subscribe(list => this.listEmpresa = list);
             this.estadoService.list().subscribe(list => this.listEstado = list);
             this.estadocivilService.list().subscribe(list => this.listEstadoCivil = list);
             this.rolService.list().subscribe(list => this.listRol = list);

@@ -50,18 +50,14 @@ export class BloqueEditComponent implements OnInit {
     itemDoc: AngularFirestoreDocument<Bloque>;
     isNew: Boolean = true;
     formValid: Boolean;
-
     listEmpresa: Empresa[];
     listEstado: Estado[];
-
-
     constructor(
         private bloqueService: BloqueService,
         private estadoService: EstadoService,
         private empresaService: EmpresaService,
         private route: ActivatedRoute,
         private location: Location) {
-            
     }
 
     /**
@@ -74,7 +70,6 @@ export class BloqueEditComponent implements OnInit {
                 this.isNew = false;
                 this.itemDoc = this.bloqueService.get(id);
                 this.itemDoc.valueChanges().subscribe(item => this.item = item);
-
             }
             // Get relations
             this.empresaService.list().subscribe(list => this.listEmpresa = list);

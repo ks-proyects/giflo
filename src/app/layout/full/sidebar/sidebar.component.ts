@@ -6,13 +6,17 @@ import {
   ViewChild,
   HostListener,
   Directive,
-  AfterViewInit
+  AfterViewInit,
+  Input
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 
 import { MenuItems } from '../../../shared/menu-items/menu-items';
+import { AuthenticationService } from 'src/app/security/authentication.service';
+import { User } from 'src/app/domain/giflo_db/user';
+import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -21,22 +25,22 @@ import { MenuItems } from '../../../shared/menu-items/menu-items';
 export class AppSidebarComponent implements OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   mobileQuery: MediaQueryList;
-
   private _mobileQueryListener: () => void;
   status: boolean = true;
-  
-  itemSelect:number[]=[]
-  
+  itemSelect: number[] = [];
+  @Input()
+  public currentUser: User;
+
   subclickEvent() {
     this.status = true;
   }
-  scrollToTop(){
-  	document.querySelector('.page-wrapper').scroll({
-	top: 0,
-	left: 0
-	});
-  }	
-  
+  scrollToTop() {
+    document.querySelector('.page-wrapper').scroll({
+      top: 0,
+      left: 0
+    });
+  }
+
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,

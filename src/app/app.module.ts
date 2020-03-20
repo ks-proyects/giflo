@@ -145,7 +145,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppHeaderComponent,
     AppSidebarComponent,
     AppBreadcrumbComponent,
-    MatDialogComponent,
+    MatDialogComponent
   ],
   providers: [
     {
