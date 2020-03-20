@@ -61,7 +61,7 @@
       [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
       (close)="sidebarOpened = false" [perfectScrollbar]="config">
 
-      <app-sidebar class="app-sidebar" [currentUser]="user"></app-sidebar>
+      <app-sidebar class="app-sidebar" [currentUser]="session.currentUser"></app-sidebar>
 
     </mat-sidenav>
     <!-- ============================================================== -->

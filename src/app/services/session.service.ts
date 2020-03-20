@@ -14,7 +14,7 @@ import { User } from '../domain/giflo_db/user';
 })
 export class SessionService {
   userDoc: AngularFirestoreDocument<any>;
-  currentUser: Observable<User> = new Observable<User>(observer => { observer.next(null); });
+  currentUser: User;
   idRolDefault: string;
   token: string;
   constructor(
@@ -25,8 +25,6 @@ export class SessionService {
     this.afAuth.user.subscribe(user => {
       if (user) {
         this.createUpdateUser(user);
-      } else {
-        this.currentUser = new Observable<User>(observer => { observer.next(null); });
       }
     });
     this.afm.requestToken.subscribe(newToken => {
@@ -51,8 +49,8 @@ export class SessionService {
           surname: '',
           token: [this.token ? this.token : '']
         };
-        this.userService.createCustom(userNew).then((res) => {
-          this.currentUser = new Observable<User>(observer => { observer.next(userNew); });
+        this.userService.createCustom(userNew).then(() => {
+          this.currentUser = userNew;
         });
       } else {
         let tokens = user.token;
@@ -63,7 +61,7 @@ export class SessionService {
         }, {
           merge: true
         }).then((res) => {
-          this.currentUser = new Observable<User>(observer => { observer.next(user); });
+          this.currentUser = user;
         });
       }
     });

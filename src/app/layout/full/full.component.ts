@@ -31,7 +31,6 @@ export class FullComponent implements OnDestroy {
   url: string;
   sidebarOpened;
   status = false;
-  user: User;
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
 
@@ -42,17 +41,11 @@ export class FullComponent implements OnDestroy {
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public auth: SessionService
+    public session: SessionService
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    auth.currentUser.subscribe(user => {
-      debugger;
-      if (user) {
-        this.user = user;
-      }
-    });
   }
 
   ngOnDestroy(): void {
