@@ -69,6 +69,8 @@ import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.comp
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
+import { SettingComponent } from './pages/private/home/setting/setting.component';
+import { ProfileComponent } from './pages/private/home/profile/profile.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -145,7 +147,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppHeaderComponent,
     AppSidebarComponent,
     AppBreadcrumbComponent,
-    MatDialogComponent
+    MatDialogComponent,
+    SettingComponent,
+    ProfileComponent
   ],
   providers: [
     {
