@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {
-  MatAutocompleteModule,
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
@@ -36,13 +35,11 @@ import { PrivateComponent } from '../private.component';
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    MatAutocompleteModule,
     MatInputModule,
     MatSortModule,
     MatIconModule,
     MatButtonModule,
     MatSelectModule
-
   ],
   declarations: [
     BloqueEditComponent,

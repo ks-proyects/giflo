@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {
-  MatAutocompleteModule,
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
@@ -31,7 +30,6 @@ import { CatalogRoutingModule } from './catalog-routing.module';
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    MatAutocompleteModule,
     MatInputModule,
     MatSortModule,
     MatIconModule,

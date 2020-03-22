@@ -21,45 +21,24 @@ import { NavbarComponent } from './components/navbar.component';
 import { MailValidator } from './directives/mail.validate.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
-import { MatAutocompleteModule,
+import { 
+  MatToolbarModule,
+  MatIconModule,
   MatButtonModule,
   MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
   MatMenuModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
   MatSidenavModule,
+  MatListModule,
   MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatStepperModule,
-  MatBadgeModule} from '@angular/material';
+  MatDialogModule,
+
+} from '@angular/material';
 import { SpinnerComponent } from './shared/spiner/spinner.component';
 import { LandingComponent } from './layout/landing/landing.component';
 import { FullComponent } from './layout/full/full.component';
@@ -72,7 +51,7 @@ import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.compone
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
-  wheelSpeed: 2,
+  wheelSpeed: 1,
   wheelPropagation: true
 };
 
@@ -98,37 +77,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CommonModule,
     FormsModule,
     PerfectScrollbarModule,
-    MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatGridListModule,
     MatIconModule,
-    MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatSelectModule,
     MatSidenavModule,
     MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule,
-    MatStepperModule,
-    MatBadgeModule
+    MatDialogModule
   ],
   entryComponents:[
     MatDialogComponent
