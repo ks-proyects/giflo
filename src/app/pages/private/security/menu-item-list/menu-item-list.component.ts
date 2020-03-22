@@ -11,6 +11,9 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
+import { SessionService } from 'src/app/services/session.service';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 // START - USED SERVICES
 /**
@@ -37,7 +40,9 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     constructor(
         private menuitemService: MenuItemService,
         private breakpointObserver: BreakpointObserver,
-        private disSer: DialogService
+        private disSer: DialogService,
+        private session: SessionService,
+        private afs: AngularFirestore
     ) {
         super();
         this.dataSource = new MatTableDataSource([]);
@@ -49,10 +54,12 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     }
 
     ngOnInit(): void {
-        this.menuitemService.list().subscribe(arrayData => {
-            this.dataSource = new MatTableDataSource(arrayData);
-        }
-        );
+        this.menuitemService.list().pipe(
+            leftJoinDocument(this.afs, 'rol', 'rol'),
+            leftJoinDocument(this.afs, 'pagina', 'pagina')).subscribe(arrayData => {
+                this.dataSource = new MatTableDataSource((arrayData as MenuItem[]));
+            }
+            );
     }
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };

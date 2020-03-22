@@ -51,6 +51,7 @@ export class MenuItemEditComponent implements OnInit {
     formValid: Boolean;
 
     listPagina: Pagina[];
+    listSecciones: String[];
     listRol: Rol[];
 
 
@@ -78,6 +79,7 @@ export class MenuItemEditComponent implements OnInit {
             // Get relations
             this.paginaService.list().subscribe(list => this.listPagina = list);
             this.rolService.list().subscribe(list => this.listRol = list);
+            this.listSecciones = ['private', 'catalog', 'home', 'management', 'security'];
         });
     }
 

@@ -46,6 +46,7 @@ export class PaginaEditComponent implements OnInit {
     formValid: Boolean;
 
     listEstado: Estado[];
+    listSeccion: string[];
 
 
     constructor(
@@ -69,6 +70,7 @@ export class PaginaEditComponent implements OnInit {
 
             }
             // Get relations
+            this.listSeccion = ['admin', 'catalog', 'home', 'management', 'security'];
             this.estadoService.list().subscribe(list => this.listEstado = list);
         });
     }

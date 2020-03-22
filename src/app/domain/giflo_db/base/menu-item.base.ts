@@ -26,7 +26,7 @@ import { Rol } from '../rol';
 export interface MenuItemBase {
 
     id: string;
-    estado?: Boolean;
+    estado?: boolean;
     // Relations pagina
     pagina: Pagina | string;
     // Relations rol

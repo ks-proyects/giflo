@@ -4,7 +4,8 @@
 <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
     <!-- User profile image -->
     <div class="profile-img">
-        <img src="assets/images/users/profile.png" alt="user"> </div>
+        <mat-icon class="large-50">account_circle</mat-icon>
+    </div>
     <!-- User profile text-->
     <!-- ============================================================== -->
     <!-- Profile - style you can find in header.scss -->
@@ -15,17 +16,14 @@
         </a>
     </div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon> Settings
+        <button mat-menu-item  [routerLink]="['/home', 'setting']">
+            <mat-icon>settings</mat-icon>Configuración
         </button>
-        <button mat-menu-item>
-            <mat-icon>account_box</mat-icon> Profile
+        <button mat-menu-item [routerLink]="['/home', 'profile']">
+            <mat-icon>account_box</mat-icon> Perfil
         </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon> Disable notifications
-        </button>
-        <button mat-menu-item>
-            <mat-icon>exit_to_app</mat-icon> Sign Out
+        <button mat-menu-item (click)="logoutOUT.emit()">
+            <mat-icon>exit_to_app</mat-icon> Salir
         </button>
     </mat-menu>
 </div>

@@ -26,12 +26,12 @@
                         <!-- Name Column -->
                         <ng-container matColumnDef="rol">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Rol </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.rol}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.rol.nombre}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="pagina">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Página </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.pagina}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.pagina.component}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="estado">

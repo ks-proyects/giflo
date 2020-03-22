@@ -3,16 +3,11 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import {
   ChangeDetectorRef,
   Component,
-  NgZone,
-  OnDestroy,
-  ViewChild,
-  HostListener,
-  Directive
+  OnDestroy
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
-import { AuthenticationService } from 'src/app/security/authentication.service';
-import { User } from 'src/app/domain/giflo_db/user';
 import { SessionService } from 'src/app/services/session.service';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 @Component({
   selector: 'app-blank',
   templateUrl: './full.component.html',
@@ -20,13 +15,6 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class FullComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
-  dir = 'ltr';
-  green: boolean;
-  blue: boolean;
-  dark: boolean;
-  minisidebar: boolean;
-  boxed: boolean;
-  danger: boolean;
   showHide: boolean;
   url: string;
   sidebarOpened;
@@ -41,7 +29,8 @@ export class FullComponent implements OnDestroy {
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public session: SessionService
+    public session: SessionService,
+    private auth: AuthenticationService
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -50,5 +39,8 @@ export class FullComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+  logout(event: any): void {
+    this.auth.logout();
   }
 }

@@ -23,11 +23,11 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 // CONFIG
-import { environment } from '../../../environments/environment';
 
 // MODEL
 import { MenuItem } from '../../domain/giflo_db/menu-item';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { leftJoinDocument } from '../generic/leftJoin.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../MenuItem.service.ts
@@ -66,7 +66,8 @@ export class MenuItemBaseService {
         this.menuitemCollection = afs.collection<MenuItem>('menuitem');
         this.afAuth.user.subscribe(user => {
             if (user) {
-                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges();
+                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges().
+                    pipe(leftJoinDocument(afs, 'rol', 'rol'), leftJoinDocument(afs, 'pagina', 'pagina'));
             } else {
 
             }
@@ -129,6 +130,9 @@ export class MenuItemBaseService {
     */
     update(itemDoc: AngularFirestoreDocument<MenuItem>, item: MenuItem): Promise<void> {
         return itemDoc.update(item);
+    }
+    getMenuUser() {
+        return this.lisMenuUser;
     }
 
 

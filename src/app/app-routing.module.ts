@@ -66,6 +66,18 @@ const routes: Routes = [
   },
   {
     path: '',
+    component: FullComponent,
+    children: [
+      {
+        path: 'home',
+        loadChildren: './pages/private/home/home.module#HomeModule'
+      },
+    ],
+    canActivate: [AuthGuard]
+  },
+  
+  {
+    path: '',
     component: AppBlankComponent,
     children: [
       {

@@ -20,8 +20,6 @@ File: scss
  */
 
  @import 'assets/style/variable';
- @import 'assets/style/icons/themify-icons/themify-icons.css';
- @import 'assets/style/icons/font-awesome/css/font-awesome.css';
  @import 'assets/style/spinner';
  @import 'assets/style/app';
  @import 'assets/style/header';
@@ -49,23 +47,6 @@ $color_google_btn_active: #e5e5e5;
     @include angular-material-theme($red-app-theme);
 }
 
-// Blue Theme
-.blue {
-    @import 'assets/style/colors/blue';
-    @include angular-material-theme($blue-app-theme);
-}
-
-// Green Theme
-.green {
-    @import 'assets/style/colors/green';
-    @include angular-material-theme($green-app-theme);
-}
-
-// Dark Theme
-.dark {
-    @import 'assets/style/colors/dark';
-    @include angular-material-theme($dark-theme);
-}
 
 $custom-typography: mat-typography-config( $font-family: 'Poppins');
 @include mat-core($custom-typography);
@@ -194,3 +175,9 @@ body{
     font-family: 'Roboto', arial, sans-serif;
 }
 
+.large-50{
+    font-size: 50px;
+}
+.large-40{
+    font-size: 40px;
+}

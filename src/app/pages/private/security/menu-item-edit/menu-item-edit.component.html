@@ -12,7 +12,7 @@
                 <mat-form-field>
                   <mat-select name="pagina" id="pagina" [(ngModel)]="item.pagina" #pagina="ngModel">
                     <mat-option>-- Ninguno --</mat-option>
-                    <mat-option *ngFor="let item of listPagina" [value]="item.id">{{item.pagina}}</mat-option>
+                    <mat-option *ngFor="let item of listPagina" [value]="item.id">{{item.component}}</mat-option>
                   </mat-select>
                   <mat-placeholder>
                     Pagina

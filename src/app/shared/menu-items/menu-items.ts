@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MenuItemService } from '../../services/menu-item.service';
+import { SessionService } from 'src/app/services/session.service';
 export interface BadgeItem {
   type: string;
   value: string;
@@ -79,7 +80,7 @@ const MENUITEMS = [
 
 @Injectable()
 export class MenuItems {
-  constructor(private menuItem: MenuItemService) {
+  constructor(private menuItem: SessionService) {
   }
   getMenuitem(): Menu[] {
     return MENUITEMS;

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Rol } from '../domain/giflo_db/rol';
-import { Observable } from 'rxjs';
-
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
 import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
+import { MenuItemService } from './menu-item.service';
+import { leftJoinDocument } from './generic/leftJoin.service';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { MenuItem } from '../domain/giflo_db/menu-item';
+import { Rol } from '../domain/giflo_db/rol';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +20,26 @@ export class SessionService {
   currentUser: User;
   idRolDefault: string;
   token: string;
+  private lisMenuUser: Observable<any>;
+  private menusItems: MenuItem[];
   constructor(
     private afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
     public afm: AngularFireMessaging,
     private userService: UserService,
-    private rolService: RolService) {
+    private rolService: RolService,
+    private ms: MenuItemService) {
+    this.lisMenuUser = new Observable<any>(observer => {
+      observer.next([]);
+    });
+    this.afs.collection('menuitem').valueChanges().
+      pipe(
+        leftJoinDocument(this.afs, 'rol', 'rol'),
+        leftJoinDocument(this.afs, 'pagina', 'pagina')
+      ).subscribe(arrar => {
+        this.menusItems = (arrar as MenuItem[]);
+        this.updateMenu();
+      });
     this.afAuth.user.subscribe(user => {
       if (user) {
         this.createUpdateUser(user);
@@ -51,6 +69,7 @@ export class SessionService {
         };
         this.userService.createCustom(userNew).then(() => {
           this.currentUser = userNew;
+          this.updateMenu();
         });
       } else {
         let tokens = user.token;
@@ -62,6 +81,7 @@ export class SessionService {
           merge: true
         }).then((res) => {
           this.currentUser = user;
+          this.updateMenu();
         });
       }
     });
@@ -69,4 +89,18 @@ export class SessionService {
   onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
+  updateMenu() {
+    this.lisMenuUser = new Observable<any>(observer => {
+      const menuUser = this.menusItems.filter(mi => {
+        return this.currentUser ? this.currentUser.roles.
+          includes((mi.rol as Rol).id) || this.currentUser.roles.includes('SUPERADMIN') : false;
+      });
+      observer.next(menuUser);
+    });
+  }
+
+  getMenuUser() {
+    return this.lisMenuUser;
+  }
+
 }

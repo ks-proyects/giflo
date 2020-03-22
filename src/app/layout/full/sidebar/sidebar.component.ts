@@ -1,22 +1,17 @@
 import {
   ChangeDetectorRef,
   Component,
-  NgZone,
   OnDestroy,
-  ViewChild,
-  HostListener,
-  Directive,
-  AfterViewInit,
-  Input
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 
 import { MenuItems } from '../../../shared/menu-items/menu-items';
-import { AuthenticationService } from 'src/app/security/authentication.service';
 import { User } from 'src/app/domain/giflo_db/user';
-import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -28,8 +23,8 @@ export class AppSidebarComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
   status: boolean = true;
   itemSelect: number[] = [];
-  @Input()
-  public currentUser: User;
+  @Input() public currentUser: User;
+  @Output() public logoutOUT = new EventEmitter();
 
   subclickEvent() {
     this.status = true;
