@@ -8,6 +8,30 @@ File: scss
 /*******************
  Topbar
 *******************/
+.navbar-light{
+  &.navbar-shrink{
+    .dark-logo{
+      display: none;
+      -webkit-transition: all 4s ease;
+    -moz-transition: all 4s ease;
+    -o-transition: all 4s ease;
+    transition: all 4s ease;
+    }
+    .light-logo{
+      display: block;
+      -webkit-transition: all 4s ease;
+    -moz-transition: all 4s ease;
+    -o-transition: all 4s ease;
+    transition: all 4s ease;
+    }
+}
+.dark-logo{
+  display: block;
+}
+.light-logo{
+  display: none;
+}
+}
 mat-toolbar,
 .mat-toolbar-header {
   &mat-toolbar {
@@ -21,11 +45,7 @@ mat-toolbar,
     .navbar-brand {
       display: flex;
       line-height: 18px;
-
       align-items: center;
-      .dark-logo {
-        display: none;
-      }
       b {
         margin-right: 5px;
       }

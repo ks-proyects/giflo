@@ -3,11 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import {
   ChangeDetectorRef,
   Component,
-  NgZone,
-  OnDestroy,
-  ViewChild,
-  HostListener,
-  Directive
+  OnDestroy
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { SessionService } from 'src/app/services/session.service';
@@ -18,6 +14,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class LandingComponent implements OnDestroy {
 
+  public config: PerfectScrollbarConfigInterface = {};
   mobileQuery: MediaQueryList;
   dir = 'ltr';
   green: boolean;
@@ -30,8 +27,6 @@ export class LandingComponent implements OnDestroy {
   url: string;
   sidebarOpened;
   status = false;
-
-  public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
 
   clickEvent() {

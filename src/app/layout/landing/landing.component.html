@@ -2,33 +2,35 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" [perfectScrollbar]="config">
     <div class="container">
         <div class="mat-toolbar-header">
             <div class="navbar-header">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">
                     <!-- Logo icon -->
                     <b>
-          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-          <!-- Dark Logo icon -->
-          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
-          <!-- Light Logo icon -->
-          <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo">
-        </b>
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Light Logo icon -->
+                        <img src="assets/images/logo-light-icon.png" alt="homepage" class="dark-logo">
+                        <!-- Light Logo icon -->
+                        <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo">
+                    </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     <span fxShow="false" fxShow.gt-xs>
-          <!-- dark Logo text -->
-          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
-          <!-- Light Logo text -->
-          <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
-        </span>
+                        <!-- Light Logo text -->
+                        <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+                        <!-- Light Logo text -->
+                        <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
+                    </span>
                 </a>
             </div>
         </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-       <mat-icon>menu</mat-icon>
-    </button>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <mat-icon>menu</mat-icon>
+        </button>
         <div #snav id="navbarResponsive" class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -37,7 +39,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#features">Nuestros Servicios</a>
                 </li>
-               
+
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" [routerLink]="['/admin', 'bloques']">Ingresar</a>
                 </li>
@@ -51,7 +53,8 @@
             <div class="col-lg-7 my-auto">
                 <div class="header-content mx-auto">
                     <h1 class="mb-5">Sistema de Gestión Floricola</h1>
-                    <a [routerLink]="['/admin', 'bloques']" class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
+                    <a [routerLink]="['/admin', 'bloques']"
+                        class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
                 </div>
             </div>
             <div class="col-lg-5 my-auto">
@@ -81,8 +84,8 @@
 <section class="features" id="features">
     <div class="container">
         <div class="section-heading text-center">
-            <h2>Unlimited Features, Unlimited Fun</h2>
-            <p class="text-muted">Check out what you can do with this app theme!</p>
+            <h2>Rosas ilimitadas, belleza ilimitada</h2>
+            <p class="text-muted">Visita nuestra finca y enamorate de nuestra rosas</p>
             <hr>
         </div>
         <div class="row">
@@ -91,11 +94,7 @@
                     <div class="device-mockup iphone6_plus portrait white">
                         <div class="device">
                             <div class="screen">
-                                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                                <img src="assets/images/landing-page/demo-screen-1.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="button">
-                                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                                 <img src="assets/images/landing-page/demo-screen-1.jpg" class="img-fluid" alt="">
                             </div>
                         </div>
                     </div>
@@ -107,15 +106,16 @@
                         <div class="col-lg-6">
                             <div class="feature-item">
                                 <i class="icon-screen-smartphone text-primary"></i>
-                                <h3>Device Mockups</h3>
-                                <p class="text-muted">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
+                                <h3>Rosas Eternas</h3>
+                                <p class="text-muted">Mira lod diferentes colores variedades de nuestras rosas eternas.</p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="feature-item">
                                 <i class="icon-camera text-primary"></i>
-                                <h3>Flexible Use</h3>
-                                <p class="text-muted">Put an image, video, animation, or anything else in the screen!</p>
+                                <h3>Nuevas Variedades</h3>
+                                <p class="text-muted">Visita nuestra finca y enamorate nuestras nuevas variedades en rosas.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -123,15 +123,16 @@
                         <div class="col-lg-6">
                             <div class="feature-item">
                                 <i class="icon-present text-primary"></i>
-                                <h3>Free to Use</h3>
-                                <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
+                                <h3>Rosas Fancy</h3>
+                                <p class="text-muted">Decora tus eventos importante con nuestras Rosas Fancy
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="feature-item">
                                 <i class="icon-lock-open text-primary"></i>
-                                <h3>Open Source</h3>
-                                <p class="text-muted">Since this theme is MIT licensed, you can use it commercially!</p>
+                                <h3>Rosas Frosty</h3>
+                                <p class="text-muted">Alegra con rosas Frosty la conquista de los momentos más importantes.</p>
                             </div>
                         </div>
                     </div>
@@ -142,16 +143,13 @@
 </section>
 <footer>
     <div class="container">
-        <p>&copy; Your Website 2019. All Rights Reserved.</p>
+        <p>&copy; Giglo 2020. All Rights Reserved.</p>
         <ul class="list-inline">
             <li class="list-inline-item">
-                <a href="#">Privacy</a>
+                <a href="#">Políticas de Privacidad</a>
             </li>
             <li class="list-inline-item">
-                <a href="#">Terms</a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#">FAQ</a>
+                <a href="#">Términos y Condiciones</a>
             </li>
         </ul>
     </div>
