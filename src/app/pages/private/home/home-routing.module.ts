@@ -9,11 +9,25 @@ export const routes: Routes = [
     children: [
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        data: {
+          title: 'Perfil',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: '' }
+          ]
+        }
       },
       {
         path: 'setting',
-        component: SettingComponent
+        component: SettingComponent,
+        data: {
+          title: 'Configuración',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: '' }
+          ]
+        }
       }
     ]
   }

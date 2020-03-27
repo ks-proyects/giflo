@@ -9,11 +9,25 @@ export const routes: Routes = [
     children: [
       {
         path: 'empleados/:id',
-        component: EmpleadoEditComponent
+        component: EmpleadoEditComponent,
+        data: {
+          title: 'Empleados',
+          urls: [
+            { title: 'Lista', url: '/management/empleados' },
+            { title: 'Edisión' }
+          ]
+        }
       },
       {
         path: 'empleados',
-        component: EmpleadoListComponent
+        component: EmpleadoListComponent,
+        data: {
+          title: 'Empleados',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       }
     ]
   }

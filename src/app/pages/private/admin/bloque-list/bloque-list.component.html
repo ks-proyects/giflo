@@ -13,8 +13,8 @@
                         <ng-container matColumnDef="id">
                             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                                <mat-cell> 
-                                    <button mat-icon-button  [routerLink]="['/admin/bloques', row.id]">
+                                <mat-cell>
+                                    <button mat-icon-button [routerLink]="['/admin/bloques', row.id]">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-icon-button (click)="openConfirm('Delete',row.id)">
@@ -31,7 +31,7 @@
                         <!-- Progress Column -->
                         <ng-container matColumnDef="estado">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.estado=='INA'?'Inactivo':'Activo'}}</mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.estado?row.estado.nombre:''}}</mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;">

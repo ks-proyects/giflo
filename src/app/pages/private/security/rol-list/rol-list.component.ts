@@ -11,6 +11,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 
 // START - USED SERVICES
 /**
@@ -37,7 +39,8 @@ export class RolListComponent extends ListComponentService implements OnInit {
     constructor(
         private rolService: RolService,
         private breakpointObserver: BreakpointObserver,
-        private disSer: DialogService
+        private disSer: DialogService,
+        private afs: AngularFirestore
     ) {
         super();
         this.dataSource = new MatTableDataSource([]);
@@ -49,8 +52,9 @@ export class RolListComponent extends ListComponentService implements OnInit {
     }
 
     ngOnInit(): void {
-        this.rolService.list().subscribe(arrayData => {
-            this.dataSource = new MatTableDataSource(arrayData);
+        this.rolService.list().pipe(
+            leftJoinDocument(this.afs, 'activo', 'estado')).subscribe(arrayData => {
+            this.dataSource = new MatTableDataSource(arrayData as Rol[]);
         }
         );
     }

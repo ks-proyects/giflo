@@ -31,7 +31,7 @@
                         <!-- Name Column -->
                         <ng-container matColumnDef="estado">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.estado}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.estado?row.estado.nombre:''}} </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;">

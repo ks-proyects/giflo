@@ -11,6 +11,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { MatTableDataSource } from '@angular/material';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 // START - USED SERVICES
 
@@ -30,7 +32,8 @@ export class EmpleadoListComponent extends ListComponentService implements OnIni
     constructor(
         private empleadoService: EmpleadoService,
         private breakpointObserver: BreakpointObserver,
-        private disSer: DialogService
+        private disSer: DialogService,
+        private afs: AngularFirestore
     ) {
         super();
         this.dataSource = new MatTableDataSource([]);
@@ -41,8 +44,9 @@ export class EmpleadoListComponent extends ListComponentService implements OnIni
         });
     }
     ngOnInit(): void {
-        this.empleadoService.list().subscribe(arrayData => {
-            this.dataSource = new MatTableDataSource(arrayData);
+        this.empleadoService.list().pipe(
+            leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(arrayData => {
+            this.dataSource = new MatTableDataSource(arrayData as Empleado[]);
         }
         );
     }

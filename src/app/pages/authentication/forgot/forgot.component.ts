@@ -26,6 +26,6 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['/authentication/login2']);
+    this.router.navigate(['/authentication/login']);
   }
 }

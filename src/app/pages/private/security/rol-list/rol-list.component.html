@@ -30,7 +30,7 @@
                         </ng-container>
                         <ng-container matColumnDef="activo">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Activo </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.activo}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.activo?row.activo.nombre:''}} </mat-cell>
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;">

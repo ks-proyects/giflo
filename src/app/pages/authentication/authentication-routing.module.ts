@@ -23,7 +23,7 @@ export const routes: Routes = [
         component: LockscreenComponent
       },
       {
-        path: 'login2',
+        path: 'login',
         component: LoginComponent
       },
       {

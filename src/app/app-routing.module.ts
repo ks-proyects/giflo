@@ -75,7 +75,6 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard]
   },
-  
   {
     path: '',
     component: AppBlankComponent,

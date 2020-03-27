@@ -19,7 +19,7 @@ export const routes: Routes = [
         path: 'home',
         component: PrivateComponent,
         data: {
-          title: 'Home',
+          title: 'Inicio',
           urls: [
             { title: 'home', url: '/admin/home' },
             { title: 'home' }
@@ -32,8 +32,8 @@ export const routes: Routes = [
         data: {
           title: 'Bloques',
           urls: [
-            { title: 'List', url: '/admin/bloques' },
-            { title: 'Edit' }
+            { title: 'Lista', url: '/admin/bloques' },
+            { title: 'Edición' }
           ]
         }
       },
@@ -43,34 +43,76 @@ export const routes: Routes = [
         data: {
           title: 'Bloques',
           urls: [
-            { title: 'Bloques', url: '/dashboard' },
-            { title: 'Bloques' }
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
           ]
         }
       },
       {
         path: 'camas/:id',
-        component: CamaEditComponent
+        component: CamaEditComponent,
+        data: {
+          title: 'Camas',
+          urls: [
+            { title: 'Lista', url: '/admin/camas' },
+            { title: 'Edición' }
+          ]
+        }
       },
       {
         path: 'camas',
-        component: CamaListComponent
+        component: CamaListComponent,
+        data: {
+          title: 'Camas',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       },
       {
         path: 'naves/:id',
-        component: NaveEditComponent
+        component: NaveEditComponent,
+        data: {
+          title: 'Naves',
+          urls: [
+            { title: 'Lista', url: '/admin/naves' },
+            { title: 'Edición' }
+          ]
+        }
       },
       {
         path: 'naves',
-        component: NaveListComponent
+        component: NaveListComponent,
+        data: {
+          title: 'Naves',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       },
       {
         path: 'variedads/:id',
-        component: VariedadEditComponent
+        component: VariedadEditComponent,
+        data: {
+          title: 'Variedades',
+          urls: [
+            { title: 'Lista', url: '/admin/variedads' },
+            { title: 'Edición' }
+          ]
+        }
       },
       {
         path: 'variedads',
-        component: VariedadListComponent
+        component: VariedadListComponent,
+        data: {
+          title: 'Variedades',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       }
     ]
   }

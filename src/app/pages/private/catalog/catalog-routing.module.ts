@@ -11,19 +11,47 @@ export const routes: Routes = [
     children: [
       {
         path: 'estadocivils/:id',
-        component: EstadoCivilEditComponent
+        component: EstadoCivilEditComponent,
+        data: {
+          title: 'Estados Civil',
+          urls: [
+            { title: 'Lista', url: '/catalog/estadocivils' },
+            { title: 'Edisión' }
+          ]
+        }
       },
       {
         path: 'estadocivils',
-        component: EstadoCivilListComponent
+        component: EstadoCivilListComponent,
+        data: {
+          title: 'Estados Civil',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       },
       {
         path: 'estados/:id',
-        component: EstadoEditComponent
+        component: EstadoEditComponent,
+        data: {
+          title: 'Estados',
+          urls: [
+            { title: 'Lista', url: '/catalog/estados' },
+            { title: 'Edisión' }
+          ]
+        }
       },
       {
         path: 'estados',
-        component: EstadoListComponent
+        component: EstadoListComponent,
+        data: {
+          title: 'Estados',
+          urls: [
+            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Lista' }
+          ]
+        }
       }
     ]
   }
