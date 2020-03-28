@@ -1,0 +1,47 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="bg-light p-10 p-r-20 p-l-20">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                    </mat-form-field>
+                </div>
+                <div class="responsive-table">
+                    <mat-table [dataSource]="dataSource" matSort>
+                        <!-- Acciones Column -->
+                        <ng-container matColumnDef="acciones">
+                            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-cell> 
+                                    <button mat-icon-button  [routerLink]="['/security/rols', row.id]">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openConfirm('Delete',row.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="descripcion">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="activo">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Activo </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.activo?row.activo.nombre:''}} </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <mat-paginator [pageSizeOptions]="[5, 90,10]"></mat-paginator>
+                </div>
+                <button mat-button routerLink="/security/rols/new" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div> 

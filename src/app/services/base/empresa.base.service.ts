@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Empresa } from '../../domain/giflo_db/empresa';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Empresa.service.ts
@@ -68,13 +69,27 @@ import { Empresa } from '../../domain/giflo_db/empresa';
  */
 @Injectable()
 export class EmpresaBaseService {
-
     private empresaCollection: AngularFirestoreCollection<Empresa>;
+    private listUser: Observable<Empresa[]>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        public afAuth: AngularFireAuth
     ) {
         this.empresaCollection = afs.collection<Empresa>('empresa');
+        this.afAuth.user.subscribe(user => {
+            if (user) {
+                this.listUser = this.afs.collection('empresa', ref => ref.where('user', '==', user.uid)).snapshotChanges().pipe(
+                    map(actions => actions.map(a => {
+                        const data = a.payload.doc.data() as Empresa;
+                        const id = a.payload.doc.id;
+                        return { id, ...data };
+                    }))
+                );
+            } else {
+                this.listUser = new Observable<Empresa[]>(observer => { observer.next([]); });
+            }
+        });
     }
 
 
@@ -137,5 +152,9 @@ export class EmpresaBaseService {
 
 
     // Custom APIs
+
+    listByUser(): Observable<Empresa[]> {
+        return this.listUser;
+    }
 
 }

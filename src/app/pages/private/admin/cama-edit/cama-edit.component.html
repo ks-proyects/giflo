@@ -1,0 +1,119 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombre" [(ngModel)]="item.nombre" name="nombre"
+                                    #nombre="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Orden" [(ngModel)]="item.orden" name="orden"
+                                    #orden="ngModel">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="nave" id="nave" [(ngModel)]="item.nave" #nave="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listNave" [value]="item.id">{{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Nave
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="supervisor" id="supervisor" [(ngModel)]="item.supervisor"
+                                    #supervisor="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listSupervisor" [value]="item.id">{{item.nombres}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Supervisor
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="trabajador" id="trabajador" [(ngModel)]="item.trabajador"
+                                    #trabajador="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listTrabajador" [value]="item.id">{{item.nombres}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Responsable
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="estado" id="estado" [(ngModel)]="item.estado" #estado="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Estado
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <div class="mb-20">
+                                <label>Variedad</label>
+                                <span class="dropdown ml-20">
+                                    <button class="btn btn-dropdown dropdown-toggle" type="button"
+                                        id="dropdownMenuButtonvariedad" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Agregar
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonvariedad">
+                                        <button class="dropdown-item" *ngFor="let item of listVariedad"
+                                            [class.disabled]="containVariedad(item)"
+                                            (click)="$event.preventDefault(); containVariedad(item) || addVariedad(item)">{{item.nombreComun}}
+                                        </button>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="mb-40">
+                                <ul class="list-group">
+                                    <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item
+                                        found</li>
+                                    <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
+                                        {{obj.nombreComun}}
+                                        <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

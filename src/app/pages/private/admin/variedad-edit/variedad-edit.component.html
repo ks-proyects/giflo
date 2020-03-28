@@ -1,0 +1,55 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombre Comun" [(ngModel)]="item.nombreComun"
+                                    name="nombreComun" #nombreComun="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Color" [(ngModel)]="item.color" name="color"
+                                    #color="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombre Cientifico" [(ngModel)]="item.nombreCientifico"
+                                    name="nombreCientifico" #nombreCientifico="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Indicaciones" [(ngModel)]="item.indicaciones"
+                                    name="indicaciones" #indicaciones="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Cuidados" [(ngModel)]="item.cuidados" name="cuidados"
+                                    #cuidados="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

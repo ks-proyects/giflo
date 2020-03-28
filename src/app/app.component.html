@@ -1,8 +1,4 @@
-
-<!-- NAVBAR -->
-<app-navbar class="{{user?'top-bar':''}}" *ngIf="user" ></app-navbar>
-<!-- CONTENT -->
-<div class="{{user?'container-fluid page-content':'container-fluid'}}">
-    <router-outlet></router-outlet>
-</div>
+<router-outlet>
+    <app-spinner></app-spinner>
+</router-outlet>
 

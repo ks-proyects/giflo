@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,10 +23,11 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 // CONFIG
-import { environment } from '../../../environments/environment';
 
 // MODEL
 import { MenuItem } from '../../domain/giflo_db/menu-item';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { leftJoinDocument } from '../generic/leftJoin.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../MenuItem.service.ts
@@ -56,11 +57,21 @@ import { MenuItem } from '../../domain/giflo_db/menu-item';
 export class MenuItemBaseService {
 
     private menuitemCollection: AngularFirestoreCollection<MenuItem>;
+    private lisMenuUser: Observable<any>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private afAuth: AngularFireAuth
     ) {
         this.menuitemCollection = afs.collection<MenuItem>('menuitem');
+        this.afAuth.user.subscribe(user => {
+            if (user) {
+                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges().
+                    pipe(leftJoinDocument(afs, 'rol', 'rol'), leftJoinDocument(afs, 'pagina', 'pagina'));
+            } else {
+
+            }
+        });
     }
 
 
@@ -119,6 +130,9 @@ export class MenuItemBaseService {
     */
     update(itemDoc: AngularFirestoreDocument<MenuItem>, item: MenuItem): Promise<void> {
         return itemDoc.update(item);
+    }
+    getMenuUser() {
+        return this.lisMenuUser;
     }
 
 

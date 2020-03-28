@@ -21,16 +21,40 @@ import { NavbarComponent } from './components/navbar.component';
 import { MailValidator } from './directives/mail.validate.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
-import { MatSidenavModule, MatListModule } from '@angular/material';
+import { 
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatListModule,
+  MatSliderModule,
+  MatDialogModule,
+
+} from '@angular/material';
+import { SpinnerComponent } from './shared/spiner/spinner.component';
+import { LandingComponent } from './layout/landing/landing.component';
+import { FullComponent } from './layout/full/full.component';
+import { AppHeaderComponent } from './layout/full/header/header.component';
+import { AppSidebarComponent } from './layout/full/sidebar/sidebar.component';
+import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.component';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { AppBlankComponent } from './layout/blank/blank.component';
+import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 1,
+  wheelPropagation: true
+};
+
 // DECLARE APPLICATION MODULE
 @NgModule({
   bootstrap: [
@@ -50,18 +74,41 @@ import { MatSidenavModule, MatListModule } from '@angular/material';
     ImageCropperModule,
     ReactiveFormsModule,
     ScrollingModule,
-    InfiniteScrollModule,
     CommonModule,
     FormsModule,
+    PerfectScrollbarModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatListModule,
+    MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatSliderModule,
+    MatToolbarModule,
+    MatDialogModule
+  ],
+  entryComponents:[
+    MatDialogComponent
   ],
   declarations: [
     // LAYOUT
     AppComponent,
     NavbarComponent,
-    MailValidator
+    MailValidator,
+    SpinnerComponent,
+    LandingComponent,
+    FullComponent,
+    AppBlankComponent,
+    AppHeaderComponent,
+    AppSidebarComponent,
+    AppBreadcrumbComponent,
+    MatDialogComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
 })
 export class AppModule { }

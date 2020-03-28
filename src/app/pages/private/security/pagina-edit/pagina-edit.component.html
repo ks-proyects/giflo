@@ -1,0 +1,64 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Component" [(ngModel)]="item.component" name="component"
+                                    #component="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="loadChildren" [(ngModel)]="item.loadChildren"
+                                    name="loadChildren" #loadChildren="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="path" [(ngModel)]="item.path" name="path" #path="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="seccion" id="seccion" [(ngModel)]="item.seccion" #seccion="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listSeccion" [value]="item">{{item}}</mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Sección
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="estado" id="estado" [(ngModel)]="item.estado" #estado="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}</mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Estado
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

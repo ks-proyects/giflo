@@ -30,4 +30,5 @@ export interface PaginaBase {
     path?: string;
     // Relations estado
     estado: Estado | string;
+    seccion: string;
 }

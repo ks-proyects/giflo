@@ -1,0 +1,48 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+      <mat-card>
+        <mat-card-content>
+          <!-- ============================================================== -->
+          <!-- column -->
+          <!-- basic-form ============================================================== -->
+          <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+            <div fxLayout="row wrap">
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select name="pagina" id="pagina" [(ngModel)]="item.pagina" #pagina="ngModel">
+                    <mat-option>-- Ninguno --</mat-option>
+                    <mat-option *ngFor="let item of listPagina" [value]="item.id">{{item.component}}</mat-option>
+                  </mat-select>
+                  <mat-placeholder>
+                    Pagina
+                  </mat-placeholder>
+                </mat-form-field>
+              </div>
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <mat-form-field>
+                  <mat-select name="rol" id="rol" [(ngModel)]="item.rol" #rol="ngModel">
+                    <mat-option>-- Ninguno --</mat-option>
+                    <mat-option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</mat-option>
+                  </mat-select>
+                  <mat-placeholder>
+                    Rol
+                  </mat-placeholder>
+                </mat-form-field>
+              </div>
+              <!-- column -->
+              <div fxFlex.gt-md="100" fxFlex="100">
+                  <mat-checkbox  [(ngModel)]="item.estado" name="estado" #estado="ngModel">Estado</mat-checkbox>
+              </div>
+              <!-- column -->
+              <div fxFlex.gt-sm="100" fxFlex="100">
+                <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

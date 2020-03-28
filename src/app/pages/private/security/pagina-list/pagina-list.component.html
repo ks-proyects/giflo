@@ -1,0 +1,56 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <div class="bg-light p-10 p-r-20 p-l-20">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
+                    </mat-form-field>
+                </div>
+                <div class="responsive-table">
+                    <mat-table [dataSource]="dataSource" matSort>
+                        <!-- Acciones Column -->
+                        <ng-container matColumnDef="accion">
+                            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-cell> 
+                                    <button mat-icon-button  [routerLink]="['/security/paginas', row.id]">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button (click)="openConfirm('Delete',row.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="component">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Componente </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.component}}</mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="loadChildren">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> loadChildren </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+                        </ng-container>
+
+                         <!-- Name Column -->
+                         <ng-container matColumnDef="path">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Path </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.path}} </mat-cell>
+                        </ng-container>
+                        
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <mat-paginator [pageSizeOptions]="[10, 20,90]"></mat-paginator>
+                </div>
+                <button mat-button routerLink="/security/paginas/new" mat-flat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

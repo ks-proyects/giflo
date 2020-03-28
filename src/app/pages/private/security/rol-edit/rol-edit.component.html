@@ -1,0 +1,40 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Descripción" [(ngModel)]="item.nombre" name="nombre"
+                                    #nombre="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select name="activo" id="activo" [(ngModel)]="item.activo" #activo="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listActivo" [value]="item.id">{{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Estado
+                                </mat-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

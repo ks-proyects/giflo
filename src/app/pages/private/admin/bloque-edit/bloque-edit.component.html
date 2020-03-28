@@ -1,0 +1,64 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <!-- ============================================================== -->
+        <!-- column -->
+        <!-- basic-form ============================================================== -->
+        <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+          <div fxLayout="row wrap">
+            <!-- column -->
+            <div fxFlex.gt-md="100" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Nombre" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-md="100" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Direccion" [(ngModel)]="item.direccion" name="direccion"
+                  #direccion="ngModel">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Orden" type="number" [(ngModel)]="item.orden" name="orden"
+                  #orden="ngModel">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                <mat-select name="empresa" id="empresa" [(ngModel)]="item.empresa" #empresa="ngModel">
+                  <mat-option>-- Ninguno --</mat-option>
+                  <mat-option *ngFor="let item of listEmpresa" [value]="item.id">{{item.nombre}}</mat-option>
+                </mat-select>
+                <mat-placeholder>
+                  Empresa
+                </mat-placeholder>
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <mat-form-field>
+                <mat-select name="estado" id="estado" [(ngModel)]="item.estado" #estado="ngModel">
+                  <mat-option>-- Ninguno --</mat-option>
+                  <mat-option *ngFor="let item of listEstado" [value]="item.id">{{item.nombre}}</mat-option>
+                </mat-select>
+                <mat-placeholder>
+                  Estado
+                </mat-placeholder>
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100">
+              <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+              <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
