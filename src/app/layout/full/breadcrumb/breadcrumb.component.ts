@@ -12,7 +12,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { MediaMatcher, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -22,10 +22,12 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class AppBreadcrumbComponent implements OnInit {
   @Input() layout;
   pageInfo;
+  isMovile = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -44,6 +46,9 @@ export class AppBreadcrumbComponent implements OnInit {
         this.titleService.setTitle(event['title']);
         this.pageInfo = event;
       });
+    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+      this.isMovile = result.matches ? true : false;
+    });
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }
