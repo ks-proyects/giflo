@@ -19,6 +19,7 @@
 import { Estado } from '../estado';
 import { Nave } from '../nave';
 import { Empleado } from '../empleado';
+import { Variedad } from '../variedad';
 
 /**
  * This is the model of Cama object
@@ -38,4 +39,5 @@ export interface CamaBase {
     // Relations trabajador
     trabajador: Empleado | string;
     // Relations m:m variedad
-    variedad: string[]}
+    variedad: Variedad[] | string[]
+}

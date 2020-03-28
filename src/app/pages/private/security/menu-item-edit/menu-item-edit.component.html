@@ -32,6 +32,10 @@
                 </mat-form-field>
               </div>
               <!-- column -->
+              <div fxFlex.gt-md="100" fxFlex="100">
+                  <mat-checkbox  [(ngModel)]="item.estado" name="estado" #estado="ngModel">Estado</mat-checkbox>
+              </div>
+              <!-- column -->
               <div fxFlex.gt-sm="100" fxFlex="100">
                 <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
                 <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>

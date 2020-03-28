@@ -17,6 +17,7 @@ import { Estado } from '../../../../domain/giflo_db/estado';
 import { Nave } from '../../../../domain/giflo_db/nave';
 import { Empleado } from '../../../../domain/giflo_db/empleado';
 import { Variedad } from '../../../../domain/giflo_db/variedad';
+import { leftJoinDocument, leftJoin } from 'src/app/services/generic/leftJoin.service';
 
 // START - USED SERVICES
 /**
@@ -77,7 +78,8 @@ export class CamaEditComponent implements OnInit {
         private variedadService: VariedadService,
         private estadoService: EstadoService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private afs: AngularFirestore) {
         // Init list
     }
 
@@ -90,7 +92,9 @@ export class CamaEditComponent implements OnInit {
             if (id !== 'new') {
                 this.isNew = false;
                 this.itemDoc = this.camaService.get(id);
-                this.itemDoc.valueChanges().subscribe(item => this.item = item);
+                this.itemDoc.valueChanges().subscribe(item => {
+                    this.item = item;
+                });
 
             }
             // Get relations
@@ -109,7 +113,7 @@ export class CamaEditComponent implements OnInit {
      * @param {string} id Id of Variedad to search
      * @returns {boolean} True if it is found
      */
-    containVariedad(id: string): boolean {
+    containVariedad(id: Variedad): boolean {
         if (!this.item.variedad) return false;
         return this.item.variedad.indexOf(id) !== -1;
     }
@@ -119,7 +123,7 @@ export class CamaEditComponent implements OnInit {
      *
      * @param {string} id Id of Variedad to add in this.item.variedad array
      */
-    addVariedad(id: string) {
+    addVariedad(id: Variedad) {
         if (!this.item.variedad)
             this.item.variedad = [];
         this.item.variedad.push(id);

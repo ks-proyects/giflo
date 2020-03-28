@@ -35,6 +35,9 @@ $border:rgba(0, 0, 0, 0.12);/* This is for the navigation*/
 
    }
 }
+.list-group-item{
+   background-color: $inverse !important;
+}
 /*This is for the chartis js*/
 .ct-label{
    fill:rgba(255, 255, 255, 0.4);

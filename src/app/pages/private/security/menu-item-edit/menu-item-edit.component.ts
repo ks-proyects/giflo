@@ -13,6 +13,8 @@ import { PaginaService } from '../../../../services/pagina.service';
 import { MenuItem } from '../../../../domain/giflo_db/menu-item';
 import { Pagina } from '../../../../domain/giflo_db/pagina';
 import { Rol } from '../../../../domain/giflo_db/rol';
+import { Estado } from 'src/app/domain/giflo_db/estado';
+import { EstadoService } from 'src/app/services/estado.service';
 
 // START - USED SERVICES
 /**
@@ -51,8 +53,8 @@ export class MenuItemEditComponent implements OnInit {
     formValid: Boolean;
 
     listPagina: Pagina[];
-    listSecciones: String[];
     listRol: Rol[];
+    listActivo: Estado[];
 
 
     constructor(
@@ -60,7 +62,8 @@ export class MenuItemEditComponent implements OnInit {
         private rolService: RolService,
         private paginaService: PaginaService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private estadoService: EstadoService) {
         // Init list
     }
 
@@ -79,7 +82,7 @@ export class MenuItemEditComponent implements OnInit {
             // Get relations
             this.paginaService.list().subscribe(list => this.listPagina = list);
             this.rolService.list().subscribe(list => this.listRol = list);
-            this.listSecciones = ['private', 'catalog', 'home', 'management', 'security'];
+            this.estadoService.list().subscribe(list => this.listActivo = list);
         });
     }
 

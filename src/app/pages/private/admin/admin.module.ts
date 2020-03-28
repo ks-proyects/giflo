@@ -12,6 +12,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatSelectModule,
+  MatDialogModule,
 } from '@angular/material';
 
 import { BloqueEditComponent } from './bloque-edit/bloque-edit.component';
@@ -39,7 +40,8 @@ import { PrivateComponent } from '../private.component';
     MatSortModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   declarations: [
     BloqueEditComponent,

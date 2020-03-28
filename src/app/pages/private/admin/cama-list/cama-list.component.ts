@@ -45,16 +45,16 @@ export class CamaListComponent extends ListComponentService implements OnInit {
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
-                ['id', 'nombre'] :
-                ['id', 'nombre', 'estado'];
+                ['id', 'nombre', 'responsable'] :
+                ['id', 'nombre', 'responsable', 'estado'];
         });
     }
     ngOnInit(): void {
         this.camaService.list().pipe(
-            leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(arrayData => {
-            this.dataSource = new MatTableDataSource(arrayData as Cama[]);
-        }
-        );
+            leftJoinDocument(this.afs, 'estado', 'estado'), leftJoinDocument(this.afs, 'trabajador', 'empleado')).subscribe(arrayData => {
+                this.dataSource = new MatTableDataSource(arrayData as Cama[]);
+            }
+            );
     }
 
     openConfirm(action, id) {

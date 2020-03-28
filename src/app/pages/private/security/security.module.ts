@@ -12,7 +12,9 @@ import {
   MatTableModule,
   MatIconModule,
   MatButtonModule,
-  MatSelectModule} from '@angular/material';
+  MatSelectModule,
+  MatCheckboxModule
+} from '@angular/material';
 import { EmpresaEditComponent } from './empresa-edit/empresa-edit.component';
 import { EmpresaListComponent } from './empresa-list/empresa-list.component';
 import { MenuItemEditComponent } from './menu-item-edit/menu-item-edit.component';
@@ -37,8 +39,8 @@ import { SecurityRoutingModule } from './security-routing.module';
     MatSortModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectModule
-
+    MatSelectModule,
+    MatCheckboxModule
   ],
   declarations: [
     EmpresaEditComponent,

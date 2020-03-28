@@ -83,12 +83,12 @@
                                     <button class="btn btn-dropdown dropdown-toggle" type="button"
                                         id="dropdownMenuButtonvariedad" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        Add
+                                        Agregar
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonvariedad">
                                         <button class="dropdown-item" *ngFor="let item of listVariedad"
-                                            [class.disabled]="containVariedad(item.id)"
-                                            (click)="$event.preventDefault(); containVariedad(item.id) || addVariedad(item.id)">{{item.nombreComun}}
+                                            [class.disabled]="containVariedad(item)"
+                                            (click)="$event.preventDefault(); containVariedad(item) || addVariedad(item)">{{item.nombreComun}}
                                         </button>
                                     </div>
                                 </span>
@@ -98,7 +98,7 @@
                                     <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item
                                         found</li>
                                     <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
-                                        {{obj}}
+                                        {{obj.nombreComun}}
                                         <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
                                             <i class="fa fa-trash"></i>
                                         </button>
