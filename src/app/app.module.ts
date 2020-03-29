@@ -51,7 +51,7 @@ import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.compone
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
-  wheelSpeed: 1,
+  wheelSpeed: 0.5,
   wheelPropagation: true
 };
 

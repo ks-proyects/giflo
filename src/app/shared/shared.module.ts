@@ -7,20 +7,25 @@ import {
   AccordionDirective
 } from './accordion';
 import { SearchPipe } from '../pipes/search.pipe';
+import { ToolbarButtonComponent } from './toolbar-button/toolbar-button.component';
+import { MatIconModule, MatToolbarModule } from '@angular/material';
 
 @NgModule({
+  imports: [MatIconModule, MatToolbarModule],
   declarations: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
-    SearchPipe
+    SearchPipe,
+    ToolbarButtonComponent
   ],
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
-    SearchPipe
+    SearchPipe,
+    ToolbarButtonComponent
   ],
   providers: [MenuItems]
 })
-export class SharedModule {}
+export class SharedModule { }

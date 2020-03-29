@@ -13,8 +13,8 @@
                         <ng-container matColumnDef="acciones">
                             <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                                <mat-cell> 
-                                    <button mat-icon-button  [routerLink]="['/catalog/estadocivils', row.id]">
+                                <mat-cell>
+                                    <button mat-icon-button [routerLink]="['/catalog/estadocivils', row.id]">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                     <button mat-icon-button (click)="openConfirm('Delete',row.id)">
@@ -34,10 +34,12 @@
                     </mat-table>
                     <mat-paginator [pageSizeOptions]="[5, 95]"></mat-paginator>
                 </div>
+            </mat-card-content>
+            <app-toolbar-button>
                 <button mat-button routerLink="/catalog/estadocivils/new" mat-flat-button color="primary">
                     <mat-icon>add</mat-icon>
                 </button>
-            </mat-card-content>
+            </app-toolbar-button>
         </mat-card>
     </div>
-</div> 
+</div>

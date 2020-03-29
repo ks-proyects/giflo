@@ -43,12 +43,14 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns;">
                         </mat-row>
                     </mat-table>
-                    <mat-paginator [pageSizeOptions]="[5, 40,50,5]"></mat-paginator>
+                    <mat-paginator [pageSizeOptions]="[5, 20,70,5]"></mat-paginator>
                 </div>
-                <button mat-button routerLink="/admin/camas/new" mat-flat-button color="primary">
-                    <mat-icon>add</mat-icon>
-                </button>
             </mat-card-content>
         </mat-card>
+        <app-toolbar-button>
+            <button mat-button routerLink="/admin/camas/new" mat-flat-button color="primary">
+                <mat-icon>add</mat-icon>
+            </button>
+        </app-toolbar-button>
     </div>
 </div>

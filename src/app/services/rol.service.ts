@@ -39,6 +39,8 @@ export class RolService extends RolBaseService {
                 this.create(item);
                 item = {id : 'ADM', nombre: 'ADMINISTRADOR', activo: 'ACT'};
                 this.create(item);
+                item = {id : 'SUPERADMIN', nombre: 'SUPERADMIN', activo: 'ACT'};
+                this.create(item);
             }
         });
     }

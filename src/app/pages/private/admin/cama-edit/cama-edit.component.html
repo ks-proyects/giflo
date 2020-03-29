@@ -95,11 +95,13 @@
                             </div>
                             <div class="mb-40">
                                 <ul class="list-group">
-                                    <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No item
+                                    <li class="list-group-item" *ngIf="!item.variedad || item.variedad.length == 0">No
+                                        item
                                         found</li>
                                     <li class="list-group-item" *ngFor="let obj of item.variedad; let i = index">
                                         {{obj.nombreComun}}
-                                        <button class="btn btn-danger pull-right" type="button" (click)="removeVariedad(i)">
+                                        <button class="btn btn-danger pull-right" type="button"
+                                            (click)="removeVariedad(i)">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </li>
@@ -107,13 +109,13 @@
                             </div>
                         </div>
                         <!-- column -->
-                        <div fxFlex.gt-sm="100" fxFlex="100">
-                            <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
-                            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
-                        </div>
                     </div>
                 </form>
             </mat-card-content>
+            <app-toolbar-button>
+                <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>
+                <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+            </app-toolbar-button>
         </mat-card>
     </div>
 </div>

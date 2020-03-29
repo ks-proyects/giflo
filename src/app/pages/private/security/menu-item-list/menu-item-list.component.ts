@@ -54,9 +54,7 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     }
 
     ngOnInit(): void {
-        this.menuitemService.list().pipe(
-            leftJoinDocument(this.afs, 'rol', 'rol'),
-            leftJoinDocument(this.afs, 'pagina', 'pagina')).subscribe(arrayData => {
+        this.menuitemService.list().subscribe(arrayData => {
                 this.dataSource = new MatTableDataSource((arrayData as MenuItem[]));
             }
             );

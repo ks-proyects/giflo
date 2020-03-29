@@ -66,8 +66,8 @@ export class MenuItemBaseService {
         this.menuitemCollection = afs.collection<MenuItem>('menuitem');
         this.afAuth.user.subscribe(user => {
             if (user) {
-                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges().
-                    pipe(leftJoinDocument(afs, 'rol', 'rol'), leftJoinDocument(afs, 'pagina', 'pagina'));
+                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges();
+                //.pipe(leftJoinDocument(afs, 'rol', 'rol'), leftJoinDocument(afs, 'pagina', 'pagina'));
             } else {
 
             }

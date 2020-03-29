@@ -8,9 +8,9 @@ import { User } from '../domain/giflo_db/user';
 import { MenuItemService } from './menu-item.service';
 import { leftJoinDocument } from './generic/leftJoin.service';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
+import { Pagina } from '../domain/giflo_db/pagina';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,9 @@ export class SessionService {
   currentUser: User;
   idRolDefault: string;
   token: string;
-  private lisMenuUser: Observable<any>;
-  private menusItems: MenuItem[];
+  private listMenuItem: MenuItem[];
+  private listMenuItemUser: MenuItem[];
+  private optionCurrentUser: Observable<MenuItem[]>;
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -29,22 +30,20 @@ export class SessionService {
     private userService: UserService,
     private rolService: RolService,
     private ms: MenuItemService) {
-    this.lisMenuUser = new Observable<any>(observer => {
-      observer.next([]);
-    });
-    this.afs.collection('menuitem').valueChanges().
-      pipe(
-        leftJoinDocument(this.afs, 'rol', 'rol'),
-        leftJoinDocument(this.afs, 'pagina', 'pagina')
-      ).subscribe(arrar => {
-        this.menusItems = (arrar as MenuItem[]);
-        this.updateMenu();
+    this.optionCurrentUser = new Observable<MenuItem[]>((ob: any) => {
+      this.afAuth.user.subscribe(user => {
+        if (user) {
+          this.createUpdateUser(user, ob);
+        } else {
+          ob.next([]);
+        }
       });
-    this.afAuth.user.subscribe(user => {
-      if (user) {
-        this.createUpdateUser(user);
-      }
+      this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+          this.listMenuItem = (arrar as MenuItem[]);
+          this.updateMenu(ob);
+        });
     });
+
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
     });
@@ -52,7 +51,7 @@ export class SessionService {
       this.idRolDefault = rol.id;
     });
   }
-  public createUpdateUser(userL) {
+  public createUpdateUser(userL, observer) {
     this.userDoc = this.userService.get(userL.uid);
     this.userDoc.valueChanges().subscribe(user => {
       let userNew: User;
@@ -68,8 +67,9 @@ export class SessionService {
           token: [this.token ? this.token : '']
         };
         this.userService.createCustom(userNew).then(() => {
+          debugger;
           this.currentUser = userNew;
-          this.updateMenu();
+          this.updateMenu(observer);
         });
       } else {
         let tokens = user.token;
@@ -81,7 +81,7 @@ export class SessionService {
           merge: true
         }).then((res) => {
           this.currentUser = user;
-          this.updateMenu();
+          this.updateMenu(observer);
         });
       }
     });
@@ -89,18 +89,15 @@ export class SessionService {
   onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
-  updateMenu() {
-    this.lisMenuUser = new Observable<any>(observer => {
-      const menuUser = this.menusItems.filter(mi => {
-        return this.currentUser ? this.currentUser.roles.
-          includes((mi.rol as Rol).id) || this.currentUser.roles.includes('SUPERADMIN') : false;
-      });
-      observer.next(menuUser);
-    });
+  updateMenu(observer) {
+    this.listMenuItemUser = this.listMenuItem ? this.listMenuItem.filter(mi => {
+      const pagina = mi.pagina as Pagina;
+      return this.currentUser ? (this.currentUser.roles.
+        includes((mi.rol as Rol).id) || this.currentUser.roles.includes('SUPERADMIN')) && mi.estado && pagina.estado === 'ACT' : false;
+    }) : [];
+    observer.next(this.listMenuItemUser);
   }
-
-  getMenuUser() {
-    return this.lisMenuUser;
+  getCurrentMenu() {
+    return this.optionCurrentUser;
   }
-
 }
