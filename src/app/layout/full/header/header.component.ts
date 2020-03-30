@@ -1,5 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { User } from 'src/app/domain/giflo_db/user';
+
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   @Output() public logoutOUT = new EventEmitter();
-
+  @Input() public currentUser: User;
   // This is for Notifications
   notifications: Object[] = [
     {

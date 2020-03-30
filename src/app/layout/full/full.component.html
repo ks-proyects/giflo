@@ -1,8 +1,7 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<div class="main-container" 
-  [ngClass]="{'minisidebar': true, 'boxed': false, 'danger': true }">
+<div class="main-container" [ngClass]="{'minisidebar': true, 'boxed': false, 'danger': true }">
   <!-- ============================================================== -->
   <!-- Topbar - style you can find in header.scss -->
   <!-- ============================================================== -->
@@ -37,7 +36,7 @@
     <!-- ============================================================== -->
     <!-- app header component - style you can find in header.scss / header.component.ts-->
     <!-- ============================================================== -->
-    <app-header (logoutOUT)="logout($event)"></app-header>
+    <app-header (logoutOUT)="logout($event)" [currentUser]="session.currentUser"></app-header>
   </mat-toolbar>
   <!-- ============================================================== -->
   <!-- End Topbar - style you can find in pages.scss -->
@@ -50,7 +49,6 @@
     <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
       [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
       (close)="sidebarOpened = false" [perfectScrollbar]="config">
-
       <app-sidebar class="app-sidebar" (logoutOUT)="logout($event)" [currentUser]="session.currentUser"></app-sidebar>
     </mat-sidenav>
     <!-- ============================================================== -->
@@ -58,7 +56,7 @@
     <!-- ============================================================== -->
     <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''" [perfectScrollbar]="config">
       <app-breadcrumb></app-breadcrumb>
-      <div class="page-content" >
+      <div class="page-content">
         <router-outlet>
           <app-spinner></app-spinner>
         </router-outlet>

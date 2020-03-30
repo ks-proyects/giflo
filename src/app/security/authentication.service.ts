@@ -23,7 +23,10 @@ export class AuthenticationService {
         estadoService.init();
         paginaService.init();
     }
-
+    resetPasswordInit(email: string) {
+        return this.afAuth.auth.sendPasswordResetEmail(
+            email, { url: 'http://localhost:4200/auth' });
+    }
     registerByEmailPass = (email, pass) => {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((user) => {
             if (user.user) {

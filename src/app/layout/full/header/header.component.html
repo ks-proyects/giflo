@@ -28,11 +28,9 @@
                                 <span class="time">{{notification.time}}</span>
                             </div>
                         </a>
-
                     </perfect-scrollbar>
                 </div>
             </li>
-
         </ul>
     </div>
 </mat-menu>
@@ -81,11 +79,11 @@
     <mat-icon class="large-40">account_circle</mat-icon>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <button mat-menu-item>
-        <mat-icon>settings</mat-icon> Configuración
+    <button mat-menu-item  [routerLink]="['/home/setting', currentUser?currentUser.id:'']">
+        <mat-icon>settings</mat-icon>Configuración
     </button>
-    <button mat-menu-item>
-        <mat-icon>account_box</mat-icon> Perfil
+    <button mat-menu-item [routerLink]="['/home/profile', currentUser?currentUser.id:'']">
+        <mat-icon>account_box</mat-icon>Perfil
     </button>
     <button mat-menu-item (click)="logoutOUT.emit()">
         <mat-icon>exit_to_app</mat-icon> Salir

@@ -1,3 +1,49 @@
-<p>
-  profile works!
-</p>
+<mat-card>
+  <mat-card-content>
+    <div class="mb-1">
+      <h1 class="mt-0">
+        <strong>Perfil</strong>
+      </h1>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-xs="50" fxFlex="100">
+        <h4 class="text-danger font-bold">{{user.name}} {{user.surname}}</h4>
+        <div fxLayout="column">
+          <span>{{user.username}}</span>
+          <span>,</span>
+          <span>Nr' Viswakarma Temple,
+            <br />{{user.mail}}</span>
+        </div>
+      </div>
+      <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
+        <h4 class="font-bold">Gaala &amp; Sons,</h4>
+        <div fxLayout="column">
+          <span>company@address.com</span>
+          <span>E 105, ODharti-2,</span>
+          <span>Nr' Viswakarma Temple,
+            <br />Talaja Road, Ahmedabad - 364002</span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-content class="table-rasponsive">
+
+  </mat-card-content>
+
+  <mat-card-content class="bg-light">
+    <div class="d-flex align-items-center">
+
+      <div class="text-right ml-auto">
+        <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+        <h6 class="text-uppercase text-md ma-0 text-bold">Tax (2%) :</h6>
+        <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+      </div>
+      <div class="m-l-10">
+        <h4 class="font-medium"></h4>
+        <h4 class="font-medium"></h4>
+        <h4 class="font-medium"></h4>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

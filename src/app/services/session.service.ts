@@ -16,10 +16,10 @@ import { Pagina } from '../domain/giflo_db/pagina';
   providedIn: 'root'
 })
 export class SessionService {
-  userDoc: AngularFirestoreDocument<any>;
-  currentUser: User;
-  idRolDefault: string;
-  token: string;
+  private userDoc: AngularFirestoreDocument<any>;
+  currentUser: User = { id: '' };
+  private idRolDefault: string;
+  private token: string;
   private listMenuItem: MenuItem[];
   private listMenuItemUser: MenuItem[];
   private optionCurrentUser: Observable<MenuItem[]>;
@@ -39,9 +39,9 @@ export class SessionService {
         }
       });
       this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
-          this.listMenuItem = (arrar as MenuItem[]);
-          this.updateMenu(ob);
-        });
+        this.listMenuItem = (arrar as MenuItem[]);
+        this.updateMenu(ob);
+      });
     });
 
     this.afm.requestToken.subscribe(newToken => {
@@ -90,11 +90,16 @@ export class SessionService {
     return self.indexOf(value) === index;
   }
   updateMenu(observer) {
-    this.listMenuItemUser = this.listMenuItem ? this.listMenuItem.filter(mi => {
-      const pagina = mi.pagina as Pagina;
-      return this.currentUser ? (this.currentUser.roles.
-        includes((mi.rol as Rol).id) || this.currentUser.roles.includes('SUPERADMIN')) && mi.estado && pagina.estado === 'ACT' : false;
-    }) : [];
+    if (this.currentUser.id > '') {
+      this.listMenuItemUser = this.listMenuItem ? this.listMenuItem.filter(mi => {
+        const pagina = mi.pagina as Pagina;
+        const haveRol = this.currentUser.roles.includes((mi.rol as Rol).id);
+        const isActive = mi.estado && pagina.estado === 'ACT';
+        return isActive && haveRol;
+      }) : [];
+    } else {
+      this.listMenuItemUser = [];
+    }
     observer.next(this.listMenuItemUser);
   }
   getCurrentMenu() {

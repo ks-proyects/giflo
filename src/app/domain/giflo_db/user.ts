@@ -9,7 +9,7 @@ export interface User extends UserBase {
 
     // Functions for User
 
-    token: string[];
+    token?: string[];
 
     // UTILS FUNCTIONS
 

@@ -16,10 +16,10 @@
         </a>
     </div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item  [routerLink]="['/home', 'setting']">
+        <button mat-menu-item  [routerLink]="['/home/setting', currentUser?currentUser.id:'']">
             <mat-icon>settings</mat-icon>Configuración
         </button>
-        <button mat-menu-item [routerLink]="['/home', 'profile']">
+        <button mat-menu-item [routerLink]="['/home/profile', currentUser?currentUser.id:'']">
             <mat-icon>account_box</mat-icon> Perfil
         </button>
         <button mat-menu-item (click)="logoutOUT.emit()">

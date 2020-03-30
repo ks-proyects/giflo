@@ -26,8 +26,8 @@ export interface UserBase {
     id: string;
     mail?: string;
     name?: string;
-    password: string;
+    password?: string;
     roles?: string[];
     surname?: string;
-    username: string;
+    username?: string;
 }
