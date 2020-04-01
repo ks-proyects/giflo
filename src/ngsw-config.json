@@ -47,6 +47,17 @@
         "maxSize":100,
         "timeout":"2s"
       }
+    },
+    {
+      "name":"Google Fonts",
+      "urls":[
+        "https://fonts.googleapis.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"performance",
+        "maxAge":"30d",
+        "maxSize":10
+      }
     }
   ]
 }
