@@ -5,7 +5,6 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 
-
 /**
  * Table Of Content
  *
@@ -19,60 +18,54 @@ File: scss
  *	8. Custom Templates
  */
 
- @import 'assets/style/variable';
- @import 'assets/style/icons/themify-icons/themify-icons.css';
- @import 'assets/style/spinner';
- @import 'assets/style/app';
- @import 'assets/style/header';
- @import 'assets/style/widgets';
- @import 'assets/style/pages';
- @import 'assets/style/sidebar';
- @import 'assets/style/dark-sidebar';
- @import 'assets/style/responsive';
- @import 'assets/style/rtl';
+//@import "assets/style/colors/default";
+@import "assets/style/colors/keysist";
+@import "assets/style/variable";
+@import "assets/style/icons/themify-icons/themify-icons.css";
+@import "assets/style/spinner";
+@import "assets/style/app";
+@import "assets/style/header";
+@import "assets/style/widgets";
+@import "assets/style/pages";
+@import "assets/style/sidebar";
+@import "assets/style/dark-sidebar";
+@import "assets/style/responsive";
+@import "assets/style/rtl";
 
 /* You can add global styles to this file, and also import other style files */
 
-$color_blue: #B72F05;
-$color_white: #ffffff;
-$color_orange: #ff6b35;
 
-$color_google_btn: #D51818;
-$color_google_btn_active: #e5e5e5;
-
-
-
-// Red Theme
-.danger {
-    @import 'assets/style/colors/red';
-    @include angular-material-theme($red-app-theme);
-}
-
-
-$custom-typography: mat-typography-config( $font-family: 'Poppins');
+$custom-typography: mat-typography-config(
+    $font-family: "Poppins",
+);
 @include mat-core($custom-typography);
-.allHeight{
+.allHeight {
     height: 100vh;
 }
-body{
-    background: rgb(136,51,14);
-background: linear-gradient(18deg, rgba(136,51,14,0.33657212885154064) 5%, rgba(255,255,255,0.6615021008403361) 30%, rgba(140,24,24,0.38699229691876746) 53%, rgba(255,255,255,0.28335084033613445) 76%, rgba(35,74,13,0.3785889355742297) 96%);    
+body {
+    background: rgb(136, 51, 14);
+    background: linear-gradient(
+        18deg,
+        rgba(136, 51, 14, 0.33657212885154064) 5%,
+        rgba(255, 255, 255, 0.6615021008403361) 30%,
+        rgba(140, 24, 24, 0.38699229691876746) 53%,
+        rgba(255, 255, 255, 0.28335084033613445) 76%,
+        rgba(35, 74, 13, 0.3785889355742297) 96%
+    );
 }
-.grid-content{
-    
+.grid-content {
 }
 /* GENERAL */
 html {
     position: relative;
     min-height: 100%;
 }
-body{
+body {
     background-color: #ffffff;
 }
 .dropdown-item {
     cursor: pointer;
 }
-
 
 /* FOOTER */
 
@@ -173,12 +166,12 @@ body{
     padding: 0 24px;
     font-size: 14px;
     font-weight: bold;
-    font-family: 'Roboto', arial, sans-serif;
+    font-family: "Roboto", arial, sans-serif;
 }
 
-.large-50{
+.large-50 {
     font-size: 50px;
 }
-.large-40{
+.large-40 {
     font-size: 40px;
 }

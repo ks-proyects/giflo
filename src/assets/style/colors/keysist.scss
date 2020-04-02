@@ -1,61 +1,8 @@
-/*
-Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: scss
-*/
 
 @import "~@angular/material/theming";
-
-/*Material Theme Colors*/
-
-$bodyfont: "Poppins", sans-serif;
-$headingfont: "Poppins", sans-serif;
-
-$keysist-primary: mat-palette($mat-light-green, 600);
-$keysist-accent: mat-palette($mat-red, 500);
-$keysist-warn: mat-palette($mat-amber);
-$keysist-theme: mat-light-theme($keysist-primary, $keysist-accent, $keysist-warn);
-//$keysist-theme: mat-dark-theme($keysist-primary, $keysist-accent, $keysist-warn);
-$primary: map-get($keysist-warn, primary);
-$secondary: map-get($keysist-accent, secondary);
-$background: map-get($keysist-theme, background);
-$foreground: map-get($keysist-theme, foreground);
-
-$danger: #06a700;
-$success: #06a700;
-$warning: #06a700;
-$info: #06a700;
-$themecolor-alt: #06a700;
-
-$font-16: 16px;
-
-/*bootstrap Color*/
-$muted: #530819;
-$dark: #530819;
-$light: #530819;
-$extra-light: #530819;
-$secondary: #530819;
-
-/*Light colors*/
-$light-danger: #f9e7eb;
-$light-success: #e8fdf8;
-$light-warning: #fff8ec;
-$light-primary: #f1effd;
-$light-info: #e3f3fd;
-$light-inverse: #f6f6f6;
-$light-megna: #e0f2f4;
-
-/*Normal Color*/
-$white: #ffffff;
-$red: #fb3a3a;
-$yellow: #a0aec4;
-$purple: #7460ee;
-$blue: #02bec9;
-$megna: #00897b;
-
-/*Extra Variable*/
-$rgt: right;
-$lft: left;
-$border: rgba(120, 130, 140, 0.13);
-$radius: 4px;
+$primary: mat-palette($mat-light-green, 800,50,A700);
+$accent: mat-palette($mat-amber, 900,600,A700);//default,lighter,darker
+$warn: mat-palette($mat-blue-grey,200,50,900);
+$theme: mat-light-theme($primary, $accent, $warn);
+//$theme: mat-dark-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
