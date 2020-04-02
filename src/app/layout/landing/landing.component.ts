@@ -1,10 +1,11 @@
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-blank',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.less']
+  styleUrls: ['./landing.component.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LandingComponent {
   constructor(

@@ -5,16 +5,11 @@
  }
  
  body {
-   font-family: 'Muli', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
  }
  
  a {
-   color: #fdcc52;
    transition: all .35s;
- }
- 
- a:hover, a:focus {
-   color: #fcbd20;
  }
  
  hr {
@@ -34,7 +29,7 @@
  h4,
  h5,
  h6 {
-   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
    font-weight: 100;
    letter-spacing: 1px;
  }
@@ -57,14 +52,14 @@
    border-color: rgba(34, 34, 34, 0.05);
    background-color: white;
    transition: all .35s;
-   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
    font-weight: 200;
    letter-spacing: 1px;
  }
  
  #mainNav .navbar-brand {
    color: #fdcc52;
-   font-family: 'Catamaran', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
    font-weight: 150;
    letter-spacing: 1px;
  }
@@ -81,7 +76,7 @@
  
  #mainNav .navbar-nav > li > a {
    font-size: 11px;
-   font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
    letter-spacing: 2px;
    text-transform: uppercase;
  }
@@ -174,9 +169,12 @@
    margin-right: auto;
    margin-left: auto;
  }
- 
+ .screen{
+  text-align: center;
+ }
  header.masthead .device-container .screen img {
    border-radius: 3px;
+   
  }
  
  @media (min-width: 992px) {
@@ -284,9 +282,14 @@
  section.cta {
    position: relative;
    padding: 250px 0;
-   background-image: url("/assets/images/landing-page/bg-cta.jpg");
+   background-image: url("/assets/images/landing-page/bg-cta-movil.jpg");
    background-position: center;
    background-size: cover;
+ }
+ @media only screen and (min-width: 400px) {
+  section.cta {
+    background-image: url("/assets/images/landing-page/bg-cta.jpg");
+  }
  }
  
  section.cta .cta-content {
@@ -371,8 +374,6 @@
  footer {
    padding: 25px 0;
    text-align: center;
-   color: rgba(255, 255, 255, 0.3);
-   background-color: #222222;
  }
  
  footer p {
@@ -386,22 +387,12 @@
  
  footer ul li a {
    font-size: 12px;
-   color: rgba(255, 255, 255, 0.3);
+   
  }
  
  footer ul li a:hover, footer ul li a:focus, footer ul li a:active, footer ul li a.active {
    text-decoration: none;
  }
- 
- .bg-primary {
-   background: #fdcc52;
-   background: linear-gradient(#fdcc52, #fdc539);
- }
- 
- .text-primary {
-   color: #fdcc52;
- }
- 
  .no-gutter > [class*='col-'] {
    padding-right: 0;
    padding-left: 0;
@@ -421,7 +412,7 @@
  
  .btn {
    border-radius: 300px;
-   font-family: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
+   font-family: "Poppins", arial, sans-serif;
    letter-spacing: 2px;
    text-transform: uppercase;
  }

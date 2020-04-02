@@ -39,10 +39,12 @@ html {
     min-height: 100%;
     background: $white;
 }
+
 a:hover,
 a:focus,
 a {
     text-decoration: none;
+    color: $themecolor;
 }
 a.link {
     color: $headingtext;
