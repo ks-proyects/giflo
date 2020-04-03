@@ -79,10 +79,10 @@
     <mat-icon class="large-40">account_circle</mat-icon>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <button mat-menu-item  [routerLink]="['/home/setting', currentUser?currentUser.id:'']">
+    <button mat-menu-item  [routerLink]="['/home', '/setting']">
         <mat-icon>settings</mat-icon>Configuración
     </button>
-    <button mat-menu-item [routerLink]="['/home/profile', currentUser?currentUser.id:'']">
+    <button mat-menu-item [routerLink]="['/home', '/profile']">
         <mat-icon>account_box</mat-icon>Perfil
     </button>
     <button mat-menu-item (click)="logoutOUT.emit()">

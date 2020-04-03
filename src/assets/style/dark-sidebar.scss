@@ -51,8 +51,8 @@ use profile section
 
 .user-profile {
     .profile-text {
-        > a {
-            color: $white!important;
+        > a,span {
+            color: $accent_lighter!important;
         }
     }
 }

@@ -8,7 +8,7 @@ export const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'profile/:id',
+        path: 'profile',
         component: ProfileComponent,
         data: {
           title: 'Perfil',
@@ -19,7 +19,7 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'setting/:id',
+        path: 'setting',
         component: SettingComponent,
         data: {
           title: 'Configuración',

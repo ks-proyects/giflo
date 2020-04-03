@@ -8,24 +8,11 @@
     </div>
     <!-- User profile text-->
     <!-- ============================================================== -->
-    <!-- Profile - style you can find in header.scss -->
+    <!-- Name Company - style you can find in header.scss -->
     <!-- ============================================================== -->
     <div class="profile-text">
-        <a [matMenuTriggerFor]="sdprofile" class=""> {{currentUser?currentUser.name:''}}
-            <i class="ti-angle-down font-12 m-l-5"></i>
-        </a>
+        <span>{{currentUser?currentUser.name:''}}</span>
     </div>
-    <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item  [routerLink]="['/home/setting', currentUser?currentUser.id:'']">
-            <mat-icon>settings</mat-icon>Configuración
-        </button>
-        <button mat-menu-item [routerLink]="['/home/profile', currentUser?currentUser.id:'']">
-            <mat-icon>account_box</mat-icon> Perfil
-        </button>
-        <button mat-menu-item (click)="logoutOUT.emit()">
-            <mat-icon>exit_to_app</mat-icon> Salir
-        </button>
-    </mat-menu>
 </div>
 
 <mat-nav-list appAccordion>

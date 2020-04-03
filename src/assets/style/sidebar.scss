@@ -225,14 +225,13 @@ use profile section
     cursor: pointer;
     white-space: nowrap;
 
-    >a {
-      color: $white !important;
+    >a,span {
+      color: $accent_lighter !important;
       width: 100%;
       padding: 6px 30px;
       background: rgba(0, 0, 0, 0.5);
       display: block;
       white-space: nowrap;
-
       &:after {
         position: absolute;
         right: 20px;
