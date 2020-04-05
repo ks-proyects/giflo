@@ -111,10 +111,12 @@ let MENUITEMS: Menu[] = [];
 export class MenuItems {
 
   constructor(private menuItem: SessionService) {
-    menuItem.getCurrentMenu().subscribe(array => { this.buildMenu(array); });
+    menuItem.getDataUser().subscribe(obj => {
+      this.buildMenu(obj.menu);
+    });
   }
   buildMenu(array: MenuItem[]) {
-    if (array.length > 0) {
+    if (array) {
       MENUITEMS = [];
       array.map(menu => {
         const section = (menu.pagina as Pagina).seccion;

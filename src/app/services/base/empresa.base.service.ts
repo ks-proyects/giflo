@@ -77,18 +77,20 @@ export class EmpresaBaseService {
         public afAuth: AngularFireAuth
     ) {
         this.empresaCollection = afs.collection<Empresa>('empresa');
-        this.afAuth.user.subscribe(user => {
-            if (user) {
-                this.listUser = this.afs.collection('empresa', ref => ref.where('user', '==', user.uid)).snapshotChanges().pipe(
-                    map(actions => actions.map(a => {
-                        const data = a.payload.doc.data() as Empresa;
-                        const id = a.payload.doc.id;
-                        return { id, ...data };
-                    }))
-                );
-            } else {
-                this.listUser = new Observable<Empresa[]>(observer => { observer.next([]); });
-            }
+        this.listUser = new Observable<Empresa[]>(observer => {
+            this.afAuth.user.subscribe(user => {
+                if (user) {
+                    this.afs.collection('empresa', ref => ref.where('user', '==', user.uid)).snapshotChanges().pipe(
+                        map(actions => actions.map(a => {
+                            const data = a.payload.doc.data() as Empresa;
+                            const id = a.payload.doc.id;
+                            return { id, ...data };
+                        }))
+                    ).subscribe(array => observer.next(array));
+                } else {
+                    observer.next([]);
+                }
+            });
         });
     }
 

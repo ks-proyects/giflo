@@ -12,6 +12,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 
 import { MenuItems } from '../../../shared/menu-items/menu-items';
 import { User } from 'src/app/domain/giflo_db/user';
+import { SessionService } from 'src/app/services/session.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -23,7 +24,7 @@ export class AppSidebarComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
   status: boolean = true;
   itemSelect: number[] = [];
-  @Input() public currentUser: User;
+  user: User;
   @Output() public logoutOUT = new EventEmitter();
 
   subclickEvent() {
@@ -35,15 +36,16 @@ export class AppSidebarComponent implements OnDestroy {
       left: 0
     });
   }
-
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    private session: SessionService
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    session.getDataUser().subscribe(obj => { this.user = obj.user; });
   }
 
   ngOnDestroy(): void {

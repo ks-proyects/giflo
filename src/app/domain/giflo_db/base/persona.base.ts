@@ -16,25 +16,35 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
-
+import { Contacto } from '../contacto';
+import { Direccion } from '../direccion';
 import { Empresa } from '../empresa';
 import { Estado } from '../estado';
+import { EstadoCivil } from '../estado-civil';
 import { Rol } from '../rol';
-import { Persona } from '../persona';
+import { User } from '../user';
 
 /**
  * This is the model of Empleado object
  *
  */
-export interface EmpleadoBase {
+export interface PersonaBase {
 
     id: string;
-    // Relations empresa
-    empresa: Empresa;
+    apellidos?: string;
+    fechaNacimiento?: Date;
+    identificacion?: string;
+    nombres?: string;
+    tipoIdentificacion?: string;
+    urlFoto?: string;
+    // Relations contacto
+    contacto: Contacto;
+    // Relations direccion
+    direcciones: Direccion[];
     // Relations estado
     estado: Estado;
-    // Relations rol
-    rol: Rol;
+    // Relations estadoCivil
+    estadoCivil: EstadoCivil;
     // Relations user
-    persona: Persona;
+    user: User;
 }

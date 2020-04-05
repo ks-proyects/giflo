@@ -1,0 +1,9 @@
+{{device.isMovile}}
+<mat-select *ngIf="!device.isMovile" name="this[name]" id="this[name]" [(ngModel)]="selectValue" #this[name]="ngModel">
+  <ng-content select=[isNotMovile]></ng-content>
+</mat-select>
+
+<select *ngIf="device.isMovile" matNativeControl [(ngModel)]="selectValue" name="this[name]" id="this[name]"
+  #this[name]="ngModel">
+  <ng-content select=[isMovile]></ng-content>
+</select>

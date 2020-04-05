@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SessionService } from 'src/app/services/session.service';
 import { User } from 'src/app/domain/giflo_db/user';
+
 
 
 @Component({
@@ -11,7 +13,7 @@ import { User } from 'src/app/domain/giflo_db/user';
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   @Output() public logoutOUT = new EventEmitter();
-  @Input() public currentUser: User;
+  user: User;
   // This is for Notifications
   notifications: Object[] = [
     {
@@ -33,5 +35,7 @@ export class AppHeaderComponent {
       time: '9:30 AM'
     }
   ];
-  constructor() { }
+  constructor(session: SessionService) {
+    session.getDataUser().subscribe(obj => { this.user = obj.user; });
+  }
 }

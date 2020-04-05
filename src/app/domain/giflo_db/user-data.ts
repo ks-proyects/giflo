@@ -1,16 +1,14 @@
-import { UserBase } from './base/user.base';
+import { UserDataBase } from './base/user-data.base';
 
 /**
  * YOU CAN OVERRIDE HERE UserBase.ts
  */
-export interface User extends UserBase {
+export interface UserData extends UserDataBase {
 
     // Insert here your custom attributes and function
 
     // Functions for User
 
-    token?: string[];
-    rolesStr?: string;
 
     // UTILS FUNCTIONS
 

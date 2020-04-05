@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,17 @@ export const routes: Routes = [
           urls: [
             { title: 'Inicio', url: '/admin/home' },
             { title: '' }
+          ]
+        }
+      },
+      {
+        path: 'profile/:id',
+        component: ProfileEditComponent,
+        data: {
+          title: 'Editar',
+          urls: [
+            { title: 'Perfil', url: '/home/profile' },
+            { title: 'Editar' }
           ]
         }
       }

@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -89,6 +89,12 @@ export class ContactoBaseService {
         );
     }
 
+    create(item: Contacto): Promise<DocumentReference> {
+        return this.contactoCollection.add(item);
+    }
+    update(itemDoc: AngularFirestoreDocument<Contacto>, item: Contacto): Promise<void> {
+        return itemDoc.update(item);
+    }
 
     // Custom APIs
 

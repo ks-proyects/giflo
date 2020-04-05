@@ -920,6 +920,9 @@ froms
 /*******************
 Mat card
 *******************/
+.page-content .mat-card{
+    padding-bottom: 30px !important;
+}
 .mat-card {
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05) !important;
     -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05) !important;
