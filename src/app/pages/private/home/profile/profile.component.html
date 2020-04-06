@@ -8,7 +8,7 @@
   </mat-card-header>
   <mat-card-content>
     <div fxLayout="row wrap" *ngIf="persona" fxLayoutGap.gt-sm="5px" fxLayoutGap.gt-xs="5px" fxLayoutGap="0px">
-      <div  fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
+      <div fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
         <h5 class="page-title text-themecolor m-0">Datos Personales</h5>
         <div fxLayout="row wrap" *ngIf="persona">
           <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
@@ -23,17 +23,20 @@
         </div>
       </div>
       <mat-divider [vertical]="!device.isMovile"></mat-divider>
-      <div  fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
+      <div fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
         <h5 class="page-title text-themecolor m-0">Medios de Contacto</h5>
         <div fxLayout="row wrap" *ngIf="persona">
           <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Email: {{persona.contacto.email}}
+            Email:<a href="mailto:{{persona.contacto.email}}">{{persona.contacto.email}}<mat-icon matSuffix>mail_outline
+              </mat-icon></a>
           </div>
           <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Célular: {{persona.contacto.celular}}
+            Célular:<a href="tel:{{persona.contacto.celular}}">{{persona.contacto.celular}}<mat-icon matSuffix>
+                stay_current_portrait</mat-icon></a>
           </div>
           <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Teléfono: {{persona.contacto.telefono}}
+            Teléfono:<a href="tel:022{{persona.contacto.telefono}}">{{persona.contacto.telefono}}<mat-icon matSuffix>
+                phone</mat-icon></a>
           </div>
         </div>
       </div>
