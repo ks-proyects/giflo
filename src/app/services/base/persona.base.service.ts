@@ -79,7 +79,7 @@ export class PersonaBaseService {
     *
     */
     list(): Observable<Persona[]> {
-        return this.afs.collection('persona').snapshotChanges().pipe(
+        return this.empleadoCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Persona;
                 const id = a.payload.doc.id;

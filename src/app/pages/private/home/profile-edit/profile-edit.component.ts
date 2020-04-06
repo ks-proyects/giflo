@@ -81,7 +81,9 @@ export class ProfileEditComponent implements OnInit {
         // Update
         this.personaServ.update(this.itemDoc, this.item).then(resut => {
           console.log(resut);
-        }).catch(error => { console.log(error); });
+        }).catch(error => { 
+          console.log(error); 
+        });
       }
       this.goBack();
     }

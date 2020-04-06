@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   z-index: 100;
-  background: $primary_default;
+  background: $accent_default;
 }
 .spinner {
   width: 40px;
@@ -19,7 +19,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: $accent_default;
+  background-color: #FFF;
   opacity: 0.6;
   position: absolute;
   top: 0;

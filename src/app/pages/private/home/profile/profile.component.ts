@@ -3,6 +3,8 @@ import { SessionService } from 'src/app/services/session.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
 import { PersonaService } from 'src/app/services/persona.service';
+import { DeviceService } from 'src/app/shared/device.service';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Component({
   selector: 'app-profile',
@@ -16,12 +18,14 @@ export class ProfileComponent implements OnInit {
   constructor(
     private session: SessionService,
     private empresaServ: EmpresaService,
-    private personaServ: PersonaService) {
+    private personaServ: PersonaService,
+    public device: DeviceService) {
     session.getDataUser().subscribe(obj => {
       if (obj.user) {
         this.user = obj.user;
         personaServ.get(obj.user.id).valueChanges().subscribe(emple => {
           this.persona = emple;
+          this.persona.fechaNacimiento = emple.fechaNacimiento.getDate();
         });
       }
     });

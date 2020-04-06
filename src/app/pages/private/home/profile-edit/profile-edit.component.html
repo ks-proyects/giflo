@@ -29,8 +29,12 @@
                         </div>
                         <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
                             <mat-form-field>
-                                <input matInput [(ngModel)]="item.identificacion" name="identificacion"
+                                <input type="tel" matInput [(ngModel)]="item.identificacion" name="identificacion"
                                     #identificacion="ngModel" [placeholder]="item.tipoIdentificacion">
+                                <button mat-button *ngIf="item.identificacion" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.identificacion=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
                             </mat-form-field>
                         </div>
                         <!-- column -->
@@ -38,6 +42,10 @@
                             <mat-form-field>
                                 <input matInput placeholder="Nombres" [(ngModel)]="item.nombres" name="nombres"
                                     #nombres="ngModel">
+                                <button mat-button *ngIf="item.nombres" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="item.nombres=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
                             </mat-form-field>
                         </div>
                         <!-- column -->
@@ -45,6 +53,10 @@
                             <mat-form-field>
                                 <input matInput placeholder="Apellido" [(ngModel)]="item.apellidos" name="apellidos"
                                     #apellidos="ngModel">
+                                <button mat-button *ngIf="item.apellidos" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="item.apellidos=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
                             </mat-form-field>
                         </div>
                         <!-- column -->
@@ -54,6 +66,10 @@
                                 <input matInput [matDatepicker]="fechaNac" [max]="maxDate"
                                     [value]="item.fechaNacimiento" [(ngModel)]="item.fechaNacimiento"
                                     name="fechaNacimiento" #fechaNacimiento="ngModel">
+                                <button mat-button *ngIf="item.fechaNacimiento" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.fechaNacimiento=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
                                 <mat-datepicker-toggle matSuffix [for]="fechaNac"></mat-datepicker-toggle>
                                 <mat-datepicker [touchUi]="device.isMovile" startView="year" #fechaNac></mat-datepicker>
                             </mat-form-field>
@@ -70,8 +86,8 @@
                             <mat-form-field *ngIf="device.isMovile">
                                 <mat-label>Estado Civil</mat-label>
                                 <select matNativeControl name="estadoCivil" id="estadoCivil" #estadoCivil="ngModel"
-                                    [(ngModel)]="item.estadoCivil">
-                                    <option *ngFor="let tid of listEstadoCivil" [value]="tid">
+                                    [(ngModel)]="item.estadoCivil.id">
+                                    <option *ngFor="let tid of listEstadoCivil" [value]="tid.id">
                                         {{tid.nombre}}
                                     </option>
                                 </select>
@@ -83,20 +99,40 @@
                         class="m-t-20" fxFlexAlign="center">
                         <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Correo Electrónico" [(ngModel)]="item.contacto.email"
-                                    name="email" #email="ngModel">
+                                <mat-label>Correo Electrónico</mat-label>
+                                <input type="email" matInput placeholder="Ejm: dayana@gmail.com"
+                                    [(ngModel)]="item.contacto.email" name="email" #email="ngModel">
+                                <button mat-button *ngIf="item.contacto.email" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.email=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>mail_outline</mat-icon>
                             </mat-form-field>
                         </div>
                         <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Célular" [(ngModel)]="item.contacto.celular" name="celular"
-                                    #celular="ngModel">
+                                <mat-label>Célular</mat-label>
+                                <span matPrefix>+593 &nbsp;</span>
+                                <input type="tel" matInput placeholder="Ejm: 988692360"
+                                    [(ngModel)]="item.contacto.celular" name="celular" #celular="ngModel">
+                                <button mat-button *ngIf="item.contacto.celular" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.celular=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>stay_current_portrait</mat-icon>
                             </mat-form-field>
                         </div>
                         <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Teléfono" [(ngModel)]="item.contacto.telefono"
-                                    name="telefono" #telefono="ngModel">
+                                <mat-label>Teléfono</mat-label>
+                                <span matPrefix>+593 &nbsp;</span>
+                                <input type="tel" matInput placeholder="Ejm: 222366358"
+                                    [(ngModel)]="item.contacto.telefono" name="telefono" #telefono="ngModel">
+                                <button mat-button *ngIf="item.contacto.telefono" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.telefono=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>phone</mat-icon>
                             </mat-form-field>
                         </div>
                     </div>
@@ -104,9 +140,12 @@
             </mat-card-content>
         </mat-card>
         <app-toolbar-button>
-            <button matRipple [matRippleRadius]="40" mat-raised-button color="primary"
-                (click)="save(editForm.valid)">Guardar</button>
-            <button mat-raised-button color="secondary" (click)="goBack()">Regresar</button>
+            <button matRipple mat-raised-button color="secondary" (click)="save(editForm.valid)">Guardar
+                <mat-icon>done_all</mat-icon>
+            </button>
+            <button mat-raised-button color="secondary" (click)="goBack()">Regresar
+                <mat-icon>arrow_back</mat-icon>
+            </button>
         </app-toolbar-button>
     </div>
 </div>

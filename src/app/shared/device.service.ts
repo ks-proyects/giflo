@@ -12,7 +12,7 @@ export class DeviceService {
   private onlineEvent = fromEvent(window, 'online');
   private offlineEvent = fromEvent(window, 'offline');
   constructor(private breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result =>
+    breakpointObserver.observe(['(max-width: 959px)']).subscribe(result =>
       this.isMovile = result.matches ? true : false
     );
     this.offlineEvent.subscribe(eve => this.isOffline = true);
