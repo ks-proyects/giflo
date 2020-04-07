@@ -9,11 +9,11 @@ export class DialogService {
 
   constructor(private dialog: MatDialog) { }
 
-  openDialog(data: DialogData){
-    return this.dialog.open(MatDialogComponent,{
-      width:"390px",
+  openDialog(dataInput: DialogData) {
+    return this.dialog.open(MatDialogComponent, {
+      width: '390px',
       disableClose: true,
-      data: data
+      data: dataInput
     })
   }
 }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
 import {
   MatCardModule,
   MatFormFieldModule,
@@ -24,13 +23,14 @@ import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { PrivateComponent } from '../private.component';
+import { UtilModule } from 'src/app/util/util.module';
 
 @NgModule({
   imports: [
     AdminRoutingModule,
     CommonModule,
     FormsModule,
-    SharedModule,
+    UtilModule,
     MatCardModule,
     MatFormFieldModule,
     MatTableModule,

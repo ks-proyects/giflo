@@ -7,7 +7,7 @@ import { BloqueService } from '../../../../services/bloque.service';
 import { Bloque } from '../../../../domain/giflo_db/bloque';
 import { MatTableDataSource, MatSort, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
 import { AngularFirestore } from '@angular/fire/firestore';

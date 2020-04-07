@@ -30,7 +30,7 @@ $inverse: $accent_default;
 $danger: $warn_darker;
 $success: #26c6da;
 $warning: #ffb22b;
-$primary: #7460ee;
+$primary: $primary_default;
 $info: #1e88e5;
 $muted:$primary_lighter;
 $light: $warn_lighter;
@@ -48,7 +48,7 @@ $white: $warn_darker;
 $red: red;
 $purple: red;
 $blue: red;
-$megna: red;
+$megna:$accent_default;
 /*Extra Variable*/
 $rgt: right;
 $lft: left;

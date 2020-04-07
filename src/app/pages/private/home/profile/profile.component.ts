@@ -14,7 +14,7 @@ import { Timestamp } from 'rxjs/internal/operators/timestamp';
 export class ProfileComponent implements OnInit {
   user: any = {};
   listEmpresa: Empresa[];
-  persona: any = {};
+  persona: any = {contacto: {}};
   constructor(
     private session: SessionService,
     private empresaServ: EmpresaService,
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
         this.user = obj.user;
         personaServ.get(obj.user.id).valueChanges().subscribe(emple => {
           this.persona = emple;
-          this.persona.fechaNacimiento = emple.fechaNacimiento.getDate();
+          this.persona.fechaNacimiento = new Date(emple.fechaNacimiento);
         });
       }
     });

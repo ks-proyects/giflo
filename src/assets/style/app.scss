@@ -559,26 +559,26 @@ Text Colors
 }
 html body {
     .text-blue {
-        color: $blue;
+        color: $blue !important;
     }
 
     .text-purple {
-        color: $purple;
+        color: $purple !important;
     }
 
     .text-primary {
-        color: $primary;
+        color: $primary !important;
     }
 
     .text-megna {
-        color: $megna;
+        color: $megna !important;
     }
 
     .text-dark {
-        color: $bodytext;
+        color: $bodytext !important;
     }
     .text-themecolor {
-        color: $themecolor;
+        color: $themecolor !important;
     }
     .text-center {
         text-align: center;
@@ -715,13 +715,18 @@ Rounds
 Labels
 *******************/
 
-.label {
+.view-data {
     padding: 3px 10px;
     line-height: 13px;
     color: $white;
     font-weight: 400;
     border-radius: $radius;
-    font-size: 75%;
+    &.value {
+        font-size: 95%;
+    }
+    &.label {
+        font-size: 75%;
+    }
 }
 
 .label-rounded {
@@ -920,7 +925,7 @@ froms
 /*******************
 Mat card
 *******************/
-.page-content .mat-card{
+.page-content .mat-card {
     padding-bottom: 30px !important;
 }
 .mat-card {

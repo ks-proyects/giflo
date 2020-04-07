@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 import {
   MatCardModule,
@@ -16,13 +15,14 @@ import {
 import { EmpleadoEditComponent } from './empleado-edit/empleado-edit.component';
 import { EmpleadoListComponent } from './empleado-list/empleado-list.component';
 import { ManagementRoutingModule } from './management-routing.module';
+import { UtilModule } from 'src/app/util/util.module';
 
 @NgModule({
   imports: [
     ManagementRoutingModule,
     CommonModule,
     FormsModule,
-    SharedModule,
+    UtilModule,
     MatCardModule,
     MatFormFieldModule,
     MatTableModule,

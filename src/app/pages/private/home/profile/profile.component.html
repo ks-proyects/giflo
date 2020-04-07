@@ -3,48 +3,46 @@
     <div mat-card-avatar class="text-center example-header-image">
       <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
     </div>
-    <mat-card-title>{{user.name}} {{user.surname}}</mat-card-title>
-    <mat-card-subtitle>{{user.rolesStr}}</mat-card-subtitle>
+    <mat-card-title>{{user.rolesStr | titlecase}}</mat-card-title>
+    <mat-card-subtitle>{{user.username}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div fxLayout="row wrap" *ngIf="persona" fxLayoutGap.gt-sm="5px" fxLayoutGap.gt-xs="5px" fxLayoutGap="0px">
-      <div fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-        <h5 class="page-title text-themecolor m-0">Datos Personales</h5>
-        <div fxLayout="row wrap" *ngIf="persona">
-          <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            {{persona.nombres}} {{persona.apellidos}}
-          </div>
-          <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            {{persona.tipoIdentificacion | titlecase }}: {{persona.identificacion}}
-          </div>
-          <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Fecha de Nacimiento: {{persona.fechaNacimiento | date: 'dd/MM/yyyy'}}
-          </div>
-        </div>
-      </div>
+      <section-view *ngIf="persona" title="Datos Personales" fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100"
+        class="btn-block  m-t-10 m-b-10">
+        <view-readonly fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 "
+          label="Nombres Completos" [value]="persona.nombres+' '+ persona.apellidos"></view-readonly>
+        <view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 "
+          [label]="persona.tipoIdentificacion" [value]="persona.identificacion"></view-readonly>
+        <view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10"
+          label="Fecha de Nacimiento" [valueDate]="persona.fechaNacimiento"></view-readonly>
+        <view-readonly *ngIf="persona.estadoCivil" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100"
+          class="btn-block  m-t-10" label="Estado Civil" [value]="persona.estadoCivil.nombre"></view-readonly>
+      </section-view>
       <mat-divider [vertical]="!device.isMovile"></mat-divider>
-      <div fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-        <h5 class="page-title text-themecolor m-0">Medios de Contacto</h5>
-        <div fxLayout="row wrap" *ngIf="persona">
-          <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Email:<a href="mailto:{{persona.contacto.email}}">{{persona.contacto.email}}<mat-icon matSuffix>mail_outline
-              </mat-icon></a>
-          </div>
-          <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Célular:<a href="tel:{{persona.contacto.celular}}">{{persona.contacto.celular}}<mat-icon matSuffix>
-                stay_current_portrait</mat-icon></a>
-          </div>
-          <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="btn-block  m-t-10 m-b-10">
-            Teléfono:<a href="tel:022{{persona.contacto.telefono}}">{{persona.contacto.telefono}}<mat-icon matSuffix>
-                phone</mat-icon></a>
-          </div>
-        </div>
-      </div>
+      <section-view *ngIf="persona" title="Medios de Contacto" fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100"
+        class="btn-block  m-t-10 m-b-10">
+        <view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block m-t-10"
+          label="Correo Electrónico" [valueEmail]="persona.contacto.email"></view-readonly>
+        <view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block m-t-10" label="Célular"
+          [valuePhone]="persona.contacto.celular"></view-readonly>
+        <view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="btn-block m-t-10" label="Teléfono"
+          [valuePhone]="persona.contacto.telefono"></view-readonly>
+      </section-view>
+      <section-view *ngIf="persona" title="Direcciones" fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100"
+        class="btn-block  m-t-10 m-b-10">
+      </section-view>
+      <section-view *ngIf="persona" title="Mis Trabajos" fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100"
+        class="btn-block  m-t-10 m-b-10">
+      </section-view>
+      <section-view *ngIf="persona" title="Mis Empresas" fxFlex.gt-sm="49" fxFlex.gt-xs="100" fxFlex="100"
+        class="btn-block  m-t-10 m-b-10">
+      </section-view>
     </div>
   </mat-card-content>
 </mat-card>
 <app-toolbar-button>
-  <button mat-button routerLink="/admin/bloques/new" color="secondary">LIKE</button>
-  <button mat-button routerLink="/admin/bloques/new" color="secondary">SHARE</button>
+  <button mat-button routerLink="/admin/bloques/new" color="secondary">Crear mi Empresa</button>
+  <button mat-button routerLink="/admin/bloques/new" color="secondary">Registrarme como Empleado</button>
   <button mat-button [routerLink]="['/home/profile/', user.id]" color="secondary">EDITAR</button>
 </app-toolbar-button>

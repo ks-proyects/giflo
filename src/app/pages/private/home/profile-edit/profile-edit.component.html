@@ -65,7 +65,7 @@
                                 <mat-label>Fecha de Nacimiento</mat-label>
                                 <input matInput [matDatepicker]="fechaNac" [max]="maxDate"
                                     [value]="item.fechaNacimiento" [(ngModel)]="item.fechaNacimiento"
-                                    name="fechaNacimiento" #fechaNacimiento="ngModel">
+                                    name="fechaNacimiento" #fechaNacimiento="ngModel" readonly>
                                 <button mat-button *ngIf="item.fechaNacimiento" matSuffix mat-icon-button
                                     aria-label="Clear" (click)="item.fechaNacimiento=''">
                                     <mat-icon>close</mat-icon>

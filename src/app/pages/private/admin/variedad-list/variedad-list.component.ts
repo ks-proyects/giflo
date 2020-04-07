@@ -8,7 +8,7 @@ import { VariedadService } from '../../../../services/variedad.service';
 import { Variedad } from '../../../../domain/giflo_db/variedad';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogService } from 'src/app/util/dialog.service';
 import { MatTableDataSource } from '@angular/material';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
 

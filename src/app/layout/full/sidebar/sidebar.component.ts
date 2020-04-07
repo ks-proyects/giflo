@@ -10,7 +10,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 
-import { MenuItems } from '../../../shared/menu-items/menu-items';
+import { MenuItems } from '../../../util/menu-items/menu-items';
 import { User } from 'src/app/domain/giflo_db/user';
 import { SessionService } from 'src/app/services/session.service';
 @Component({

@@ -25,9 +25,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LayoutModule } from '@angular/cdk/layout';
-import { CoreMaterialModule } from './core.material.module';
 import { CommonModule } from '@angular/common';
-import { 
+import {
   MatToolbarModule,
   MatIconModule,
   MatButtonModule,
@@ -87,7 +86,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatToolbarModule,
     MatDialogModule
   ],
-  entryComponents:[
+  entryComponents: [
     MatDialogComponent
   ],
   declarations: [

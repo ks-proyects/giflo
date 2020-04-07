@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonaService } from 'src/app/services/persona.service';
-import { ActivatedRoute } from '@angular/router';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Persona } from 'src/app/domain/giflo_db/persona';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 import { SessionService } from 'src/app/services/session.service';
 import { DeviceService } from 'src/app/shared/device.service';
 import { EstadoCivil } from 'src/app/domain/giflo_db/estado-civil';
 import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import { ContactoService } from 'src/app/services/contacto.service';
+import { DateAdapterService, DATE_FORMATS } from 'src/app/util/date-adapter.service';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss']
+  styleUrls: ['./profile-edit.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: DateAdapterService },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
+  ]
 })
 export class ProfileEditComponent implements OnInit {
   item: any = { contacto: {} };
@@ -72,6 +78,7 @@ export class ProfileEditComponent implements OnInit {
   save(formValid: boolean): void {
     this.formValid = formValid;
     if (formValid && this.isNew !== undefined) {
+      this.item.fechaNacimiento = (new DatePipe('en-US')).transform((this.item.fechaNacimiento as Date), 'short');
       if (this.isNew) {
         // Create
         this.contactoService.create(this.item.contacto);
@@ -81,8 +88,8 @@ export class ProfileEditComponent implements OnInit {
         // Update
         this.personaServ.update(this.itemDoc, this.item).then(resut => {
           console.log(resut);
-        }).catch(error => { 
-          console.log(error); 
+        }).catch(error => {
+          console.log(error);
         });
       }
       this.goBack();

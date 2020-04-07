@@ -1,0 +1,9 @@
+<p class="text-primary view-data label p-t-0 p-b-0 m-b-0">{{label | titlecase}}</p>
+<p *ngIf="value" class="text-blue view-data value p-t-0 p-b-0 m-b-0">{{value}}</p>
+<p *ngIf="valueDate" class="text-blue view-data value p-t-0 p-b-0 m-b-0">{{valueDate | date: 'dd/MM/yyyy'}}</p>
+<a *ngIf="valueEmail" class="text-blue view-data value p-t-0 p-b-0 m-b-0" href="mailto:{{valueEmail}}">{{valueEmail}}
+    <mat-icon class="font-10 text-primary" matSuffix>
+        mail_outline</mat-icon></a>
+<a *ngIf="valuePhone" class="text-blue view-data value p-t-0 p-b-0 m-b-0" href="tel:{{valuePhone}}">{{valuePhone}}
+    <mat-icon class="font-10 text-primary" matSuffix>
+        phone</mat-icon></a>

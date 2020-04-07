@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 import {
   MatCardModule,
@@ -24,13 +23,14 @@ import { PaginaListComponent } from './pagina-list/pagina-list.component';
 import { RolEditComponent } from './rol-edit/rol-edit.component';
 import { RolListComponent } from './rol-list/rol-list.component';
 import { SecurityRoutingModule } from './security-routing.module';
+import { UtilModule } from 'src/app/util/util.module';
 
 @NgModule({
   imports: [
     SecurityRoutingModule,
     CommonModule,
     FormsModule,
-    SharedModule,
+    UtilModule,
     MatCardModule,
     MatFormFieldModule,
     MatTableModule,

@@ -18,10 +18,8 @@
  */
 import { Contacto } from '../contacto';
 import { Direccion } from '../direccion';
-import { Empresa } from '../empresa';
 import { Estado } from '../estado';
 import { EstadoCivil } from '../estado-civil';
-import { Rol } from '../rol';
 import { User } from '../user';
 
 /**

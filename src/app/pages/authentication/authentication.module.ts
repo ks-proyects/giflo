@@ -21,7 +21,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
-    CommonModule,
     MatIconModule,
     MatCardModule,
     MatInputModule,
