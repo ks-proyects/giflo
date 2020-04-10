@@ -127,7 +127,7 @@ html .page-wrapper {
   }
   .selected {
     .d-flex {
-      background: $light;
+      background: $warn_lighter;
     }
   }
   .icon-avatar {
@@ -152,7 +152,7 @@ html .page-wrapper {
 
 .email-right-panel {
   padding: 30px;
-  background: $light;
+  background: $warn_lighter;
   .avatar-lg {
     width: 100px;
     border-radius: 100%;
@@ -213,7 +213,7 @@ html .page-wrapper {
   display: flex;
   align-items: center;
   padding: 15px;
-  background: $light;
+  background: $warn_lighter;
   border-radius: 6px;
   img {
     vertical-align: middle;
@@ -283,7 +283,7 @@ Chartistt chart css
     stroke: $purple;
   }
   .ct-series-d .ct-slice-donut {
-    stroke: $light;
+    stroke: $warn_lighter;
   }
   .ct-series-e .ct-slice-donut {
     stroke: $warning;
@@ -433,7 +433,7 @@ Overall Responsive table
   z-index: 2;
   color: $bodytext;
   text-decoration: none;
-  background-color: $light;
+  background-color: $warn_lighter;
   border-color: $border;
 }
 

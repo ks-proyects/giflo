@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -74,19 +74,37 @@ export class DireccionBaseService {
 
     // CRUD METHODS
 
-    /**
-    * DireccionService.list
-    *   @description CRUD ACTION list
-    *
-    */
+
+    listByPerson(idPersona: string): Observable<Direccion[]> {
+        return this.afs.collection<Direccion>('direccion', ref => ref.where('persona', '==', idPersona)).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Direccion;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );;
+    }
     list(): Observable<Direccion[]> {
-        return this.afs.collection('direccion').snapshotChanges().pipe(
+        return this.direccionCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Direccion;
                 const id = a.payload.doc.id;
                 return { id, ...data };
             }))
         );
+    }
+    create(item: Direccion): Promise<DocumentReference> {
+        return this.direccionCollection.add(item);
+    }
+    remove(id: string) {
+        const itemDoc: AngularFirestoreDocument<any> = this.direccionCollection.doc(id);
+        itemDoc.delete();
+    }
+    get(id: string): AngularFirestoreDocument<Direccion> {
+        return this.afs.doc<Direccion>('direccion/' + id);
+    }
+    update(itemDoc: AngularFirestoreDocument<Direccion>, item: Direccion): Promise<void> {
+        return itemDoc.update(item);
     }
 
 

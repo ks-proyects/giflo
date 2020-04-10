@@ -8,18 +8,12 @@ import { DeviceService } from 'src/app/shared/device.service';
 import { EstadoCivil } from 'src/app/domain/giflo_db/estado-civil';
 import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import { ContactoService } from 'src/app/services/contacto.service';
-import { DateAdapterService, DATE_FORMATS } from 'src/app/util/date-adapter.service';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: DateAdapterService },
-    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS }
-  ]
+  styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
   item: any = { contacto: {} };
@@ -27,6 +21,7 @@ export class ProfileEditComponent implements OnInit {
   isNew: boolean;
   itemDoc: AngularFirestoreDocument<Persona>;
   maxDate: Date;
+  dateSelect: any;
   listTipoIdentificacio: any[] = [
     { value: '', label: '-- SELECCIONA --' },
     { value: 'CÉDULA', label: 'CÉDULA' },
@@ -78,7 +73,6 @@ export class ProfileEditComponent implements OnInit {
   save(formValid: boolean): void {
     this.formValid = formValid;
     if (formValid && this.isNew !== undefined) {
-      this.item.fechaNacimiento = (new DatePipe('en-US')).transform((this.item.fechaNacimiento as Date), 'short');
       if (this.isNew) {
         // Create
         this.contactoService.create(this.item.contacto);

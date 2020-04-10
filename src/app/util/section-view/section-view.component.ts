@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SectionViewComponent implements OnInit {
 
   @Input() public title: string;
+  @Input() public icon: string;
+  @Input() public expanded: boolean;
 
   constructor() { }
 

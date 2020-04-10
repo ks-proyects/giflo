@@ -36,6 +36,10 @@ import {
   MatListModule,
   MatSliderModule,
   MatDialogModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
 
 } from '@angular/material';
 import { SpinnerComponent } from './shared/spiner/spinner.component';
@@ -47,6 +51,7 @@ import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.comp
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
+import { AddressEditComponent } from './pages/private/home/address-edit/address-edit.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -84,10 +89,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatSidenavModule,
     MatSliderModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   entryComponents: [
-    MatDialogComponent
+    MatDialogComponent,
+    AddressEditComponent
   ],
   declarations: [
     // LAYOUT
@@ -101,7 +111,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppHeaderComponent,
     AppSidebarComponent,
     AppBreadcrumbComponent,
-    MatDialogComponent
+    MatDialogComponent,
+    AddressEditComponent
   ],
   providers: [
     {

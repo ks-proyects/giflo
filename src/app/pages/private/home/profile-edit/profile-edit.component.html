@@ -71,7 +71,7 @@
                                     <mat-icon>close</mat-icon>
                                 </button>
                                 <mat-datepicker-toggle matSuffix [for]="fechaNac"></mat-datepicker-toggle>
-                                <mat-datepicker [touchUi]="device.isMovile" startView="year" #fechaNac></mat-datepicker>
+                                <mat-datepicker [touchUi]="device.isMovile" startView="multi-year" #fechaNac></mat-datepicker>
                             </mat-form-field>
                         </div>
                         <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
@@ -140,7 +140,7 @@
             </mat-card-content>
         </mat-card>
         <app-toolbar-button>
-            <button matRipple mat-raised-button color="secondary" (click)="save(editForm.valid)">Guardar
+            <button mat-raised-button color="secondary" (click)="save(editForm.valid)">Guardar
                 <mat-icon>done_all</mat-icon>
             </button>
             <button mat-raised-button color="secondary" (click)="goBack()">Regresar

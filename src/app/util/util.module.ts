@@ -7,6 +7,7 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatSnackBarModule,
+  MatExpansionModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -27,7 +28,8 @@ import { SectionViewComponent } from './section-view/section-view.component';
     MatSelectModule,
     FormsModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatExpansionModule
   ],
   exports: [
     ToolbarButtonComponent,

@@ -570,10 +570,6 @@ html body {
         color: $primary !important;
     }
 
-    .text-megna {
-        color: $megna !important;
-    }
-
     .text-dark {
         color: $bodytext !important;
     }
@@ -593,71 +589,7 @@ html body {
 /*******************
 Background Colors
 *******************/
-
-.bg-primary {
-    background-color: $primary !important;
-}
-
-.bg-success {
-    background-color: $success !important;
-}
-
-.bg-info {
-    background-color: $info !important;
-}
-
-.bg-warning {
-    background-color: $warning !important;
-}
-
-.bg-danger {
-    background-color: $danger !important;
-}
 html body {
-    .bg-megna {
-        background-color: $megna;
-    }
-    .bg-theme {
-        background-color: $themecolor;
-    }
-
-    .bg-inverse {
-        background-color: $inverse;
-    }
-
-    .bg-purple {
-        background-color: $purple !important;
-    }
-
-    .bg-light-primary {
-        background-color: $light-primary;
-    }
-
-    .bg-light-success {
-        background-color: $light-success;
-    }
-
-    .bg-light-info {
-        background-color: $light-info;
-    }
-    .bg-light-extra {
-        background-color: $extra-light;
-    }
-
-    .bg-light-warning {
-        background-color: $light-warning;
-    }
-
-    .bg-light-danger {
-        background-color: $light-danger;
-    }
-
-    .bg-light-inverse {
-        background-color: $light-inverse;
-    }
-    .bg-light {
-        background-color: $light !important;
-    }
     .bg-white {
         background-color: $white;
     }
@@ -733,10 +665,6 @@ Labels
     border-radius: 60px;
 }
 
-.label-custom {
-    background-color: $megna;
-}
-
 .label-success {
     background-color: $success;
 }
@@ -751,10 +679,6 @@ Labels
 
 .label-danger {
     background-color: $danger;
-}
-
-.label-megna {
-    background-color: $megna;
 }
 
 .label-primary {
@@ -774,7 +698,7 @@ Labels
 }
 
 .label-default {
-    background-color: $light;
+    background-color: $warn_lighter;
 }
 
 .label-white {
@@ -799,11 +723,6 @@ Labels
 .label-light-danger {
     background-color: $light-danger;
     color: $danger;
-}
-
-.label-light-megna {
-    background-color: $light-megna;
-    color: $megna;
 }
 
 .label-light-primary {
