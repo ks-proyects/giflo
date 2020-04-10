@@ -52,6 +52,7 @@ import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLL
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
 import { AddressEditComponent } from './pages/private/home/address-edit/address-edit.component';
+import { UtilModule } from './util/util.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -93,7 +94,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    UtilModule
   ],
   entryComponents: [
     MatDialogComponent,
