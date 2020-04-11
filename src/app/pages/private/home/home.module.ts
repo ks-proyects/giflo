@@ -12,6 +12,7 @@ import { CoreMaterialModule } from 'src/app/core.material.module';
 import { AddressDialogComponent } from './address-dialog/address-dialog.component';
 import { RouterModule } from '@angular/router';
 import { EmpresaDialogComponent } from './empresa-dialog/empresa-dialog.component';
+import { EmpleadoDialogComponent } from './empleado-dialog/empleado-dialog.component';
 
 
 @NgModule({
@@ -26,14 +27,16 @@ import { EmpresaDialogComponent } from './empresa-dialog/empresa-dialog.componen
   ],
   entryComponents: [
     AddressDialogComponent,
-    EmpresaDialogComponent
+    EmpresaDialogComponent,
+    EmpleadoDialogComponent
   ],
   declarations: [
     ProfileComponent,
     SettingComponent,
     ProfileEditComponent,
     AddressDialogComponent,
-    EmpresaDialogComponent
+    EmpresaDialogComponent,
+    EmpleadoDialogComponent
   ], exports: []
 })
 export class HomeModule { }

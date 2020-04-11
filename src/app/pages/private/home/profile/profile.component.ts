@@ -13,6 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 import { docJoin } from 'src/app/services/generic/docJoin.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { EmpleadoDialogComponent } from '../empleado-dialog/empleado-dialog.component';
+import { Empleado } from 'src/app/domain/giflo_db/empleado';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +26,7 @@ export class ProfileComponent implements OnInit {
   user: any = {};
   listEmpresa: Empresa[] = [];
   listDirecciones: Direccion[] = [];
+  listEmpleados: Empleado[] = [];
   constructor(
     private session: SessionService,
     private empresaService: EmpresaService,
@@ -40,9 +44,13 @@ export class ProfileComponent implements OnInit {
           this.user.rolesStr = obj.user.rolesStr;
           this.user.fechaNacimiento = this.user.fechaNacimiento ? this.user.fechaNacimiento.toDate() : null;
           direccionService.listByPerson(this.user.id).subscribe(result => { this.listDirecciones = result; });
-          empresaService.listByUser(this.user.id).subscribe(list => {
-            this.listEmpresa = list;
+          empresaService.listByUser(this.user.id).pipe(leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(list => {
+            this.listEmpresa = (list as Empresa[]);
           });
+          empleadoService.listByUser(this.user.id).pipe(
+            leftJoinDocument(this.afs, 'empresa', 'empresa'), leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(list => {
+              this.listEmpleados = (list as Empleado[]);
+            });
         });
 
       }
@@ -85,8 +93,8 @@ export class ProfileComponent implements OnInit {
     });
   }
   openEmpleado(actionInput, dataInput) {
-    const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput };
-    const dialogRef = this.dialog.open(EmpresaDialogComponent, {
+    const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput, list: this.listEmpresa };
+    const dialogRef = this.dialog.open(EmpleadoDialogComponent, {
       width: 'auto',
       disableClose: true,
       data: dialogData,
@@ -95,6 +103,7 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Crear') {
         result.data.user = this.user.id;
+        result.data.estado = 'ACT';
         this.empleadoService.create(result.data);
       } else if (result.event === 'Editar') {
         this.empleadoService.update(this.empleadoService.get(result.data.id), result.data);

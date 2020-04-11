@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
+import { DeviceService } from 'src/app/shared/device.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
+import { Empresa } from 'src/app/domain/giflo_db/empresa';
 
 @Component({
   selector: 'app-empleado-dialog',
@@ -6,10 +10,31 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class EmpleadoDialogComponent implements OnInit {
-
-  constructor() { }
+  action: string;
+  item: any = {};
+  formValid: boolean;
+  listaEmpresas: Empresa[] = [];
+  constructor(
+    public device: DeviceService,
+    public dialogRef: MatDialogRef<EmpleadoDialogComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogDataGeneric
+  ) {
+    const dataInput = { ...data };
+    this.action = dataInput.action;
+    this.item = dataInput.data;
+    this.listaEmpresas = dataInput.list;
+  }
 
   ngOnInit() {
+  }
+  doAction(isValid: boolean) {
+    if (isValid) {
+      this.dialogRef.close({ event: this.action, data: this.item });
+    }
+  }
+
+  closeDialog() {
+    this.dialogRef.close({ event: 'Cancelar' });
   }
 
 }

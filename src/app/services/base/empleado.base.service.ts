@@ -153,6 +153,15 @@ export class EmpleadoBaseService {
             }))
         );
     }
+    listByUser(idUser: string): Observable<Empleado[]> {
+        return this.afs.collection<Empleado>('empleado', ref => ref.where('user', '==', idUser)).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Empleado;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
 
     /**
     * EmpleadoService.update

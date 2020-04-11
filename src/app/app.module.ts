@@ -30,8 +30,6 @@ import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
-import { EmpresaDialogComponent } from './pages/private/home/empresa-dialog/empresa-dialog.component';
-import { EmpleadoDialogComponent } from './pages/private/home/empleado-dialog/empleado-dialog.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 0.5,
@@ -50,8 +48,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBreadcrumbComponent,
     LandingComponent,
     MailValidator,
-    MatDialogComponent,
-    EmpleadoDialogComponent
+    MatDialogComponent
   ],
   imports: [
     BrowserModule,
