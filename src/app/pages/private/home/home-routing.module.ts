@@ -1,10 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
-export const routes: Routes = [
+export const routesHome: Routes = [
   {
     path: '',
     children: [
@@ -44,10 +43,3 @@ export const routes: Routes = [
     ]
   }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class HomeRoutingModule { }

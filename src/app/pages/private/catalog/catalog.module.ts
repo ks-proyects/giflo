@@ -5,17 +5,18 @@ import { EstadoCivilEditComponent } from './estado-civil-edit/estado-civil-edit.
 import { EstadoCivilListComponent } from './estado-civil-list/estado-civil-list.component';
 import { EstadoEditComponent } from './estado-edit/estado-edit.component';
 import { EstadoListComponent } from './estado-list/estado-list.component';
-import { CatalogRoutingModule } from './catalog-routing.module';
+import { routesCatalog } from './catalog-routing.module';
 import { UtilModule } from 'src/app/util/util.module';
 import { CoreMaterialModule } from 'src/app/core.material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    CatalogRoutingModule,
+    RouterModule.forChild(routesCatalog),
     CommonModule,
-    FormsModule,
+    CoreMaterialModule,
     UtilModule,
-    CoreMaterialModule
+    FormsModule
   ],
   declarations: [
     EstadoCivilEditComponent,

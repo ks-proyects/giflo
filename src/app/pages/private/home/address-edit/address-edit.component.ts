@@ -9,7 +9,6 @@ import { DeviceService } from 'src/app/shared/device.service';
   styleUrls: ['./address-edit.component.scss']
 })
 export class AddressEditComponent implements OnInit {
-
   action: string;
   item: any = {};
   formValid: boolean;
@@ -22,8 +21,7 @@ export class AddressEditComponent implements OnInit {
   constructor(
     public device: DeviceService,
     public dialogRef: MatDialogRef<AddressEditComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA)
-    public data: DialogDataGeneric) {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogDataGeneric) {
     const dataInput = { ...data };
     this.action = dataInput.action;
     this.item = dataInput.data;

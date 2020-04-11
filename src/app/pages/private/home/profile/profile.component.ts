@@ -4,12 +4,12 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
 import { PersonaService } from 'src/app/services/persona.service';
 import { DeviceService } from 'src/app/shared/device.service';
-import { DialogService } from 'src/app/util/dialog.service';
 import { AddressEditComponent } from '../address-edit/address-edit.component';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DireccionService } from 'src/app/services/direccion.service';
 import { Direccion } from 'src/app/domain/giflo_db/direccion';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -27,8 +27,8 @@ export class ProfileComponent implements OnInit {
     private empresaServ: EmpresaService,
     private personaServ: PersonaService,
     public device: DeviceService,
-    private disSer: DialogService,
-    private direccionService: DireccionService) {
+    private direccionService: DireccionService,
+    public dialog: MatDialog) {
     session.getDataUser().subscribe(obj => {
       if (obj.user) {
         this.user = obj.user;
@@ -46,7 +46,12 @@ export class ProfileComponent implements OnInit {
   }
   openConfirm(actionInput, dataInput) {
     const dialogData: DialogDataGeneric = { id: -1, action: actionInput, data: dataInput };
-    const dialogRef = this.disSer.openDialogCustom(dialogData, AddressEditComponent);
+    const dialogRef = this.dialog.open(AddressEditComponent, {
+      width: 'auto',
+      disableClose: true,
+      data: dialogData,
+      maxHeight: '90vh'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'New') {
         result.data.persona = this.persona.id;

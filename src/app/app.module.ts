@@ -69,7 +69,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule.forRoot(AppRoutes),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ImageCropperModule,
-    ReactiveFormsModule,
   ],
   providers: [
     {

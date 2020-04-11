@@ -9,13 +9,14 @@ import { PaginaEditComponent } from './pagina-edit/pagina-edit.component';
 import { PaginaListComponent } from './pagina-list/pagina-list.component';
 import { RolEditComponent } from './rol-edit/rol-edit.component';
 import { RolListComponent } from './rol-list/rol-list.component';
-import { SecurityRoutingModule } from './security-routing.module';
+import { routesSecurity } from './security-routing.module';
 import { UtilModule } from 'src/app/util/util.module';
 import { CoreMaterialModule } from 'src/app/core.material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    SecurityRoutingModule,
+    RouterModule.forChild(routesSecurity),
     CommonModule,
     FormsModule,
     UtilModule,
@@ -32,4 +33,4 @@ import { CoreMaterialModule } from 'src/app/core.material.module';
     RolListComponent,
   ]
 })
-export class SecurityModule {}
+export class SecurityModule { }

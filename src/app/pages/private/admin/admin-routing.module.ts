@@ -11,7 +11,7 @@ import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { PrivateComponent } from '../private.component';
 
-export const routes: Routes = [
+export const routesAdmin: Routes = [
   {
     path: '',
     children: [
@@ -117,10 +117,3 @@ export const routes: Routes = [
     ]
   }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AdminRoutingModule { }

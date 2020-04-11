@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { EmpleadoEditComponent } from './empleado-edit/empleado-edit.component';
 import { EmpleadoListComponent } from './empleado-list/empleado-list.component';
 
-export const routes: Routes = [
+export const routesManagment: Routes = [
   {
     path: '',
     children: [
@@ -32,10 +32,3 @@ export const routes: Routes = [
     ]
   }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class ManagementRoutingModule { }

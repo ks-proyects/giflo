@@ -5,7 +5,7 @@ import { EstadoCivilListComponent } from './estado-civil-list/estado-civil-list.
 import { EstadoEditComponent } from './estado-edit/estado-edit.component';
 import { EstadoListComponent } from './estado-list/estado-list.component';
 
-export const routes: Routes = [
+export const routesCatalog: Routes = [
   {
     path: '',
     children: [
@@ -56,8 +56,3 @@ export const routes: Routes = [
     ]
   }
 ];
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class CatalogRoutingModule { }

@@ -9,18 +9,19 @@ import { NaveEditComponent } from './nave-edit/nave-edit.component';
 import { NaveListComponent } from './nave-list/nave-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
-import { AdminRoutingModule } from './admin-routing.module';
+import { routesAdmin } from './admin-routing.module';
 import { PrivateComponent } from '../private.component';
 import { UtilModule } from 'src/app/util/util.module';
 import { CoreMaterialModule } from 'src/app/core.material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    AdminRoutingModule,
+    RouterModule.forChild(routesAdmin),
     CommonModule,
-    FormsModule,
+    CoreMaterialModule,
     UtilModule,
-    CoreMaterialModule
+    FormsModule,
   ],
   declarations: [
     BloqueEditComponent,
