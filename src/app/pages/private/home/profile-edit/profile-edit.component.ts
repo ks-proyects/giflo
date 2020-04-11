@@ -15,7 +15,7 @@ import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-  item: User ;
+  item: any ;
   formValid: boolean;
   isNew: boolean;
   itemDoc: AngularFirestoreDocument<User>;
@@ -47,7 +47,7 @@ export class ProfileEditComponent implements OnInit {
           if (item) {
             this.isNew = false;
             this.item = item;
-            this.item.fechaNacimiento = this.item.fechaNacimiento;
+            this.item.fechaNacimiento = this.item.fechaNacimiento ? this.item.fechaNacimiento.toDate() : null;
           }
         });
       }

@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
           this.user.fechaNacimiento = this.user.fechaNacimiento ? this.user.fechaNacimiento.toDate() : null;
           direccionService.listByPerson(this.user.id).subscribe(result => { this.listDirecciones = result; });
           empresaService.listByUser(this.user.id).subscribe(list => {
-            debugger;
             this.listEmpresa = list;
           });
         });
