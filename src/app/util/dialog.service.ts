@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { MatDialogComponent, DialogData } from '../pages/common/mat-dialog/mat-dialog.component';
-import { RepositionScrollStrategy } from '@angular/cdk/overlay';
 
 @Injectable({
   providedIn: 'root'

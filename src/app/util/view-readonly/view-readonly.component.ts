@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'view-readonly',
+  selector: 'app-view-readonly',
   templateUrl: './view-readonly.component.html',
   styleUrls: ['./view-readonly.component.scss']
 })

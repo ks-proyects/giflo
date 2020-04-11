@@ -1,8 +1,8 @@
 // DEPENDENCIES
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // FIREBASE
 import { CoreFirebaseModule } from './core.firebase.module';
@@ -30,7 +30,6 @@ import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.comp
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
-import { AddressEditComponent } from './pages/private/home/address-edit/address-edit.component';
 
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';

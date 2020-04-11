@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { MenuItems } from '../util/menu-items/menu-items';
 import {
   AccordionAnchorDirective,
@@ -7,8 +6,6 @@ import {
   AccordionDirective
 } from './accordion';
 import { SearchPipe } from '../pipes/search.pipe';
-
-
 @NgModule({
   declarations: [
     AccordionAnchorDirective,

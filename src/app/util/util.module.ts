@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewReadonlyComponent } from './view-readonly/view-readonly.component';
 import { SectionViewComponent } from './section-view/section-view.component';
+import { CoreMaterialModule } from '../core.material.module';
 
 @NgModule({
   declarations: [
@@ -22,14 +23,9 @@ import { SectionViewComponent } from './section-view/section-view.component';
   ],
   imports: [
     CommonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatSelectModule,
+    CoreMaterialModule,
     FormsModule,
     FlexLayoutModule,
-    MatSnackBarModule,
-    MatExpansionModule
   ],
   exports: [
     ToolbarButtonComponent,
