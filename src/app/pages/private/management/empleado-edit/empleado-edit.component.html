@@ -98,12 +98,10 @@
             <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
                 <div class="row justify-content-md-center">
                     <div class="col-md-10">
-                        
-
                         <label for="Contacto">Contacto</label>
                         <select name="contacto" id="contacto" [(ngModel)]="item.contacto" class="form-control"
                             #contacto="ngModel">
-                            <option *ngFor="let item of listContacto" [value]="item.id">{{item.id}}</option>
+                            <option *ngFor="let item of listUser" [value]="item.id">{{item.id}}</option>
                         </select>
                         <label for="Direccion">Direccion</label>
                         <select name="direccion" id="direccion" [(ngModel)]="item.direccion" class="form-control"

@@ -17,7 +17,9 @@
  *
  */
 
-import { Persona } from '../persona';
+import { User } from '../user';
+
+
 
 /**
  * This is the model of Direccion object
@@ -32,7 +34,7 @@ export interface DireccionBase {
     codigoPostal?: number;
     referencia?: string;
     tipo: string;
-    persona: Persona | string;
+    user: User | string;
     telefono: string;
     celular: string;
     extension: number;

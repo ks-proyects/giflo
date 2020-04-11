@@ -4,11 +4,11 @@ import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DeviceService } from 'src/app/shared/device.service';
 
 @Component({
-  selector: 'app-address-edit',
-  templateUrl: './address-edit.component.html',
-  styleUrls: ['./address-edit.component.scss']
+  selector: 'app-address-dialog',
+  templateUrl: './address-dialog.component.html',
+  styleUrls: ['./address-dialog.component.scss']
 })
-export class AddressEditComponent implements OnInit {
+export class AddressDialogComponent implements OnInit {
   action: string;
   item: any = {};
   formValid: boolean;
@@ -20,8 +20,9 @@ export class AddressEditComponent implements OnInit {
   ];
   constructor(
     public device: DeviceService,
-    public dialogRef: MatDialogRef<AddressEditComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogDataGeneric) {
+    public dialogRef: MatDialogRef<AddressDialogComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogDataGeneric
+    ) {
     const dataInput = { ...data };
     this.action = dataInput.action;
     this.item = dataInput.data;
@@ -36,7 +37,7 @@ export class AddressEditComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close({ event: 'Cancel' });
+    this.dialogRef.close({ event: 'Cancelar' });
   }
 
 }

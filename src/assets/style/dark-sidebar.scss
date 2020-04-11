@@ -1,17 +1,7 @@
-/*
-Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: scss
-*/
-
 $mini-sidebar-width: 80px;
-
-
 /*******************
 Main sidebar
 ******************/
-
 #snav.dark-sidebar {
     background: $sidebar;
     .mat-list-item {
@@ -43,12 +33,9 @@ Main sidebar
         }
     }
 }
-
-
 /*******************
 use profile section
 ******************/
-
 .user-profile {
     .profile-text {
         > a,span {

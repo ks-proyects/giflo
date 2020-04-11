@@ -20,7 +20,7 @@
 import { Empresa } from '../empresa';
 import { Estado } from '../estado';
 import { Rol } from '../rol';
-import { Persona } from '../persona';
+import { User } from '../user';
 
 /**
  * This is the model of Empleado object
@@ -30,11 +30,11 @@ export interface EmpleadoBase {
 
     id: string;
     // Relations empresa
-    empresa: Empresa;
+    empresa: Empresa | string;
     // Relations estado
-    estado: Estado;
+    estado: Estado | string;
     // Relations rol
-    rol: Rol;
+    rol: Rol | string;
     // Relations user
-    persona: Persona;
+    user: User | string;
 }

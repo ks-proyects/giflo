@@ -5,14 +5,11 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
 import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
-import { MenuItemService } from './menu-item.service';
-import { leftJoinDocument } from './generic/leftJoin.service';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
 import { UserData } from '../domain/giflo_db/user-data';
-import { Empresa } from '../domain/giflo_db/empresa';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +29,9 @@ export class SessionService {
     private userService: UserService,
     private rolService: RolService) {
     this.obsUserData = new Observable<UserData>((ob: any) => {
-      this.afAuth.user.subscribe(user => {
-        if (user) {
-          this.createUpdateUser(user, ob);
+      this.afAuth.user.subscribe(userLogin => {
+        if (userLogin) {
+          this.createUpdateUser(userLogin, ob);
         } else {
           ob.next({});
         }
@@ -56,15 +53,17 @@ export class SessionService {
     this.userDoc.valueChanges().subscribe(user => {
       let userNew: User;
       if (!user) {
+        const splitName = userL.displayName ? userL.displayName.split(' ') : userL.email.split('@');
+        const name = splitName.length > 0 ? splitName[0] : '';
+        const surname = splitName.length > 0 ? splitName[1] : '';
         userNew = {
           id: userL.uid,
-          mail: userL.email,
-          name: userL.displayName ? userL.displayName : userL.email.split('@')[0],
-          username: userL.email.split('@')[0],
-          password: '',
+          email: userL.mail,
+          nombres: name,
           roles: [this.idRolDefault],
-          surname: '',
-          token: [this.token ? this.token : '']
+          apellidos: surname,
+          token: [this.token ? this.token : ''],
+          urlFoto: userL.photoURL
         };
         this.userService.createCustom(userNew).then(() => {
           this.userLoguin = userNew;

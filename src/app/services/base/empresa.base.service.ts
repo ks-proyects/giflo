@@ -155,8 +155,14 @@ export class EmpresaBaseService {
 
     // Custom APIs
 
-    listByUser(): Observable<Empresa[]> {
-        return this.listUser;
+    listByUser(idUser: string): Observable<Empresa[]> {
+        return this.afs.collection<Empresa>('empresa', ref => ref.where('user', '==', idUser)).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Empresa;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
     }
 
 }

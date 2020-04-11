@@ -1,4 +1,4 @@
-<div fxLayout="row wrap">
+<div fxLayout="row wrap" *ngIf="item">
     <div fxFlex.gt-sm="100" fxFlex="100">
         <mat-card class="p-b-40">
             <mat-card-content>
@@ -86,7 +86,7 @@
                             <mat-form-field *ngIf="device.isMovile">
                                 <mat-label>Estado Civil</mat-label>
                                 <select matNativeControl name="estadoCivil" id="estadoCivil" #estadoCivil="ngModel"
-                                    [(ngModel)]="item.estadoCivil.id">
+                                    [(ngModel)]="item.estadoCivil">
                                     <option *ngFor="let tid of listEstadoCivil" [value]="tid.id">
                                         {{tid.nombre}}
                                     </option>
@@ -101,8 +101,8 @@
                             <mat-form-field>
                                 <mat-label>Correo Electrónico</mat-label>
                                 <input type="email" matInput placeholder="Ejm: dayana@gmail.com"
-                                    [(ngModel)]="item.contacto.email" name="email" #email="ngModel">
-                                <button mat-button *ngIf="item.contacto.email" matSuffix mat-icon-button
+                                    [(ngModel)]="item.email" name="email" #email="ngModel">
+                                <button mat-button *ngIf="item.email" matSuffix mat-icon-button
                                     aria-label="Clear" (click)="item.contacto.email=''">
                                     <mat-icon>close</mat-icon>
                                 </button>
@@ -114,8 +114,8 @@
                                 <mat-label>Célular</mat-label>
                                 <span matPrefix>+593 &nbsp;</span>
                                 <input type="tel" matInput placeholder="Ejm: 988692360"
-                                    [(ngModel)]="item.contacto.celular" name="celular" #celular="ngModel">
-                                <button mat-button *ngIf="item.contacto.celular" matSuffix mat-icon-button
+                                    [(ngModel)]="item.celular" name="celular" #celular="ngModel">
+                                <button mat-button *ngIf="item.celular" matSuffix mat-icon-button
                                     aria-label="Clear" (click)="item.contacto.celular=''">
                                     <mat-icon>close</mat-icon>
                                 </button>
@@ -127,8 +127,8 @@
                                 <mat-label>Teléfono</mat-label>
                                 <span matPrefix>+593 &nbsp;</span>
                                 <input type="tel" matInput placeholder="Ejm: 222366358"
-                                    [(ngModel)]="item.contacto.telefono" name="telefono" #telefono="ngModel">
-                                <button mat-button *ngIf="item.contacto.telefono" matSuffix mat-icon-button
+                                    [(ngModel)]="item.telefono" name="telefono" #telefono="ngModel">
+                                <button mat-button *ngIf="item.telefono" matSuffix mat-icon-button
                                     aria-label="Clear" (click)="item.contacto.telefono=''">
                                     <mat-icon>close</mat-icon>
                                 </button>
@@ -143,7 +143,7 @@
             <button mat-raised-button color="secondary" (click)="save(editForm.valid)">Guardar
                 <mat-icon>done_all</mat-icon>
             </button>
-            <button mat-raised-button color="secondary" (click)="goBack()">Regresar
+            <button mat-raised-button color="secondary" (click)="goBack()">Cerrar
                 <mat-icon>arrow_back</mat-icon>
             </button>
         </app-toolbar-button>

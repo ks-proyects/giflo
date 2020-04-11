@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
 import { BloqueService } from './services/bloque.service';
 import { CamaService } from './services/cama.service';
-import { ContactoService } from './services/contacto.service';
 import { DireccionService } from './services/direccion.service';
 import { EmpleadoService } from './services/empleado.service';
 import { EmpresaService } from './services/empresa.service';
@@ -21,7 +20,6 @@ import { VariedadService } from './services/variedad.service';
 
 import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
-import { PersonaService } from './services/persona.service';
 
 @NgModule({
   imports: [],
@@ -30,7 +28,6 @@ import { PersonaService } from './services/persona.service';
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
     BloqueService,
     CamaService,
-    ContactoService,
     DireccionService,
     EmpleadoService,
     EmpresaService,
@@ -42,7 +39,6 @@ import { PersonaService } from './services/persona.service';
     RolService,
     UserService,
     VariedadService,
-    PersonaService,
  /* END PROVIDERS */
     // SECURITY
     AuthGuard,

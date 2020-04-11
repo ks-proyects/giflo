@@ -11,10 +11,8 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutes } from './app.routing';
 // CORE MODULE
 import { CoreServiceModule } from './core.service.module';
-
 // LAYOUT
 import { AppComponent } from './app.component';
-
 // DIRECTIVES
 import { MailValidator } from './directives/mail.validate.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -30,10 +28,10 @@ import { AppBreadcrumbComponent } from './layout/full/breadcrumb/breadcrumb.comp
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
-
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
-
+import { EmpresaDialogComponent } from './pages/private/home/empresa-dialog/empresa-dialog.component';
+import { EmpleadoDialogComponent } from './pages/private/home/empleado-dialog/empleado-dialog.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 0.5,
@@ -52,7 +50,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBreadcrumbComponent,
     LandingComponent,
     MailValidator,
-    MatDialogComponent
+    MatDialogComponent,
+    EmpleadoDialogComponent
   ],
   imports: [
     BrowserModule,

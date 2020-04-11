@@ -33,4 +33,5 @@ export interface EmpresaBase {
     estado: Estado | string;
     // Relations user
     user: User | string;
+    codigoActivacion: string;
 }

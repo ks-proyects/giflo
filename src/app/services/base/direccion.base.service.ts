@@ -75,14 +75,14 @@ export class DireccionBaseService {
     // CRUD METHODS
 
 
-    listByPerson(idPersona: string): Observable<Direccion[]> {
-        return this.afs.collection<Direccion>('direccion', ref => ref.where('persona', '==', idPersona)).snapshotChanges().pipe(
+    listByPerson(idUser: string): Observable<Direccion[]> {
+        return this.afs.collection<Direccion>('direccion', ref => ref.where('user', '==', idUser)).snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Direccion;
                 const id = a.payload.doc.id;
                 return { id, ...data };
             }))
-        );;
+        );
     }
     list(): Observable<Direccion[]> {
         return this.direccionCollection.snapshotChanges().pipe(

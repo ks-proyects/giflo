@@ -16,6 +16,9 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
+import { Direccion } from '../direccion';
+import { Estado } from '../estado';
+import { EstadoCivil } from '../estado-civil';
 
 /**
  * This is the model of User object
@@ -24,10 +27,22 @@
 export interface UserBase {
 
     id: string;
-    mail?: string;
-    name?: string;
-    password?: string;
     roles?: string[];
-    surname?: string;
-    username?: string;
+    nombres?: string;
+    apellidos?: string;
+    fechaNacimiento?: Date;
+    identificacion?: string;
+    tipoIdentificacion?: string;
+    urlFoto?: string;
+    celular?: string;
+    email?: string;
+    paginaWeb?: string;
+    telefono?: string;
+    urlFacebook?: string;
+    // Relations direccion
+    direcciones?: Direccion[];
+    // Relations estado
+    estado?: Estado | string;
+    // Relations estadoCivil
+    estadoCivil?: EstadoCivil | string;
 }

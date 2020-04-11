@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import {  AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+
 
 // Import Services
 import { BloqueService } from '../../../../services/bloque.service';
@@ -13,7 +13,6 @@ import { EmpresaService } from '../../../../services/empresa.service';
 import { Bloque } from '../../../../domain/giflo_db/bloque';
 import { Empresa } from '../../../../domain/giflo_db/empresa';
 import { Estado } from '../../../../domain/giflo_db/estado';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 // START - USED SERVICES
 /**

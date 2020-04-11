@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>{{action}} Dirección</h1>
+<div mat-dialog-content>
+  <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+    <div fxLayout="row wrap">
+      <!-- column -->
+      <div fxFlex.gt-md="100" fxFlex="100">
+        <mat-form-field>
+          <input matInput placeholder="Nombre" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel">
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-md="100" fxFlex="100">
+        <mat-form-field>
+          <input type="tel" matInput placeholder="RUC" [(ngModel)]="item.ruc" name="ruc" #ruc="ngModel">
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-md="100" fxFlex="100">
+        <mat-form-field *ngIf="!device.isMovile">
+          <mat-select name="estado" id="estado" #estado="ngModel" [(ngModel)]="item.estado">
+            <mat-option *ngFor="let tid of listEstado" [value]="tid.id">
+              {{tid.nombre}}</mat-option>
+          </mat-select>
+          <mat-placeholder>Estado</mat-placeholder>
+        </mat-form-field>
+        <mat-form-field *ngIf="device.isMovile">
+          <mat-label>Estado</mat-label>
+          <select matNativeControl name="estado" id="estado" #estado="ngModel" [(ngModel)]="item.estado">
+            <option *ngFor="let tid of listEstado" [value]="tid.id">
+              {{tid.nombre}}
+            </option>
+          </select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="doAction(editForm.valid)">Guardar</button>
+  <button mat-raised-button color="secondary" (click)="closeDialog()">Regresar</button>
+</div>

@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
-import { PersonaService } from 'src/app/services/persona.service';
 import { DeviceService } from 'src/app/shared/device.service';
-import { AddressEditComponent } from '../address-edit/address-edit.component';
+import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DireccionService } from 'src/app/services/direccion.service';
 import { Direccion } from 'src/app/domain/giflo_db/direccion';
-import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material';
+import { EmpresaDialogComponent } from '../empresa-dialog/empresa-dialog.component';
+import { UserService } from 'src/app/services/user.service';
+import { docJoin } from 'src/app/services/generic/docJoin.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,47 +21,84 @@ import { MatDialog } from '@angular/material';
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
-  listEmpresa: Empresa[];
-  listDirecciones: Direccion[];
-  persona: any = { id: '', contacto: {} };
-  itemDoc: AngularFirestoreDocument<Direccion>;
+  listEmpresa: Empresa[] = [];
+  listDirecciones: Direccion[] = [];
   constructor(
     private session: SessionService,
-    private empresaServ: EmpresaService,
-    private personaServ: PersonaService,
-    public device: DeviceService,
+    private empresaService: EmpresaService,
+    private userService: UserService,
     private direccionService: DireccionService,
-    public dialog: MatDialog) {
+    private empleadoService: EmpleadoService,
+    public device: DeviceService,
+    public dialog: MatDialog,
+    private afs: AngularFirestore
+  ) {
     session.getDataUser().subscribe(obj => {
       if (obj.user) {
-        this.user = obj.user;
-        personaServ.get(obj.user.id).valueChanges().subscribe(emple => {
-          this.persona = emple;
-          this.persona.fechaNacimiento = this.persona.fechaNacimiento.toDate();
-          direccionService.listByPerson(this.persona.id).subscribe(result => { this.listDirecciones = result; });
+        userService.get(obj.user.id).valueChanges().pipe(docJoin(this.afs, { estadoCivil: 'estadocivil' })).subscribe(use => {
+          this.user = use;
+          this.user.rolesStr = obj.user.rolesStr;
+          this.user.fechaNacimiento = this.user.fechaNacimiento ? this.user.fechaNacimiento.toDate() : null;
+          direccionService.listByPerson(this.user.id).subscribe(result => { this.listDirecciones = result; });
+          empresaService.listByUser(this.user.id).subscribe(list => {
+            debugger;
+            this.listEmpresa = list;
+          });
         });
+
       }
     });
-    empresaServ.listByUser().subscribe(list => { this.listEmpresa = list; });
-
   }
   ngOnInit() {
   }
-  openConfirm(actionInput, dataInput) {
-    const dialogData: DialogDataGeneric = { id: -1, action: actionInput, data: dataInput };
-    const dialogRef = this.dialog.open(AddressEditComponent, {
+  openAddres(actionInput, dataInput) {
+    const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput };
+    const dialogRef = this.dialog.open(AddressDialogComponent, {
       width: 'auto',
       disableClose: true,
       data: dialogData,
       maxHeight: '90vh'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result.event === 'New') {
-        result.data.persona = this.persona.id;
+      if (result.event === 'Crear') {
+        result.data.user = this.user.id;
         this.direccionService.create(result.data);
-      } else if (result.event === 'Edit') {
-        this.itemDoc = this.direccionService.get(result.data.id);
-        this.direccionService.update(this.itemDoc, result.data);
+      } else if (result.event === 'Editar') {
+        this.direccionService.update(this.direccionService.get(result.data.id), result.data);
+      }
+    });
+  }
+  openEmpresa(actionInput, dataInput) {
+    const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput };
+    const dialogRef = this.dialog.open(EmpresaDialogComponent, {
+      width: 'auto',
+      disableClose: true,
+      data: dialogData,
+      maxHeight: '90vh'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'Crear') {
+        result.data.user = this.user.id;
+        this.empresaService.create(result.data);
+      } else if (result.event === 'Editar') {
+        this.empresaService.update(this.empresaService.get(result.data.id), result.data);
+      }
+    });
+  }
+  openEmpleado(actionInput, dataInput) {
+    const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput };
+    const dialogRef = this.dialog.open(EmpresaDialogComponent, {
+      width: 'auto',
+      disableClose: true,
+      data: dialogData,
+      maxHeight: '90vh'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === 'Crear') {
+        result.data.user = this.user.id;
+        this.empleadoService.create(result.data);
+      } else if (result.event === 'Editar') {
+        this.empleadoService.update(this.empleadoService.get(result.data.id), result.data);
       }
     });
   }

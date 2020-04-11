@@ -9,8 +9,9 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UtilModule } from 'src/app/util/util.module';
 import { CoreMaterialModule } from 'src/app/core.material.module';
-import { AddressEditComponent } from './address-edit/address-edit.component';
+import { AddressDialogComponent } from './address-dialog/address-dialog.component';
 import { RouterModule } from '@angular/router';
+import { EmpresaDialogComponent } from './empresa-dialog/empresa-dialog.component';
 
 
 @NgModule({
@@ -24,13 +25,15 @@ import { RouterModule } from '@angular/router';
     CoreMaterialModule
   ],
   entryComponents: [
-    AddressEditComponent
+    AddressDialogComponent,
+    EmpresaDialogComponent
   ],
   declarations: [
     ProfileComponent,
     SettingComponent,
     ProfileEditComponent,
-    AddressEditComponent
+    AddressDialogComponent,
+    EmpresaDialogComponent
   ], exports: []
 })
 export class HomeModule { }

@@ -10,12 +10,10 @@ import { EmpleadoService } from '../../../../services/empleado.service';
 import { EmpresaService } from '../../../../services/empresa.service';
 import { EstadoService } from '../../../../services/estado.service';
 import { DireccionService } from '../../../../services/direccion.service';
-import { ContactoService } from '../../../../services/contacto.service';
 import { EstadoCivilService } from '../../../../services/estado-civil.service';
 import { RolService } from '../../../../services/rol.service';
 
 import { Empleado } from '../../../../domain/giflo_db/empleado';
-import { Contacto } from '../../../../domain/giflo_db/contacto';
 import { Direccion } from '../../../../domain/giflo_db/direccion';
 import { Empresa } from '../../../../domain/giflo_db/empresa';
 import { Estado } from '../../../../domain/giflo_db/estado';
@@ -62,7 +60,6 @@ export class EmpleadoEditComponent implements OnInit {
     isNew: Boolean = true;
     formValid: Boolean;
 
-    listContacto: Contacto[];
     listDireccion: Direccion[];
     listEmpresa: Empresa[];
     listEstado: Estado[];
@@ -76,7 +73,6 @@ export class EmpleadoEditComponent implements OnInit {
         private empresaService: EmpresaService,
         private estadoService: EstadoService,
         private direccionService: DireccionService,
-        private contactoService: ContactoService,
         private estadocivilService: EstadoCivilService,
         private rolService: RolService,
         private route: ActivatedRoute,
@@ -97,9 +93,8 @@ export class EmpleadoEditComponent implements OnInit {
 
             }
             // Get relations
-            this.contactoService.list().subscribe(list => this.listContacto = list);
             this.direccionService.list().subscribe(list => this.listDireccion = list);
-            this.empresaService.listByUser().subscribe(list => this.listEmpresa = list);
+            this.empresaService.listByUser('').subscribe(list => this.listEmpresa = list);
             this.estadoService.list().subscribe(list => this.listEstado = list);
             this.estadocivilService.list().subscribe(list => this.listEstadoCivil = list);
             this.rolService.list().subscribe(list => this.listRol = list);
