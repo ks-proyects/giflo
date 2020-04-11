@@ -164,5 +164,14 @@ export class EmpresaBaseService {
             }))
         );
     }
+    listActive(): Observable<Empresa[]> {
+        return this.afs.collection<Empresa>('empresa', ref => ref.where('estado', '==', 'ACT')).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Empresa;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
 
 }

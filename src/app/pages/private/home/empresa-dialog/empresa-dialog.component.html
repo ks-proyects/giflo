@@ -5,7 +5,14 @@
       <!-- column -->
       <div fxFlex.gt-md="100" fxFlex="100">
         <mat-form-field>
-          <input matInput placeholder="Nombre" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel">
+          <mat-label>Nombre Comercial</mat-label>
+          <input matInput placeholder="Ejm: Bellarosas" [(ngModel)]="item.nombre" name="nombre" #nombre="ngModel">
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-md="100" fxFlex="100">
+        <mat-form-field>
+          <mat-label>Nombre Largo</mat-label>
+          <input matInput placeholder="Ejm: Bellarosas Company SA" [(ngModel)]="item.nombreLargo" name="nombreLargo" #nombreLargo="ngModel">
         </mat-form-field>
       </div>
       <div fxFlex.gt-md="100" fxFlex="100">

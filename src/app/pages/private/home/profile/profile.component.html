@@ -38,7 +38,7 @@
         </div>
         <mat-list fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
           <mat-list-item *ngFor="let dir of listDirecciones">
-            <h3 matLine>{{dir.callePrincipal}} {{dir.calleNumero}} y {{dir.calleSecundaria}}</h3>
+            <h4 matLine>{{dir.callePrincipal}} {{dir.calleNumero}} y {{dir.calleSecundaria}}</h4>
             <p matLine class="text-warn_default">{{dir.referencia}}</p>
             <p matLine class="text-warn_default">Celular: {{dir.celular}} Teléfono: {{dir.telefono}}
               Extensión:{{dir.extension}}</p>
@@ -58,7 +58,7 @@
         </div>
         <mat-list fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
           <mat-list-item *ngFor="let emp of listEmpleados">
-            <h3 matLine>{{emp.empresa?emp.empresa.nombre:''}} </h3>
+            <p matLine>{{emp.empresa?emp.empresa.nombre:''}} </p>
             <strong matLine class="text-warn_darker">{{emp.estado?emp.estado.nombre:''}}</strong>
           </mat-list-item>
         </mat-list>

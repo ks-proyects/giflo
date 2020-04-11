@@ -27,6 +27,7 @@ export interface EmpresaBase {
 
     id: string;
     nombre?: string;
+    nombreLargo?: string;
     ruc?: string;
     urlLogo?: string;
     // Relations estado
