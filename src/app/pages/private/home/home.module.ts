@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { MatCardModule, MatButtonModule, MatIconModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatRippleModule, MatAccordion, MatExpansionModule, MatListModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -10,6 +8,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UtilModule } from 'src/app/util/util.module';
+import { CoreMaterialModule } from 'src/app/core.material.module';
 import { AddressEditComponent } from './address-edit/address-edit.component';
 
 
@@ -18,27 +17,19 @@ import { AddressEditComponent } from './address-edit/address-edit.component';
     HomeRoutingModule,
     CommonModule,
     UtilModule,
-    MatCardModule,
-    NgxDatatableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatFormFieldModule,
     FormsModule,
-    MatInputModule,
+    NgxDatatableModule,
     FlexLayoutModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRippleModule,
-    MatListModule
+    CoreMaterialModule
   ],
   entryComponents: [
+    AddressEditComponent
   ],
   declarations: [
     ProfileComponent,
     SettingComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    AddressEditComponent
   ], exports: []
 })
 export class HomeModule { }

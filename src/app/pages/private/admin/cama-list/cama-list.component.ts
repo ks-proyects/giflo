@@ -1,10 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 // Import Services
 import { CamaService } from '../../../../services/cama.service';
 // Import Models
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';

@@ -23,7 +23,6 @@ export class DialogService {
       disableClose: true,
       data: dataInput,
       maxHeight: '90vh'
-
     });
   }
 }

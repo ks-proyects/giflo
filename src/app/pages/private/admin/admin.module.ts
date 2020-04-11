@@ -1,18 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTableModule,
-  MatIconModule,
-  MatButtonModule,
-  MatSelectModule,
-} from '@angular/material';
-
 import { BloqueEditComponent } from './bloque-edit/bloque-edit.component';
 import { BloqueListComponent } from './bloque-list/bloque-list.component';
 import { CamaEditComponent } from './cama-edit/cama-edit.component';
@@ -24,6 +12,7 @@ import { VariedadListComponent } from './variedad-list/variedad-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { PrivateComponent } from '../private.component';
 import { UtilModule } from 'src/app/util/util.module';
+import { CoreMaterialModule } from 'src/app/core.material.module';
 
 @NgModule({
   imports: [
@@ -31,15 +20,7 @@ import { UtilModule } from 'src/app/util/util.module';
     CommonModule,
     FormsModule,
     UtilModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatSortModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule
+    CoreMaterialModule
   ],
   declarations: [
     BloqueEditComponent,

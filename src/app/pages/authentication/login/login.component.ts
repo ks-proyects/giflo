@@ -4,11 +4,10 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
 } from '@angular/forms';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { DeviceService } from 'src/app/shared/device.service';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +16,12 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  isMovile = false;
   public form: FormGroup;
   public config: PerfectScrollbarConfigInterface = {};
   constructor(
     private fb: FormBuilder, private router: Router,
     public authSer: AuthenticationService,
-    private breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      this.isMovile = result.matches ? true : false;
-    });
+    public device: DeviceService) {
   }
 
   ngOnInit() {

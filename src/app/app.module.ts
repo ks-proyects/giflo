@@ -3,45 +3,24 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // FIREBASE
 import { CoreFirebaseModule } from './core.firebase.module';
 // SHARED MODULE
 import { SharedModule } from './shared/shared.module';
-
+import { AppRoutes } from './app.routing';
 // CORE MODULE
-import { CoreModule } from './core.module';
+import { CoreServiceModule } from './core.service.module';
 
 // LAYOUT
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar.component';
 
 // DIRECTIVES
 import { MailValidator } from './directives/mail.validate.directive';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { LayoutModule } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
-import {
-  MatToolbarModule,
-  MatIconModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatListModule,
-  MatSliderModule,
-  MatDialogModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-
-} from '@angular/material';
 import { SpinnerComponent } from './shared/spiner/spinner.component';
 import { LandingComponent } from './layout/landing/landing.component';
 import { FullComponent } from './layout/full/full.component';
@@ -52,7 +31,9 @@ import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLL
 import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
 import { AddressEditComponent } from './pages/private/home/address-edit/address-edit.component';
-import { UtilModule } from './util/util.module';
+
+import { RouterModule } from '@angular/router';
+import { CoreMaterialModule } from './core.material.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -62,59 +43,33 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 // DECLARE APPLICATION MODULE
 @NgModule({
-  bootstrap: [
-    AppComponent
-  ],
-  imports: [
-    AppRoutingModule, // ROUTES
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SharedModule,
-    CoreModule,
-    CoreFirebaseModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    FlexLayoutModule,
-    LayoutModule,
-    ImageCropperModule,
-    ReactiveFormsModule,
-    ScrollingModule,
-    CommonModule,
-    FormsModule,
-    PerfectScrollbarModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatListModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    UtilModule
-  ],
-  entryComponents: [
-    MatDialogComponent,
-    AddressEditComponent
-  ],
   declarations: [
-    // LAYOUT
     AppComponent,
-    NavbarComponent,
-    MailValidator,
-    SpinnerComponent,
-    LandingComponent,
     FullComponent,
-    AppBlankComponent,
     AppHeaderComponent,
+    SpinnerComponent,
+    AppBlankComponent,
     AppSidebarComponent,
     AppBreadcrumbComponent,
-    MatDialogComponent,
-    AddressEditComponent
+    LandingComponent,
+    MailValidator,
+    MatDialogComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    CoreMaterialModule,
+    FormsModule,
+    FlexLayoutModule,
+    HttpClientModule,
+    PerfectScrollbarModule,
+    SharedModule,
+    CoreFirebaseModule,
+    CoreServiceModule,
+    RouterModule.forRoot(AppRoutes),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ImageCropperModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -122,5 +77,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
+  entryComponents: [
+    MatDialogComponent
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
