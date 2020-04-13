@@ -1,0 +1,67 @@
+<mat-horizontal-stepper [linear]="item.hasAllOptions" #stepper>
+  <mat-step [stepControl]="firstFormGroup" *ngIf="item.hasAllOptions">
+    <form #firstFormGroup="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+      <ng-template matStepLabel>Paso 1</ng-template>
+      <mat-form-field *ngIf="!device.isMovile">
+        <mat-select name="tipo" id="tipo" #tipo="ngModel" [(ngModel)]="item.tipo" required>
+          <mat-option *ngFor="let tid of listTipo" [value]="tid">
+            {{tid}}</mat-option>
+        </mat-select>
+        <mat-placeholder>Ingresar como</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field *ngIf="device.isMovile">
+        <mat-label>Ingresar como</mat-label>
+        <select matNativeControl name="tipo" id="tipo" #tipo="ngModel" [(ngModel)]="item.tipo" required>
+          <option *ngFor="let tid of listTipo" [value]="tid">
+            {{tid}}
+          </option>
+        </select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form #secondFormGroup="ngForm" [ngClass]="{'was-validated': formValid2!=null}">
+      <ng-template matStepLabel>Paso 2</ng-template>
+      <mat-form-field *ngIf="!device.isMovile && item.tipo==='Empresario'">
+        <mat-select name="idEmpresa" id="idEmpresa" #idEmpresa="ngModel" [(ngModel)]="item.idEmpresa" required>
+          <mat-option *ngFor="let tid of listEmpresa" [value]="tid.id">
+            {{tid.nombre}}</mat-option>
+        </mat-select>
+        <mat-placeholder>Selecciona tu Empresa</mat-placeholder>
+      </mat-form-field>
+      <mat-form-field *ngIf="device.isMovile && item.tipo==='Empresario'">
+        <mat-label>Selecciona tu Empresa</mat-label>
+        <select matNativeControl name="idEmpresa" id="idEmpresa" #idEmpresa="ngModel" [(ngModel)]="item.idEmpresa"
+          required>
+          <option *ngFor="let tid of listEmpresa" [value]="tid.id">
+            {{tid.nombre}}
+          </option>
+        </select>
+      </mat-form-field>
+      <!-- Empleado-->
+      <mat-form-field *ngIf="!device.isMovile && item.tipo==='Empleado'">
+        <mat-placeholder>Selecciona tu Empresa</mat-placeholder>
+        <mat-select name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpleado" required>
+          <mat-option *ngFor="let tid of listEmpresaEmpleado" [value]="tid.id">
+            {{tid.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="device.isMovile && item.tipo==='Empleado'">
+        <mat-label>Selecciona tu Empresa</mat-label>
+        <select matNativeControl name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpleado"
+          required>
+          <option *ngFor="let tid of listEmpresaEmpleado" [value]="tid.id">
+            {{tid.nombre}}
+          </option>
+        </select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Regresar</button>
+        <button mat-button (click)="doAction(secondFormGroup.valid)">Confirmar</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

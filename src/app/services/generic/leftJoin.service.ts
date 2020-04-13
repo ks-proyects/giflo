@@ -76,19 +76,25 @@ export const leftJoinDocument = (afs: AngularFirestore, field, collection) => {
           let i = 0;
           for (const doc of collectionData) {
             // Skip if doc field does not exist or is already in cache
-            if (!doc[field] || cache.get(doc[field])) {
+            const docFiel = doc[field];
+            if (!docFiel || cache.get(docFiel)) {
               continue;
             }
-
-            // Push doc read to Array
-            reads$.push(
-              afs
-                .collection(collection)
-                .doc(doc[field])
-                .valueChanges()
-            );
-            cache.set(doc[field], i);
+            try {
+              // Push doc read to Array
+              reads$.push(
+                afs
+                  .collection(collection)
+                  .doc(docFiel)
+                  .valueChanges()
+              );
+            } catch (error) {
+              console.log(error);
+              continue;
+            }
+            cache.set(docFiel, i);
             i++;
+
           }
 
           return reads$.length ? combineLatest(reads$) : of([]);

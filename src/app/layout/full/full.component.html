@@ -21,13 +21,13 @@
   <!-- ============================================================== -->
   <!-- End Topbar - style you can find in pages.scss -->
   <!-- ============================================================== -->
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="device.isMovile ? 0 : 0"
     [ngClass]="{'minisidebar': true}">
     <!-- ============================================================== -->
     <!-- Sidebar - style you can find in sidebar.scss -->
     <!-- ============================================================== -->
-    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
-      [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
+    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="device.isMovile ? 'side' : 'over'" fixedTopGap="0"
+      [opened]="device.isMovile" [disableClose]="device.isMovile" (open)="sidebarOpened = true"
       (close)="sidebarOpened = false" [perfectScrollbar]="config">
       <app-sidebar class="app-sidebar" (logoutOUT)="logout($event)"></app-sidebar>
     </mat-sidenav>

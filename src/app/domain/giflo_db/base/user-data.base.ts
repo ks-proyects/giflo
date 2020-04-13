@@ -30,4 +30,8 @@ export interface UserDataBase {
     menu?: MenuItem[];
     currentCompany?: Empresa;
     offline?: boolean;
+    hasAllOptions?: boolean;
+    idEmpleado?: string;
+    idEmpresa?: string;
+    tipo?: string;
 }

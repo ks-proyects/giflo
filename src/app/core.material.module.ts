@@ -22,7 +22,9 @@ import {
   MatNativeDateModule,
   MatDividerModule,
   MatSnackBarModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatHorizontalStepper,
+  MatStepperModule
 } from '@angular/material';
 @NgModule({
   exports: [
@@ -49,6 +51,7 @@ import {
     MatRippleModule,
     MatSnackBarModule,
     MatExpansionModule,
+    MatStepperModule
   ]
 })
 export class CoreMaterialModule { }

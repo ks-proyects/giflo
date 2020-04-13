@@ -5,7 +5,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
 import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
@@ -20,26 +20,24 @@ export class SessionService {
   private idRolDefault: string;
   private token: string;
   private listMenuItem: MenuItem[];
-  private obsUserData: Observable<UserData>;
-  private userData: UserData;
+  userData: UserData;
+  public obsUserData: Subject<UserData> = new Subject<UserData>();
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     public afm: AngularFireMessaging,
     private userService: UserService,
     private rolService: RolService) {
-    this.obsUserData = new Observable<UserData>((ob: any) => {
-      this.afAuth.user.subscribe(userLogin => {
-        if (userLogin) {
-          this.createUpdateUser(userLogin, ob);
-        } else {
-          ob.next({});
-        }
-      });
-      this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
-        this.listMenuItem = (arrar as MenuItem[]);
-        this.updateMenu(ob);
-      });
+    this.afAuth.user.subscribe(userLogin => {
+      if (userLogin) {
+        this.createUpdateUser(userLogin);
+      } else {
+        this.obsUserData.next({});
+      }
+    });
+    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+      this.listMenuItem = (arrar as MenuItem[]);
+      this.updateMenu();
     });
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
@@ -48,7 +46,7 @@ export class SessionService {
       this.idRolDefault = rol.id;
     });
   }
-  public createUpdateUser(userL, observer) {
+  public createUpdateUser(userL) {
     this.userDoc = this.userService.get(userL.uid);
     this.userDoc.valueChanges().subscribe(user => {
       let userNew: User;
@@ -67,7 +65,7 @@ export class SessionService {
         };
         this.userService.createCustom(userNew).then(() => {
           this.userLoguin = userNew;
-          this.updateMenu(observer);
+          this.updateMenu();
         });
       } else {
         let tokens = user.token;
@@ -79,7 +77,7 @@ export class SessionService {
           merge: true
         }).then((res) => {
           this.userLoguin = user;
-          this.updateMenu(observer);
+          this.updateMenu();
         });
       }
     });
@@ -87,7 +85,7 @@ export class SessionService {
   onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
-  updateMenu(observer) {
+  updateMenu() {
     this.userData = {};
     if (this.userLoguin) {
       let rolesUser: string[] = [];
@@ -109,7 +107,7 @@ export class SessionService {
       this.userData.menu = listMenuItemUser;
       this.userData.user = this.userLoguin;
     }
-    observer.next(this.userData);
+    this.obsUserData.next(this.userData);
   }
   getDataUser() {
     return this.obsUserData;

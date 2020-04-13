@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // FIREBASE
 import { CoreFirebaseModule } from './core.firebase.module';
@@ -30,6 +30,7 @@ import { AppBlankComponent } from './layout/blank/blank.component';
 import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.component';
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
+import { DialogSelectComponent } from './layout/full/dialog-select/dialog-select.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 0.5,
@@ -48,7 +49,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBreadcrumbComponent,
     LandingComponent,
     MailValidator,
-    MatDialogComponent
+    MatDialogComponent,
+    DialogSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule.forRoot(AppRoutes),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ImageCropperModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -72,7 +75,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }
   ],
   entryComponents: [
-    MatDialogComponent
+    MatDialogComponent,
+    DialogSelectComponent
   ],
   bootstrap: [
     AppComponent
