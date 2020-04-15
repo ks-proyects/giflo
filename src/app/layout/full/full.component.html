@@ -9,7 +9,7 @@
     <!-- ============================================================== -->
     <!-- sidebar toggle -->
     <!-- ============================================================== -->
-    <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
+    <button mat-icon-button (click)="snav.toggle() && this.status = !this.status" value="sidebarclosed">
       <mat-icon>menu</mat-icon>
     </button>
     <span fxFlex></span>
@@ -26,9 +26,9 @@
     <!-- ============================================================== -->
     <!-- Sidebar - style you can find in sidebar.scss -->
     <!-- ============================================================== -->
-    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="device.isMovile ? 'side' : 'over'" fixedTopGap="0"
-      [opened]="device.isMovile" [disableClose]="device.isMovile" (open)="sidebarOpened = true"
-      (close)="sidebarOpened = false" [perfectScrollbar]="config">
+    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="device.activeMinivar ? 'side' : 'over'" fixedTopGap="0"
+      [opened]="device.activeMinivar" [disableClose]="device.activeMinivar" (open)="sidebarOpened = true"
+      (close)="sidebarOpened = true" [perfectScrollbar]="config">
       <app-sidebar class="app-sidebar" (logoutOUT)="logout($event)"></app-sidebar>
     </mat-sidenav>
     <!-- ============================================================== -->

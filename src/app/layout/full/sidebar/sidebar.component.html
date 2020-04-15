@@ -36,7 +36,6 @@
             <span fxFlex></span>
             <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-
         <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub'">
             <mat-icon>{{ menuitem.icon }}</mat-icon>
             <span>{{ menuitem.name }}</span>
@@ -63,9 +62,7 @@
                     </mat-list-item>
                 </mat-nav-list>
             </mat-list-item>
-
         </mat-nav-list>
-
         <div class="saperator text-muted" *ngIf="menuitem.type === 'saperator'">
             <span>{{ menuitem.name }}</span>
         </div>

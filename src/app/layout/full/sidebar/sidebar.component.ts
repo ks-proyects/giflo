@@ -22,7 +22,6 @@ export class AppSidebarComponent implements OnDestroy {
   itemSelect: number[] = [];
   user: any;
   @Output() public logoutOUT = new EventEmitter();
-
   scrollToTop() {
     document.querySelector('.page-wrapper').scroll({
       top: 0,

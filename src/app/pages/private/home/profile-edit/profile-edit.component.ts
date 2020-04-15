@@ -38,7 +38,6 @@ export class ProfileEditComponent implements OnDestroy {
   ) {
     this.maxDate = new Date();
     this.userSubscription = this.sessionService.getUser().subscribe(user => {
-      console.log('ProfileEditComponent');
       if (user) {
         this.isNew = false;
         this.estadocivilService.list().subscribe(list => this.listEstadoCivil = list);

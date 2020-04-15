@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.userSubscription = this.session.getUser().subscribe(user => {
-      console.log('ProfileComponent');
       if (user) {
         this.userService.get(user.id).valueChanges().pipe(docJoin(this.afs, { estadoCivil: 'estadocivil' })).subscribe(use => {
           this.user = use;

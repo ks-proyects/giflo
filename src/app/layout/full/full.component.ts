@@ -29,9 +29,6 @@ export class FullComponent implements OnDestroy, OnInit {
   config: PerfectScrollbarConfigInterface = {};
   private userSuscription: Subscription;
   private userInfoSuscription: Subscription;
-  clickEvent() {
-    this.status = !this.status;
-  }
   constructor(
     private auth: AuthenticationService,
     public device: DeviceService,
