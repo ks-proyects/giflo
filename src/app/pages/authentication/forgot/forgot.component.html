@@ -17,7 +17,7 @@
               <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">Debes ingresar un email valido.</small>
             </div>
             <button mat-raised-button color="primary" type="submit" class="btn-block btn-lg m-t-20" [disabled]="!form.valid">Enviar</button>
-            <button mat-raised-button color="warn" [routerLink]="['/admin', 'bloques']" type="button" class="btn-block btn-lg m-t-20">Ingresar</button>
+            <button mat-raised-button color="warn" [routerLink]="['/admin', 'home']" type="button" class="btn-block btn-lg m-t-20">Ingresar</button>
           </div>
         </form>
       </mat-card-content>

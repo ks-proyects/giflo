@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
@@ -16,17 +16,19 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 import { EmpleadoDialogComponent } from '../empleado-dialog/empleado-dialog.component';
 import { Empleado } from 'src/app/domain/giflo_db/empleado';
 import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   user: any = {};
   listEmpresa: Empresa[] = [];
   listDirecciones: Direccion[] = [];
   listEmpleados: Empleado[] = [];
+  private userSubscription: Subscription;
   constructor(
     private session: SessionService,
     private empresaService: EmpresaService,
@@ -37,26 +39,29 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog,
     private afs: AngularFirestore
   ) {
-    session.getDataUser().subscribe(obj => {
-      if (obj.user) {
-        userService.get(obj.user.id).valueChanges().pipe(docJoin(this.afs, { estadoCivil: 'estadocivil' })).subscribe(use => {
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+  }
+  ngOnInit() {
+    this.userSubscription = this.session.getUser().subscribe(user => {
+      console.log('ProfileComponent');
+      if (user) {
+        this.userService.get(user.id).valueChanges().pipe(docJoin(this.afs, { estadoCivil: 'estadocivil' })).subscribe(use => {
           this.user = use;
-          this.user.rolesStr = obj.user.rolesStr;
+          this.user.rolesStr = user.rolesStr;
           this.user.fechaNacimiento = this.user.fechaNacimiento ? this.user.fechaNacimiento.toDate() : null;
-          direccionService.listByPerson(this.user.id).subscribe(result => { this.listDirecciones = result; });
-          empresaService.listByUser(this.user.id).pipe(leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(list => {
+          this.direccionService.listByPerson(this.user.id).subscribe(result => { this.listDirecciones = result; });
+          this.empresaService.listByUser(this.user.id).pipe(leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(list => {
             this.listEmpresa = (list as Empresa[]);
           });
-          empleadoService.listByUser(this.user.id).pipe(
+          this.empleadoService.listByUser(this.user.id).pipe(
             leftJoinDocument(this.afs, 'empresa', 'empresa'), leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(list => {
               this.listEmpleados = (list as Empleado[]);
             });
         });
-
       }
     });
-  }
-  ngOnInit() {
   }
   openAddres(actionInput, dataInput) {
     const dialogData: DialogDataGeneric = { action: actionInput, data: dataInput };

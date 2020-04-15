@@ -5,50 +5,52 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
 import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscriber, BehaviorSubject } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
-import { UserData } from '../domain/giflo_db/user-data';
+import { UserInfo } from '../domain/dto/user-info';
+import { Menu } from '../util/menu-items/menu-items';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  private userDoc: AngularFirestoreDocument<any>;
-  private userLoguin: User;
   private idRolDefault: string;
   private token: string;
+  private userLoguin: User;
   private listMenuItem: MenuItem[];
-  userData: UserData;
-  public obsUserData: Subject<UserData> = new Subject<UserData>();
+  private user: BehaviorSubject<User>;
+  private menuUser: BehaviorSubject<MenuItem[]>;
+  private userInfo: BehaviorSubject<UserInfo>;
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     public afm: AngularFireMessaging,
     private userService: UserService,
     private rolService: RolService) {
-    this.afAuth.user.subscribe(userLogin => {
-      if (userLogin) {
-        this.createUpdateUser(userLogin);
-      } else {
-        this.obsUserData.next({});
-      }
-    });
-    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
-      this.listMenuItem = (arrar as MenuItem[]);
-      this.updateMenu();
-    });
+    this.user = new BehaviorSubject<User>(null);
+    this.menuUser = new BehaviorSubject<MenuItem[]>(null);
+    this.userInfo = new BehaviorSubject<UserInfo>(null);
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
     });
     this.rolService.get('DEF').valueChanges().subscribe(rol => {
       this.idRolDefault = rol.id;
     });
+    this.afAuth.user.subscribe(userLogin => {
+      if (userLogin) {
+        this.createUpdateUser(userLogin);
+      }
+    });
+    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+      this.listMenuItem = (arrar as MenuItem[]);
+      this.updateMenu();
+    });
   }
   public createUpdateUser(userL) {
-    this.userDoc = this.userService.get(userL.uid);
-    this.userDoc.valueChanges().subscribe(user => {
+    const userDoc: AngularFirestoreDocument<any> = this.userService.get(userL.uid);
+    userDoc.valueChanges().subscribe(user => {
       let userNew: User;
       if (!user) {
         const splitName = userL.displayName ? userL.displayName.split(' ') : userL.email.split('@');
@@ -56,14 +58,14 @@ export class SessionService {
         const surname = splitName.length > 0 ? splitName[1] : '';
         userNew = {
           id: userL.uid,
-          email: userL.mail,
+          email: userL.email,
           nombres: name,
           roles: [this.idRolDefault],
           apellidos: surname,
           token: [this.token ? this.token : ''],
           urlFoto: userL.photoURL
         };
-        this.userService.createCustom(userNew).then(() => {
+        this.userService.createCustom(userNew).then((item) => {
           this.userLoguin = userNew;
           this.updateMenu();
         });
@@ -71,7 +73,7 @@ export class SessionService {
         let tokens = user.token;
         tokens.push(this.token ? this.token : '');
         tokens = tokens.filter(this.onlyUnique);
-        this.userDoc.set({
+        userDoc.set({
           token: tokens
         }, {
           merge: true
@@ -82,16 +84,12 @@ export class SessionService {
       }
     });
   }
-  onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-  updateMenu() {
-    this.userData = {};
+  private updateMenu() {
     if (this.userLoguin) {
       let rolesUser: string[] = [];
       const listMenuItemUser: MenuItem[] = this.listMenuItem ? this.listMenuItem.filter(mi => {
-        const pagina = mi.pagina as Pagina;
-        const rol = mi.rol as Rol;
+        const pagina = (mi.pagina as Pagina);
+        const rol = (mi.rol as Rol);
         const haveRol = this.userLoguin.roles.includes(rol.id);
         if (haveRol) {
           rolesUser.push(rol.nombre);
@@ -104,12 +102,30 @@ export class SessionService {
       rolesUser.forEach(rol => { strRol += rol + ', '; });
       strRol = strRol > '' ? strRol.substr(0, strRol.length - 1) : '';
       this.userLoguin.rolesStr = strRol;
-      this.userData.menu = listMenuItemUser;
-      this.userData.user = this.userLoguin;
+      this.menuUser.next(listMenuItemUser);
+      this.user.next(this.userLoguin);
     }
-    this.obsUserData.next(this.userData);
   }
-  getDataUser() {
-    return this.obsUserData;
+
+  setUser(newValue: User): void {
+    this.user.next(newValue);
+  }
+  getUser(): Observable<User> {
+    return this.user.asObservable();
+  }
+  setMenu(newValue: MenuItem[]): void {
+    this.menuUser.next(newValue);
+  }
+  getMenu(): Observable<MenuItem[]> {
+    return this.menuUser.asObservable();
+  }
+  setUserInfo(newValue: UserInfo): void {
+    this.userInfo.next(newValue);
+  }
+  getUserInfo(): Observable<UserInfo> {
+    return this.userInfo.asObservable();
+  }
+  private onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
   }
 }

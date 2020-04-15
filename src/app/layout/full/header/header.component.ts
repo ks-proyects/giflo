@@ -13,8 +13,7 @@ import { User } from 'src/app/domain/giflo_db/user';
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   @Output() public logoutOUT = new EventEmitter();
-  user: User;
-  // This is for Notifications
+  user: any = {};
   notifications: Object[] = [
     {
       round: 'round-danger',
@@ -36,6 +35,10 @@ export class AppHeaderComponent {
     }
   ];
   constructor(session: SessionService) {
-    session.getDataUser().subscribe(obj => { this.user = obj.user; });
+    session.getUser().subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
+    });
   }
 }

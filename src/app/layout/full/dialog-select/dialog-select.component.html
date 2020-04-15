@@ -24,7 +24,7 @@
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form #secondFormGroup="ngForm" [ngClass]="{'was-validated': formValid2!=null}">
-      <ng-template matStepLabel>Paso 2</ng-template>
+      <ng-template matStepLabel>Paso {{item.hasAllOptions?'2':'1'}}</ng-template>
       <mat-form-field *ngIf="!device.isMovile && item.tipo==='Empresario'">
         <mat-select name="idEmpresa" id="idEmpresa" #idEmpresa="ngModel" [(ngModel)]="item.idEmpresa" required>
           <mat-option *ngFor="let tid of listEmpresa" [value]="tid.id">

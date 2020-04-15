@@ -40,9 +40,7 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     constructor(
         private menuitemService: MenuItemService,
         private breakpointObserver: BreakpointObserver,
-        private disSer: DialogService,
-        private session: SessionService,
-        private afs: AngularFirestore
+        private disSer: DialogService
     ) {
         super();
         this.dataSource = new MatTableDataSource([]);

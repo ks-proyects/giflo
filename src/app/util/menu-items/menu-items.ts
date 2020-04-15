@@ -58,59 +58,14 @@ const SECTIONS: Menu[] = [{
   children: []
 }
 ];
-let MENUITEMS_TEMP: Menu[] = [
-  {
-    state: 'admin',
-    name: 'Adminsitración',
-    type: 'sub',
-    icon: 'border_all',
-    children: [
-      { state: 'bloques', name: 'Bloques', type: 'link' },
-      { state: 'naves', name: 'Naves', type: 'link' },
-      { state: 'camas', name: 'Camas', type: 'link' },
-      { state: 'variedads', name: 'Variedades', type: 'link' },
-    ]
-  },
-  {
-    state: 'catalog',
-    name: 'Catálogo',
-    type: 'sub',
-    icon: 'widgets',
-    children: [
-      { state: 'estados', name: 'Estados', type: 'link' },
-      { state: 'estadocivils', name: 'Estados Civiles', type: 'link' }
-    ]
-  },
-  {
-    state: 'management',
-    name: 'Gestión',
-    type: 'sub',
-    icon: 'star',
-    children: [
-      { state: 'empleados', name: 'Empleados', type: 'link' },
-    ]
-  },
-  {
-    state: 'security',
-    name: 'Permisos',
-    type: 'sub',
-    icon: 'apps',
-    children: [
-      { state: 'empresas', name: 'Empresas', type: 'link' },
-      { state: 'rols', name: 'Roles', type: 'link' },
-      { state: 'paginas', name: 'Páginas', type: 'link' },
-      { state: 'menuitems', name: 'Menu Items', type: 'link' },
-    ]
-  }
-];
+
 let MENUITEMS: Menu[] = [];
 
 @Injectable()
 export class MenuItems {
-
-  constructor(private menuItem: SessionService) {
-    menuItem.getDataUser().subscribe(obj => {
-      this.buildMenu(obj.menu);
+  constructor(private sessionService: SessionService) {
+    this.sessionService.getMenu().subscribe(listMenu => {
+      this.buildMenu(listMenu);
     });
   }
   buildMenu(array: MenuItem[]) {
