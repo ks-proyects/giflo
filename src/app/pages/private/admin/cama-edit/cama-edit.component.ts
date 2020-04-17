@@ -1,5 +1,5 @@
 // Import Libraries
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -56,7 +56,7 @@ import { Variedad } from '../../../../domain/giflo_db/variedad';
     templateUrl: 'cama-edit.component.html',
     styleUrls: ['cama-edit.component.css']
 })
-export class CamaEditComponent implements OnInit {
+export class CamaEditComponent implements OnInit, OnDestroy {
     item: any = {};
     itemDoc: AngularFirestoreDocument<Cama>;
     isNew: Boolean = true;
@@ -81,6 +81,9 @@ export class CamaEditComponent implements OnInit {
         // Init list
     }
 
+    ngOnDestroy() {
+
+    }
     /**
      * Init
      */

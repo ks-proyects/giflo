@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Cama } from '../../domain/giflo_db/cama';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Cama.service.ts
@@ -70,11 +71,17 @@ import { Cama } from '../../domain/giflo_db/cama';
 @Injectable()
 export class CamaBaseService {
 
+    idEmpresa: string;
     private camaCollection: AngularFirestoreCollection<Cama>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private session: SessionService
     ) {
+        session.getUserInfo().subscribe(ui => {
+            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+            this.camaCollection = afs.collection<Cama>('cama', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+        });
         this.camaCollection = afs.collection<Cama>('cama');
     }
 
@@ -87,6 +94,7 @@ export class CamaBaseService {
     *
     */
     create(item: Cama): Promise<DocumentReference> {
+        item.empresa = this.idEmpresa;
         return this.camaCollection.add(item);
     }
 
@@ -117,7 +125,7 @@ export class CamaBaseService {
     *
     */
     list(): Observable<Cama[]> {
-        return this.afs.collection('cama').snapshotChanges().pipe(
+        return this.camaCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Cama;
                 const id = a.payload.doc.id;
