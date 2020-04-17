@@ -44,14 +44,14 @@
       <!-- Empleado-->
       <mat-form-field *ngIf="!device.isMovile && item.tipo==='Empleado'">
         <mat-placeholder>Selecciona tu Empresa</mat-placeholder>
-        <mat-select name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpleado" required>
+        <mat-select name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpresa" required>
           <mat-option *ngFor="let tid of listEmpresaEmpleado" [value]="tid.id">
             {{tid.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="device.isMovile && item.tipo==='Empleado'">
         <mat-label>Selecciona tu Empresa</mat-label>
-        <select matNativeControl name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpleado"
+        <select matNativeControl name="idEmpleado" id="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="item.idEmpresa"
           required>
           <option *ngFor="let tid of listEmpresaEmpleado" [value]="tid.id">
             {{tid.nombre}}

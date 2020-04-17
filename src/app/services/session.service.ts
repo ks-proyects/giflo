@@ -23,6 +23,7 @@ export class SessionService {
   private user: BehaviorSubject<User>;
   private menuUser: BehaviorSubject<MenuItem[]>;
   private userInfo: BehaviorSubject<UserInfo>;
+  private NAME_USER_INFO = 'user_info';
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -31,7 +32,7 @@ export class SessionService {
     private rolService: RolService) {
     this.user = new BehaviorSubject<User>(null);
     this.menuUser = new BehaviorSubject<MenuItem[]>(null);
-    this.userInfo = new BehaviorSubject<UserInfo>(null);
+    this.userInfo = new BehaviorSubject<UserInfo>(JSON.parse(sessionStorage.getItem(this.NAME_USER_INFO)));
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
     });
@@ -40,12 +41,12 @@ export class SessionService {
     });
     this.afAuth.user.subscribe(userLogin => {
       if (userLogin) {
+        this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+          this.listMenuItem = (arrar as MenuItem[]);
+          this.updateMenu();
+        });
         this.createUpdateUser(userLogin);
       }
-    });
-    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
-      this.listMenuItem = (arrar as MenuItem[]);
-      this.updateMenu();
     });
   }
   public createUpdateUser(userL) {
@@ -120,6 +121,7 @@ export class SessionService {
     return this.menuUser.asObservable();
   }
   setUserInfo(newValue: UserInfo): void {
+    this.saveInSession(this.NAME_USER_INFO, newValue);
     this.userInfo.next(newValue);
   }
   getUserInfo(): Observable<UserInfo> {
@@ -127,5 +129,14 @@ export class SessionService {
   }
   private onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
+  }
+  saveInSession(key: string, value: any) {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  }
+  getFromSession(key: string): any {
+    return JSON.parse(sessionStorage.getItem(key));
+  }
+  removeFromSession(key: string): any {
+    sessionStorage.removeItem(key);
   }
 }

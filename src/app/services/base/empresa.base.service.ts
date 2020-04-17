@@ -70,6 +70,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable()
 export class EmpresaBaseService {
     private empresaCollection: AngularFirestoreCollection<Empresa>;
+    private empresaCollectionActive: AngularFirestoreCollection<Empresa>;
     private listUser: Observable<Empresa[]>;
     constructor(
         private afs: AngularFirestore,
@@ -77,6 +78,7 @@ export class EmpresaBaseService {
         public afAuth: AngularFireAuth
     ) {
         this.empresaCollection = afs.collection<Empresa>('empresa');
+        this.empresaCollectionActive = this.afs.collection<Empresa>('empresa', ref => ref.where('estado', '==', 'ACT'));
         this.listUser = new Observable<Empresa[]>(observer => {
             this.afAuth.user.subscribe(user => {
                 if (user) {
@@ -133,7 +135,7 @@ export class EmpresaBaseService {
     *
     */
     list(): Observable<Empresa[]> {
-        return this.afs.collection('empresa').snapshotChanges().pipe(
+        return this.empresaCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Empresa;
                 const id = a.payload.doc.id;
@@ -165,7 +167,7 @@ export class EmpresaBaseService {
         );
     }
     listActive(): Observable<Empresa[]> {
-        return this.afs.collection<Empresa>('empresa', ref => ref.where('estado', '==', 'ACT')).snapshotChanges().pipe(
+        return this.empresaCollectionActive.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Empresa;
                 const id = a.payload.doc.id;

@@ -17,6 +17,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Empleado } from 'src/app/domain/giflo_db/empleado';
 import { UserInfo } from 'src/app/domain/dto/user-info';
 import { Subscription } from 'rxjs';
+import { Empresa } from 'src/app/domain/giflo_db/empresa';
+import { User } from 'src/app/domain/giflo_db/user';
 @Component({
   selector: 'app-blank',
   templateUrl: './full.component.html',
@@ -29,6 +31,8 @@ export class FullComponent implements OnDestroy, OnInit {
   config: PerfectScrollbarConfigInterface = {};
   private userSuscription: Subscription;
   private userInfoSuscription: Subscription;
+  private empresaSuscription: Subscription;
+  private empresaEmpleadoSuscription: Subscription;
   constructor(
     private auth: AuthenticationService,
     public device: DeviceService,
@@ -42,30 +46,22 @@ export class FullComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.userSuscription.unsubscribe();
     this.userInfoSuscription.unsubscribe();
+    this.empresaSuscription.unsubscribe();
+    this.empresaEmpleadoSuscription.unsubscribe();
   }
   ngOnInit() {
     this.userSuscription = this.sessionService.getUser().subscribe(user => {
       if (user) {
-        this.userInfoSuscription = this.sessionService.getUserInfo().subscribe(userInfo => {
-          if (!userInfo) {
-            this.empresaService.listByUser(user.id).subscribe(listEmpresa => {
-              this.empleadoService.listByUser(user.id).
-                pipe(leftJoinDocument(this.afs, 'empresa', 'empresa')).subscribe(listEmpleado => {
+        this.empresaSuscription = this.empresaService.listByUser(user.id).subscribe(listEmpresa => {
+          this.empresaEmpleadoSuscription = this.empleadoService.listByUser(user.id).
+            pipe(leftJoinDocument(this.afs, 'empresa', 'empresa')).subscribe(listEmpleado => {
+              this.userInfoSuscription = this.sessionService.getUserInfo().subscribe(userInfo => {
+                if (!userInfo) {
                   const listEmpleados = listEmpleado as Empleado[];
-                  const openDialog = listEmpresa.length > 0 || listEmpleados.length > 0;
-                  if (openDialog) {
-                    const varHasAllOptions = listEmpresa.length > 0 && listEmpleados.length > 0;
-                    const dataInput = {
-                      id: user.id,
-                      hasAllOptions: varHasAllOptions,
-                      empresas: listEmpresa,
-                      empleados: listEmpleados
-                    };
-                    this.openDialog(dataInput);
-                  }
-                });
+                  this.openDialog(listEmpresa, listEmpleados, user);
+                }
+              });
             });
-          }
         });
       }
     });
@@ -74,22 +70,33 @@ export class FullComponent implements OnDestroy, OnInit {
   logout(event: any): void {
     this.auth.logout();
   }
-  openDialog(dataInput: any) {
-    const dialogData: DialogDataGeneric = { data: dataInput };
-    const dialogRef = this.dialog.open(DialogSelectComponent, {
-      width: 'auto',
-      disableClose: true,
-      data: dialogData,
-      maxHeight: '90vh'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.event === 'Guardar') {
-        const userInfo: UserInfo = {};
-        userInfo.tipo = result.data.tipo;
-        userInfo.idEmpleado = result.data.idEmpleado;
-        userInfo.idEmpresa = result.data.idEmpresa;
-        this.sessionService.setUserInfo(userInfo);
-      }
-    });
+  openDialog(listEmpresa: Empresa[], listEmpleados: Empleado[], user: User) {
+    const openDialog = listEmpresa.length > 0 || listEmpleados.length > 0;
+    if (openDialog) {
+      const varHasAllOptions = listEmpresa.length > 0 && listEmpleados.length > 0;
+      const dataInput = {
+        id: user.id,
+        hasAllOptions: varHasAllOptions,
+        empresas: listEmpresa,
+        empleados: listEmpleados
+      };
+      const dialogData: DialogDataGeneric = { data: dataInput };
+      const dialogRef = this.dialog.open(DialogSelectComponent, {
+        width: 'auto',
+        disableClose: true,
+        data: dialogData,
+        maxHeight: '90vh'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result.event === 'Guardar') {
+          const userInfo: UserInfo = {};
+          userInfo.tipo = result.data.tipo;
+          userInfo.idEmpresa = result.data.idEmpresa;
+          this.sessionService.setUserInfo(userInfo);
+        }
+      });
+    }
+
+
   }
 }

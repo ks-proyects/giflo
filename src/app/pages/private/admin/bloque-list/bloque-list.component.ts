@@ -1,11 +1,11 @@
-import { Component, ViewChild, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 // Import Services
 import { BloqueService } from '../../../../services/bloque.service';
 // Import Models
 import { Bloque } from '../../../../domain/giflo_db/bloque';
-import { MatTableDataSource, MatSort, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';

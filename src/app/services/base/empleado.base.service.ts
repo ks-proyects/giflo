@@ -23,7 +23,6 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 // CONFIG
-import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Empleado } from '../../domain/giflo_db/empleado';

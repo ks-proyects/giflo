@@ -34,8 +34,7 @@ export class DialogSelectComponent implements OnInit {
     this.listEmpresa = this.item.empresas;
     this.listEmpresaEmpleado = [];
     this.item.empleados.forEach(element => {
-      const id = element.id;
-      this.listEmpresaEmpleado.push({ id, ...element.empresa });
+      this.listEmpresaEmpleado.push(element.empresa);
     });
     this.listEmpresa = this.listEmpresa.filter(this.onlyUnique);
     this.listEmpresaEmpleado = this.listEmpresaEmpleado.filter(this.onlyUnique);

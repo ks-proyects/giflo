@@ -29,6 +29,11 @@
                             <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
+                        <ng-container matColumnDef="bloque">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Bloque </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.bloque?row.bloque.nombre:''}} </mat-cell>
+                        </ng-container>
+                        <!-- Name Column -->
                         <ng-container matColumnDef="estado">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
                             <mat-cell *matCellDef="let row"> {{row.estado?row.estado.nombre:''}} </mat-cell>

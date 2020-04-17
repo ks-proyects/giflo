@@ -101,8 +101,11 @@ export const leftJoinDocument = (afs: AngularFirestore, field, collection) => {
         }),
         map(joins => {
           return collectionData.map((v, i) => {
-            const joinIdx = cache.get(v[field]);
-            return { ...v, [field]: joins[joinIdx] || null };
+            const valueId = v[field];
+            const joinIdx = cache.get(valueId);
+            const data = joins[joinIdx] || null;
+            const object = data ? { ...data, id: valueId } : null;
+            return { ...v, [field]: object };
           });
         }),
         tap(final =>

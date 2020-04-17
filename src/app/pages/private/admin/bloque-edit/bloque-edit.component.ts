@@ -1,8 +1,8 @@
 // Import Libraries
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import {  AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 
 // Import Services
@@ -13,6 +13,7 @@ import { EmpresaService } from '../../../../services/empresa.service';
 import { Bloque } from '../../../../domain/giflo_db/bloque';
 import { Empresa } from '../../../../domain/giflo_db/empresa';
 import { Estado } from '../../../../domain/giflo_db/estado';
+import { Subscriber, Subscription } from 'rxjs';
 
 // START - USED SERVICES
 /**
@@ -44,21 +45,23 @@ import { Estado } from '../../../../domain/giflo_db/estado';
     templateUrl: 'bloque-edit.component.html',
     styleUrls: ['bloque-edit.component.css']
 })
-export class BloqueEditComponent implements OnInit {
+export class BloqueEditComponent implements OnInit, OnDestroy {
     item: any = {};
     itemDoc: AngularFirestoreDocument<Bloque>;
-    isNew: Boolean = true;
-    formValid: Boolean;
-    listEmpresa: Empresa[];
+    isNew: boolean = true;
+    formValid: boolean;
     listEstado: Estado[];
+    estadoServiceSubscription: Subscription;
     constructor(
         private bloqueService: BloqueService,
         private estadoService: EstadoService,
-        private empresaService: EmpresaService,
         private route: ActivatedRoute,
         private location: Location) {
     }
 
+    ngOnDestroy() {
+        this.estadoServiceSubscription.unsubscribe();
+    }
     /**
      * Init
      */
@@ -71,12 +74,9 @@ export class BloqueEditComponent implements OnInit {
                 this.itemDoc.valueChanges().subscribe(item => this.item = item);
             }
             // Get relations
-            this.empresaService.list().subscribe(list => this.listEmpresa = list);
-            this.estadoService.list().subscribe(list => this.listEstado = list);
+            this.estadoServiceSubscription = this.estadoService.list().subscribe(list => this.listEstado = list);
         });
     }
-
-
 
     /**
      * Save Bloque

@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 // Import Services
 import { NaveService } from '../../../../services/nave.service';
 // Import Models
-import { MatTableDataSource} from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
@@ -45,16 +45,16 @@ export class NaveListComponent extends ListComponentService implements OnInit {
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
-                ['id', 'nombre'] :
-                ['id', 'nombre', 'estado'];
+                ['id', 'nombre', 'bloque'] :
+                ['id', 'nombre', 'bloque', 'estado'];
         });
     }
     ngOnInit(): void {
         this.naveService.list().pipe(
-            leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(arrayData => {
-            this.dataSource = new MatTableDataSource(arrayData as Nave[]);
-        }
-        );
+            leftJoinDocument(this.afs, 'estado', 'estado'), leftJoinDocument(this.afs, 'bloque', 'bloque')).subscribe(arrayData => {
+                this.dataSource = new MatTableDataSource(arrayData as Nave[]);
+            }
+            );
     }
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
