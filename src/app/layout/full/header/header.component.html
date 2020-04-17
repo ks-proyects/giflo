@@ -1,6 +1,7 @@
 <!-- ============================================================== -->
 <!-- Notification - style you can find in header.scss -->
 <!-- ============================================================== -->
+{{nombreEmpresa}}
 <button [matMenuTriggerFor]="notification" mat-icon-button class="m-r-10">
     <mat-icon>message</mat-icon>
     <div class="notify">
@@ -47,7 +48,11 @@
     <button mat-menu-item [routerLink]="['/home/', 'profile']">
         <mat-icon>account_box</mat-icon>Perfil
     </button>
+    <button mat-menu-item (click)="changeEmpresaOUT.emit()">
+        <mat-icon>repeat_one</mat-icon> Cambiar de Empresa
+    </button>
     <button mat-menu-item (click)="logoutOUT.emit()">
         <mat-icon>exit_to_app</mat-icon> Salir
     </button>
+    
 </mat-menu>

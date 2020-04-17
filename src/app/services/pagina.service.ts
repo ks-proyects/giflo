@@ -11,7 +11,7 @@ import { Rol } from '../domain/giflo_db/rol';
 @Injectable()
 export class PaginaService extends PaginaBaseService {
 
-    private paginaCollection2: AngularFirestoreCollection<Pagina>;
+    private paginaCustomCollection: AngularFirestoreCollection<Pagina>;
     constructor(
         private afs2: AngularFirestore,
         private fns2: AngularFireFunctions,
@@ -19,36 +19,36 @@ export class PaginaService extends PaginaBaseService {
         private rs: RolService
     ) {
         super(afs2, fns2);
-        this.paginaCollection2 = afs2.collection<Pagina>('pagina');
+        this.paginaCustomCollection = afs2.collection<Pagina>('pagina');
     }
     init() {
         this.list().subscribe((rols: Pagina[]) => {
             if (rols.length === 0) {
                 this.rs.get('SUPERADMIN').valueChanges().subscribe(rol => {
                     this.createPaginaMenu('admin', 'home', 'Home', '/home', rol);
+                    this.createPaginaMenu('catalog', 'estadocivils', 'Estados Civiles', '/estadocivils', rol);
+                    this.createPaginaMenu('catalog', 'estados', 'Estados', '/estados', rol);
+                    this.createPaginaMenu('security', 'empresas', 'Empresas', '/empresas', rol);
+                    this.createPaginaMenu('security', 'paginas', 'Paginas', '/paginas', rol);
+                    this.createPaginaMenu('security', 'rols', 'Roles', '/rols', rol);
+                });
+                this.rs.get('GER').valueChanges().subscribe(rol => {
+                    this.createPaginaMenu('admin', 'home', 'Home', '/home', rol);
                     this.createPaginaMenu('admin', 'bloques', 'Bloques', '/bloques', rol);
                     this.createPaginaMenu('admin', 'naves', 'Naves', '/naves', rol);
                     this.createPaginaMenu('admin', 'camas', 'Camas', '/camas', rol);
-                    this.createPaginaMenu('admin', 'variedads', 'Variedades', '/variedads', rol);
-
+                    this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedads', rol);
                     this.createPaginaMenu('management', 'empleados', 'Empleados', '/empleados', rol);
-
-                    this.createPaginaMenu('catalog', 'estadocivils', 'Estados Civiles', '/estadocivils', rol);
-                    this.createPaginaMenu('catalog', 'estados', 'Estados', '/estados', rol);
-
-                    this.createPaginaMenu('security', 'empresas', 'Empresas', '/empresas', rol);
                     this.createPaginaMenu('security', 'menuitems', 'Menú Items', '/menuitems', rol);
-                    this.createPaginaMenu('security', 'paginas', 'Paginas', '/paginas', rol);
-                    this.createPaginaMenu('security', 'rols', 'Roles', '/rols', rol);
                 });
             }
         });
     }
     createPaginaMenu(seccionP: string, idP: string, componentP: string, pathP: string, rolP: Rol) {
         const item: any = { id: idP, component: componentP, path: pathP, estado: 'ACT', seccion: seccionP };
-        this.paginaCollection2.doc(item.id).set(item);
-        const mi: any = { pagina: item, rol: rolP, estado: true };
-        this.mis.create(mi);
+        this.paginaCustomCollection.doc(item.id).set(item);
+        const mi: any = { pagina: item.id, rol: rolP.id, estado: true };
+        this.mis.createCustom(mi);
     }
 
 

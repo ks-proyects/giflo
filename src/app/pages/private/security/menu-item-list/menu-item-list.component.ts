@@ -53,15 +53,15 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
 
     ngOnInit(): void {
         this.menuitemService.list().subscribe(arrayData => {
-                this.dataSource = new MatTableDataSource((arrayData as MenuItem[]));
-            }
-            );
+            this.dataSource = new MatTableDataSource((arrayData as MenuItem[]));
+        }
+        );
     }
     openConfirm(action, id) {
         const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
         const dialogRef = this.disSer.openDialog(dialogData);
         dialogRef.afterClosed().subscribe(result => {
-            if (result.event == 'Delete') {
+            if (result.event === 'Delete') {
                 this.menuitemService.remove(result.data.id);
             }
         });

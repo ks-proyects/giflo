@@ -28,6 +28,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { MenuItem } from '../../domain/giflo_db/menu-item';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { leftJoinDocument } from '../generic/leftJoin.service';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../MenuItem.service.ts
@@ -58,19 +59,17 @@ export class MenuItemBaseService {
 
     private menuitemCollection: AngularFirestoreCollection<MenuItem>;
     private lisMenuUser: Observable<any>;
+    private idEmpresa: string;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
-        private afAuth: AngularFireAuth
+        private afAuth: AngularFireAuth,
+        private session: SessionService
     ) {
-        this.menuitemCollection = afs.collection<MenuItem>('menuitem');
-        this.afAuth.user.subscribe(user => {
-            if (user) {
-                this.lisMenuUser = afs.collection<MenuItem>('menuitem').valueChanges();
-                //.pipe(leftJoinDocument(afs, 'rol', 'rol'), leftJoinDocument(afs, 'pagina', 'pagina'));
-            } else {
-
-            }
+        session.getUserInfo().subscribe(ui => {
+            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+            this.menuitemCollection = afs.collection<MenuItem>('menuitem',
+                ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
         });
     }
 
@@ -83,6 +82,11 @@ export class MenuItemBaseService {
     *
     */
     create(item: MenuItem): Promise<DocumentReference> {
+        item.empresa = this.idEmpresa;
+        return this.menuitemCollection.add(item);
+    }
+    createCustom(item: MenuItem): Promise<DocumentReference> {
+        item.empresa = null;
         return this.menuitemCollection.add(item);
     }
 
@@ -113,7 +117,7 @@ export class MenuItemBaseService {
     *
     */
     list(): Observable<MenuItem[]> {
-        return this.afs.collection('menuitem').snapshotChanges().pipe(
+        return this.menuitemCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as MenuItem;
                 const id = a.payload.doc.id;
@@ -130,9 +134,6 @@ export class MenuItemBaseService {
     */
     update(itemDoc: AngularFirestoreDocument<MenuItem>, item: MenuItem): Promise<void> {
         return itemDoc.update(item);
-    }
-    getMenuUser() {
-        return this.lisMenuUser;
     }
 
 

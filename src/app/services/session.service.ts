@@ -25,6 +25,7 @@ export class SessionService {
   private token: string;
   private userLoguin: User;
   private listMenuItem: MenuItem[];
+  private listMenuItemByEmpresa: MenuItem[];
   private user: BehaviorSubject<User>;
   private menuUser: BehaviorSubject<MenuItem[]>;
   private userInfo: BehaviorSubject<UserInfo>;
@@ -47,21 +48,21 @@ export class SessionService {
     this.userInfo.subscribe(userInfo => {
       if (userInfo) {
         this.dataUserInfo = userInfo;
+        this.afs.collection('menuitem', ref => ref.where('empresa', '==', userInfo.idEmpresa)).valueChanges().subscribe(arrar => {
+          this.listMenuItemByEmpresa = (arrar as MenuItem[]);
+          this.updateMenu();
+        });
         this.findEmpleado();
       }
     });
-    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+    this.afs.collection('menuitem', ref => ref.where('empresa', '==', null)).valueChanges().subscribe(arrar => {
       this.listMenuItem = (arrar as MenuItem[]);
       this.updateMenu();
     });
+
     this.afAuth.user.subscribe(userLogin => {
       if (userLogin) {
         this.createUpdateUser(userLogin);
-      } else {
-        this.user.next(null);
-        this.menuUser.next(null);
-        this.userInfo.next(null);
-        this.removeFromSession(this.NAME_USER_INFO);
       }
     });
   }
@@ -121,25 +122,37 @@ export class SessionService {
     }
   }
   private updateMenu() {
-    if (this.userLoguin && this.dataUserInfo) {
+    if (this.userLoguin && this.dataUserInfo && this.listMenuItem && this.listMenuItemByEmpresa) {
       let rolesUser: string[] = [];
-      const listMenuItemUser: MenuItem[] = this.listMenuItem ? this.listMenuItem.filter(mi => {
-        const pagina = (mi.pagina as Pagina);
-        const rol = (mi.rol as Rol);
-        let haveRol = false;
-        if (this.userLoguin.roles.includes('SUPERADMIN')) {
-          haveRol = true;
-        } else if (this.dataUserInfo.tipo === 'Empresario') {
-          haveRol = this.userLoguin.roles.includes(rol.id);
-        } else if (this.dataUserInfo.tipo === 'Empleado' && this.empleado) {
-          haveRol = (this.empleado.roles as string[]).includes(rol.id);
-        }
-        if (haveRol) {
-          rolesUser.push(rol.nombre);
-        }
-        const isActive = mi.estado && pagina.estado === 'ACT';
-        return isActive && haveRol;
-      }) : [];
+      let listMenuItemUser: MenuItem[] = [];
+      if (this.userLoguin.roles.includes('SUPERADMIN') || this.dataUserInfo.tipo === 'Empresario') {
+        listMenuItemUser = this.listMenuItem.filter(mi => {
+          const pagina = (mi.pagina as Pagina);
+          const rol = (mi.rol as Rol);
+          let haveRol = false;
+          if (this.userLoguin.roles.includes('SUPERADMIN')) {
+            haveRol = true;
+          } else if (this.dataUserInfo.tipo === 'Empresario') {
+            haveRol = this.userLoguin.roles.includes(rol.id);
+          }
+          if (haveRol) {
+            rolesUser.push(rol.nombre);
+          }
+          const isActive = mi.estado && pagina.estado === 'ACT';
+          return isActive && haveRol;
+        });
+      } else if (this.dataUserInfo.tipo === 'Empleado') {
+        listMenuItemUser = this.listMenuItemByEmpresa.filter(mi => {
+          const pagina = (mi.pagina as Pagina);
+          const rol = (mi.rol as Rol);
+          const haveRol = (this.empleado.roles as string[]).includes(rol.id);
+          if (haveRol) {
+            rolesUser.push(rol.nombre);
+          }
+          const isActive = mi.estado && pagina.estado === 'ACT';
+          return isActive && haveRol;
+        });
+      }
       let strRol = '';
       rolesUser = rolesUser.filter(this.onlyUnique);
       rolesUser.forEach(rol => { strRol += rol + ', '; });
@@ -175,7 +188,9 @@ export class SessionService {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
   getFromSession(key: string): any {
-    return JSON.parse(sessionStorage.getItem(key));
+    const value: string = sessionStorage.getItem(key);
+    console.log(value);
+    return JSON.parse(value);
   }
   removeFromSession(key: string): any {
     sessionStorage.removeItem(key);

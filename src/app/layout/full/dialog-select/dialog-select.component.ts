@@ -20,6 +20,7 @@ export class DialogSelectComponent implements OnInit {
   listTipo: string[];
   listEmpresa: Empresa[];
   listEmpresaEmpleado: Empresa[];
+  empresaSel: Empresa;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +53,12 @@ export class DialogSelectComponent implements OnInit {
   }
   doAction(isValid: boolean) {
     if (isValid) {
+      if (this.item.tipo === 'Empleado') {
+        this.empresaSel = this.listEmpresaEmpleado.filter(item => item.id === this.item.idEmpresa)[0];
+      } else if (this.item.tipo === 'Empresario') {
+        this.empresaSel = this.listEmpresa.filter(item => item.id === this.item.idEmpresa)[0];
+      }
+      this.item.empresa = this.empresaSel;
       this.dialogRef.close({ event: 'Guardar', data: this.item });
     }
   }

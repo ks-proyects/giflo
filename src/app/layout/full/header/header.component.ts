@@ -13,6 +13,8 @@ import { User } from 'src/app/domain/giflo_db/user';
 export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   @Output() public logoutOUT = new EventEmitter();
+  @Input() public nombreEmpresa: boolean;
+  @Output() public changeEmpresaOUT = new EventEmitter();
   user: any = {};
   notifications: Object[] = [
     {

@@ -7,7 +7,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SessionService } from 'src/app/services/session.service';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { DeviceService } from 'src/app/shared/device.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DialogSelectComponent } from './dialog-select/dialog-select.component';
 import { EmpleadoService } from 'src/app/services/empleado.service';
@@ -36,7 +36,7 @@ export class FullComponent implements OnDestroy, OnInit {
   private user: User;
   private listaEmpresas: Empresa[];
   private listaEmpleados: Empleado[];
-  private userInfo: UserInfo = {};
+  public userInfo: UserInfo = {};
   constructor(
     private auth: AuthenticationService,
     public device: DeviceService,
@@ -44,7 +44,8 @@ export class FullComponent implements OnDestroy, OnInit {
     public dialog: MatDialog,
     public empleadoService: EmpleadoService,
     public empresaService: EmpresaService,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private snackBar: MatSnackBar
   ) {
   }
   ngOnDestroy(): void {
@@ -77,19 +78,30 @@ export class FullComponent implements OnDestroy, OnInit {
   logout(event: any): void {
     this.auth.logout();
   }
+
   openDialog() {
-    if (this.listaEmpresas && this.listaEmpleados && this.user && !this.userInfo) {
-      //Caso solo posea un empleo y no posea emprea
+    if (!this.userInfo) {
+      this.changeEmpresa();
+    }
+  }
+  changeEmpresa() {
+    //Caso solo posea un empleo y no posea empresa
+    if (this.listaEmpresas && this.listaEmpleados && this.user) {
+      let isFromTemplate = false;
       if (this.listaEmpresas.length === 0 && this.listaEmpleados.length === 1) {
         const userInfo: UserInfo = {};
         userInfo.tipo = 'Empleado';
         userInfo.idEmpresa = (this.listaEmpleados[0].empresa as Empresa).id;
+        userInfo.empresa = (this.listaEmpleados[0].empresa as Empresa).nombre;
         this.sessionService.setUserInfo(userInfo);
+        isFromTemplate = this.userInfo !== undefined;
       } else if (this.listaEmpresas.length === 1 && this.listaEmpleados.length === 0) {
         const userInfo: UserInfo = {};
         userInfo.tipo = 'Empresario';
         userInfo.idEmpresa = (this.listaEmpresas[0] as Empresa).id;
+        userInfo.empresa = (this.listaEmpresas[0] as Empresa).nombre;
         this.sessionService.setUserInfo(userInfo);
+        isFromTemplate = this.userInfo !== undefined;
       } else {
         const openDialog = this.listaEmpresas.length > 0 || this.listaEmpleados.length > 0;
         if (openDialog) {
@@ -111,12 +123,21 @@ export class FullComponent implements OnDestroy, OnInit {
             if (result.event === 'Guardar') {
               const userInfo: UserInfo = {};
               userInfo.tipo = result.data.tipo;
-              userInfo.idEmpresa = result.data.idEmpresa;
+              userInfo.idEmpresa = result.data.empresa.id;
+              userInfo.empresa = result.data.empresa.nombre;
               this.sessionService.setUserInfo(userInfo);
             }
           });
         }
       }
+      if (isFromTemplate) {
+        this.openSnackBar('No posees múltiples empresa', 'Mensaje');
+      }
     }
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }

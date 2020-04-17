@@ -23,7 +23,6 @@ import {
   MatDividerModule,
   MatSnackBarModule,
   MatExpansionModule,
-  MatHorizontalStepper,
   MatStepperModule
 } from '@angular/material';
 @NgModule({
