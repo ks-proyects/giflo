@@ -34,7 +34,7 @@ export interface EmpleadoBase {
     // Relations estado
     estado: Estado | string;
     // Relations rol
-    rol: Rol | string;
+    roles: Rol[] | string[];
     // Relations user
     user: User | string;
 }

@@ -33,6 +33,10 @@ export class FullComponent implements OnDestroy, OnInit {
   private userInfoSuscription: Subscription;
   private empresaSuscription: Subscription;
   private empresaEmpleadoSuscription: Subscription;
+  private user: User;
+  private listaEmpresas: Empresa[];
+  private listaEmpleados: Empleado[];
+  private userInfo: UserInfo = {};
   constructor(
     private auth: AuthenticationService,
     public device: DeviceService,
@@ -52,51 +56,67 @@ export class FullComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.userSuscription = this.sessionService.getUser().subscribe(user => {
       if (user) {
-        this.empresaSuscription = this.empresaService.listByUser(user.id).subscribe(listEmpresa => {
-          this.empresaEmpleadoSuscription = this.empleadoService.listByUser(user.id).
-            pipe(leftJoinDocument(this.afs, 'empresa', 'empresa')).subscribe(listEmpleado => {
-              this.userInfoSuscription = this.sessionService.getUserInfo().subscribe(userInfo => {
-                if (!userInfo) {
-                  const listEmpleados = listEmpleado as Empleado[];
-                  this.openDialog(listEmpresa, listEmpleados, user);
-                }
-              });
-            });
+        this.user = user;
+        this.empresaSuscription = this.empresaService.listByUserActive(user.id).subscribe(listEmpresa => {
+          this.listaEmpresas = listEmpresa;
+          this.openDialog();
         });
+        this.empresaEmpleadoSuscription = this.empleadoService.listByUserActive(user.id).
+          pipe(leftJoinDocument(this.afs, 'empresa', 'empresa')).subscribe(listEmpleado => {
+            this.listaEmpleados = listEmpleado as Empleado[];
+            this.openDialog();
+          });
       }
+    });
+    this.userInfoSuscription = this.sessionService.getUserInfo().subscribe(userInfo => {
+      this.userInfo = userInfo;
+      this.openDialog();
     });
   }
 
   logout(event: any): void {
     this.auth.logout();
   }
-  openDialog(listEmpresa: Empresa[], listEmpleados: Empleado[], user: User) {
-    const openDialog = listEmpresa.length > 0 || listEmpleados.length > 0;
-    if (openDialog) {
-      const varHasAllOptions = listEmpresa.length > 0 && listEmpleados.length > 0;
-      const dataInput = {
-        id: user.id,
-        hasAllOptions: varHasAllOptions,
-        empresas: listEmpresa,
-        empleados: listEmpleados
-      };
-      const dialogData: DialogDataGeneric = { data: dataInput };
-      const dialogRef = this.dialog.open(DialogSelectComponent, {
-        width: 'auto',
-        disableClose: true,
-        data: dialogData,
-        maxHeight: '90vh'
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result.event === 'Guardar') {
-          const userInfo: UserInfo = {};
-          userInfo.tipo = result.data.tipo;
-          userInfo.idEmpresa = result.data.idEmpresa;
-          this.sessionService.setUserInfo(userInfo);
+  openDialog() {
+    if (this.listaEmpresas && this.listaEmpleados && this.user && !this.userInfo) {
+      //Caso solo posea un empleo y no posea emprea
+      if (this.listaEmpresas.length === 0 && this.listaEmpleados.length === 1) {
+        const userInfo: UserInfo = {};
+        userInfo.tipo = 'Empleado';
+        userInfo.idEmpresa = (this.listaEmpleados[0].empresa as Empresa).id;
+        this.sessionService.setUserInfo(userInfo);
+      } else if (this.listaEmpresas.length === 1 && this.listaEmpleados.length === 0) {
+        const userInfo: UserInfo = {};
+        userInfo.tipo = 'Empresario';
+        userInfo.idEmpresa = (this.listaEmpresas[0] as Empresa).id;
+        this.sessionService.setUserInfo(userInfo);
+      } else {
+        const openDialog = this.listaEmpresas.length > 0 || this.listaEmpleados.length > 0;
+        if (openDialog) {
+          const varHasAllOptions = this.listaEmpresas.length > 0 && this.listaEmpleados.length > 0;
+          const dataInput = {
+            id: this.user.id,
+            hasAllOptions: varHasAllOptions,
+            empresas: this.listaEmpresas,
+            empleados: this.listaEmpleados
+          };
+          const dialogData: DialogDataGeneric = { data: dataInput };
+          const dialogRef = this.dialog.open(DialogSelectComponent, {
+            width: 'auto',
+            disableClose: true,
+            data: dialogData,
+            maxHeight: '90vh'
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result.event === 'Guardar') {
+              const userInfo: UserInfo = {};
+              userInfo.tipo = result.data.tipo;
+              userInfo.idEmpresa = result.data.idEmpresa;
+              this.sessionService.setUserInfo(userInfo);
+            }
+          });
         }
-      });
+      }
     }
-
-
   }
 }

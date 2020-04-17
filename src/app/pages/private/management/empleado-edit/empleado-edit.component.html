@@ -10,56 +10,42 @@
                         <!-- column -->
                         <div fxFlex.gt-md="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Apellidos" [(ngModel)]="item.apellidos" name="apellidos"
-                                    #apellidos="ngModel">
+                                <input matInput placeholder="Nombres" disabled [(ngModel)]="item.user.nombres"
+                                    name="nombres" #nombres="ngModel">
                             </mat-form-field>
                         </div>
                         <!-- column -->
                         <div fxFlex.gt-md="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Nombres" [(ngModel)]="item.nombres" name="nombres"
-                                    #nombres="ngModel">
+                                <input matInput placeholder="Apellidos" disabled [(ngModel)]="item.user.apellidos"
+                                    name="apellidos" #apellidos="ngModel">
                             </mat-form-field>
                         </div>
                         <!-- column -->
-                        <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div fxFlex.gt-md="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Tipo de Identificación"
-                                    [(ngModel)]="item.tipoIdentificacion" name="tipoIdentificacion"
-                                    #tipoIdentificacion="ngModel">
+                                <input matInput placeholder="Correo Electrónico" disabled [(ngModel)]="item.user.email"
+                                    name="email" #email="ngModel">
                             </mat-form-field>
                         </div>
                         <!-- column -->
-                        <div fxFlex.gt-sm="100" fxFlex="100">
+                        <div fxFlex.gt-md="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Identificación" [(ngModel)]="item.cedula" name="cedula"
-                                    #cedula="ngModel">
+                                <input matInput placeholder="Célular" disabled [(ngModel)]="item.user.celular"
+                                    name="celular" #celular="ngModel">
                             </mat-form-field>
                         </div>
-                         <!-- column -->
-                         <div fxFlex.gt-sm="100" fxFlex="100">
-                            <mat-form-field>
-                                <input type="date" matInput placeholder="fechaNacimiento" [(ngModel)]="item.fechaNacimiento" name="fechaNacimiento"
-                                    #fechaNacimiento="ngModel">
-                            </mat-form-field>
-                        </div>
+
                         <!-- column -->
                         <div fxFlex.gt-sm="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Foto" [(ngModel)]="item.urlFoto" name="urlFoto"
-                                    #urlFoto="ngModel">
-                            </mat-form-field>
-                        </div>
-                        <!-- column -->
-                        <div fxFlex.gt-sm="100" fxFlex="100">
-                            <mat-form-field>
-                                <mat-select name="empresa" id="empresa" [(ngModel)]="item.empresa" #empresa="ngModel">
+                                <mat-select multiple name="rol" id="rol" [(ngModel)]="item.roles" #rol="ngModel">
                                     <mat-option>-- Ninguno --</mat-option>
-                                    <mat-option *ngFor="let item of listEmpresa" [value]="item.id">{{item.nombre}}
+                                    <mat-option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}
                                     </mat-option>
                                 </mat-select>
                                 <mat-placeholder>
-                                    Empresa
+                                    Rol
                                 </mat-placeholder>
                             </mat-form-field>
                         </div>
@@ -76,6 +62,25 @@
                                 </mat-placeholder>
                             </mat-form-field>
                         </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput disabled [placeholder]="item.user.tipoIdentificacion"
+                                    [(ngModel)]="item.user.identificacion" name="cedula" #cedula="ngModel">
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <mat-form-field>
+                                <input disabled matInput [matDatepicker]="fechaNac" [value]="item.fechaNacimiento"
+                                    [(ngModel)]="item.user.fechaNacimiento" name="fechaNacimiento"
+                                    #fechaNacimiento="ngModel">
+                                <mat-datepicker-toggle matSuffix [for]="fechaNac"></mat-datepicker-toggle>
+                                <mat-datepicker startView="multi-year" #fechaNac>
+                                </mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
                         <!-- column -->
                         <div fxFlex.gt-sm="100" fxFlex="100">
                             <button mat-raised-button color="primary" (click)="save(editForm.valid)">Guardar</button>

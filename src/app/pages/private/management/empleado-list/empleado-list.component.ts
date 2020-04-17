@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 // Import Services
 import { EmpleadoService } from '../../../../services/empleado.service';
@@ -45,7 +44,9 @@ export class EmpleadoListComponent extends ListComponentService implements OnIni
     }
     ngOnInit(): void {
         this.empleadoService.list().pipe(
-            leftJoinDocument(this.afs, 'estado', 'estado')).subscribe(arrayData => {
+            leftJoinDocument(this.afs, 'estado', 'estado'),
+            leftJoinDocument(this.afs, 'user', 'user'),
+        ).subscribe(arrayData => {
             this.dataSource = new MatTableDataSource(arrayData as Empleado[]);
         }
         );

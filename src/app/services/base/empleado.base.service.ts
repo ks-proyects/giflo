@@ -178,6 +178,27 @@ export class EmpleadoBaseService {
             }))
         );
     }
+    listByUserAndCompany(idUser: string, idEmpresa: string): Observable<Empleado[]> {
+        return this.afs.collection<Empleado>('empleado', ref => 
+        ref.where('user', '==', idUser).where('empresa', '==', idEmpresa))
+            .snapshotChanges().pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Empleado;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
+    listByUserActive(idUser: string): Observable<Empleado[]> {
+        return this.afs.collection<Empleado>('empleado', ref => ref.where('user', '==', idUser)
+            .where('estado', '==', 'ACT')).snapshotChanges().pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Empleado;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
 
 
     /**

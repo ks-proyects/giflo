@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Crear') {
         result.data.user = this.user.id;
-        result.data.estado = 'ACT';
+        result.data.estado = 'INAC';
         this.empleadoService.create(result.data);
       } else if (result.event === 'Editar') {
         this.empleadoService.update(this.empleadoService.get(result.data.id), result.data);

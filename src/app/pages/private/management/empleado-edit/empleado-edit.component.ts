@@ -19,6 +19,8 @@ import { Empresa } from '../../../../domain/giflo_db/empresa';
 import { Estado } from '../../../../domain/giflo_db/estado';
 import { EstadoCivil } from '../../../../domain/giflo_db/estado-civil';
 import { Rol } from '../../../../domain/giflo_db/rol';
+import { docJoin } from 'src/app/services/generic/docJoin.service';
+import { User } from 'src/app/domain/giflo_db/user';
 
 // START - USED SERVICES
 /**
@@ -55,13 +57,12 @@ import { Rol } from '../../../../domain/giflo_db/rol';
     styleUrls: ['empleado-edit.component.css']
 })
 export class EmpleadoEditComponent implements OnInit {
-    item: any = {};
+    item: any = { user: {} };
     itemDoc: AngularFirestoreDocument<Empleado>;
     isNew: Boolean = true;
     formValid: Boolean;
 
     listDireccion: Direccion[];
-    listEmpresa: Empresa[];
     listEstado: Estado[];
     listEstadoCivil: EstadoCivil[];
     listRol: Rol[];
@@ -76,7 +77,9 @@ export class EmpleadoEditComponent implements OnInit {
         private estadocivilService: EstadoCivilService,
         private rolService: RolService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private afs: AngularFirestore
+    ) {
         // Init list
     }
 
@@ -89,12 +92,14 @@ export class EmpleadoEditComponent implements OnInit {
             if (id !== 'new') {
                 this.isNew = false;
                 this.itemDoc = this.empleadoService.get(id);
-                this.itemDoc.valueChanges().subscribe(item => this.item = item);
+                this.itemDoc.valueChanges().pipe(docJoin(this.afs, { user: 'user' })).subscribe(item => {
+                    this.item = item as Empleado;
+                    this.item.user.fechaNacimiento = this.item.user.fechaNacimiento ? this.item.user.fechaNacimiento.toDate() : null;
+                });
 
             }
             // Get relations
-            this.direccionService.list().subscribe(list => this.listDireccion = list);
-            this.empresaService.listByUser('').subscribe(list => this.listEmpresa = list);
+            this.direccionService.listByPerson(id).subscribe(list => this.listDireccion = list);
             this.estadoService.list().subscribe(list => this.listEstado = list);
             this.estadocivilService.list().subscribe(list => this.listEstadoCivil = list);
             this.rolService.list().subscribe(list => this.listRol = list);
@@ -119,6 +124,7 @@ export class EmpleadoEditComponent implements OnInit {
                 this.isNew = false;
             } else {
                 // Update
+                this.item.user = this.item.user.id;
                 this.empleadoService.update(this.itemDoc, this.item);
             }
             this.goBack();

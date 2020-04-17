@@ -25,18 +25,18 @@
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="cedula">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Cédula </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.cedula}} </mat-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Identificación </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.user?row.user.identificacion:''}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="nombres">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.nombres}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.user?row.user.nombres:''}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="apellidos">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-                            <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+                            <mat-cell *matCellDef="let row"> {{row.user?row.user.apellidos:''}} </mat-cell>
                         </ng-container>
                         <!-- Progress Column -->
                         <ng-container matColumnDef="estado">

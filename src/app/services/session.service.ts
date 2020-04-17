@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
 import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
-import { Observable, Subject, Subscriber, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, Subscriber, BehaviorSubject, Subscription } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
 import { UserInfo } from '../domain/dto/user-info';
 import { Menu } from '../util/menu-items/menu-items';
+import { Empleado } from '../domain/giflo_db/empleado';
+import { EmpleadoService } from './empleado.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
   private idRolDefault: string;
+  private dataUserInfo: UserInfo;
+  private empleado: Empleado;
   private token: string;
   private userLoguin: User;
   private listMenuItem: MenuItem[];
@@ -30,25 +35,37 @@ export class SessionService {
     public afm: AngularFireMessaging,
     private userService: UserService,
     private rolService: RolService) {
-    this.user = new BehaviorSubject<User>(null);
+    this.user = new BehaviorSubject<User>(this.userLoguin);
     this.menuUser = new BehaviorSubject<MenuItem[]>(null);
-    this.userInfo = new BehaviorSubject<UserInfo>(JSON.parse(sessionStorage.getItem(this.NAME_USER_INFO)));
+    this.userInfo = new BehaviorSubject<UserInfo>(this.getFromSession(this.NAME_USER_INFO));
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
     });
     this.rolService.get('DEF').valueChanges().subscribe(rol => {
       this.idRolDefault = rol.id;
     });
+    this.userInfo.subscribe(userInfo => {
+      if (userInfo) {
+        this.dataUserInfo = userInfo;
+        this.findEmpleado();
+      }
+    });
+    this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
+      this.listMenuItem = (arrar as MenuItem[]);
+      this.updateMenu();
+    });
     this.afAuth.user.subscribe(userLogin => {
       if (userLogin) {
-        this.afs.collection('menuitem').valueChanges().subscribe(arrar => {
-          this.listMenuItem = (arrar as MenuItem[]);
-          this.updateMenu();
-        });
         this.createUpdateUser(userLogin);
+      } else {
+        this.user.next(null);
+        this.menuUser.next(null);
+        this.userInfo.next(null);
+        this.removeFromSession(this.NAME_USER_INFO);
       }
     });
   }
+
   public createUpdateUser(userL) {
     const userDoc: AngularFirestoreDocument<any> = this.userService.get(userL.uid);
     userDoc.valueChanges().subscribe(user => {
@@ -68,7 +85,8 @@ export class SessionService {
         };
         this.userService.createCustom(userNew).then((item) => {
           this.userLoguin = userNew;
-          this.updateMenu();
+          this.user.next(this.userLoguin);
+          this.findEmpleado();
         });
       } else {
         let tokens = user.token;
@@ -80,18 +98,42 @@ export class SessionService {
           merge: true
         }).then((res) => {
           this.userLoguin = user;
-          this.updateMenu();
+          this.user.next(this.userLoguin);
+          this.findEmpleado();
         });
       }
     });
   }
+  public findEmpleado() {
+    if (this.userLoguin && this.dataUserInfo) {
+      this.afs.collection<Empleado>('empleado', ref =>
+        ref.where('user', '==', this.userLoguin.id).where('empresa', '==', this.dataUserInfo.idEmpresa))
+        .snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data() as Empleado;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          }))
+        ).subscribe(list => {
+          this.empleado = list.length > 0 ? list[0] : null;
+          this.updateMenu();
+        });
+    }
+  }
   private updateMenu() {
-    if (this.userLoguin) {
+    if (this.userLoguin && this.dataUserInfo) {
       let rolesUser: string[] = [];
       const listMenuItemUser: MenuItem[] = this.listMenuItem ? this.listMenuItem.filter(mi => {
         const pagina = (mi.pagina as Pagina);
         const rol = (mi.rol as Rol);
-        const haveRol = this.userLoguin.roles.includes(rol.id);
+        let haveRol = false;
+        if (this.userLoguin.roles.includes('SUPERADMIN')) {
+          haveRol = true;
+        } else if (this.dataUserInfo.tipo === 'Empresario') {
+          haveRol = this.userLoguin.roles.includes(rol.id);
+        } else if (this.dataUserInfo.tipo === 'Empleado' && this.empleado) {
+          haveRol = (this.empleado.roles as string[]).includes(rol.id);
+        }
         if (haveRol) {
           rolesUser.push(rol.nombre);
         }
@@ -104,7 +146,6 @@ export class SessionService {
       strRol = strRol > '' ? strRol.substr(0, strRol.length - 1) : '';
       this.userLoguin.rolesStr = strRol;
       this.menuUser.next(listMenuItemUser);
-      this.user.next(this.userLoguin);
     }
   }
 
