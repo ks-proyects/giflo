@@ -16,7 +16,7 @@
     <!-- ============================================================== -->
     <!-- app header component - style you can find in header.scss / header.component.ts-->
     <!-- ============================================================== -->
-    <app-header (logoutOUT)="logout($event)" (changeEmpresaOUT)="changeEmpresa()" [nombreEmpresa]="userInfo.empresa"></app-header>
+    <app-header (logoutOUT)="logout($event)" (changeEmpresaOUT)="changeEmpresa()" [nombreEmpresa]="userInfo?userInfo.empresa:''"></app-header>
   </mat-toolbar>
   <!-- ============================================================== -->
   <!-- End Topbar - style you can find in pages.scss -->
