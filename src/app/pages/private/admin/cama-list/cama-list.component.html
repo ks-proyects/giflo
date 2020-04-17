@@ -29,10 +29,10 @@
                             <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
-                        <ng-container matColumnDef="responsable">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Responsable </mat-header-cell>
+                        <ng-container matColumnDef="nave">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nave </mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                                {{row.trabajador?row.trabajador.nombres + ' ' +row.trabajador.apellidos:''}} </mat-cell>
+                                {{row.nave?row.nave.nombre:''}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="estado">

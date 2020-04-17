@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Variedad } from '../../domain/giflo_db/variedad';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Variedad.service.ts
@@ -64,11 +65,17 @@ import { Variedad } from '../../domain/giflo_db/variedad';
 export class VariedadBaseService {
 
     private variedadCollection: AngularFirestoreCollection<Variedad>;
+    idEmpresa: string;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private session: SessionService
     ) {
-        this.variedadCollection = afs.collection<Variedad>('variedad');
+        session.getUserInfo().subscribe(ui => {
+            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+            this.variedadCollection = afs.collection<Variedad>('variedad', ref => ref.where('empresa', '==', this.idEmpresa));
+        });
+
     }
 
 
@@ -80,6 +87,7 @@ export class VariedadBaseService {
     *
     */
     create(item: Variedad): Promise<DocumentReference> {
+        item.empresa = this.idEmpresa;
         return this.variedadCollection.add(item);
     }
 
@@ -110,7 +118,7 @@ export class VariedadBaseService {
     *
     */
     list(): Observable<Variedad[]> {
-        return this.afs.collection('variedad').snapshotChanges().pipe(
+        return this.variedadCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Variedad;
                 const id = a.payload.doc.id;

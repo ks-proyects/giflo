@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -26,6 +26,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 
 // MODEL
 import { Empleado } from '../../domain/giflo_db/empleado';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Empleado.service.ts
@@ -97,12 +98,19 @@ import { Empleado } from '../../domain/giflo_db/empleado';
 @Injectable()
 export class EmpleadoBaseService {
 
+
     private empleadoCollection: AngularFirestoreCollection<Empleado>;
+    private empleadoActiveCollection: AngularFirestoreCollection<Empleado>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private session: SessionService
     ) {
-        this.empleadoCollection = afs.collection<Empleado>('empleado');
+        session.getUserInfo().subscribe(ui => {
+            this.empleadoCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+            this.empleadoActiveCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1')
+                .where('estado', '==', 'ACT'));
+        });
     }
 
 
@@ -144,7 +152,16 @@ export class EmpleadoBaseService {
     *
     */
     list(): Observable<Empleado[]> {
-        return this.afs.collection('empleado').snapshotChanges().pipe(
+        return this.empleadoCollection.snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Empleado;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
+    listActive(): Observable<Empleado[]> {
+        return this.empleadoActiveCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Empleado;
                 const id = a.payload.doc.id;
@@ -161,6 +178,7 @@ export class EmpleadoBaseService {
             }))
         );
     }
+
 
     /**
     * EmpleadoService.update
