@@ -37,6 +37,7 @@ export class FullComponent implements OnDestroy, OnInit {
   private listaEmpresas: Empresa[];
   private listaEmpleados: Empleado[];
   public userInfo: UserInfo = {};
+  private isOpenDialog = false;
   constructor(
     private auth: AuthenticationService,
     public device: DeviceService,
@@ -86,7 +87,7 @@ export class FullComponent implements OnDestroy, OnInit {
   }
   changeEmpresa() {
     //Caso solo posea un empleo y no posea empresa
-    if (this.listaEmpresas && this.listaEmpleados && this.user) {
+    if (this.listaEmpresas && this.listaEmpleados && this.user && !this.isOpenDialog) {
       let isFromTemplate = false;
       if (this.listaEmpresas.length === 0 && this.listaEmpleados.length === 1) {
         const userInfo: UserInfo = {};
@@ -113,6 +114,7 @@ export class FullComponent implements OnDestroy, OnInit {
             empleados: this.listaEmpleados
           };
           const dialogData: DialogDataGeneric = { data: dataInput };
+          this.isOpenDialog = true;
           const dialogRef = this.dialog.open(DialogSelectComponent, {
             width: 'auto',
             disableClose: true,
@@ -121,6 +123,7 @@ export class FullComponent implements OnDestroy, OnInit {
           });
           dialogRef.afterClosed().subscribe(result => {
             if (result.event === 'Guardar') {
+              this.isOpenDialog = false;
               const userInfo: UserInfo = {};
               userInfo.tipo = result.data.tipo;
               userInfo.idEmpresa = result.data.empresa.id;

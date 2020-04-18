@@ -59,7 +59,7 @@
         </select>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Regresar</button>
+        <button mat-button matStepperPrevious *ngIf="item.hasAllOptions">Regresar</button>
         <button mat-button (click)="doAction(secondFormGroup.valid)">Confirmar</button>
       </div>
     </form>

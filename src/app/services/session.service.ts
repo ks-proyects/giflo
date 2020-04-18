@@ -14,6 +14,7 @@ import { Menu } from '../util/menu-items/menu-items';
 import { Empleado } from '../domain/giflo_db/empleado';
 import { EmpleadoService } from './empleado.service';
 import { map } from 'rxjs/operators';
+import { leftJoinDocument } from './generic/leftJoin.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class SessionService {
   private menuUser: BehaviorSubject<MenuItem[]>;
   private userInfo: BehaviorSubject<UserInfo>;
   private NAME_USER_INFO = 'user_info';
+  
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -48,14 +50,20 @@ export class SessionService {
     this.userInfo.subscribe(userInfo => {
       if (userInfo) {
         this.dataUserInfo = userInfo;
-        this.afs.collection('menuitem', ref => ref.where('empresa', '==', userInfo.idEmpresa)).valueChanges().subscribe(arrar => {
+        this.afs.collection('menuitem', ref => ref.where('empresa', '==', userInfo.idEmpresa)).valueChanges().pipe(
+          leftJoinDocument(this.afs, 'pagina', 'pagina'),
+          leftJoinDocument(this.afs, 'rol', 'rol')
+        ).subscribe(arrar => {
           this.listMenuItemByEmpresa = (arrar as MenuItem[]);
           this.updateMenu();
         });
         this.findEmpleado();
       }
     });
-    this.afs.collection('menuitem', ref => ref.where('empresa', '==', null)).valueChanges().subscribe(arrar => {
+    this.afs.collection('menuitem', ref => ref.where('empresa', '==', null)).valueChanges().pipe(
+      leftJoinDocument(this.afs, 'pagina', 'pagina'),
+      leftJoinDocument(this.afs, 'rol', 'rol')
+    ).subscribe(arrar => {
       this.listMenuItem = (arrar as MenuItem[]);
       this.updateMenu();
     });
