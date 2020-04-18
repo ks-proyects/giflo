@@ -1,6 +1,5 @@
 import { Injectable, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Bloque } from 'src/app/domain/giflo_db/bloque';
 
 @Injectable({
   providedIn: 'root'
