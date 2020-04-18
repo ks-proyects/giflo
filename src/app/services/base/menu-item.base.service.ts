@@ -27,7 +27,6 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 // MODEL
 import { MenuItem } from '../../domain/giflo_db/menu-item';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { leftJoinDocument } from '../generic/leftJoin.service';
 import { SessionService } from '../session.service';
 
 /**

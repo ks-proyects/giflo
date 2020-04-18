@@ -1,10 +1,10 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListComponentService {
+export class ListComponentService implements AfterViewInit {
 
   displayedColumns = ['id', 'nombre', 'estado'];
   dataSource: MatTableDataSource<any>;
