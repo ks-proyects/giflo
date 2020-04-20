@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
 import { MenuItem } from 'src/app/domain/giflo_db/menu-item';
 import { Pagina } from 'src/app/domain/giflo_db/pagina';
+import { ProduccionService } from 'src/app/services/produccion.service';
 export interface BadgeItem {
   type: string;
   value: string;
@@ -63,7 +64,10 @@ let MENUITEMS: Menu[] = [];
 
 @Injectable()
 export class MenuItems {
-  constructor(private sessionService: SessionService) {
+  constructor(
+    private sessionService: SessionService,
+    private produccionService: ProduccionService
+  ) {
     this.sessionService.getMenu().subscribe(listMenu => {
       this.buildMenu(listMenu);
     });

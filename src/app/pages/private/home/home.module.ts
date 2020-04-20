@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileComponent } from './profile/profile.component';
 import { routesHome } from './home-routing.module';
@@ -13,6 +12,17 @@ import { AddressDialogComponent } from './address-dialog/address-dialog.componen
 import { RouterModule } from '@angular/router';
 import { EmpresaDialogComponent } from './empresa-dialog/empresa-dialog.component';
 import { EmpleadoDialogComponent } from './empleado-dialog/empleado-dialog.component';
+import { IndexComponent } from './index.component';
+import { CultivoComponent } from './cultivo/cultivo.component';
+import { SupervisorComponent } from './supervisor/supervisor.component';
+import { PostcosechaComponent } from './postcosecha/postcosecha.component';
+import { GerenteComponent } from './gerente/gerente.component';
+import { CosechaDirective } from 'src/app/directives/cosecha.directive';
+import { ContainerComponent } from './container/container.component';
+import { HomeDirective } from 'src/app/directives/home.directive';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { DefaultComponent } from './default/default.component';
+
 
 
 @NgModule({
@@ -21,14 +31,19 @@ import { EmpleadoDialogComponent } from './empleado-dialog/empleado-dialog.compo
     CommonModule,
     UtilModule,
     FormsModule,
-    NgxDatatableModule,
     FlexLayoutModule,
     CoreMaterialModule
   ],
   entryComponents: [
     AddressDialogComponent,
     EmpresaDialogComponent,
-    EmpleadoDialogComponent
+    EmpleadoDialogComponent,
+    GerenteComponent,
+    PostcosechaComponent,
+    SupervisorComponent,
+    CultivoComponent,
+    SuperAdminComponent,
+    DefaultComponent
   ],
   declarations: [
     ProfileComponent,
@@ -36,7 +51,17 @@ import { EmpleadoDialogComponent } from './empleado-dialog/empleado-dialog.compo
     ProfileEditComponent,
     AddressDialogComponent,
     EmpresaDialogComponent,
-    EmpleadoDialogComponent
+    EmpleadoDialogComponent,
+    IndexComponent,
+    CosechaDirective,
+    HomeDirective,
+    ContainerComponent,
+    GerenteComponent,
+    PostcosechaComponent,
+    SupervisorComponent,
+    CultivoComponent,
+    SuperAdminComponent,
+    DefaultComponent
   ], exports: []
 })
 export class HomeModule { }

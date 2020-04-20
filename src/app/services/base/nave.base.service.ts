@@ -72,7 +72,7 @@ export class NaveBaseService {
     ) {
         session.getUserInfo().subscribe(ui => {
             this.idEmpresa = ui ? ui.idEmpresa : '-1';
-            this.naveCollection = afs.collection<Nave>('nave', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+            this.naveCollection = afs.collection<Nave>('nave', ref => ref.where('empresa', '==', this.idEmpresa));
         });
     }
 

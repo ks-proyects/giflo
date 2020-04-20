@@ -17,6 +17,8 @@
  *
  */
 
+import { Empresa } from '../empresa';
+
 /**
  * This is the model of DiaTrabajo object
  *
@@ -28,5 +30,6 @@ export interface DiaTrabajoBase {
     anio?: number;
     mes?: number;
     fecha?: Date;
-    
+    empresa?: Empresa | string;
+    estado?: string;
 }

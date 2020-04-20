@@ -75,7 +75,7 @@ export class BloqueBaseService {
     ) {
         session.getUserInfo().subscribe(ui => {
             this.idEmpresa = ui ? ui.idEmpresa : '-1';
-            this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+            this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', this.idEmpresa));
         });
     }
 

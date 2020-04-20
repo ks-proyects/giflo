@@ -30,7 +30,7 @@ export const routesSecurity: Routes = [
         data: {
           title: 'Empresas',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -53,7 +53,7 @@ export const routesSecurity: Routes = [
         data: {
           title: 'Menú Ítems',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -75,7 +75,7 @@ export const routesSecurity: Routes = [
         data: {
           title: 'Páginas',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -97,7 +97,7 @@ export const routesSecurity: Routes = [
         data: {
           title: 'Roles',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }

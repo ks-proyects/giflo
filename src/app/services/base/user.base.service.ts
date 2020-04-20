@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { User } from '../../domain/giflo_db/user';
+import { RolService } from '../rol.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../User.service.ts
@@ -75,9 +76,11 @@ export class UserBaseService {
     private userCollection: AngularFirestoreCollection<User>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private rolService: RolService
     ) {
         this.userCollection = afs.collection<User>('user');
+
     }
 
 
@@ -91,8 +94,26 @@ export class UserBaseService {
     create(item: User): Promise<DocumentReference> {
         return this.userCollection.add(item);
     }
-    
-    
+    createCustom(item: User): Promise<void> {
+        return this.userCollection.doc(item.id).set(item);
+    }
+    buildObject(userFire: any, token: string, rol: string[]) {
+        const splitName = userFire.displayName ? userFire.displayName.split(' ') : userFire.email.split('@');
+        const name = splitName.length > 0 ? splitName[0] : '';
+        const surname = splitName.length > 0 ? splitName[1] : '';
+        const userNew: User = {
+            id: userFire.uid,
+            email: userFire.email,
+            nombres: name,
+            roles: rol,
+            apellidos: surname,
+            token: [token ? token : ''],
+            urlFoto: userFire.photoURL
+        };
+        return userNew;
+    }
+
+
 
     /**
     * UserService.delete

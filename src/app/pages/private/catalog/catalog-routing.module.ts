@@ -26,7 +26,7 @@ export const routesCatalog: Routes = [
         data: {
           title: 'Estados Civil',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -48,7 +48,7 @@ export const routesCatalog: Routes = [
         data: {
           title: 'Estados',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }

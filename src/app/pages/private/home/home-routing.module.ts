@@ -2,18 +2,30 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { IndexComponent } from './index.component';
 
 export const routesHome: Routes = [
   {
     path: '',
     children: [
       {
+        path: 'index',
+        component: IndexComponent,
+        data: {
+          title: 'Inicio',
+          urls: [
+            { title: 'home', url: '/home/index' },
+            { title: 'home' }
+          ]
+        }
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
         data: {
           title: 'Perfil',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: '' }
           ]
         }
@@ -24,7 +36,7 @@ export const routesHome: Routes = [
         data: {
           title: 'Configuración',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: '' }
           ]
         }

@@ -24,7 +24,7 @@ export const routesManagment: Routes = [
         data: {
           title: 'Empleados',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }

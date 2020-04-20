@@ -31,6 +31,7 @@ import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.compone
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
 import { DialogSelectComponent } from './layout/full/dialog-select/dialog-select.component';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 0.5,
@@ -50,7 +51,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LandingComponent,
     MailValidator,
     MatDialogComponent,
-    DialogSelectComponent
+    DialogSelectComponent,
   ],
   imports: [
     BrowserModule,

@@ -107,9 +107,11 @@ export class EmpleadoBaseService {
         private session: SessionService
     ) {
         session.getUserInfo().subscribe(ui => {
-            this.empleadoCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
-            this.empleadoActiveCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1')
-                .where('estado', '==', 'ACT'));
+            if (ui) {
+                this.empleadoCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+                this.empleadoActiveCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1')
+                    .where('estado', '==', 'ACT'));
+            }
         });
     }
 
@@ -179,8 +181,8 @@ export class EmpleadoBaseService {
         );
     }
     listByUserAndCompany(idUser: string, idEmpresa: string): Observable<Empleado[]> {
-        return this.afs.collection<Empleado>('empleado', ref => 
-        ref.where('user', '==', idUser).where('empresa', '==', idEmpresa))
+        return this.afs.collection<Empleado>('empleado', ref =>
+            ref.where('user', '==', idUser).where('empresa', '==', idEmpresa))
             .snapshotChanges().pipe(
                 map(actions => actions.map(a => {
                     const data = a.payload.doc.data() as Empleado;

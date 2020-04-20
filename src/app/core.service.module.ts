@@ -20,6 +20,8 @@ import { VariedadService } from './services/variedad.service';
 
 import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
+import { DiaTrabajoService } from './services/dia-trabajo.service';
+import { ProduccionService } from './services/produccion.service';
 
 @NgModule({
   imports: [],
@@ -39,6 +41,8 @@ import { AuthenticationService } from './security/authentication.service';
     RolService,
     UserService,
     VariedadService,
+    DiaTrabajoService,
+    ProduccionService,
  /* END PROVIDERS */
     // SECURITY
     AuthGuard,

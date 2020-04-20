@@ -68,7 +68,7 @@ export class MenuItemBaseService {
         session.getUserInfo().subscribe(ui => {
             this.idEmpresa = ui ? ui.idEmpresa : '-1';
             this.menuitemCollection = afs.collection<MenuItem>('menuitem',
-                ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
+                ref => ref.where('empresa', '==', this.idEmpresa));
         });
     }
 

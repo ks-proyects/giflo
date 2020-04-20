@@ -25,7 +25,7 @@ export class PaginaService extends PaginaBaseService {
         this.list().subscribe((rols: Pagina[]) => {
             if (rols.length === 0) {
                 this.rs.get('SUPERADMIN').valueChanges().subscribe(rol => {
-                    this.createPaginaMenu('admin', 'home', 'Home', '/home', rol);
+                    this.createPaginaMenu('home', 'home', 'Inicio', '/index', rol);
                     this.createPaginaMenu('catalog', 'estadocivils', 'Estados Civiles', '/estadocivils', rol);
                     this.createPaginaMenu('catalog', 'estados', 'Estados', '/estados', rol);
                     this.createPaginaMenu('security', 'empresas', 'Empresas', '/empresas', rol);
@@ -33,11 +33,11 @@ export class PaginaService extends PaginaBaseService {
                     this.createPaginaMenu('security', 'rols', 'Roles', '/rols', rol);
                 });
                 this.rs.get('GER').valueChanges().subscribe(rol => {
-                    this.createPaginaMenu('admin', 'home', 'Home', '/home', rol);
+                    this.createPaginaMenu('home', 'home', 'Inicio', '/index', rol);
                     this.createPaginaMenu('admin', 'bloques', 'Bloques', '/bloques', rol);
                     this.createPaginaMenu('admin', 'naves', 'Naves', '/naves', rol);
                     this.createPaginaMenu('admin', 'camas', 'Camas', '/camas', rol);
-                    this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedads', rol);
+                    this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedades', rol);
                     this.createPaginaMenu('management', 'empleados', 'Empleados', '/empleados', rol);
                     this.createPaginaMenu('security', 'menuitems', 'Menú Items', '/menuitems', rol);
                 });

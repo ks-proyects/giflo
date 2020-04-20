@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { UserService } from './user.service';
-import { RolService } from './rol.service';
 import { User } from '../domain/giflo_db/user';
-import { Observable, Subject, Subscriber, BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
 import { UserInfo } from '../domain/dto/user-info';
-import { Menu } from '../util/menu-items/menu-items';
 import { Empleado } from '../domain/giflo_db/empleado';
-import { EmpleadoService } from './empleado.service';
 import { map } from 'rxjs/operators';
 import { leftJoinDocument } from './generic/leftJoin.service';
 
@@ -20,7 +17,6 @@ import { leftJoinDocument } from './generic/leftJoin.service';
   providedIn: 'root'
 })
 export class SessionService {
-  private idRolDefault: string;
   private dataUserInfo: UserInfo;
   private empleado: Empleado;
   private token: string;
@@ -31,21 +27,18 @@ export class SessionService {
   private menuUser: BehaviorSubject<MenuItem[]>;
   private userInfo: BehaviorSubject<UserInfo>;
   private NAME_USER_INFO = 'user_info';
-  
+
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     public afm: AngularFireMessaging,
     private userService: UserService,
-    private rolService: RolService) {
+  ) {
     this.user = new BehaviorSubject<User>(this.userLoguin);
     this.menuUser = new BehaviorSubject<MenuItem[]>(null);
     this.userInfo = new BehaviorSubject<UserInfo>(this.getFromSession(this.NAME_USER_INFO));
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
-    });
-    this.rolService.get('DEF').valueChanges().subscribe(rol => {
-      this.idRolDefault = rol.id;
     });
     this.userInfo.subscribe(userInfo => {
       if (userInfo) {
@@ -75,25 +68,13 @@ export class SessionService {
     });
   }
 
-  public createUpdateUser(userL) {
-    const userDoc: AngularFirestoreDocument<any> = this.userService.get(userL.uid);
+  public createUpdateUser(userFire) {
+    const userDoc: AngularFirestoreDocument<any> = this.userService.get(userFire.uid);
     userDoc.valueChanges().subscribe(user => {
-      let userNew: User;
+
       if (!user) {
-        const splitName = userL.displayName ? userL.displayName.split(' ') : userL.email.split('@');
-        const name = splitName.length > 0 ? splitName[0] : '';
-        const surname = splitName.length > 0 ? splitName[1] : '';
-        userNew = {
-          id: userL.uid,
-          email: userL.email,
-          nombres: name,
-          roles: [this.idRolDefault],
-          apellidos: surname,
-          token: [this.token ? this.token : ''],
-          urlFoto: userL.photoURL
-        };
-        this.userService.createCustom(userNew).then((item) => {
-          this.userLoguin = userNew;
+        this.userLoguin = this.userService.buildObject(userFire, this.token, ['DEF']);
+        this.userService.createCustom(userFire).then(() => {
           this.user.next(this.userLoguin);
           this.findEmpleado();
         });
@@ -197,7 +178,6 @@ export class SessionService {
   }
   getFromSession(key: string): any {
     const value: string = sessionStorage.getItem(key);
-    console.log(value);
     return JSON.parse(value);
   }
   removeFromSession(key: string): any {
