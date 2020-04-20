@@ -8,8 +8,8 @@ export class ListComponentService implements AfterViewInit {
 
   displayedColumns = ['id', 'nombre', 'estado'];
   dataSource: MatTableDataSource<any>;
-  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
-  @ViewChild(MatSort, {}) sort: MatSort;
+  @ViewChild(MatPaginator, {static:true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static:true}) sort: MatSort;
   constructor() { }
 
   ngAfterViewInit() {

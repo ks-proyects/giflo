@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireMessagingModule,
     AngularFirestoreModule,
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule.enablePersistence({synchronizeTabs:true}),
     AngularFireAuthModule,
     AngularFireFunctionsModule
   ]
