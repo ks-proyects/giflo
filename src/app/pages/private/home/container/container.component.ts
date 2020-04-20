@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ComponentFactoryResolver, OnDestroy, ContentChild } from '@angular/core';
 import { CultivoComponent } from '../cultivo/cultivo.component';
 import { GerenteComponent } from '../gerente/gerente.component';
 import { PostcosechaComponent } from '../postcosecha/postcosecha.component';

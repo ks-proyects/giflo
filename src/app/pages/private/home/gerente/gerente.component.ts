@@ -1,12 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-
+import { BreakpointObserver, } from '@angular/cdk/layout';
+import * as Chartist from 'chartist';
+import { ChartType, ChartEvent } from 'ng-chartist';
 declare var require: any;
 
 const data: any = require('./data.json');
 
-
+export interface Chart {
+  type: ChartType;
+  data: Chartist.IChartistData;
+  options?: any;
+  responsiveOptions?: any;
+  events?: ChartEvent;
+}
 
 export interface Element {
   name: string;
@@ -67,7 +74,38 @@ const ELEMENT_DATA: Element[] = [
 })
 export class GerenteComponent {
   // Barchart
- 
+  barChart1: Chart = {
+    type: 'Bar',
+    data: data['Bar'],
+    options: {
+      seriesBarDistance: 15,
+      high: 12,
+      height: 325,
+      axisX: {
+        showGrid: false,
+        offset: 20
+      },
+      axisY: {
+        showGrid: true,
+        offset: 40
+      }
+    },
+    responsiveOptions: [
+      [
+        'screen and (min-width: 640px)',
+        {
+          axisX: {
+            labelInterpolationFnc: function (
+              value: number,
+              index: number
+            ): string {
+              return index % 1 === 0 ? `${value}` : null;
+            }
+          }
+        }
+      ]
+    ]
+  };
 
   // Doughnut
   public doughnutChartLabels: string[] = ['Desktop', 'Mobile', 'Tablet'];
@@ -78,6 +116,46 @@ export class GerenteComponent {
   public doughnutChartData: number[] = [350, 450, 100];
   public doughnutChartType = 'doughnut';
   public doughnutChartLegend = false;
+
+  // This is for the comments
+  mycomments: Object[] = [
+    {
+      name: 'James Anderson',
+      content:
+        'Lorem Ipsum is simply dummy text of the printing and type setting industry.',
+      profile: 'assets/images/users/1.jpg',
+      status: 'Pending',
+      class: 'info',
+      date: 'April 14, 2016'
+    },
+    {
+      name: 'Michael Jorden',
+      content:
+        'Lorem Ipsum is simply dummy text of the printing and type setting industry.',
+      profile: 'assets/images/users/2.jpg',
+      status: 'Approved',
+      class: 'light-success',
+      date: 'April 14, 2016'
+    },
+    {
+      name: 'James Anderson',
+      content:
+        'Lorem Ipsum is simply dummy text of the printing and type setting industry.',
+      profile: 'assets/images/users/3.jpg',
+      status: 'Pending',
+      class: 'danger',
+      date: 'April 14, 2016'
+    },
+    {
+      name: 'Johnathan Doeting',
+      content:
+        'Lorem Ipsum is simply dummy text of the printing and type setting industry.',
+      profile: 'assets/images/users/1.jpg',
+      status: 'Pending',
+      class: 'info',
+      date: 'April 14, 2016'
+    }
+  ];
 
   // This is for Mymessages
   mymessages: Object[] = [
@@ -161,6 +239,7 @@ export class GerenteComponent {
   ];
   public barChartOptions: any = {
     maintainAspectRatio: false,
+    barPercentage:0.6,
     legend: {
       display: false
     },
@@ -169,12 +248,31 @@ export class GerenteComponent {
     },
     scales: {
       xAxes: [{
+        id: 'x',
         display: false,
-        barPercentage: 0.3,
-        categoryPercentage: 0.7
+        scaleLabel: {
+          display: false,
+          labelString: 'Date'
+        },
+        ticks: {
+          major: {
+            enabled: true
+          },
+          fontStyle: function (context) {
+            return context.tick && context.tick.major ? 'bold' : undefined;
+          },
+          fontColor: function (context) {
+            return context.tick && context.tick.major ? '#FF0000' : undefined;
+          }
+        }
       }],
       yAxes: [{
-        display: false
+        id: 'y',
+        display: false,
+        scaleLabel: {
+          display: false,
+          labelString: 'value'
+        }
       }]
     }
   };
@@ -189,11 +287,87 @@ export class GerenteComponent {
   public barChartLegend = false;
   public barChartType = 'bar';
 
+
+
+  // This is for the donute chart
+  donuteChart1: Chart = {
+    type: 'Pie',
+    data: data['Pie'],
+    options: {
+      donut: true,
+      height: 300,
+      showLabel: false,
+      donutWidth: 30
+    }
+    // events: {
+    //   draw(data: any): boolean {
+    //     return data;
+    //   }
+    // }
+  };
+  // This is for the line chart
+  // Line chart
+  lineChart1: Chart = {
+    type: 'Line',
+    data: data['LineWithArea'],
+    options: {
+      low: 0,
+      height: 360,
+      high: 35000,
+      showArea: true,
+      fullWidth: true
+    }
+  };
+
+  // Timeline
+  mytimelines: any[] = [
+    {
+      from: 'Nirav joshi',
+      time: '(5 minute ago)',
+      image: 'assets/images/users/3.jpg',
+      attachment: 'assets/images/users/3.jpg',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.'
+    },
+    {
+      from: 'Sunil joshi',
+      time: '(3 minute ago)',
+      image: 'assets/images/users/3.jpg',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+      buttons: 'primary'
+    },
+    {
+      from: 'Vishal Bhatt',
+      time: '(1 minute ago)',
+      image: 'assets/images/users/3.jpg',
+      attachment: 'assets/images/users/3.jpg',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.'
+    },
+    {
+      from: 'Dhiren Adesara',
+      time: '(1 minute ago)',
+      image: 'assets/images/users/3.jpg',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.',
+      buttons: 'warn'
+    }
+  ];
+
   // This is for the table responsive
   constructor(breakpointObserver: BreakpointObserver) {
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      
+      this.displayedColumns = result.matches ?
+        ['pic', 'name', 'weight', 'designation'] :
+        ['pic', 'name', 'weight', 'designation'];
     });
   }
-  
+
+  // tslint:disable-next-line:member-ordering
+  displayedColumns = ['pic', 'name', 'weight', 'designation'];
+  // tslint:disable-next-line:member-ordering
+  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  // tslint:disable-next-line:member-ordering
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 }

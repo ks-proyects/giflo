@@ -22,7 +22,8 @@ import { ContainerComponent } from './container/container.component';
 import { HomeDirective } from 'src/app/directives/home.directive';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { DefaultComponent } from './default/default.component';
-
+import { ChartistModule } from 'ng-chartist';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { DefaultComponent } from './default/default.component';
     UtilModule,
     FormsModule,
     FlexLayoutModule,
-    CoreMaterialModule
+    CoreMaterialModule,
+    ChartistModule,
+    ChartsModule
   ],
   entryComponents: [
     AddressDialogComponent,

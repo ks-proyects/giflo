@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, AfterViewInit } from '@angular/core';
+import { Injectable, ViewChild, AfterViewInit, ContentChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Injectable({

@@ -24,7 +24,8 @@ import {
   MatSnackBarModule,
   MatExpansionModule,
   MatStepperModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatTabsModule
 } from '@angular/material';
 @NgModule({
   exports: [
@@ -52,7 +53,8 @@ import {
     MatSnackBarModule,
     MatExpansionModule,
     MatStepperModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule
 
   ]
 })
