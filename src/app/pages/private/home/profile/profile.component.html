@@ -1,3 +1,86 @@
-<p>
-  profile works!
-</p>
+<mat-card class="card-profile">
+  <mat-card-header>
+    <div mat-card-avatar class="text-center">
+      <img mat-card-image
+        [src]="user && user.urlFacebook?user.urlFacebook:'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+        alt="Foto del usuario">
+    </div>
+    <mat-card-title>{{user.rolesStr | titlecase}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="p-10">
+    <div fxLayout="row wrap" *ngIf="user" fxLayoutGap.gt-sm="5px" fxLayoutGap.gt-xs="5px" fxLayoutGap="0px">
+      <app-section-view *ngIf="user" title="Datos Personales" icon="account_circle" fxFlex.gt-sm="100"
+        fxFlex.gt-xs="100" fxFlex="100" class="m-t-10 m-b-10">
+        <app-view-readonly *ngIf="user.nombres" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10 "
+          label="Nombres Completos" [value]="user.nombres+' '+ user.apellidos"></app-view-readonly>
+        <app-view-readonly fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10 "
+          [label]="user.tipoIdentificacion" [value]="user.identificacion"></app-view-readonly>
+        <app-view-readonly fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10" label="Fecha de Nacimiento"
+          *ngIf="user.fechaNacimiento" [valueDate]="user.fechaNacimiento"></app-view-readonly>
+        <app-view-readonly *ngIf="user.estadoCivil" fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10"
+          label="Estado Civil" [value]="user.estadoCivil.nombre"></app-view-readonly>
+        <app-view-readonly *ngIf="user.email" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10"
+          label="Correo Electrónico" [valueEmail]="user.email"></app-view-readonly>
+        <app-view-readonly *ngIf="user.celular" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10"
+          label="Célular" [valuePhone]="user.celular"></app-view-readonly>
+        <app-view-readonly *ngIf="user.telefono" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-10"
+          label="Teléfono" [valuePhone]="user.telefono"></app-view-readonly>
+        <button mat-button [routerLink]="['/home/profile/', user.id]" color="secondary">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </app-section-view>
+      <app-section-view *ngIf="user" title="Direcciones" icon="directions_walk" fxFlex.gt-sm="100" fxFlex.gt-xs="100"
+        fxFlex="100" class=" di m-t-10 m-b-10">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <button mat-button (click)="openAddres('Crear',{})" color="secondary">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+        <mat-list fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <mat-list-item *ngFor="let dir of listDirecciones">
+            <h4 matLine>{{dir.callePrincipal}} {{dir.calleNumero}} y {{dir.calleSecundaria}}</h4>
+            <p matLine class="text-warn_default">{{dir.referencia}}</p>
+            <p matLine class="text-warn_default">Celular: {{dir.celular}} Teléfono: {{dir.telefono}}
+              Extensión:{{dir.extension}}</p>
+            <strong matLine class="text-warn_darker">{{dir.tipo}}</strong>
+            <button mat-button (click)="openAddres('Editar',dir)" color="secondary">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </app-section-view>
+      <app-section-view *ngIf="user" title="Empleos" icon="work" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+        class="m-t-10 m-b-10">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <button mat-button (click)="openEmpleado('Crear',{})" color="secondary">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+        <mat-list fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <mat-list-item *ngFor="let emp of listEmpleados">
+            <p matLine>{{emp.empresa?emp.empresa.nombre:''}} </p>
+            <strong matLine class="text-warn_darker">{{emp.estado?emp.estado.nombre:''}}</strong>
+          </mat-list-item>
+        </mat-list>
+      </app-section-view>
+      <app-section-view *ngIf="user" title="Empresas" icon="business" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+        class="m-t-10 m-b-10">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <button mat-button (click)="openEmpresa('Crear',{})" color="secondary">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+        <mat-list fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+          <mat-list-item *ngFor="let emp of listEmpresa">
+            <h3 matLine>{{emp.nombre}} </h3>
+            <p matLine class="text-warn_default">{{emp.ruc}}</p>
+            <strong matLine class="text-warn_darker">{{emp.estado?emp.estado.nombre:''}}</strong>
+            <button mat-button (click)="openEmpresa('Editar',emp)" color="secondary">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </app-section-view>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -9,7 +9,7 @@ import { PaginaListComponent } from './pagina-list/pagina-list.component';
 import { RolEditComponent } from './rol-edit/rol-edit.component';
 import { RolListComponent } from './rol-list/rol-list.component';
 
-export const routes: Routes = [
+export const routesSecurity: Routes = [
   {
     path: '',
     children: [
@@ -30,7 +30,7 @@ export const routes: Routes = [
         data: {
           title: 'Empresas',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -53,7 +53,7 @@ export const routes: Routes = [
         data: {
           title: 'Menú Ítems',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -75,7 +75,7 @@ export const routes: Routes = [
         data: {
           title: 'Páginas',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -97,7 +97,7 @@ export const routes: Routes = [
         data: {
           title: 'Roles',
           urls: [
-            { title: 'Inicio', url: '/admin/home' },
+            { title: 'Inicio', url: '/home/index' },
             { title: 'Lista' }
           ]
         }
@@ -105,10 +105,3 @@ export const routes: Routes = [
     ]
   }
 ];
-
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class SecurityRoutingModule { }

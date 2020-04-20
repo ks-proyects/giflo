@@ -1,9 +1,9 @@
 // Import Libraries
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 // Import Services
 import { NaveService } from '../../../../services/nave.service';
@@ -44,7 +44,7 @@ import { Estado } from '../../../../domain/giflo_db/estado';
     templateUrl: 'nave-edit.component.html',
     styleUrls: ['nave-edit.component.css']
 })
-export class NaveEditComponent implements OnInit {
+export class NaveEditComponent implements OnInit, OnDestroy {
     item: any = {};
     itemDoc: AngularFirestoreDocument<Nave>;
     isNew: Boolean = true;
@@ -53,7 +53,8 @@ export class NaveEditComponent implements OnInit {
     listBloque: Bloque[];
     listEstado: Estado[];
 
-
+    bloqueServiceSubscription: Subscription;
+    routeSubscription: Subscription;
     constructor(
         private naveService: NaveService,
         private estadoService: EstadoService,
@@ -63,20 +64,23 @@ export class NaveEditComponent implements OnInit {
         // Init list
     }
 
+    ngOnDestroy() {
+        this.bloqueServiceSubscription.unsubscribe();
+        this.routeSubscription.unsubscribe();
+    }
     /**
      * Init
      */
     ngOnInit() {
-        this.route.params.subscribe(param => {
+        this.routeSubscription = this.route.params.subscribe(param => {
             const id: string = param['id'];
             if (id !== 'new') {
                 this.isNew = false;
                 this.itemDoc = this.naveService.get(id);
                 this.itemDoc.valueChanges().subscribe(item => this.item = item);
-
             }
             // Get relations
-            this.bloqueService.list().subscribe(list => this.listBloque = list);
+            this.bloqueServiceSubscription = this.bloqueService.list().subscribe(list => this.listBloque = list);
             this.estadoService.list().subscribe(list => this.listEstado = list);
         });
     }

@@ -17,17 +17,23 @@ export class AuthenticationService {
         private router: Router,
         private rolService: RolService,
         private estadoService: EstadoService,
-        private paginaService: PaginaService
+        private paginaService: PaginaService,
+        public ngZone: NgZone
     ) {
         rolService.init();
         estadoService.init();
         paginaService.init();
     }
-
+    resetPasswordInit(email: string) {
+        return this.afAuth.auth.sendPasswordResetEmail(
+            email, { url: 'http://localhost:4200/auth' });
+    }
     registerByEmailPass = (email, pass) => {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, pass).then((user) => {
             if (user.user) {
-                this.router.navigate(['/admin/home']);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/home/index']);
+                });
             }
         }).catch((error) => {
             window.alert(error.message);
@@ -36,7 +42,9 @@ export class AuthenticationService {
     loginWithEmailPass(email, password) {
         this.afAuth.auth.signInWithEmailAndPassword(email, password).then((user) => {
             if (user.user) {
-                this.router.navigate(['/admin/home']);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/home/index']);
+                });
             }
         }).catch((error) => {
             window.alert(error.message);
@@ -51,7 +59,9 @@ export class AuthenticationService {
     loginProvider(provider) {
         this.afAuth.auth.signInWithPopup(provider).then(user => {
             if (user.user) {
-                this.router.navigate(['/admin/home']);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/home/index']);
+                });
             }
         }).catch((error) => {
             window.alert(error);

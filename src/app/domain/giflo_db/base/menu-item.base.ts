@@ -18,6 +18,7 @@
  */
 import { Pagina } from '../pagina';
 import { Rol } from '../rol';
+import { Empresa } from '../empresa';
 
 /**
  * This is the model of MenuItem object
@@ -31,4 +32,5 @@ export interface MenuItemBase {
     pagina: Pagina | string;
     // Relations rol
     rol: Rol | string;
+    empresa: Empresa | string;
 }

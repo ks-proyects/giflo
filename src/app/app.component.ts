@@ -1,13 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { Router } from '@angular/router';
-import { User } from 'firebase';
-import { AuthenticationService } from './security/authentication.service';
-import { MenuItem } from './domain/giflo_db/menu-item';
-import { Pagina } from './domain/giflo_db/pagina';
-import { SessionService } from './services/session.service';
-import { AppService } from './services/app.service';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Component({

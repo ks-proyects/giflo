@@ -1,9 +1,8 @@
 // Import Libraries
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 // Import Services
 import { CamaService } from '../../../../services/cama.service';
@@ -17,7 +16,8 @@ import { Estado } from '../../../../domain/giflo_db/estado';
 import { Nave } from '../../../../domain/giflo_db/nave';
 import { Empleado } from '../../../../domain/giflo_db/empleado';
 import { Variedad } from '../../../../domain/giflo_db/variedad';
-import { leftJoinDocument, leftJoin } from 'src/app/services/generic/leftJoin.service';
+import { Subscription } from 'rxjs';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 
 // START - USED SERVICES
 /**
@@ -58,7 +58,7 @@ import { leftJoinDocument, leftJoin } from 'src/app/services/generic/leftJoin.se
     templateUrl: 'cama-edit.component.html',
     styleUrls: ['cama-edit.component.css']
 })
-export class CamaEditComponent implements OnInit {
+export class CamaEditComponent implements OnInit, OnDestroy {
     item: any = {};
     itemDoc: AngularFirestoreDocument<Cama>;
     isNew: Boolean = true;
@@ -70,7 +70,10 @@ export class CamaEditComponent implements OnInit {
     listTrabajador: Empleado[];
     listVariedad: Variedad[];
 
-
+    empleadoServiceSubscription: Subscription;
+    naveServiceSubscription: Subscription;
+    variedadServiceSubscription: Subscription;
+    routeSubscription: Subscription;
     constructor(
         private camaService: CamaService,
         private empleadoService: EmpleadoService,
@@ -83,11 +86,17 @@ export class CamaEditComponent implements OnInit {
         // Init list
     }
 
+    ngOnDestroy() {
+        this.empleadoServiceSubscription.unsubscribe();
+        this.naveServiceSubscription.unsubscribe();
+        this.variedadServiceSubscription.unsubscribe();
+        this.routeSubscription.unsubscribe();
+    }
     /**
      * Init
      */
     ngOnInit() {
-        this.route.params.subscribe(param => {
+        this.routeSubscription = this.route.params.subscribe(param => {
             const id: string = param['id'];
             if (id !== 'new') {
                 this.isNew = false;
@@ -99,10 +108,13 @@ export class CamaEditComponent implements OnInit {
             }
             // Get relations
             this.estadoService.list().subscribe(list => this.listEstado = list);
-            this.naveService.list().subscribe(list => this.listNave = list);
-            this.empleadoService.list().subscribe(list => this.listSupervisor = list);
-            this.empleadoService.list().subscribe(list => this.listTrabajador = list);
-            this.variedadService.list().subscribe(list => this.listVariedad = list);
+            this.naveServiceSubscription = this.naveService.list().subscribe(list => this.listNave = list);
+            this.empleadoServiceSubscription = this.empleadoService.listActive().
+                pipe(leftJoinDocument(this.afs, 'user', 'user')).subscribe(list => {
+                    this.listSupervisor = list as Empleado[];
+                    this.listTrabajador = list as Empleado[];
+                });
+            this.variedadServiceSubscription = this.variedadService.list().subscribe(list => this.listVariedad = list);
         });
     }
 

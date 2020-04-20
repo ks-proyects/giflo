@@ -1,64 +1,42 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<div class="main-container" 
-  [ngClass]="{'minisidebar': true, 'boxed': false, 'danger': true }">
+<div [dir]="'ltr'" class="main-container" [ngClass]="{'minisidebar': true, 'boxed': false }">
   <!-- ============================================================== -->
   <!-- Topbar - style you can find in header.scss -->
   <!-- ============================================================== -->
   <mat-toolbar color="primary" class="topbar telative">
     <!-- ============================================================== -->
-    <!-- Logo - style you can find in header.scss -->
-    <!-- ============================================================== -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/admin/home">
-        <!-- Logo icon -->
-        <b>
-          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-          <!-- Light Logo icon -->
-          <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo">
-        </b>
-        <!--End Logo icon -->
-        <!-- Logo text -->
-        <span fxShow="false" fxShow.gt-xs>
-          <!-- Light Logo text -->
-          <img src="assets/images/logo-text.png" class="light-logo" alt="homepage">
-        </span>
-      </a>
-    </div>
-    <!-- ============================================================== -->
     <!-- sidebar toggle -->
     <!-- ============================================================== -->
-
-    <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
+    <button mat-icon-button (click)="snav.toggle() && this.status = !this.status" value="sidebarclosed">
       <mat-icon>menu</mat-icon>
     </button>
     <span fxFlex></span>
     <!-- ============================================================== -->
     <!-- app header component - style you can find in header.scss / header.component.ts-->
     <!-- ============================================================== -->
-    <app-header (logoutOUT)="logout($event)"></app-header>
+    <app-header (logoutOUT)="logout($event)" (changeEmpresaOUT)="changeEmpresa()" [nombreEmpresa]="userInfo?userInfo.empresa:''"></app-header>
   </mat-toolbar>
   <!-- ============================================================== -->
   <!-- End Topbar - style you can find in pages.scss -->
   <!-- ============================================================== -->
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="device.isMovile ? 0 : 0"
     [ngClass]="{'minisidebar': true}">
     <!-- ============================================================== -->
     <!-- Sidebar - style you can find in sidebar.scss -->
     <!-- ============================================================== -->
-    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
-      [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
-      (close)="sidebarOpened = false" [perfectScrollbar]="config">
-
-      <app-sidebar class="app-sidebar" (logoutOUT)="logout($event)" [currentUser]="session.currentUser"></app-sidebar>
+    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="device.activeMinivar ? 'side' : 'over'" fixedTopGap="0"
+      [opened]="device.activeMinivar" [disableClose]="device.activeMinivar" (open)="sidebarOpened = true"
+      (close)="sidebarOpened = true" [perfectScrollbar]="config">
+      <app-sidebar class="app-sidebar" (logoutOUT)="logout($event)"></app-sidebar>
     </mat-sidenav>
     <!-- ============================================================== -->
     <!-- Page container - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''" [perfectScrollbar]="config">
       <app-breadcrumb></app-breadcrumb>
-      <div class="page-content" >
+      <div class="page-content">
         <router-outlet>
           <app-spinner></app-spinner>
         </router-outlet>

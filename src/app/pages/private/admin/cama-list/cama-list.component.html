@@ -2,7 +2,7 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
             <mat-card-content>
-                <div class="bg-light p-10 p-r-20 p-l-20">
+                <div class="bg-primary_lighter p-10 p-r-20 p-l-20">
                     <mat-form-field>
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
                     </mat-form-field>
@@ -29,10 +29,10 @@
                             <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
-                        <ng-container matColumnDef="responsable">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header> Responsable </mat-header-cell>
+                        <ng-container matColumnDef="nave">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Nave </mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                                {{row.trabajador?row.trabajador.nombres + ' ' +row.trabajador.apellidos:''}} </mat-cell>
+                                {{row.nave?row.nave.nombre:''}} </mat-cell>
                         </ng-container>
                         <!-- Name Column -->
                         <ng-container matColumnDef="estado">
@@ -43,12 +43,14 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns;">
                         </mat-row>
                     </mat-table>
-                    <mat-paginator [pageSizeOptions]="[5, 40,50,5]"></mat-paginator>
+                    <mat-paginator [pageSizeOptions]="[5, 20,70,5]"></mat-paginator>
                 </div>
-                <button mat-button routerLink="/admin/camas/new" mat-flat-button color="primary">
-                    <mat-icon>add</mat-icon>
-                </button>
             </mat-card-content>
         </mat-card>
+        <app-toolbar-button>
+            <button mat-button routerLink="/admin/camas/new" mat-flat-button color="primary">
+                <mat-icon>add</mat-icon>
+            </button>
+        </app-toolbar-button>
     </div>
 </div>

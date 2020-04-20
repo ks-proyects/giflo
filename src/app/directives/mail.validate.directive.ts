@@ -13,9 +13,8 @@ export class MailValidator implements Validator {
     // self value (e.g. retype password)
     const mail = control.value;
 
-    const regExpMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    if (!mail) return null;
+    const regExpMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)| (".+"))@((\[[0 - 9]{ 1, 3}\.[0 - 9]{ 1, 3}\.[0 - 9]{ 1, 3}\.[0 - 9]{ 1, 3}\])| (([a - zA - Z\-0 - 9] +\.) + [a - zA - Z]{ 2,})) $ /;
+    if (!mail) { return null; }
 
     if (!regExpMail.test(mail)) {
       this.renderer.addClass(this.elRef.nativeElement, 'is-invalid');

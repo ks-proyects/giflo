@@ -1,100 +1,60 @@
-/*
-Template Name: Material Pro Admin
-Author: Themedesigner
-Email: niravjoshi87@gmail.com
-File: scss
-*/
-// font family, also paste this import into styles.css file.
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
-
-$bodyfont:'Poppins', sans-serif;
-$headingfont:'Poppins', sans-serif; 
-
-@import '~@angular/material/theming';
-
+@import "~@angular/material/theming";
 /*Material Theme Colors*/
+$primary_darker: mat-color($primary, darker);
+$primary_default: mat-color($primary, default);
+$primary_lighter: mat-color($primary, lighter);
 
-$primary: mat-palette($mat-blue, 600);
-$accent: mat-palette($mat-indigo, 500);
-$warn: mat-palette($mat-pink, 500);
-$theme: mat-light-theme($primary, $accent, $warn);
-$background: map-get($theme, background);
-$foreground: map-get($theme, foreground);
+$accent_darker: mat-color($accent, darker);
+$accent_default: mat-color($accent, default);
+$accent_lighter: mat-color($accent, lighter);
 
-// Default Theme
-@include angular-material-theme($theme);
-
-
-// Dark Theme
-
+$warn_darker: mat-color($warn, darker);
+$warn_default: mat-color($warn, default);
+$warn_lighter: mat-color($warn, lighter);
 /*Theme Colors*/
- 
-$topbar: #F44336;
-$sidebar: #fff;
-$sidebar-white: #e5edef;
-$sidebar-alt:#034d66;
-$bodycolor: #eef5f9;
-$headingtext: #455a64;
-$bodytext: #67757c; 
-$sidebar-text: #8f999e;
-$sidebar-icons: #99abb4 ;
+$bodyfont: "Poppins", sans-serif;
+$headingfont: "Poppins", sans-serif;
+$sidebar: $accent_default;
+$sidebar-alt: $accent_default;
+$sidebar-text: $accent_default;
+$sidebar-icons: $accent_darker;
+$bodycolor: $primary_lighter;
+$headingtext:$accent_darker;
+$bodytext: $accent_default;
 
 $font-16: 16px;
-
-$light-text: #a6b7bf;
-$themecolor: #F44336;
-$themecolor-alt: #E53935;
-$themecolor-dark: #E53935;
-
+$themecolor: $accent_default;//Color del titulo de pagina
+$themecolor-alt: $primary_default;//color de modulo selecionado
 /*bootstrap Color*/
-$danger: #9c2b40;
+$inverse: $accent_default;
+$danger: $warn_darker;
 $success: #26c6da;
 $warning: #ffb22b;
-$primary: #7460ee;
+$primary: $primary_default;
 $info: #1e88e5;
-$inverse: #2f3d4a;
-$muted: #99abb4;
-$dark: #263238;
-$light: #f2f4f8;
-$extra-light: #ebf3f5;
-$secondary: #727b84;
-
+$muted:$primary_lighter;
+$extra-light: red;
 /*Light colors*/
-$light-danger: #f9e7eb;
-$light-success: #e8fdf8;
-$light-warning: #fff8ec;
-$light-primary: #f1effd;
-$light-info: #e3f3fd;
-$light-inverse: #f6f6f6;
-$light-megna: #e0f2f4; 
-
-
-
-$danger-dark: #e6294b;
-$success-dark: #1eacbe;
-$warning-dark: #e9ab2e;
-$primary-dark: #6352ce;
-$info-dark: #028ee1;
-$red-dark: #d61f1f;
-$inverse-dark: #232a37;
-$dark-transparent:rgba(0, 0, 0, 0.05);
-
+$light-danger: red;
+$light-success: blue;
+$light-warning: green;
+$light-primary: yelo;
+$light-info: red;
+$light-inverse: red;
+$light-megna: red;
 /*Normal Color*/
-$white: #ffffff;
-$red: #fb3a3a;
-$yellow: #a0aec4;
-$purple: #7460ee;
-$blue: #02bec9;
-$megna: #00897b;
-
+$white: $warn_darker;
+$red: red;
+$purple: red;
+$blue: red;
 /*Extra Variable*/
 $rgt: right;
 $lft: left;
 $border: rgba(120, 130, 140, 0.13);
-$table-border:#f3f1f1;
-$card-brd:#d7dfe3;
-$dark-text: #848a96;
 $radius: 4px;
-$form-brd: #d9d9d9;
 
+$color_blue: red;
+$color_white: red;
+$color_orange: red;
+$color_google_btn: red;
+$color_google_btn_active: red;

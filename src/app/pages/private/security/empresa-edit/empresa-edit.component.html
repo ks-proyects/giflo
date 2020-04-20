@@ -24,7 +24,7 @@
                 <mat-form-field>
                   <mat-select name="user" id="user" [(ngModel)]="item.user" #user="ngModel">
                     <mat-option>-- Ninguno --</mat-option>
-                    <mat-option *ngFor="let item of listUser" [value]="item.id">{{item.name}}</mat-option>
+                    <mat-option *ngFor="let item of listUser" [value]="item.id">{{item.nombres}} {{item.apellidos}}</mat-option>
                   </mat-select>
                   <mat-placeholder>
                     Dueño

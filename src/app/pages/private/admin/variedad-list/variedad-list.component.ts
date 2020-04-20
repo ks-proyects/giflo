@@ -5,10 +5,9 @@ import { Observable } from 'rxjs';
 // Import Services
 import { VariedadService } from '../../../../services/variedad.service';
 // Import Models
-import { Variedad } from '../../../../domain/giflo_db/variedad';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogService } from 'src/app/util/dialog.service';
 import { MatTableDataSource } from '@angular/material';
 import { DialogData } from 'src/app/pages/common/mat-dialog/mat-dialog.component';
 
@@ -43,8 +42,8 @@ export class VariedadListComponent extends ListComponentService implements OnIni
         this.dataSource = new MatTableDataSource([]);
         breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
             this.displayedColumns = result.matches ?
-                ['id', 'nombreComun','color'] :
-                ['id', 'nombreComun','color'];
+                ['id', 'nombreComun', 'color'] :
+                ['id', 'nombreComun', 'color'];
         });
     }
     ngOnInit(): void {

@@ -23,7 +23,6 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection,
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 // CONFIG
-import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Empresa } from '../../domain/giflo_db/empresa';
@@ -70,26 +69,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable()
 export class EmpresaBaseService {
     private empresaCollection: AngularFirestoreCollection<Empresa>;
-    private listUser: Observable<Empresa[]>;
+    private empresaCollectionActive: AngularFirestoreCollection<Empresa>;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
         public afAuth: AngularFireAuth
     ) {
         this.empresaCollection = afs.collection<Empresa>('empresa');
-        this.afAuth.user.subscribe(user => {
-            if (user) {
-                this.listUser = this.afs.collection('empresa', ref => ref.where('user', '==', user.uid)).snapshotChanges().pipe(
-                    map(actions => actions.map(a => {
-                        const data = a.payload.doc.data() as Empresa;
-                        const id = a.payload.doc.id;
-                        return { id, ...data };
-                    }))
-                );
-            } else {
-                this.listUser = new Observable<Empresa[]>(observer => { observer.next([]); });
-            }
-        });
+        this.empresaCollectionActive = this.afs.collection<Empresa>('empresa', ref => ref.where('estado', '==', 'ACT'));
     }
 
 
@@ -131,7 +118,7 @@ export class EmpresaBaseService {
     *
     */
     list(): Observable<Empresa[]> {
-        return this.afs.collection('empresa').snapshotChanges().pipe(
+        return this.empresaCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Empresa;
                 const id = a.payload.doc.id;
@@ -153,8 +140,33 @@ export class EmpresaBaseService {
 
     // Custom APIs
 
-    listByUser(): Observable<Empresa[]> {
-        return this.listUser;
+    listByUser(idUser: string): Observable<Empresa[]> {
+        return this.afs.collection<Empresa>('empresa', ref => ref.where('user', '==', idUser)).snapshotChanges().pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Empresa;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
+    listByUserActive(idUser: string): Observable<Empresa[]> {
+        return this.afs.collection<Empresa>('empresa', ref => ref.where('user', '==', idUser)
+            .where('estado', '==', 'ACT')).snapshotChanges().pipe(
+                map(actions => actions.map(a => {
+                    const data = a.payload.doc.data() as Empresa;
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                }))
+            );
+    }
+    listActive(): Observable<Empresa[]> {
+        return this.empresaCollectionActive.snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Empresa;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
     }
 
 }

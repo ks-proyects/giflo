@@ -17,6 +17,8 @@
  *
  */
 
+import { Empresa } from '../empresa';
+
 /**
  * This is the model of Variedad object
  *
@@ -29,4 +31,5 @@ export interface VariedadBase {
     indicaciones?: string;
     nombreCientifico?: string;
     nombreComun?: string;
+    empresa: Empresa | string;
 }

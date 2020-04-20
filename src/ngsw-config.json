@@ -47,6 +47,39 @@
         "maxSize":100,
         "timeout":"2s"
       }
+    },
+    {
+      "name":"Google Fonts",
+      "urls":[
+        "https://fonts.googleapis.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"performance",
+        "maxAge":"30d",
+        "maxSize":10
+      }
+    },
+    {
+      "name":"GStatic",
+      "urls":[
+        "https://www.gstatic.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"performance",
+        "maxAge":"30d",
+        "maxSize":100
+      }
+    },
+    {
+      "name":"FCM",
+      "urls":[
+        "https://fcm.googleapis.com/**"
+      ],
+      "cacheConfig":{
+        "strategy":"performance",
+        "maxAge":"2h",
+        "maxSize":100
+      }
     }
   ]
 }

@@ -4,10 +4,10 @@ import {
   FormBuilder,
   FormGroup,
   Validators,
-  FormControl
 } from '@angular/forms';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { DeviceService } from 'src/app/shared/device.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,11 @@ export class LoginComponent implements OnInit {
   hide = true;
   public form: FormGroup;
   public config: PerfectScrollbarConfigInterface = {};
-  constructor(private fb: FormBuilder, private router: Router, public authSer: AuthenticationService) { }
+  constructor(
+    private fb: FormBuilder, private router: Router,
+    public authSer: AuthenticationService,
+    public device: DeviceService) {
+  }
 
   ngOnInit() {
     this.form = this.fb.group({

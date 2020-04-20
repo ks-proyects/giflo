@@ -2,7 +2,7 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" [perfectScrollbar]="config">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
         <div class="mat-toolbar-header">
             <div class="navbar-header">
@@ -13,7 +13,7 @@
                         <!-- Light Logo icon -->
                         <img src="assets/images/logo-light-icon.png" alt="homepage" class="dark-logo">
                         <!-- Light Logo icon -->
-                        <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo">
+                        <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo">
                     </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
@@ -21,7 +21,7 @@
                         <!-- Light Logo text -->
                         <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
                         <!-- Light Logo text -->
-                        <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage">
+                        <img src="assets/images/logo-text.png" class="light-logo" alt="homepage">
                     </span>
                 </a>
             </div>
@@ -41,7 +41,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" [routerLink]="['/admin', 'bloques']">Ingresar</a>
+                    <a class="nav-link js-scroll-trigger" [routerLink]="['/home', 'index']">Ingresar</a>
                 </li>
             </ul>
         </div>
@@ -53,7 +53,7 @@
             <div class="col-lg-7 my-auto">
                 <div class="header-content mx-auto">
                     <h1 class="mb-5">Sistema de Gestión Floricola</h1>
-                    <a [routerLink]="['/admin', 'bloques']"
+                    <a [routerLink]="['/home', 'index']"
                         class="btn btn-outline btn-xl js-scroll-trigger">Ingresar</a>
                 </div>
             </div>
@@ -63,7 +63,12 @@
                         <div class="device">
                             <div class="screen">
                                 <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
-                                <img src="assets/images/landing-page/rosa.png" class="img-fluid" alt="">
+                                <picture>
+                                    <source media="(min-width: 500px)" srcset="assets/images/landing-page/rosa.png">
+                                    <source media="(max-width: 501px)"
+                                        srcset="assets/images/landing-page/rosa-movile.png">
+                                    <img src="assets/images/landing-page/rosa-movile.png" alt="Rosa del campo">
+                                </picture>
                             </div>
                         </div>
                     </div>
@@ -94,7 +99,12 @@
                     <div class="device-mockup iphone6_plus portrait white">
                         <div class="device">
                             <div class="screen">
-                                 <img src="assets/images/landing-page/demo-screen-1.jpg" class="img-fluid" alt="">
+                                <picture>
+                                    <source media="(min-width: 500px)" srcset="assets/images/landing-page/screen-1.jpg">
+                                    <source media="(max-width: 501px)"
+                                        srcset="assets/images/landing-page/screen-1-movil.jpg">
+                                    <img src="assets/images/landing-page/screen-1-movil.jpg" alt="Rosa del campo">
+                                </picture>
                             </div>
                         </div>
                     </div>
@@ -107,14 +117,16 @@
                             <div class="feature-item">
                                 <i class="icon-screen-smartphone text-primary"></i>
                                 <h3>Rosas Eternas</h3>
-                                <p class="text-muted">Mira lod diferentes colores variedades de nuestras rosas eternas.</p>
+                                <p class="text-muted">Mira lod diferentes colores variedades de nuestras rosas eternas.
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="feature-item">
                                 <i class="icon-camera text-primary"></i>
                                 <h3>Nuevas Variedades</h3>
-                                <p class="text-muted">Visita nuestra finca y enamorate nuestras nuevas variedades en rosas.
+                                <p class="text-muted">Visita nuestra finca y enamorate nuestras nuevas variedades en
+                                    rosas.
                                 </p>
                             </div>
                         </div>
@@ -132,7 +144,8 @@
                             <div class="feature-item">
                                 <i class="icon-lock-open text-primary"></i>
                                 <h3>Rosas Frosty</h3>
-                                <p class="text-muted">Alegra con rosas Frosty la conquista de los momentos más importantes.</p>
+                                <p class="text-muted">Alegra con rosas Frosty la conquista de los momentos más
+                                    importantes.</p>
                             </div>
                         </div>
                     </div>

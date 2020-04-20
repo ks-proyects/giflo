@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-
-import { MenuItems } from './menu-items/menu-items';
+import { MenuItems } from '../util/menu-items/menu-items';
 import {
   AccordionAnchorDirective,
   AccordionLinkDirective,
   AccordionDirective
 } from './accordion';
 import { SearchPipe } from '../pipes/search.pipe';
-
 @NgModule({
   declarations: [
     AccordionAnchorDirective,
@@ -20,7 +18,8 @@ import { SearchPipe } from '../pipes/search.pipe';
     AccordionLinkDirective,
     AccordionDirective,
     SearchPipe
+
   ],
   providers: [MenuItems]
 })
-export class SharedModule {}
+export class SharedModule { }

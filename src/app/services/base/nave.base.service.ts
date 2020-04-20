@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Nave } from '../../domain/giflo_db/nave';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Nave.service.ts
@@ -62,12 +63,17 @@ import { Nave } from '../../domain/giflo_db/nave';
 @Injectable()
 export class NaveBaseService {
 
+    private idEmpresa: string;
     private naveCollection: AngularFirestoreCollection<Nave>;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private session: SessionService
     ) {
-        this.naveCollection = afs.collection<Nave>('nave');
+        session.getUserInfo().subscribe(ui => {
+            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+            this.naveCollection = afs.collection<Nave>('nave', ref => ref.where('empresa', '==', this.idEmpresa));
+        });
     }
 
 
@@ -79,6 +85,7 @@ export class NaveBaseService {
     *
     */
     create(item: Nave): Promise<DocumentReference> {
+        item.empresa = this.idEmpresa;
         return this.naveCollection.add(item);
     }
 
@@ -109,7 +116,7 @@ export class NaveBaseService {
     *
     */
     list(): Observable<Nave[]> {
-        return this.afs.collection('nave').snapshotChanges().pipe(
+        return this.naveCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Nave;
                 const id = a.payload.doc.id;

@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Bloque } from '../../domain/giflo_db/bloque';
+import { SessionService } from '../session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Bloque.service.ts
@@ -66,11 +67,16 @@ import { Bloque } from '../../domain/giflo_db/bloque';
 export class BloqueBaseService {
 
     private bloqueCollection: AngularFirestoreCollection<Bloque>;
+    private idEmpresa: string;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions
+        private fns: AngularFireFunctions,
+        private session: SessionService
     ) {
-        this.bloqueCollection = afs.collection<Bloque>('bloque');
+        session.getUserInfo().subscribe(ui => {
+            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+            this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', this.idEmpresa));
+        });
     }
 
 
@@ -82,6 +88,7 @@ export class BloqueBaseService {
     *
     */
     create(item: Bloque): Promise<DocumentReference> {
+        item.empresa = this.idEmpresa;
         return this.bloqueCollection.add(item);
     }
 
@@ -112,7 +119,7 @@ export class BloqueBaseService {
     *
     */
     list(): Observable<Bloque[]> {
-        return this.afs.collection('bloque').snapshotChanges().pipe(
+        return this.bloqueCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
                 const data = a.payload.doc.data() as Bloque;
                 const id = a.payload.doc.id;

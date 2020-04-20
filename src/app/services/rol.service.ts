@@ -15,31 +15,37 @@ import { Rol } from '../domain/giflo_db/rol';
 /**
  * YOU CAN OVERRIDE HERE RolBaseService
  */
+export declare const ROL_CULTIVADOR = 'CULT';
+
 export class RolService extends RolBaseService {
+
     init() {
         this.list().subscribe((rols: Rol[]) => {
             if (rols.length === 0) {
-                let item: Rol = {id : 'DEF', nombre: 'DEFAULT', activo: 'ACT'};
+                let item: Rol = { id: 'DEF', nombre: 'DEFAULT', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'GER', nombre: 'GERENTE', activo: 'ACT'};
+                item = { id: 'GER', nombre: 'GERENTE', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'CULT', nombre: 'CULTIVADOR', activo: 'ACT'};
+                item = { id: ROL_CULTIVADOR, nombre: 'CULTIVADOR', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'POST', nombre: 'POSTCOSECHA', activo: 'ACT'};
+                item = { id: 'POST', nombre: 'POSTCOSECHA', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'FUMN', nombre: 'FUNIGADORES', activo: 'ACT'};
+                item = { id: 'FUMN', nombre: 'FUNIGADORES', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'COCH', nombre: 'COCHEROS', activo: 'ACT'};
+                item = { id: 'COCH', nombre: 'COCHEROS', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'SUPCU', nombre: 'SUPERVISOR DE CULTIVO', activo: 'ACT'};
+                item = { id: 'SUPCU', nombre: 'SUPERVISOR DE CULTIVO', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'SUPPOST', nombre: 'SUPERVISOR DE POSTCOSECHA', activo: 'ACT'};
+                item = { id: 'SUPPOST', nombre: 'SUPERVISOR DE POSTCOSECHA', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'VEND', nombre: 'VENDEDOR', activo: 'ACT'};
+                item = { id: 'VEND', nombre: 'VENDEDOR', activo: 'ACT' };
                 this.create(item);
-                item = {id : 'ADM', nombre: 'ADMINISTRADOR', activo: 'ACT'};
+                item = { id: 'ADM', nombre: 'ADMINISTRADOR', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'SUPERADMIN', nombre: 'SUPERADMIN', activo: 'ACT' };
                 this.create(item);
             }
         });
     }
+    
 }

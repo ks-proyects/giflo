@@ -1,13 +1,13 @@
-import { Component, ViewChild, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 // Import Services
 import { BloqueService } from '../../../../services/bloque.service';
 // Import Models
 import { Bloque } from '../../../../domain/giflo_db/bloque';
-import { MatTableDataSource, MatSort, MatPaginator, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -59,11 +59,11 @@ export class BloqueListComponent extends ListComponentService implements OnInit 
       }
       );
   }
-  openConfirm(action, id) {
-    const dialogData: DialogData = { id: id, action: action, msg: 'Desea eliminar el regestro' };
+  openConfirm(actionInput, idInput) {
+    const dialogData: DialogData = { id: idInput, action: actionInput, msg: 'Desea eliminar el regestro' };
     const dialogRef = this.disSer.openDialog(dialogData);
     dialogRef.afterClosed().subscribe(result => {
-      if (result.event == 'Delete') {
+      if (result.event === 'Delete') {
         this.bloqueService.remove(result.data.id);
       }
     });

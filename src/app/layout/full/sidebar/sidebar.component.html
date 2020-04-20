@@ -8,24 +8,11 @@
     </div>
     <!-- User profile text-->
     <!-- ============================================================== -->
-    <!-- Profile - style you can find in header.scss -->
+    <!-- Name Company - style you can find in header.scss -->
     <!-- ============================================================== -->
     <div class="profile-text">
-        <a [matMenuTriggerFor]="sdprofile" class=""> {{currentUser?currentUser.name:''}}
-            <i class="ti-angle-down font-12 m-l-5"></i>
-        </a>
+        <span>{{user?user.nombres+' '+user.apellidos:''}}</span>
     </div>
-    <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item  [routerLink]="['/home', 'setting']">
-            <mat-icon>settings</mat-icon>Configuración
-        </button>
-        <button mat-menu-item [routerLink]="['/home', 'profile']">
-            <mat-icon>account_box</mat-icon> Perfil
-        </button>
-        <button mat-menu-item (click)="logoutOUT.emit()">
-            <mat-icon>exit_to_app</mat-icon> Salir
-        </button>
-    </mat-menu>
 </div>
 
 <mat-nav-list appAccordion>
@@ -37,7 +24,6 @@
             <span fxFlex></span>
             <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-
         <a class="" appAccordionToggle href="{{menuitem.state}}" *ngIf="menuitem.type === 'extLink'">
             <mat-icon>{{ menuitem.icon }}</mat-icon>
             <span>{{ menuitem.name }}</span>
@@ -50,7 +36,6 @@
             <span fxFlex></span>
             <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-
         <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub'">
             <mat-icon>{{ menuitem.icon }}</mat-icon>
             <span>{{ menuitem.name }}</span>
@@ -77,9 +62,7 @@
                     </mat-list-item>
                 </mat-nav-list>
             </mat-list-item>
-
         </mat-nav-list>
-
         <div class="saperator text-muted" *ngIf="menuitem.type === 'saperator'">
             <span>{{ menuitem.name }}</span>
         </div>

@@ -1,0 +1,13 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expanded">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-warn_darker">{{title}}</mat-panel-title>
+      <mat-panel-description style="flex-grow:0;">
+        <mat-icon>{{icon}}</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div fxLayout="row wrap">
+      <ng-content></ng-content>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

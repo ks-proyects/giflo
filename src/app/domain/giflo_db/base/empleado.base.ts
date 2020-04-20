@@ -16,11 +16,9 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
-import { Contacto } from '../contacto';
-import { Direccion } from '../direccion';
+
 import { Empresa } from '../empresa';
 import { Estado } from '../estado';
-import { EstadoCivil } from '../estado-civil';
 import { Rol } from '../rol';
 import { User } from '../user';
 
@@ -31,24 +29,12 @@ import { User } from '../user';
 export interface EmpleadoBase {
 
     id: string;
-    apellidos?: string;
-    fechaNacimiento?: Date;
-    identificacion?: string;
-    nombres?: string;
-    tipoIdentificacion?: string;
-    urlFoto?: string;
-    // Relations contacto
-    contacto: Contacto | string;
-    // Relations direccion
-    direccion: Direccion | string;
     // Relations empresa
     empresa: Empresa | string;
     // Relations estado
     estado: Estado | string;
-    // Relations estadoCivil
-    estadoCivil: EstadoCivil | string;
     // Relations rol
-    rol: Rol | string;
+    roles: Rol[] | string[];
     // Relations user
     user: User | string;
 }

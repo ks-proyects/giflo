@@ -19,14 +19,14 @@ export class MatDialogComponent implements OnInit {
   action: string;
   local_data: any;
 
-  
+
   constructor(
     public dialogRef: MatDialogRef<MatDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.local_data = { ...data };
     this.action = this.local_data.action;
-   }
+  }
 
   ngOnInit() {
   }

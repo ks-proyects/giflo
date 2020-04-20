@@ -6,6 +6,7 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+import { AuthenticationService } from 'src/app/security/authentication.service';
 
 @Component({
   selector: 'app-forgot',
@@ -14,7 +15,7 @@ import {
 })
 export class ForgotComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, public authSer: AuthenticationService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -26,6 +27,10 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['/authentication/login']);
+    try {
+      this.authSer.resetPasswordInit(this.form.value.email).then(daa => this.router.navigate(['/authentication/login']));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

@@ -4,52 +4,53 @@ import { AngularFirestore, DocumentReference, AngularFirestoreCollection } from 
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Pagina } from '../domain/giflo_db/pagina';
 import { Injectable } from '@angular/core';
+import { MenuItemService } from './menu-item.service';
+import { MenuItem } from '../domain/giflo_db/menu-item';
+import { RolService } from './rol.service';
+import { Rol } from '../domain/giflo_db/rol';
 @Injectable()
 export class PaginaService extends PaginaBaseService {
 
-    private paginaCollection2: AngularFirestoreCollection<Pagina>;
+    private paginaCustomCollection: AngularFirestoreCollection<Pagina>;
     constructor(
         private afs2: AngularFirestore,
-        private fns2: AngularFireFunctions
+        private fns2: AngularFireFunctions,
+        private mis: MenuItemService,
+        private rs: RolService
     ) {
         super(afs2, fns2);
-        this.paginaCollection2 = afs2.collection<Pagina>('pagina');
+        this.paginaCustomCollection = afs2.collection<Pagina>('pagina');
     }
     init() {
         this.list().subscribe((rols: Pagina[]) => {
             if (rols.length === 0) {
-                let item: Pagina = { id: 'home', component: 'Home', path: '/home', estado: 'ACT', seccion: 'admin' };
-                this.create2(item);
-                item = { id: 'bloques', component: 'Bloques', path: '/bloques', estado: 'ACT', seccion: 'admin' };
-                this.create2(item);
-                item = { id: 'naves', component: 'Naves', path: '/naves', estado: 'ACT', seccion: 'admin' };
-                this.create2(item);
-                item = { id: 'camas', component: 'Camas', path: '/camas', estado: 'ACT', seccion: 'admin' };
-                this.create2(item);
-                item = { id: 'variedads', component: 'Variedads', path: '/variedads', estado: 'ACT', seccion: 'admin' };
-                this.create2(item);
-
-                item = { id: 'empleados', component: 'Empleados', path: '/empleados', estado: 'ACT', seccion: 'management' };
-                this.create2(item);
-
-                item = { id: 'estadocivils', component: 'Estadocivils', path: '/estadocivils', estado: 'ACT', seccion: 'catalog' };
-                this.create2(item);
-                item = { id: 'estados', component: 'Estados', path: '/estados', estado: 'ACT', seccion: 'catalog' };
-                this.create2(item);
-
-                item = { id: 'empresas', component: 'Empresas', path: '/empresas', estado: 'ACT', seccion: 'security' };
-                this.create2(item);
-                item = { id: 'menuitems', component: 'Menuitems', path: '/menuitems', estado: 'ACT', seccion: 'security' };
-                this.create2(item);
-                item = { id: 'paginas', component: 'Paginas', path: '/paginas', estado: 'ACT', seccion: 'security' };
-                this.create2(item);
-                item = { id: 'rols', component: 'Rols', path: '/rols', estado: 'ACT', seccion: 'security' };
-                this.create2(item);
+                this.rs.get('SUPERADMIN').valueChanges().subscribe(rol => {
+                    this.createPaginaMenu('home', 'home', 'Inicio', '/index', rol);
+                    this.createPaginaMenu('catalog', 'estadocivils', 'Estados Civiles', '/estadocivils', rol);
+                    this.createPaginaMenu('catalog', 'estados', 'Estados', '/estados', rol);
+                    this.createPaginaMenu('security', 'empresas', 'Empresas', '/empresas', rol);
+                    this.createPaginaMenu('security', 'paginas', 'Paginas', '/paginas', rol);
+                    this.createPaginaMenu('security', 'rols', 'Roles', '/rols', rol);
+                });
+                this.rs.get('GER').valueChanges().subscribe(rol => {
+                    this.createPaginaMenu('home', 'home', 'Inicio', '/index', rol);
+                    this.createPaginaMenu('admin', 'bloques', 'Bloques', '/bloques', rol);
+                    this.createPaginaMenu('admin', 'naves', 'Naves', '/naves', rol);
+                    this.createPaginaMenu('admin', 'camas', 'Camas', '/camas', rol);
+                    this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedades', rol);
+                    this.createPaginaMenu('management', 'empleados', 'Empleados', '/empleados', rol);
+                    this.createPaginaMenu('security', 'menuitems', 'Menú Items', '/menuitems', rol);
+                });
             }
         });
     }
-    create2(item: Pagina): Promise<void> {
-        return this.paginaCollection2.doc(item.id).set(item);
+    createPaginaMenu(seccionP: string, idP: string, componentP: string, pathP: string, rolP: Rol) {
+        const item: any = { id: idP, component: componentP, path: pathP, estado: 'ACT', seccion: seccionP };
+        this.paginaCustomCollection.doc(item.id).set(item);
+        const mi: any = { pagina: item.id, rol: rolP.id, estado: true };
+        this.mis.createCustom(mi);
     }
+
+
 
 }

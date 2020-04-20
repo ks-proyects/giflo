@@ -18,6 +18,7 @@
  */
 import { Bloque } from '../bloque';
 import { Estado } from '../estado';
+import { Empresa } from '../empresa';
 
 /**
  * This is the model of Nave object
@@ -32,4 +33,5 @@ export interface NaveBase {
     bloque: Bloque | string;
     // Relations estado
     estado: Estado | string;
+    empresa: Empresa | string;
 }

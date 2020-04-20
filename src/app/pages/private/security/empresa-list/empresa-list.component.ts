@@ -8,7 +8,7 @@ import { EmpresaService } from '../../../../services/empresa.service';
 import { Empresa } from '../../../../domain/giflo_db/empresa';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DialogService } from 'src/app/shared/dialog.service';
+import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
 

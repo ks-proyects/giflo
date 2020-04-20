@@ -1,20 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
-import {
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTableModule,
-  MatIconModule,
-  MatButtonModule,
-  MatSelectModule,
-  MatDialogModule,
-} from '@angular/material';
-
 import { BloqueEditComponent } from './bloque-edit/bloque-edit.component';
 import { BloqueListComponent } from './bloque-list/bloque-list.component';
 import { CamaEditComponent } from './cama-edit/cama-edit.component';
@@ -23,25 +9,18 @@ import { NaveEditComponent } from './nave-edit/nave-edit.component';
 import { NaveListComponent } from './nave-list/nave-list.component';
 import { VariedadEditComponent } from './variedad-edit/variedad-edit.component';
 import { VariedadListComponent } from './variedad-list/variedad-list.component';
-import { AdminRoutingModule } from './admin-routing.module';
-import { PrivateComponent } from '../private.component';
+import { routesAdmin } from './admin-routing.module';
+import { UtilModule } from 'src/app/util/util.module';
+import { CoreMaterialModule } from 'src/app/core.material.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    AdminRoutingModule,
+    RouterModule.forChild(routesAdmin),
     CommonModule,
+    CoreMaterialModule,
+    UtilModule,
     FormsModule,
-    SharedModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatSortModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatDialogModule
   ],
   declarations: [
     BloqueEditComponent,
@@ -51,8 +30,7 @@ import { PrivateComponent } from '../private.component';
     NaveEditComponent,
     NaveListComponent,
     VariedadEditComponent,
-    VariedadListComponent,
-    PrivateComponent
+    VariedadListComponent
   ]
 })
 export class AdminModule { }

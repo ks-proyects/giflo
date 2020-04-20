@@ -2,7 +2,7 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
             <mat-card-content>
-                <div class="bg-light p-10 p-r-20 p-l-20">
+                <div class="bg-primary_lighter p-10 p-r-20 p-l-20">
                     <mat-form-field>
                         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
                     </mat-form-field>
@@ -46,10 +46,12 @@
                     </mat-table>
                     <mat-paginator [pageSizeOptions]="[5, 50,40,10]"></mat-paginator>
                 </div>
-                <button mat-button routerLink="/security/menuitems/new" mat-flat-button color="primary">
-                    <mat-icon>add</mat-icon>
-                </button>
             </mat-card-content>
         </mat-card>
+        <app-toolbar-button>
+            <button mat-button routerLink="/security/menuitems/new" mat-flat-button color="primary">
+                <mat-icon>add</mat-icon>
+            </button>
+        </app-toolbar-button>
     </div>
 </div>

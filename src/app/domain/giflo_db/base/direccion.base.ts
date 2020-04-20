@@ -17,6 +17,10 @@
  *
  */
 
+import { User } from '../user';
+
+
+
 /**
  * This is the model of Direccion object
  *
@@ -29,4 +33,9 @@ export interface DireccionBase {
     calleSecundaria?: string;
     codigoPostal?: number;
     referencia?: string;
+    tipo: string;
+    user: User | string;
+    telefono: string;
+    celular: string;
+    extension: number;
 }

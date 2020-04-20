@@ -15,7 +15,7 @@ import {
       </div>
     </div>`,
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./spinner.component.css']
+  styleUrls: []
 })
 export class SpinnerComponent implements OnInit {
   public isSpinnerVisible = true;
@@ -36,7 +36,7 @@ export class SpinnerComponent implements OnInit {
         this.isSpinnerVisible = false;
       }
     );
-   }
+  }
 
   ngOnInit() {
     this.isSpinnerVisible = false;

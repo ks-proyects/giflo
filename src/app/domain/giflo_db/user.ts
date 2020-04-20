@@ -9,7 +9,8 @@ export interface User extends UserBase {
 
     // Functions for User
 
-    token: string[];
+    token?: string[];
+    rolesStr?: string;
 
     // UTILS FUNCTIONS
 

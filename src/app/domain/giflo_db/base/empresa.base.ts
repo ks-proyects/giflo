@@ -27,10 +27,12 @@ export interface EmpresaBase {
 
     id: string;
     nombre?: string;
+    nombreLargo?: string;
     ruc?: string;
     urlLogo?: string;
     // Relations estado
     estado: Estado | string;
     // Relations user
     user: User | string;
+    codigoActivacion: string;
 }

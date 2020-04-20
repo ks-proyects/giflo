@@ -1,0 +1,151 @@
+<div fxLayout="row wrap" *ngIf="item">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card class="p-b-40">
+            <mat-card-content>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- basic-form ============================================================== -->
+                <form #editForm="ngForm" [ngClass]="{'was-validated': formValid!=null}">
+                    <div fxLayout="row wrap" fxLayoutGap.gt-sm="5px" fxLayoutGap.gt-xs="5px" fxLayoutGap="0px"
+                        fxFlexAlign="center">
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field *ngIf="!device.isMovile">
+                                <mat-select name="tipoIdentificacion" id="tipoIdentificacion"
+                                    #tipoIdentificacion="ngModel" [(ngModel)]="item.tipoIdentificacion">
+                                    <mat-option *ngFor="let tid of listTipoIdentificacio" [value]="tid.value">
+                                        {{tid.label}}</mat-option>
+                                </mat-select>
+                                <mat-placeholder>Tipo de Identificación</mat-placeholder>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="device.isMovile">
+                                <mat-label>Tipo de Identificación</mat-label>
+                                <select matNativeControl name="tipoIdentificacion" id="tipoIdentificacion"
+                                    #tipoIdentificacion="ngModel" [(ngModel)]="item.tipoIdentificacion">
+                                    <option *ngFor="let tid of listTipoIdentificacio" [value]="tid.value">
+                                        {{tid.label}}
+                                    </option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <input type="tel" matInput [(ngModel)]="item.identificacion" name="identificacion"
+                                    #identificacion="ngModel" [placeholder]="item.tipoIdentificacion">
+                                <button mat-button *ngIf="item.identificacion" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.identificacion=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Nombres" [(ngModel)]="item.nombres" name="nombres"
+                                    #nombres="ngModel">
+                                <button mat-button *ngIf="item.nombres" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="item.nombres=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <input matInput placeholder="Apellido" [(ngModel)]="item.apellidos" name="apellidos"
+                                    #apellidos="ngModel">
+                                <button mat-button *ngIf="item.apellidos" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="item.apellidos=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <!-- column -->
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Fecha de Nacimiento</mat-label>
+                                <input matInput [matDatepicker]="fechaNac" [max]="maxDate"
+                                    [value]="item.fechaNacimiento" [(ngModel)]="item.fechaNacimiento"
+                                    name="fechaNacimiento" #fechaNacimiento="ngModel">
+                                <button mat-button *ngIf="item.fechaNacimiento" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.fechaNacimiento=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-datepicker-toggle matSuffix [for]="fechaNac"></mat-datepicker-toggle>
+                                <mat-datepicker [touchUi]="device.isMovile" startView="multi-year" #fechaNac></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field *ngIf="!device.isMovile">
+                                <mat-select name="estadoCivil" id="estadoCivil" #estadoCivil="ngModel"
+                                    [(ngModel)]="item.estadoCivil">
+                                    <mat-option *ngFor="let tid of listEstadoCivil" [value]="tid">
+                                        {{tid.nombre}}</mat-option>
+                                </mat-select>
+                                <mat-placeholder>Estado Civil</mat-placeholder>
+                            </mat-form-field>
+                            <mat-form-field *ngIf="device.isMovile">
+                                <mat-label>Estado Civil</mat-label>
+                                <select matNativeControl name="estadoCivil" id="estadoCivil" #estadoCivil="ngModel"
+                                    [(ngModel)]="item.estadoCivil">
+                                    <option *ngFor="let tid of listEstadoCivil" [value]="tid.id">
+                                        {{tid.nombre}}
+                                    </option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div fxLayout="row wrap" fxLayoutGap.gt-sm="5px" fxLayoutGap.gt-xs="5px" fxLayoutGap="0px"
+                        class="m-t-20" fxFlexAlign="center">
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Correo Electrónico</mat-label>
+                                <input type="email" matInput placeholder="Ejm: dayana@gmail.com"
+                                    [(ngModel)]="item.email" name="email" #email="ngModel">
+                                <button mat-button *ngIf="item.email" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.email=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>mail_outline</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Célular</mat-label>
+                                <span matPrefix>+593 &nbsp;</span>
+                                <input type="tel" matInput placeholder="Ejm: 988692360"
+                                    [(ngModel)]="item.celular" name="celular" #celular="ngModel">
+                                <button mat-button *ngIf="item.celular" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.celular=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>stay_current_portrait</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="47" fxFlex.gt-xs="47" fxFlex="100">
+                            <mat-form-field>
+                                <mat-label>Teléfono</mat-label>
+                                <span matPrefix>+593 &nbsp;</span>
+                                <input type="tel" matInput placeholder="Ejm: 222366358"
+                                    [(ngModel)]="item.telefono" name="telefono" #telefono="ngModel">
+                                <button mat-button *ngIf="item.telefono" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="item.contacto.telefono=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-icon matSuffix>phone</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <app-toolbar-button>
+            <button mat-raised-button color="secondary" (click)="save(editForm.valid)">Guardar
+                <mat-icon>done_all</mat-icon>
+            </button>
+            <button mat-raised-button color="secondary" (click)="goBack()">Cerrar
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+        </app-toolbar-button>
+    </div>
+</div>
