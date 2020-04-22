@@ -28,7 +28,14 @@ import { ProduccionDirective } from 'src/app/directives/produccion.directive';
 import { ProduccionNaveComponent } from './produccion-nave/produccion-nave.component';
 import { ProduccionComponent } from './produccion/produccion.component';
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 @NgModule({
   imports: [
     RouterModule.forChild(routesHome),
@@ -38,7 +45,8 @@ import { ProduccionComponent } from './produccion/produccion.component';
     FlexLayoutModule,
     CoreMaterialModule,
     ChartistModule,
-    ChartsModule
+    ChartsModule,
+    SwiperModule
   ],
   entryComponents: [
     AddressDialogComponent,
@@ -72,6 +80,13 @@ import { ProduccionComponent } from './produccion/produccion.component';
     ProduccionDirective,
     ProduccionComponent,
     ProduccionNaveComponent
-  ], exports: []
+  ],
+  exports: [],
+  providers: [
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    }
+  ]
 })
 export class HomeModule { }
