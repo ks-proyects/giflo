@@ -49,7 +49,7 @@ export const leftJoin = (
         }),
         tap(final => {
           console.log(
-            `Queried ${(final as any).length}, Joined ${totalJoins} docs`
+            `Registros ${(final as any).length}, Joined ${totalJoins} docs`
           );
           totalJoins = 0;
         })
@@ -110,7 +110,7 @@ export const leftJoinDocument = (afs: AngularFirestore, field, collection) => {
         }),
         tap(final =>
           console.log(
-            `Queried ${(final as any).length}, Joined ${cache.size} docs`
+            `Registros ${(final as any).length}, Joined ${cache.size} docs`
           )
         )
       );

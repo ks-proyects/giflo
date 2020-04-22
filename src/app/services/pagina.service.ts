@@ -34,21 +34,24 @@ export class PaginaService extends PaginaBaseService {
                 });
                 this.rs.get('GER').valueChanges().subscribe(rol => {
                     this.createPaginaMenu('home', 'home', 'Inicio', '/index', rol);
-                    this.createPaginaMenu('admin', 'bloques', 'Bloques', '/bloques', rol);
-                    this.createPaginaMenu('admin', 'naves', 'Naves', '/naves', rol);
-                    this.createPaginaMenu('admin', 'camas', 'Camas', '/camas', rol);
-                    this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedades', rol);
                     this.createPaginaMenu('management', 'empleados', 'Empleados', '/empleados', rol);
                     this.createPaginaMenu('security', 'menuitems', 'Menú Items', '/menuitems', rol);
                 });
+                this.createPaginaMenu('admin', 'bloques', 'Bloques', '/bloques');
+                this.createPaginaMenu('admin', 'naves', 'Naves', '/naves');
+                this.createPaginaMenu('admin', 'camas', 'Camas', '/camas');
+                this.createPaginaMenu('admin', 'variedades', 'Variedades', '/variedades');
+                this.createPaginaMenu('home', 'produccion', 'Producción', '/produccion');
             }
         });
     }
-    createPaginaMenu(seccionP: string, idP: string, componentP: string, pathP: string, rolP: Rol) {
+    createPaginaMenu(seccionP: string, idP: string, componentP: string, pathP: string, rolP?: Rol) {
         const item: any = { id: idP, component: componentP, path: pathP, estado: 'ACT', seccion: seccionP };
         this.paginaCustomCollection.doc(item.id).set(item);
-        const mi: any = { pagina: item.id, rol: rolP.id, estado: true };
-        this.mis.createCustom(mi);
+        if (rolP) {
+            const mi: any = { pagina: item.id, rol: rolP.id, estado: true };
+            this.mis.createCustom(mi);
+        }
     }
 
 

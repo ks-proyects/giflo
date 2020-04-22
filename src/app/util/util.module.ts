@@ -14,23 +14,26 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewReadonlyComponent } from './view-readonly/view-readonly.component';
 import { SectionViewComponent } from './section-view/section-view.component';
 import { CoreMaterialModule } from '../core.material.module';
+import { SpinnerComponent } from '../shared/spiner/spinner.component';
 
 @NgModule({
   declarations: [
     ToolbarButtonComponent,
     ViewReadonlyComponent,
-    SectionViewComponent
+    SectionViewComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
     CoreMaterialModule,
     FormsModule,
-    FlexLayoutModule,
+    FlexLayoutModule
   ],
   exports: [
     ToolbarButtonComponent,
     ViewReadonlyComponent,
-    SectionViewComponent
+    SectionViewComponent,
+    SpinnerComponent
   ]
 })
 export class UtilModule { }

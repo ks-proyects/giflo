@@ -45,4 +45,8 @@ export interface UserBase {
     estado?: Estado | string;
     // Relations estadoCivil
     estadoCivil?: EstadoCivil | string;
+    currentIdEmpresa?: string;
+    currentEmpresa?: string;
+    currentEmpleado?: string;
+    currentTipo?: string;
 }

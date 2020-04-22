@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProduccionService } from 'src/app/services/produccion.service';
+import { ProduccionDtoService } from 'src/app/services/produccion-dto.service';
 
 @Component({
   selector: 'app-cultivo',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CultivoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private produccionDtoService: ProduccionDtoService) { }
 
   ngOnInit() {
   }

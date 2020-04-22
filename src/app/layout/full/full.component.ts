@@ -15,10 +15,9 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Empleado } from 'src/app/domain/giflo_db/empleado';
-import { UserInfo } from 'src/app/domain/dto/user-info';
 import { Subscription } from 'rxjs';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
-import { User } from 'src/app/domain/giflo_db/user';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-blank',
   templateUrl: './full.component.html',
@@ -33,10 +32,9 @@ export class FullComponent implements OnDestroy, OnInit {
   private userInfoSuscription: Subscription;
   private empresaSuscription: Subscription;
   private empresaEmpleadoSuscription: Subscription;
-  private user: User;
+  public user: any = { id: '', currentEmpresa: '' };
   private listaEmpresas: Empresa[];
   private listaEmpleados: Empleado[];
-  public userInfo: UserInfo = {};
   private isOpenDialog = false;
   constructor(
     private auth: AuthenticationService,
@@ -46,7 +44,8 @@ export class FullComponent implements OnDestroy, OnInit {
     public empleadoService: EmpleadoService,
     public empresaService: EmpresaService,
     private afs: AngularFirestore,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService
   ) {
   }
   ngOnDestroy(): void {
@@ -70,18 +69,18 @@ export class FullComponent implements OnDestroy, OnInit {
           });
       }
     });
-    this.userInfoSuscription = this.sessionService.getUserInfo().subscribe(userInfo => {
-      this.userInfo = userInfo;
-      this.openDialog();
+    this.userInfoSuscription = this.sessionService.getBrowserInfo().subscribe(userInfo => {
+      console.log(userInfo);
     });
   }
 
   logout(event: any): void {
+    sessionStorage.clear();
     this.auth.logout();
   }
 
   openDialog() {
-    if (!this.userInfo) {
+    if (!this.user.currentIdEmpresa) {
       this.changeEmpresa();
     }
   }
@@ -90,19 +89,18 @@ export class FullComponent implements OnDestroy, OnInit {
     if (this.listaEmpresas && this.listaEmpleados && this.user && !this.isOpenDialog) {
       let isFromTemplate = false;
       if (this.listaEmpresas.length === 0 && this.listaEmpleados.length === 1) {
-        const userInfo: UserInfo = {};
-        userInfo.tipo = 'Empleado';
-        userInfo.idEmpresa = (this.listaEmpleados[0].empresa as Empresa).id;
-        userInfo.empresa = (this.listaEmpleados[0].empresa as Empresa).nombre;
-        this.sessionService.setUserInfo(userInfo);
-        isFromTemplate = this.userInfo !== undefined;
+        this.user.currentTipo = 'Empleado';
+        this.user.currentIdEmpresa = (this.listaEmpleados[0].empresa as Empresa).id;
+        this.user.currentEmpresa = (this.listaEmpleados[0].empresa as Empresa).nombre;
+        this.user.currentEmpleado = this.listaEmpleados[0].id;
+        this.userService.update(this.userService.get(this.user.id), this.user);
+        isFromTemplate = this.user.currentEmpresa !== undefined;
       } else if (this.listaEmpresas.length === 1 && this.listaEmpleados.length === 0) {
-        const userInfo: UserInfo = {};
-        userInfo.tipo = 'Empresario';
-        userInfo.idEmpresa = (this.listaEmpresas[0] as Empresa).id;
-        userInfo.empresa = (this.listaEmpresas[0] as Empresa).nombre;
-        this.sessionService.setUserInfo(userInfo);
-        isFromTemplate = this.userInfo !== undefined;
+        this.user.currentTipo = 'Empresario';
+        this.user.currentIdEmpresa = (this.listaEmpresas[0] as Empresa).id;
+        this.user.currentEmpresa = (this.listaEmpresas[0] as Empresa).nombre;
+        this.userService.update(this.userService.get(this.user.id), this.user);
+        isFromTemplate = this.user.currentEmpresa !== undefined;
       } else {
         const openDialog = this.listaEmpresas.length > 0 || this.listaEmpleados.length > 0;
         if (openDialog) {
@@ -124,11 +122,10 @@ export class FullComponent implements OnDestroy, OnInit {
           dialogRef.afterClosed().subscribe(result => {
             if (result.event === 'Guardar') {
               this.isOpenDialog = false;
-              const userInfo: UserInfo = {};
-              userInfo.tipo = result.data.tipo;
-              userInfo.idEmpresa = result.data.empresa.id;
-              userInfo.empresa = result.data.empresa.nombre;
-              this.sessionService.setUserInfo(userInfo);
+              this.user.currentTipo = result.data.tipo;
+              this.user.currentIdEmpresa = result.data.empresa.id;
+              this.user.currentEmpresa = result.data.empresa.nombre;
+              this.userService.update(this.userService.get(this.user.id), this.user);
             }
           });
         }

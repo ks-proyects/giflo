@@ -6,7 +6,7 @@ import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog-select',
@@ -53,6 +53,7 @@ export class DialogSelectComponent implements OnInit {
   }
   doAction(isValid: boolean) {
     if (isValid) {
+      debugger;
       if (this.item.tipo === 'Empleado') {
         this.empresaSel = this.listEmpresaEmpleado.filter(item => item.id === this.item.idEmpresa)[0];
       } else if (this.item.tipo === 'Empresario') {

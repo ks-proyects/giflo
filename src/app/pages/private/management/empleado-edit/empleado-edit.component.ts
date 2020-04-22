@@ -2,8 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 // Import Services
 import { EmpleadoService } from '../../../../services/empleado.service';
@@ -20,7 +19,7 @@ import { Estado } from '../../../../domain/giflo_db/estado';
 import { EstadoCivil } from '../../../../domain/giflo_db/estado-civil';
 import { Rol } from '../../../../domain/giflo_db/rol';
 import { docJoin } from 'src/app/services/generic/docJoin.service';
-import { User } from 'src/app/domain/giflo_db/user';
+import { UserService } from 'src/app/services/user.service';
 
 // START - USED SERVICES
 /**
@@ -78,7 +77,8 @@ export class EmpleadoEditComponent implements OnInit {
         private rolService: RolService,
         private route: ActivatedRoute,
         private location: Location,
-        private afs: AngularFirestore
+        private afs: AngularFirestore,
+        private userService: UserService
     ) {
         // Init list
     }
@@ -126,6 +126,7 @@ export class EmpleadoEditComponent implements OnInit {
                 // Update
                 this.item.user = this.item.user.id;
                 this.empleadoService.update(this.itemDoc, this.item);
+               
             }
             this.goBack();
         }

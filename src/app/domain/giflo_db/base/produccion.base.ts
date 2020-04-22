@@ -31,16 +31,16 @@ import { Empresa } from '../empresa';
  */
 export interface ProduccionBase {
 
-    id: string;
+    id?: string;
     cantidad?: number;
     estado?: string;
     bloque?: Bloque | string;
     nave?: Nave | string;
     cama?: Cama | string;
     variedad?: Variedad | string;
-    dia_trabajo?: DiaTrabajo | string;
-    supervisor: Empleado | string;
+    diaTrabajo?: DiaTrabajo | string;
+    supervisor?: Empleado | string;
     // Relations trabajador
-    trabajador: Empleado | string;
-    empresa: Empresa | string;
+    trabajador?: Empleado | string;
+    empresa?: Empresa | string;
 }

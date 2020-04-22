@@ -24,6 +24,9 @@ import { SuperAdminComponent } from './super-admin/super-admin.component';
 import { DefaultComponent } from './default/default.component';
 import { ChartistModule } from 'ng-chartist';
 import { ChartsModule } from 'ng2-charts';
+import { ProduccionDirective } from 'src/app/directives/produccion.directive';
+import { ProduccionNaveComponent } from './produccion-nave/produccion-nave.component';
+import { ProduccionComponent } from './produccion/produccion.component';
 
 
 @NgModule({
@@ -46,7 +49,8 @@ import { ChartsModule } from 'ng2-charts';
     SupervisorComponent,
     CultivoComponent,
     SuperAdminComponent,
-    DefaultComponent
+    DefaultComponent,
+    ProduccionNaveComponent
   ],
   declarations: [
     ProfileComponent,
@@ -64,7 +68,10 @@ import { ChartsModule } from 'ng2-charts';
     SupervisorComponent,
     CultivoComponent,
     SuperAdminComponent,
-    DefaultComponent
+    DefaultComponent,
+    ProduccionDirective,
+    ProduccionComponent,
+    ProduccionNaveComponent
   ], exports: []
 })
 export class HomeModule { }

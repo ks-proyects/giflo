@@ -28,6 +28,7 @@ import { environment } from '../../../environments/environment';
 // MODEL
 import { Cama } from '../../domain/giflo_db/cama';
 import { SessionService } from '../session.service';
+import { DiaTrabajoService } from '../dia-trabajo.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Cama.service.ts
@@ -72,15 +73,23 @@ import { SessionService } from '../session.service';
 export class CamaBaseService {
 
     idEmpresa: string;
+    idEmpleado: string;
+    idDiaTrabajo: string;
     private camaCollection: AngularFirestoreCollection<Cama>;
+    private camaUserCollection: AngularFirestoreCollection<Cama>;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
-        private session: SessionService
+        private session: SessionService,
+        private diaTrabajoService: DiaTrabajoService
     ) {
-        session.getUserInfo().subscribe(ui => {
-            this.idEmpresa = ui ? ui.idEmpresa : '-1';
-            this.camaCollection = afs.collection<Cama>('cama', ref => ref.where('empresa', '==', this.idEmpresa));
+        session.getUser().subscribe(user => {
+            if (user) {
+                this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';
+                this.idEmpresa = user.currentIdEmpresa ? user.currentIdEmpresa : '-1';
+                this.idDiaTrabajo = diaTrabajoService.idDiaTrabajo;
+                this.camaCollection = afs.collection<Cama>('cama', ref => ref.where('empresa', '==', this.idEmpresa));
+            }
         });
     }
 
@@ -132,7 +141,18 @@ export class CamaBaseService {
             }))
         );
     }
-
+    listUser(): Observable<Cama[]> {
+        return this.afs.collection<Cama>('cama', ref => ref.
+            where('empresa', '==', this.idEmpresa).
+            where('trabajador', '==', this.idEmpleado)
+        ).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Cama;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
     /**
     * CamaService.update
     *   @description CRUD ACTION update

@@ -21,6 +21,7 @@ import { Nave } from '../nave';
 import { Empleado } from '../empleado';
 import { Variedad } from '../variedad';
 import { Empresa } from '../empresa';
+import { Bloque } from '../bloque';
 
 /**
  * This is the model of Cama object
@@ -35,6 +36,7 @@ export interface CamaBase {
     estado: Estado | string;
     // Relations nave
     nave: Nave | string;
+    bloque: Bloque | string;
     // Relations supervisor
     supervisor: Empleado | string;
     // Relations trabajador

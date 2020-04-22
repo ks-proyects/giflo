@@ -12,7 +12,7 @@
               <mat-form-field>
                 <mat-select name="pagina" id="pagina" [(ngModel)]="item.pagina" #pagina="ngModel">
                   <mat-option>-- Ninguno --</mat-option>
-                  <mat-option *ngFor="let item of listPagina" [value]="item">{{item.component}}</mat-option>
+                  <mat-option *ngFor="let item of listPagina" [value]="item.id">{{item.component}}</mat-option>
                 </mat-select>
                 <mat-placeholder>
                   Pagina
@@ -24,7 +24,7 @@
               <mat-form-field>
                 <mat-select name="rol" id="rol" [(ngModel)]="item.rol" #rol="ngModel">
                   <mat-option>-- Ninguno --</mat-option>
-                  <mat-option *ngFor="let item of listRol" [value]="item">{{item.nombre}}</mat-option>
+                  <mat-option *ngFor="let item of listRol" [value]="item.id">{{item.nombre}}</mat-option>
                 </mat-select>
                 <mat-placeholder>
                   Rol

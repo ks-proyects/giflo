@@ -17,7 +17,7 @@
  */
 // DEPENDENCIES
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -29,6 +29,12 @@ import { environment } from '../../../environments/environment';
 import { Produccion } from '../../domain/giflo_db/produccion';
 import { SessionService } from '../session.service';
 import { DiaTrabajoService } from '../dia-trabajo.service';
+import { ROL_CULTIVADOR } from '../rol.service';
+import { CamaService } from '../cama.service';
+import { Cama } from 'src/app/domain/giflo_db/cama';
+import { ProduccionCama } from 'src/app/domain/dto/produccionCama';
+import { ProduccionVariedad } from 'src/app/domain/dto/produccionVariedad';
+import { leftJoinDocument } from '../generic/leftJoin.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../produccion.service.ts
@@ -66,26 +72,29 @@ export class ProduccionBaseService {
 
 	private produccionCollection: AngularFirestoreCollection<Produccion>;
 	idEmpresa: string;
-	idUser: string;
+	idEmpleado: string;
+	idDiaTrabajo: string;
 	constructor(
-		private afs: AngularFirestore,
+		protected afs: AngularFirestore,
 		private fns: AngularFireFunctions,
 		public session: SessionService,
-		public diaTrabajo: DiaTrabajoService
+		public diaTrabajoService: DiaTrabajoService,
+
 	) {
+		this.idEmpleado = '-1';
+		this.idEmpresa = '-1';
+		this.idDiaTrabajo = '-1';
 		session.getUser().subscribe(user => {
 			if (user) {
-				this.idUser = user.id;
+				this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';
+				this.idEmpresa = user.currentIdEmpresa ? user.currentIdEmpresa : '-1';
+				this.idDiaTrabajo = diaTrabajoService.idDiaTrabajo;
+				this.produccionCollection = this.afs.collection<Produccion>('produccion', ref => ref.
+					where('empresa', '==', this.idEmpresa).
+					where('diaTrabajo', '==', this.idDiaTrabajo).
+					where('trabajador', '==', this.idEmpleado));
 			}
 		});
-		session.getUserInfo().subscribe(ui => {
-			if (ui) {
-				this.idEmpresa = ui ? ui.idEmpresa : '-1';
-				this.produccionCollection = afs.collection<Produccion>('produccion', ref => ref.where('empresa', '==', this.idEmpresa));
-			}
-
-		});
-
 	}
 
 

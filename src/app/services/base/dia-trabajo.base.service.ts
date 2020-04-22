@@ -61,17 +61,17 @@ export class DiaTrabajoBaseService {
     private diatrabajoCollection: AngularFirestoreCollection<DiaTrabajo>;
     private idEmpresa: string;
     private datePipe: DatePipe;
-    private idDiaTrabajo: string;
+    public idDiaTrabajo: string;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
         private session: SessionService
     ) {
         this.datePipe = new DatePipe('en-US');
-        session.getUserInfo().subscribe(ui => {
+        session.getUser().subscribe(ui => {
             const currentDate = new Date();
-            if (ui) {
-                this.idEmpresa = ui.idEmpresa;
+            if (ui && ui.currentIdEmpresa) {
+                this.idEmpresa = ui.currentIdEmpresa;
                 this.idDiaTrabajo = currentDate.getFullYear().toString() + currentDate.getMonth().toString() +
                     currentDate.getDate().toString() + this.idEmpresa;
                 this.get(this.idDiaTrabajo).valueChanges().subscribe(item => {

@@ -73,8 +73,8 @@ export class BloqueBaseService {
         private fns: AngularFireFunctions,
         private session: SessionService
     ) {
-        session.getUserInfo().subscribe(ui => {
-            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+        session.getUser().subscribe(ui => {
+            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa  : '-1';
             this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', this.idEmpresa));
         });
     }

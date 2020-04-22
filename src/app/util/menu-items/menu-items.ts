@@ -57,8 +57,15 @@ const SECTIONS: Menu[] = [{
   type: 'sub',
   icon: 'apps',
   children: []
+},
+{
+  state: 'home',
+  name: 'Inicio',
+  type: 'sub',
+  icon: 'home',
+  children: []
 }
-];
+]; 
 
 let MENUITEMS: Menu[] = [];
 

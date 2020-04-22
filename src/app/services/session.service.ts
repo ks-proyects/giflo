@@ -8,26 +8,24 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { MenuItem } from '../domain/giflo_db/menu-item';
 import { Rol } from '../domain/giflo_db/rol';
 import { Pagina } from '../domain/giflo_db/pagina';
-import { UserInfo } from '../domain/dto/user-info';
 import { Empleado } from '../domain/giflo_db/empleado';
 import { map } from 'rxjs/operators';
 import { leftJoinDocument } from './generic/leftJoin.service';
+import { BrowserInfo } from '../domain/dto/beowser-info';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  private dataUserInfo: UserInfo;
-  private empleado: Empleado;
+  private browser: BrowserInfo;
   private token: string;
   private userLoguin: User;
   private listMenuItem: MenuItem[];
   private listMenuItemByEmpresa: MenuItem[];
   private user: BehaviorSubject<User>;
   private menuUser: BehaviorSubject<MenuItem[]>;
-  private userInfo: BehaviorSubject<UserInfo>;
-  private NAME_USER_INFO = 'user_info';
-
+  private browserInfo: BehaviorSubject<BrowserInfo>;
+  private NAME_BROWSER_INFO = 'browser_info';
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -36,21 +34,13 @@ export class SessionService {
   ) {
     this.user = new BehaviorSubject<User>(this.userLoguin);
     this.menuUser = new BehaviorSubject<MenuItem[]>(null);
-    this.userInfo = new BehaviorSubject<UserInfo>(this.getFromSession(this.NAME_USER_INFO));
+    this.browserInfo = new BehaviorSubject<BrowserInfo>(this.getFromSession(this.NAME_BROWSER_INFO));
     this.afm.requestToken.subscribe(newToken => {
       this.token = newToken;
     });
-    this.userInfo.subscribe(userInfo => {
-      if (userInfo) {
-        this.dataUserInfo = userInfo;
-        this.afs.collection('menuitem', ref => ref.where('empresa', '==', userInfo.idEmpresa)).valueChanges().pipe(
-          leftJoinDocument(this.afs, 'pagina', 'pagina'),
-          leftJoinDocument(this.afs, 'rol', 'rol')
-        ).subscribe(arrar => {
-          this.listMenuItemByEmpresa = (arrar as MenuItem[]);
-          this.updateMenu();
-        });
-        this.findEmpleado();
+    this.browserInfo.subscribe(browserInfo => {
+      if (browserInfo) {
+        this.browser = browserInfo;
       }
     });
     this.afs.collection('menuitem', ref => ref.where('empresa', '==', null)).valueChanges().pipe(
@@ -60,7 +50,6 @@ export class SessionService {
       this.listMenuItem = (arrar as MenuItem[]);
       this.updateMenu();
     });
-
     this.afAuth.user.subscribe(userLogin => {
       if (userLogin) {
         this.createUpdateUser(userLogin);
@@ -71,11 +60,9 @@ export class SessionService {
   public createUpdateUser(userFire) {
     const userDoc: AngularFirestoreDocument<any> = this.userService.get(userFire.uid);
     userDoc.valueChanges().subscribe(user => {
-
       if (!user) {
         this.userLoguin = this.userService.buildObject(userFire, this.token, ['DEF']);
-        this.userService.createCustom(userFire).then(() => {
-          this.user.next(this.userLoguin);
+        this.userService.createCustom(this.userLoguin).then(() => {
           this.findEmpleado();
         });
       } else {
@@ -86,59 +73,59 @@ export class SessionService {
           token: tokens
         }, {
           merge: true
-        }).then((res) => {
+        }).then(() => {
           this.userLoguin = user;
-          this.user.next(this.userLoguin);
           this.findEmpleado();
         });
       }
     });
   }
+
   public findEmpleado() {
-    if (this.userLoguin && this.dataUserInfo) {
-      this.afs.collection<Empleado>('empleado', ref =>
-        ref.where('user', '==', this.userLoguin.id).where('empresa', '==', this.dataUserInfo.idEmpresa))
-        .snapshotChanges().pipe(
-          map(actions => actions.map(a => {
-            const data = a.payload.doc.data() as Empleado;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          }))
-        ).subscribe(list => {
-          this.empleado = list.length > 0 ? list[0] : null;
-          this.updateMenu();
-        });
-    }
+    this.user.next(this.userLoguin);
+    this.getMenuItemEmpresa();
+  }
+  getMenuItemEmpresa() {
+    this.afs.collection('menuitem', ref => ref.where('empresa', '==', this.userLoguin.currentIdEmpresa)).valueChanges().pipe(
+      leftJoinDocument(this.afs, 'pagina', 'pagina'),
+      leftJoinDocument(this.afs, 'rol', 'rol')
+    ).subscribe(arrar => {
+      this.listMenuItemByEmpresa = (arrar as MenuItem[]);
+      this.updateMenu();
+    });
   }
   private updateMenu() {
-    if (this.userLoguin && this.dataUserInfo && this.listMenuItem && this.listMenuItemByEmpresa) {
+    if (this.userLoguin && this.userLoguin.currentIdEmpresa && this.listMenuItem && this.listMenuItemByEmpresa) {
       let rolesUser: string[] = [];
       let listMenuItemUser: MenuItem[] = [];
-      if (this.userLoguin.roles.includes('SUPERADMIN') || this.dataUserInfo.tipo === 'Empresario') {
+      if (this.userLoguin.roles.includes('SUPERADMIN') || this.userLoguin.currentTipo === 'Empresario') {
         listMenuItemUser = this.listMenuItem.filter(mi => {
           const pagina = (mi.pagina as Pagina);
-          const rol = (mi.rol as Rol);
           let haveRol = false;
+          const rol = (mi.rol as Rol);
           if (this.userLoguin.roles.includes('SUPERADMIN')) {
             haveRol = true;
-          } else if (this.dataUserInfo.tipo === 'Empresario') {
+          } else if (this.userLoguin.currentTipo === 'Empresario' && rol) {
             haveRol = this.userLoguin.roles.includes(rol.id);
           }
           if (haveRol) {
             rolesUser.push(rol.nombre);
           }
-          const isActive = mi.estado && pagina.estado === 'ACT';
+          const isActive = mi.estado && pagina && pagina.estado === 'ACT';
           return isActive && haveRol;
         });
-      } else if (this.dataUserInfo.tipo === 'Empleado') {
+      } else if (this.userLoguin.currentTipo === 'Empleado') {
         listMenuItemUser = this.listMenuItemByEmpresa.filter(mi => {
           const pagina = (mi.pagina as Pagina);
           const rol = (mi.rol as Rol);
-          const haveRol = (this.empleado.roles as string[]).includes(rol.id);
-          if (haveRol) {
-            rolesUser.push(rol.nombre);
+          let haveRol = false;
+          if (rol) {
+            haveRol = (this.userLoguin.roles as string[]).includes(rol.id);
+            if (haveRol) {
+              rolesUser.push(rol.nombre);
+            }
           }
-          const isActive = mi.estado && pagina.estado === 'ACT';
+          const isActive = mi.estado && pagina && pagina.estado === 'ACT';
           return isActive && haveRol;
         });
       }
@@ -163,12 +150,12 @@ export class SessionService {
   getMenu(): Observable<MenuItem[]> {
     return this.menuUser.asObservable();
   }
-  setUserInfo(newValue: UserInfo): void {
-    this.saveInSession(this.NAME_USER_INFO, newValue);
-    this.userInfo.next(newValue);
+  setBrowserInfo(newValue: BrowserInfo): void {
+    this.saveInSession(this.NAME_BROWSER_INFO, newValue);
+    this.browserInfo.next(newValue);
   }
-  getUserInfo(): Observable<UserInfo> {
-    return this.userInfo.asObservable();
+  getBrowserInfo(): Observable<BrowserInfo> {
+    return this.browserInfo.asObservable();
   }
   private onlyUnique(value, index, self) {
     return self.indexOf(value) === index;

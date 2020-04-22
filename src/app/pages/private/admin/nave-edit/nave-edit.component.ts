@@ -2,8 +2,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 
 // Import Services
 import { NaveService } from '../../../../services/nave.service';

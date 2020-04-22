@@ -31,6 +31,7 @@ import { MatDialogComponent } from './pages/common/mat-dialog/mat-dialog.compone
 import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
 import { DialogSelectComponent } from './layout/full/dialog-select/dialog-select.component';
+import { UtilModule } from './util/util.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -44,7 +45,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     FullComponent,
     AppHeaderComponent,
-    SpinnerComponent,
     AppBlankComponent,
     AppSidebarComponent,
     AppBreadcrumbComponent,
@@ -67,7 +67,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule.forRoot(AppRoutes),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ImageCropperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UtilModule
   ],
   providers: [
     {

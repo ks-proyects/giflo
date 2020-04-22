@@ -65,8 +65,8 @@ export class MenuItemBaseService {
         private afAuth: AngularFireAuth,
         private session: SessionService
     ) {
-        session.getUserInfo().subscribe(ui => {
-            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+        session.getUser().subscribe(ui => {
+            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
             this.menuitemCollection = afs.collection<MenuItem>('menuitem',
                 ref => ref.where('empresa', '==', this.idEmpresa));
         });

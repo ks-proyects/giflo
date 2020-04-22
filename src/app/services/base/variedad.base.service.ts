@@ -71,8 +71,8 @@ export class VariedadBaseService {
         private fns: AngularFireFunctions,
         private session: SessionService
     ) {
-        session.getUserInfo().subscribe(ui => {
-            this.idEmpresa = ui ? ui.idEmpresa : '-1';
+        session.getUser().subscribe(ui => {
+            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
             this.variedadCollection = afs.collection<Variedad>('variedad', ref => ref.where('empresa', '==', this.idEmpresa));
         });
 

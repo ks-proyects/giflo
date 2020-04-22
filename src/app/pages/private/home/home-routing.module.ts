@@ -3,6 +3,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingComponent } from './setting/setting.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { IndexComponent } from './index.component';
+import { ProduccionComponent } from './produccion/produccion.component';
 
 export const routesHome: Routes = [
   {
@@ -16,6 +17,17 @@ export const routesHome: Routes = [
           urls: [
             { title: 'home', url: '/home/index' },
             { title: 'home' }
+          ]
+        }
+      },
+      {
+        path: 'produccion',
+        component: ProduccionComponent,
+        data: {
+          title: 'Producción',
+          urls: [
+            { title: 'Inicio', url: '/home/index' },
+            { title: '' }
           ]
         }
       },

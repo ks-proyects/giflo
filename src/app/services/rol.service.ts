@@ -1,7 +1,5 @@
 // BASE SERVICE
 import { RolBaseService } from './base/rol.base.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireFunctions } from '@angular/fire/functions';
 import { Rol } from '../domain/giflo_db/rol';
 
 

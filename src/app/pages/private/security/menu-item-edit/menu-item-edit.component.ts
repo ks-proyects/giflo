@@ -2,8 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import {  AngularFirestoreDocument } from '@angular/fire/firestore';
 
 // Import Services
 import { MenuItemService } from '../../../../services/menu-item.service';
@@ -77,7 +76,6 @@ export class MenuItemEditComponent implements OnInit {
                 this.isNew = false;
                 this.itemDoc = this.menuitemService.get(id);
                 this.itemDoc.valueChanges().subscribe(item => this.item = item);
-
             }
             // Get relations
             this.paginaService.list().subscribe(list => this.listPagina = list);

@@ -1,19 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 // Import Services
 import { MenuItemService } from '../../../../services/menu-item.service';
 // Import Models
 import { MenuItem } from '../../../../domain/giflo_db/menu-item';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource } from '@angular/material';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DialogService } from 'src/app/util/dialog.service';
 import { DialogData } from '../../../common/mat-dialog/mat-dialog.component';
 import { ListComponentService } from 'src/app/services/generic/list-component.service';
-import { SessionService } from 'src/app/services/session.service';
-import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
 
 // START - USED SERVICES
 /**
@@ -40,7 +38,8 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     constructor(
         private menuitemService: MenuItemService,
         private breakpointObserver: BreakpointObserver,
-        private disSer: DialogService
+        private disSer: DialogService,
+        private afs: AngularFirestore
     ) {
         super();
         this.dataSource = new MatTableDataSource([]);
@@ -52,7 +51,10 @@ export class MenuItemListComponent extends ListComponentService implements OnIni
     }
 
     ngOnInit(): void {
-        this.menuitemService.list().subscribe(arrayData => {
+        this.menuitemService.list().pipe(
+            leftJoinDocument(this.afs, 'pagina', 'pagina'),
+            leftJoinDocument(this.afs, 'rol', 'rol')
+        ).subscribe(arrayData => {
             this.dataSource = new MatTableDataSource((arrayData as MenuItem[]));
         }
         );

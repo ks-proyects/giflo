@@ -27,6 +27,8 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 // MODEL
 import { Empleado } from '../../domain/giflo_db/empleado';
 import { SessionService } from '../session.service';
+import { UserService } from '../user.service';
+import { User } from 'src/app/domain/giflo_db/user';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Empleado.service.ts
@@ -98,18 +100,20 @@ import { SessionService } from '../session.service';
 @Injectable()
 export class EmpleadoBaseService {
 
-
+    idEmpresa: string;
     private empleadoCollection: AngularFirestoreCollection<Empleado>;
     private empleadoActiveCollection: AngularFirestoreCollection<Empleado>;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
-        private session: SessionService
+        private session: SessionService,
+        private userService: UserService
     ) {
-        session.getUserInfo().subscribe(ui => {
+        session.getUser().subscribe(ui => {
             if (ui) {
-                this.empleadoCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1'));
-                this.empleadoActiveCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', ui ? ui.idEmpresa : '-1')
+                this.idEmpresa = ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
+                this.empleadoCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', this.idEmpresa));
+                this.empleadoActiveCollection = afs.collection<Empleado>('empleado', ref => ref.where('empresa', '==', this.idEmpresa)
                     .where('estado', '==', 'ACT'));
             }
         });
@@ -210,6 +214,7 @@ export class EmpleadoBaseService {
     *
     */
     update(itemDoc: AngularFirestoreDocument<Empleado>, item: Empleado): Promise<void> {
+        this.userService.updateRols(item.user as string, item.roles as string[]);
         return itemDoc.update(item);
     }
 

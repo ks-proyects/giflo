@@ -22,61 +22,44 @@ export class ContainerComponent implements OnInit, OnDestroy {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private session: SessionService) {
-    this.userSuscription = this.session.getUser().subscribe(user => {
-      if (user) {
-        if (user.roles.includes('CULT')) {
-          this.agregarCard('1');
-        }
-        else if (user.roles.includes('GER') || user.roles.includes('ADM')) {
-          this.agregarCard('2');
-        }
-        else if (user.roles.includes('POST') || user.roles.includes('COCH') || user.roles.includes('SUPPOST') || user.roles.includes('FUMN')) {
-          this.agregarCard('3');
-        }
-        else if (user.roles.includes('SUPCU')) {
-          this.agregarCard('4');
-        }
-        else if (user.roles.includes('SUPERADMIN')) {
-          this.agregarCard('5');
-        } else {
-          this.agregarCard('6');
-        }
-      }
-    });
+
   }
   ngOnDestroy(): void {
     this.userSuscription.unsubscribe();
   }
 
   ngOnInit() {
+    this.userSuscription = this.session.getUser().subscribe(user => {
+      if (user) {
+        if (user.roles.includes('CULT')) {
+          this.agregarCard(CultivoComponent);
+        }
+        else if (user.roles.includes('GER') || user.roles.includes('ADM')) {
+          this.agregarCard(GerenteComponent);
+        }
+        else if (user.roles.includes('POST') || user.roles.includes('COCH') || user.roles.includes('SUPPOST') || user.roles.includes('FUMN')) {
+          this.agregarCard(PostcosechaComponent);
+        }
+        else if (user.roles.includes('SUPCU')) {
+          this.agregarCard(SupervisorComponent);
+        }
+        else if (user.roles.includes('SUPERADMIN')) {
+          this.agregarCard(SuperAdminComponent);
+        } else {
+          this.agregarCard(DefaultComponent);
+        }
+      }
+    });
   }
-  agregarCard(id) {
-    let miComponent: any;
-    switch (id) {
-      case '1':
-        miComponent = CultivoComponent;
-        break;
-      case '2':
-        miComponent = GerenteComponent;
-        break;
-      case '3':
-        miComponent = PostcosechaComponent;
-        break;
-      case '4':
-        miComponent = SupervisorComponent;
-        break;
-      case '5':
-        miComponent = SuperAdminComponent;
-        break;
-      case '6':
-        miComponent = DefaultComponent;
-        break;
-    }
+  agregarCard(miComponent: any) {
     if (miComponent) {
       let componentFactory = this.componentFactoryResolver.resolveComponentFactory(miComponent);
-      let viewContainerRef = this.receptor.viewContainerRef;
-      viewContainerRef.clear();
-      viewContainerRef.createComponent(componentFactory);
+      if (this.receptor) {
+        let viewContainerRef = this.receptor.viewContainerRef;
+        viewContainerRef.clear();
+        viewContainerRef.createComponent(componentFactory);
+      }
+
     }
   }
 

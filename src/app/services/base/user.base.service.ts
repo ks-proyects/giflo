@@ -113,7 +113,14 @@ export class UserBaseService {
         return userNew;
     }
 
-
+    updateRols(id, roles: string[]) {
+        const userDoc: AngularFirestoreDocument<any> = this.get(id);
+        userDoc.set({
+            roles: roles
+        }, {
+            merge: true
+        });
+    }
 
     /**
     * UserService.delete

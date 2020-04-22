@@ -18,6 +18,7 @@ import { Empleado } from '../../../../domain/giflo_db/empleado';
 import { Variedad } from '../../../../domain/giflo_db/variedad';
 import { Subscription } from 'rxjs';
 import { leftJoinDocument } from 'src/app/services/generic/leftJoin.service';
+import { Bloque } from 'src/app/domain/giflo_db/bloque';
 
 // START - USED SERVICES
 /**
@@ -108,7 +109,9 @@ export class CamaEditComponent implements OnInit, OnDestroy {
             }
             // Get relations
             this.estadoService.list().subscribe(list => this.listEstado = list);
-            this.naveServiceSubscription = this.naveService.list().subscribe(list => this.listNave = list);
+            this.naveServiceSubscription = this.naveService.list().pipe(
+                leftJoinDocument(this.afs, 'bloque', 'bloque')
+            ).subscribe(list => this.listNave = list as Nave[]);
             this.empleadoServiceSubscription = this.empleadoService.listActive().
                 pipe(leftJoinDocument(this.afs, 'user', 'user')).subscribe(list => {
                     this.listSupervisor = list as Empleado[];
@@ -159,6 +162,9 @@ export class CamaEditComponent implements OnInit, OnDestroy {
     save(formValid: boolean): void {
         this.formValid = formValid;
         if (formValid) {
+            const listFind = this.listNave.filter(nave => nave.id == this.item.nave);
+            const bloque = listFind.length > 0 ? (listFind[0].bloque as Bloque).id : '';
+            this.item.bloque = bloque;
             if (this.isNew) {
                 // Create
                 this.camaService.create(this.item);
