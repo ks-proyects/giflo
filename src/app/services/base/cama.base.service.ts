@@ -83,6 +83,9 @@ export class CamaBaseService {
         private session: SessionService,
         private diaTrabajoService: DiaTrabajoService
     ) {
+        this.idEmpleado = '-1';
+        this.idEmpresa = '-1';
+        this.idDiaTrabajo = '-1'
         session.getUser().subscribe(user => {
             if (user) {
                 this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';

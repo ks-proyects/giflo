@@ -31,10 +31,17 @@ import { ProduccionComponent } from './produccion/produccion.component';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto'
+};
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelSpeed: 2,
+  wheelPropagation: true
 };
 @NgModule({
   imports: [
@@ -46,7 +53,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CoreMaterialModule,
     ChartistModule,
     ChartsModule,
-    SwiperModule
+    SwiperModule,
+    PerfectScrollbarModule,
+    NgxDatatableModule
   ],
   entryComponents: [
     AddressDialogComponent,
