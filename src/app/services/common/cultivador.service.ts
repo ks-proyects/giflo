@@ -48,7 +48,7 @@ export class CultivadorService {
               this.idDiaTrabajo = currentDate.getFullYear().toString() + currentDate.getMonth().toString() +
                 currentDate.getDate().toString() + this.userCurrent.currentIdEmpresa;
               //Get Camas User
-              this.camaService.listUser().subscribe(list => {
+              this.camaService.listUserAndEmpresa(this.userCurrent.currentIdEmpresa, this.userCurrent.currentEmpleado).subscribe(list => {
                 this.camas = list;
               });
               //Validamos el Id dia actual
@@ -166,7 +166,6 @@ export class CultivadorService {
           produccion.bloque = cama.bloque;
           produccion.cama = cama.id;
           produccion.nave = cama.nave;
-          produccion.cantidad = 0;
           produccion.diaTrabajo = this.idDiaTrabajo;
           produccion.empresa = this.userCurrent.currentIdEmpresa;
           produccion.trabajador = this.userCurrent.currentEmpleado;

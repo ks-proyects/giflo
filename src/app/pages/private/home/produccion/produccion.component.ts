@@ -22,7 +22,7 @@ export class ProduccionComponent implements OnInit, OnDestroy {
     mousewheel: false,
     scrollbar: false,
     navigation: true,
-    pagination: true,
+    pagination: false,
     cubeEffect: { shadow: true }
   };
   suscription: Subscription;

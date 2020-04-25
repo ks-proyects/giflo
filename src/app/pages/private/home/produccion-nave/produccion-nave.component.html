@@ -13,8 +13,8 @@
             [attr.data-index]="i">
             <mat-form-field>
               <mat-label>{{item.cama.nombre}}</mat-label>
-              <input placeholder="Ingresa la cantidad de Botones" matInput (blur)="updateValue($event, 'cantidad', i)" type="tel"
-                [value]="item.cantidad?item.cantidad:''" />
+              <input required placeholder="Ingresa la cantidad de Botones" matInput [(ngModel)]="item.cantidad" #cantidad="ngModel" name="cantidad" id="cantidad"
+                (blur)="updateValue($event, 'cantidad', i)" type="tel"  />
             </mat-form-field>
           </div>
         </div>
@@ -25,7 +25,7 @@
     <button mat-raised-button color="secondary" (click)="save()">Guardar
       <mat-icon>done_all</mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="confirm()">Confirmar
+    <button mat-raised-button color="accent" (click)="confirm(editForm.valid)">Confirmar
       <mat-icon>done_all</mat-icon>
     </button>
   </app-toolbar-button>

@@ -148,6 +148,18 @@ export class CamaBaseService {
             }))
         );
     }
+    listUserAndEmpresa(idEmpresa: string, idEmpleado: string): Observable<Cama[]> {
+        return this.afs.collection<Cama>('cama', ref => ref.
+            where('empresa', '==', idEmpresa).
+            where('trabajador', '==', idEmpleado)
+        ).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as Cama;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            }))
+        );
+    }
     /**
     * CamaService.update
     *   @description CRUD ACTION update
