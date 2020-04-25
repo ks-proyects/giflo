@@ -25,14 +25,14 @@ export class ProduccionNaveComponent {
   }
   save() {
     this.cultivadorService.save(this.pv);
-    this.openSnackBar('Se guardo correctamente', 'Guardar');
+    this.openSnackBar('Se guardo correctamente', 'Cerrar');
   }
   confirm(valid) {
     if (valid) {
       this.cultivadorService.confirm(this.pv);
-      this.openSnackBar('Confirmacion Exitosa', 'Confirmación');
+      this.openSnackBar('Confirmacion Exitosa', 'Cerrar');
     } else {
-      this.openSnackBar('Debes de Ingresar todos los valores', 'Alerta');
+      this.openSnackBar('Debes de Ingresar todos los valores', 'Cerrar');
     }
 
   }
