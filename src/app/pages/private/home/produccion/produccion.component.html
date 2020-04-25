@@ -1,0 +1,5 @@
+<swiper  style="position: absolute;top: 37px;right: 0;bottom: 0;left: 0;" class="swiper-container" [config]="config"
+    (indexChange)="onIndexChange($event)">
+    <ng-template appProduccion></ng-template>
+</swiper>
+<div class="label-light-primary font-18" *ngIf="isEmpy">No tienes ninguna cama adicional</div>

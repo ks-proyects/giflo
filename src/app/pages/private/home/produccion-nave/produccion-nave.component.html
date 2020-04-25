@@ -1,0 +1,32 @@
+<div fxLayout="row wrap" class="page-content-prod p-t-10">
+  <mat-card fxFlex.gt-sm="100" fxFlex="100" class="p-b-0">
+    <mat-card-header [style.backgroundColor]="'#'+pv.variedad.color.codigo">
+      <mat-card-title class="text-center" [style.color]="'#'+pv.variedad.color.codigoLetra">{{pv.variedad.nombreComun}}
+      </mat-card-title>
+      <mat-card-subtitle [style.color]="'#'+pv.variedad.color.codigoLetra">{{pv.bloque.nombre}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content [perfectScrollbar]="config" class="container">
+      <form #editForm="ngForm">
+        <div fxLayout="col wrap">
+          <!-- column -->
+          <div fxFlex.gt-md="100" fxFlex="100" *ngFor="let item of this.pv.produccionCama; let i = index"
+            [attr.data-index]="i">
+            <mat-form-field>
+              <mat-label>{{item.cama.nombre}}</mat-label>
+              <input placeholder="Ingresa la cantidad de Botones" matInput (blur)="updateValue($event, 'cantidad', i)" type="tel"
+                [value]="item.cantidad?item.cantidad:''" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <app-toolbar-button>
+    <button mat-raised-button color="secondary" (click)="save()">Guardar
+      <mat-icon>done_all</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="confirm()">Confirmar
+      <mat-icon>done_all</mat-icon>
+    </button>
+  </app-toolbar-button>
+</div>
