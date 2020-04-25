@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, ComponentFactoryResolver, OnDestroy } from '@angular/core';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionService } from 'src/app/services/common/session.service';
 import { Subscription } from 'rxjs';
 
 @Component({

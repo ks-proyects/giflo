@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { DeviceService } from 'src/app/shared/device.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { EstadoService } from 'src/app/services/estado.service';

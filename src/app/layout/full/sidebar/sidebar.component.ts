@@ -1,17 +1,15 @@
 import {
-  ChangeDetectorRef,
   Component,
   OnDestroy,
-  Input,
   Output,
   EventEmitter
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { MediaMatcher } from '@angular/cdk/layout';
 
 
-import { MenuItems } from '../../../util/menu-items/menu-items';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionService } from 'src/app/services/common/session.service';
+import { MenuService } from 'src/app/services/common/menu.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -28,11 +26,12 @@ export class AppSidebarComponent implements OnDestroy {
       left: 0
     });
   }
+  suscription: Subscription;
   constructor(
-    public menuItems: MenuItems,
+    public menuService: MenuService,
     private session: SessionService
   ) {
-    session.getUser().subscribe(user => {
+    this.suscription = this.session.getUser().subscribe(user => {
       if (user) {
         this.user = user;
       }
@@ -40,5 +39,6 @@ export class AppSidebarComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.suscription.unsubscribe();
   }
 }

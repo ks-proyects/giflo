@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Variedad } from '../../domain/giflo_db/variedad';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Variedad.service.ts
@@ -72,8 +72,10 @@ export class VariedadBaseService {
         private session: SessionService
     ) {
         session.getUser().subscribe(ui => {
-            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
-            this.variedadCollection = afs.collection<Variedad>('variedad', ref => ref.where('empresa', '==', this.idEmpresa));
+            if (ui) {
+                this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
+                this.variedadCollection = afs.collection<Variedad>('variedad', ref => ref.where('empresa', '==', this.idEmpresa));
+            }
         });
 
     }

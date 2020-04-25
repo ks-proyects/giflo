@@ -28,7 +28,7 @@ export const leftJoin = (
           const reads$ = [];
           for (const doc of collectionData) {
             // Push doc read to Array
-
+console.log(doc[field])
             if (doc[field]) {
               // Perform query on join key, with optional limit
               const q = ref => ref.where(field, '==', doc[field]).limit(limit);
@@ -48,9 +48,7 @@ export const leftJoin = (
           });
         }),
         tap(final => {
-          console.log(
-            `Registros ${(final as any).length}, Joined ${totalJoins} docs`
-          );
+          //console.log(`Registros ${(final as any).length}, Joined ${totalJoins} docs`);
           totalJoins = 0;
         })
       );
@@ -108,11 +106,9 @@ export const leftJoinDocument = (afs: AngularFirestore, field, collection) => {
             return { ...v, [field]: object };
           });
         }),
-        tap(final =>
-          console.log(
-            `Registros ${(final as any).length}, Joined ${cache.size} docs`
-          )
-        )
+        tap(final => {
+          //console.log(`Registros ${(final as any).length}, Joined ${cache.size} docs`);
+        })
       );
     });
 };

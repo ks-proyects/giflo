@@ -18,6 +18,7 @@
  */
 
 import { Empresa } from '../empresa';
+import { ColorRosa } from '../../dto/color-rosa';
 
 /**
  * This is the model of Variedad object
@@ -26,7 +27,7 @@ import { Empresa } from '../empresa';
 export interface VariedadBase {
 
     id: string;
-    color?: string;
+    color?: ColorRosa;
     cuidados?: string;
     indicaciones?: string;
     nombreCientifico?: string;

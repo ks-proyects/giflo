@@ -6,6 +6,10 @@ import { auth } from 'firebase/app';
 import { RolService } from '../services/rol.service';
 import { EstadoService } from '../services/estado.service';
 import { PaginaService } from '../services/pagina.service';
+import { CultivadorService } from '../services/common/cultivador.service';
+import { MenuService } from '../services/common/menu.service';
+import { SessionService } from '../services/common/session.service';
+import { DiaTrabajoBaseService } from '../services/base/dia-trabajo.base.service';
 
 /**
  * This service manage the Authentication
@@ -15,14 +19,14 @@ export class AuthenticationService {
     constructor(
         public afAuth: AngularFireAuth,
         private router: Router,
-        private rolService: RolService,
-        private estadoService: EstadoService,
-        private paginaService: PaginaService,
+        protected rolService: RolService,
+        protected estadoService: EstadoService,
+        protected paginaService: PaginaService,
+        protected menuService: MenuService,
+        protected sessionService: SessionService,
+        protected cultivadorService: CultivadorService,
         public ngZone: NgZone
     ) {
-        rolService.init();
-        estadoService.init();
-        paginaService.init();
     }
     resetPasswordInit(email: string) {
         return this.afAuth.auth.sendPasswordResetEmail(

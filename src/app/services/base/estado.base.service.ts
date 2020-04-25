@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -81,6 +81,14 @@ export class EstadoBaseService {
         private fns: AngularFireFunctions
     ) {
         this.estadoCollection = afs.collection<Estado>('estado');
+        this.list().subscribe((estados: Estado[]) => {
+            if (estados.length === 0) {
+                let item: Estado = { id: 'ACT', nombre: 'ACTIVO' };
+                this.create(item);
+                item = { id: 'INAC', nombre: 'INACTIVO' };
+                this.create(item);
+            }
+        });
     }
 
 

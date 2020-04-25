@@ -22,12 +22,16 @@ import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
 import { DiaTrabajoService } from './services/dia-trabajo.service';
 import { ProduccionService } from './services/produccion.service';
+import { SessionService } from './services/common/session.service';
+import { CultivadorService } from './services/common/cultivador.service';
+import { AuthNoneGuard } from './security/authNone.guard';
+import { MenuService } from './services/common/menu.service';
 
 @NgModule({
   imports: [],
   providers: [
     /* START PROVIDERS */
-// Do not edit this comment content, it will be overwritten in next Skaffolder generation
+    // Do not edit this comment content, it will be overwritten in next Skaffolder generation
     BloqueService,
     CamaService,
     DireccionService,
@@ -43,10 +47,14 @@ import { ProduccionService } from './services/produccion.service';
     VariedadService,
     DiaTrabajoService,
     ProduccionService,
- /* END PROVIDERS */
+    /* END PROVIDERS */
     // SECURITY
     AuthGuard,
-    AuthenticationService
+    AuthNoneGuard,
+    AuthenticationService,
+    SessionService,
+    CultivadorService,
+    MenuService
   ],
   exports: []
 })

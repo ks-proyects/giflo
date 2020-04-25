@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Location } from '@angular/common';
-import { SessionService } from 'src/app/services/session.service';
-import { DeviceService } from 'src/app/shared/device.service';
+import { SessionService } from 'src/app/services/common/session.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 import { EstadoCivil } from 'src/app/domain/giflo_db/estado-civil';
 import { EstadoCivilService } from 'src/app/services/estado-civil.service';
 import { User } from 'src/app/domain/giflo_db/user';

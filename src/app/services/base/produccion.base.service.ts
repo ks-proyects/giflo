@@ -27,14 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Produccion } from '../../domain/giflo_db/produccion';
-import { SessionService } from '../session.service';
-import { DiaTrabajoService } from '../dia-trabajo.service';
-import { ROL_CULTIVADOR } from '../rol.service';
-import { CamaService } from '../cama.service';
-import { Cama } from 'src/app/domain/giflo_db/cama';
-import { ProduccionCama } from 'src/app/domain/dto/produccionCama';
-import { ProduccionVariedad } from 'src/app/domain/dto/produccionVariedad';
-import { leftJoinDocument } from '../generic/leftJoin.service';
+import { SessionService } from '../common/session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../produccion.service.ts
@@ -71,33 +64,13 @@ import { leftJoinDocument } from '../generic/leftJoin.service';
 export class ProduccionBaseService {
 
 	private produccionCollection: AngularFirestoreCollection<Produccion>;
-	idEmpresa: string;
-	idEmpleado: string;
-	idDiaTrabajo: string;
 	constructor(
 		protected afs: AngularFirestore,
 		private fns: AngularFireFunctions,
 		public session: SessionService,
-		public diaTrabajoService: DiaTrabajoService,
-
 	) {
-		this.idEmpleado = '-1';
-		this.idEmpresa = '-1';
-		this.idDiaTrabajo = '-1';
-		session.getUser().subscribe(user => {
-			if (user) {
-				this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';
-				this.idEmpresa = user.currentIdEmpresa ? user.currentIdEmpresa : '-1';
-				this.idDiaTrabajo = diaTrabajoService.idDiaTrabajo;
-				this.produccionCollection = this.afs.collection<Produccion>('produccion', ref => ref.
-					where('empresa', '==', this.idEmpresa).
-					where('diaTrabajo', '==', this.idDiaTrabajo).
-					where('trabajador', '==', this.idEmpleado));
-			}
-		});
+		this.produccionCollection = afs.collection<Produccion>('produccion');
 	}
-
-
 	// CRUD METHODS
 	/**
 	   * ProduccionService.create
@@ -105,7 +78,6 @@ export class ProduccionBaseService {
 	   *
 	   */
 	create(item: Produccion): Promise<DocumentReference> {
-		item.empresa = this.idEmpresa;
 		return this.produccionCollection.add(item);
 	}
 
@@ -137,6 +109,33 @@ export class ProduccionBaseService {
 	*/
 	list(): Observable<Produccion[]> {
 		return this.produccionCollection.snapshotChanges().pipe(
+			map(actions => actions.map(a => {
+				const data = a.payload.doc.data() as Produccion;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			}))
+		);
+	}
+	listCultivo(idEmpresa: string, idDiaTrabajo: string, idTrabajador): Observable<Produccion[]> {
+		return this.afs.collection<Produccion>('produccion', ref => ref.
+			where('empresa', '==', idEmpresa).
+			where('diaTrabajo', '==', idDiaTrabajo).
+			where('trabajador', '==', idTrabajador)).snapshotChanges().pipe(
+				map(actions => actions.map(a => {
+					const data = a.payload.doc.data() as Produccion;
+					const id = a.payload.doc.id;
+					return { id, ...data };
+				}))
+			);
+	}
+	getCamaProduccion(idEmpresa: string, idDiaTrabajo: string, idTrabajador: string, idCama: string, idVariedad: string): Observable<Produccion[]> {
+		return this.afs.collection<Produccion>('produccion', ref => ref.
+			where('empresa', '==', idEmpresa).
+			where('diaTrabajo', '==', idDiaTrabajo).
+			where('trabajador', '==', idTrabajador).
+			where('cama', '==', idCama).
+			where('variedad', '==', idVariedad)
+		).snapshotChanges().pipe(
 			map(actions => actions.map(a => {
 				const data = a.payload.doc.data() as Produccion;
 				const id = a.payload.doc.id;

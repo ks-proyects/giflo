@@ -27,7 +27,8 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 // MODEL
 import { MenuItem } from '../../domain/giflo_db/menu-item';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
+import { leftJoinDocument } from '../generic/leftJoin.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../MenuItem.service.ts
@@ -57,7 +58,6 @@ import { SessionService } from '../session.service';
 export class MenuItemBaseService {
 
     private menuitemCollection: AngularFirestoreCollection<MenuItem>;
-    private lisMenuUser: Observable<any>;
     private idEmpresa: string;
     constructor(
         private afs: AngularFirestore,
@@ -66,9 +66,11 @@ export class MenuItemBaseService {
         private session: SessionService
     ) {
         session.getUser().subscribe(ui => {
-            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
-            this.menuitemCollection = afs.collection<MenuItem>('menuitem',
-                ref => ref.where('empresa', '==', this.idEmpresa));
+            if (ui) {
+                this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
+                this.menuitemCollection = afs.collection<MenuItem>('menuitem',
+                    ref => ref.where('empresa', '==', this.idEmpresa));
+            }
         });
     }
 
@@ -122,6 +124,18 @@ export class MenuItemBaseService {
                 const id = a.payload.doc.id;
                 return { id, ...data };
             }))
+        );
+    }
+    listAll(): Observable<any> {
+        return this.afs.collection<MenuItem>('menuitem').valueChanges().pipe(
+            leftJoinDocument(this.afs, 'pagina', 'pagina'),
+            leftJoinDocument(this.afs, 'rol', 'rol'),
+        );
+    }
+    listDefaultPorEmpresa(idEmpresa): Observable<any> {
+        return this.afs.collection<MenuItem>('menuitem', ref => ref.where('empresa', '==', idEmpresa)).valueChanges().pipe(
+            leftJoinDocument(this.afs, 'pagina', 'pagina'),
+            leftJoinDocument(this.afs, 'rol', 'rol'),
         );
     }
 

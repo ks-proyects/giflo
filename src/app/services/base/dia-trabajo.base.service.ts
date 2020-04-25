@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { DiaTrabajo } from '../../domain/giflo_db/dia-trabajo';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
 import { DatePipe } from '@angular/common';
 
 /**
@@ -55,39 +55,16 @@ import { DatePipe } from '@angular/common';
 	}
  *
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class DiaTrabajoBaseService {
 
     private diatrabajoCollection: AngularFirestoreCollection<DiaTrabajo>;
-    private idEmpresa: string;
-    private datePipe: DatePipe;
-    public idDiaTrabajo: string;
     constructor(
         private afs: AngularFirestore,
-        private fns: AngularFireFunctions,
-        private session: SessionService
+        private fns: AngularFireFunctions
     ) {
-        this.datePipe = new DatePipe('en-US');
-        session.getUser().subscribe(ui => {
-            const currentDate = new Date();
-            if (ui && ui.currentIdEmpresa) {
-                this.idEmpresa = ui.currentIdEmpresa;
-                this.idDiaTrabajo = currentDate.getFullYear().toString() + currentDate.getMonth().toString() +
-                    currentDate.getDate().toString() + this.idEmpresa;
-                this.get(this.idDiaTrabajo).valueChanges().subscribe(item => {
-                    if (!item) {
-                        const newItem: DiaTrabajo = { id: this.idDiaTrabajo };
-                        newItem.anio = currentDate.getFullYear();
-                        newItem.mes = currentDate.getMonth();
-                        newItem.fecha = currentDate;
-                        newItem.estado = 'VIGENTE';
-                        newItem.empresa = this.idEmpresa;
-                        newItem.descripcion = 'Producción ' + this.datePipe.transform(currentDate, 'yyyy MM dd');
-                        this.createCustom(newItem);
-                    }
-                });
-            }
-        });
         this.diatrabajoCollection = afs.collection<DiaTrabajo>('diatrabajo');
     }
 
@@ -125,9 +102,6 @@ export class DiaTrabajoBaseService {
     */
     get(id: string): AngularFirestoreDocument<DiaTrabajo> {
         return this.afs.doc<DiaTrabajo>('diatrabajo/' + id);
-    }
-    getCurrentDay(): AngularFirestoreDocument<DiaTrabajo> {
-        return this.afs.doc<DiaTrabajo>('diatrabajo/' + this.idDiaTrabajo);
     }
 
     /**

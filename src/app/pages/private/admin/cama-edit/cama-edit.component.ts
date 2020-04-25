@@ -114,8 +114,8 @@ export class CamaEditComponent implements OnInit, OnDestroy {
             ).subscribe(list => this.listNave = list as Nave[]);
             this.empleadoServiceSubscription = this.empleadoService.listActive().
                 pipe(leftJoinDocument(this.afs, 'user', 'user')).subscribe(list => {
-                    this.listSupervisor = list as Empleado[];
-                    this.listTrabajador = list as Empleado[];
+                    this.listSupervisor = (list as Empleado[]).filter(empl=>(empl.roles as string[]).includes('SUPCU'));
+                    this.listTrabajador = (list as Empleado[]).filter(empl=>(empl.roles as string[]).includes('CULT'));
                 });
             this.variedadServiceSubscription = this.variedadService.list().subscribe(list => this.listVariedad = list);
         });

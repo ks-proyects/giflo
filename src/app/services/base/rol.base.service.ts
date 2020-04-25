@@ -15,7 +15,7 @@
  *  -- THIS FILE WILL BE OVERWRITTEN ON THE NEXT SKAFFOLDER'S CODE GENERATION --
  *
  */
- // DEPENDENCIES
+// DEPENDENCIES
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -58,13 +58,39 @@ import { Rol } from '../../domain/giflo_db/rol';
  */
 @Injectable()
 export class RolBaseService {
-    
+
     private rolCollection: AngularFirestoreCollection<Rol>;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions
     ) {
         this.rolCollection = afs.collection<Rol>('rol');
+        this.list().subscribe((rols: Rol[]) => {
+            if (rols.length === 0) {
+                let item: Rol = { id: 'DEF', nombre: 'DEFAULT', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'GER', nombre: 'GERENTE', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'CULT', nombre: 'CULTIVADOR', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'POST', nombre: 'POSTCOSECHA', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'FUMN', nombre: 'FUNIGADORES', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'COCH', nombre: 'COCHEROS', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'SUPCU', nombre: 'SUPERVISOR DE CULTIVO', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'SUPPOST', nombre: 'SUPERVISOR DE POSTCOSECHA', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'VEND', nombre: 'VENDEDOR', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'ADM', nombre: 'ADMINISTRADOR', activo: 'ACT' };
+                this.create(item);
+                item = { id: 'SUPERADMIN', nombre: 'SUPERADMIN', activo: 'ACT' };
+                this.create(item);
+            }
+        });
     }
 
     // CRUD METHODS

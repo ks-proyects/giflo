@@ -2,22 +2,23 @@
 import { Routes } from '@angular/router';
 // SECURITY
 import { AuthGuard } from './security/auth.guard';
-import { LandingComponent } from './layout/landing/landing.component';
+import { LandingComponent } from './pages/public/landing/landing.component';
 import { FullComponent } from './layout/full/full.component';
 import { AppBlankComponent } from './layout/blank/blank.component';
+import { NoneComponent } from './pages/public/none/none.component';
+import { AuthNoneGuard } from './security/authNone.guard';
 /**
  * WEB APP ROUTES
  */
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: LandingComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: './pages/public/public.module#PublicModule'
-      },
-    ]
+    component: NoneComponent,
+    canActivate: [AuthNoneGuard]
+  },
+  {
+    path: 'landing',
+    component: LandingComponent
   },
   {
     path: '',

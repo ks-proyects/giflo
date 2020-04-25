@@ -26,7 +26,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 
 // MODEL
 import { Empleado } from '../../domain/giflo_db/empleado';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
 import { UserService } from '../user.service';
 import { User } from 'src/app/domain/giflo_db/user';
 

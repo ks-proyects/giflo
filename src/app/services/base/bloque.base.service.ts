@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Bloque } from '../../domain/giflo_db/bloque';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Bloque.service.ts
@@ -74,8 +74,10 @@ export class BloqueBaseService {
         private session: SessionService
     ) {
         session.getUser().subscribe(ui => {
-            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa  : '-1';
-            this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', this.idEmpresa));
+            if (ui) {
+                this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
+                this.bloqueCollection = afs.collection<Bloque>('bloque', ref => ref.where('empresa', '==', this.idEmpresa));
+            }
         });
     }
 

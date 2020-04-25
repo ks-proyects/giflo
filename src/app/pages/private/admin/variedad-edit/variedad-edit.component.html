@@ -15,10 +15,17 @@
                             </mat-form-field>
                         </div>
                         <!-- column -->
-                        <div fxFlex.gt-md="100" fxFlex="100">
+                        <div fxFlex.gt-sm="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Color" [(ngModel)]="item.color" name="color"
-                                    #color="ngModel">
+                                <mat-select name="color" id="color" [(ngModel)]="item.color" #color="ngModel">
+                                    <mat-option>-- Ninguno --</mat-option>
+                                    <mat-option *ngFor="let item of listColor" [value]="item">
+                                        {{item.nombre}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-placeholder>
+                                    Color
+                                </mat-placeholder>
                             </mat-form-field>
                         </div>
                         <!-- column -->

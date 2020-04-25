@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Nave } from '../../domain/giflo_db/nave';
-import { SessionService } from '../session.service';
+import { SessionService } from '../common/session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Nave.service.ts
@@ -71,8 +71,10 @@ export class NaveBaseService {
         private session: SessionService
     ) {
         session.getUser().subscribe(ui => {
-            this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
-            this.naveCollection = afs.collection<Nave>('nave', ref => ref.where('empresa', '==', this.idEmpresa));
+            if (ui) {
+                this.idEmpresa = ui && ui.currentIdEmpresa ? ui.currentIdEmpresa : '-1';
+                this.naveCollection = afs.collection<Nave>('nave', ref => ref.where('empresa', '==', this.idEmpresa));
+            }
         });
     }
 

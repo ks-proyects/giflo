@@ -3,24 +3,31 @@
         <mat-card>
             <mat-card-content>
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                    <div class="text-center">
-                        <img alt="homepage" src="assets/images/logo.png">
-                        <h4 class="m-t-0">Ingresar a Giflo</h4>
+                    <div class="text-center" [ngClass]="{'':device.isMovile,'p-b-40 p-t-20':!device.isMovile}">
+                        <a [routerLink]="['/']"><img alt="Landing" src="assets/images/logo.png"></a>
+                        <h4 class="text-primary" [ngClass]="{'p-t-10':device.isMovile,'m-t-0 p-t-20':!device.isMovile}">
+                            Iniciar Sessión en Giflo
+                        </h4>
                     </div>
                     <div fxLayout="row wrap">
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput placeholder="Correo" [formControl]="form.controls['email']" required>
+                                <mat-label>Correo Electrónico</mat-label>
+                                <input matInput placeholder="Ejm: freddy.castillo@yahoo.com"
+                                    [formControl]="form.controls['email']" required>
                             </mat-form-field>
                             <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched"
                                 class="text-danger support-text">El correo es obligatorio.</small>
+                            <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched"
+                                class="text-danger support-text">El correo no es válido.</small>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
+                                <mat-label>Contraseña</mat-label>
                                 <input matInput type="Contraseña" [type]="hide ? 'password' : 'text'"
-                                    placeholder="Contraseña" [formControl]="form.controls['password']" required>
+                                    placeholder="Ejm: Abcd4321#$." [formControl]="form.controls['password']" required>
                                 <button mat-icon-button matSuffix (click)="hide = !hide"
                                     [attr.aria-label]="'Ocultar Contraseña'" [attr.aria-pressed]="hide">
                                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -32,45 +39,43 @@
                         </div>
                         <!-- col half-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="50">
-                            <mat-checkbox color="warn">Recordarme</mat-checkbox>
+                            <mat-checkbox color="warn" class="font-12">Recordarme</mat-checkbox>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                            <button mat-raised-button color="accent" class="btn-block m-t-10 m-b-10"
+                            <button mat-raised-button color="primary" class="btn-block m-t-10 m-b-10"
                                 [ngClass]="{'btn-sm':device.isMovile,'btn-lg':!device.isMovile}" type="submit"
                                 [disabled]="!form.valid">Ingresar</button>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlex="100">
-                            <button mat-raised-button color="warn" class="btn-block  m-t-10 m-b-10"
+                            <button mat-raised-button color="primary" class="btn-block  m-t-10 m-b-10"
                                 [ngClass]="{'btn-sm':device.isMovile,'btn-lg':!device.isMovile}" type="button"
                                 (click)="authSer.loginFacebook()">Ingresar con Facebook</button>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="49" fxFlex.gt-xs="49" fxFlexOffset.gt-sm="2" fxFlexOffset.gt-xs="2"
                             class="text-right" fxFlex="100">
-                            <button mat-raised-button color="warn" class="btn-block m-t-10 m-b-10"
+                            <button mat-raised-button color="primary" class="btn-block m-t-10 m-b-10"
                                 [ngClass]="{'btn-sm':device.isMovile,'btn-lg':!device.isMovile}" type="button"
                                 (click)="authSer.loginGoogle()">Ingresar con Google</button>
                         </div>
                         <!-- col full-->
-                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="m-t-20">
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100"
+                            [ngClass]="{'':device.isMovile,'m-t-30':!device.isMovile}">
                             <span class="text-left">
-                                <a [routerLink]="['/']" class="text-info link">Inicio</a>
-                            </span>
-                            <span class="float-right">
-                                <a [routerLink]="['/authentication/forgot']" class="text-info link">Olvidaste tu
+                                <a [routerLink]="['/authentication/forgot']" class="text-primary link font-14"
+                                    [ngClass]="{'font-12':device.isMovile,'font-14':!device.isMovile}">¿Olvidaste tu
                                     contraseña?</a>
                             </span>
-                        </div>
-                        <!-- col full-->
-                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
-                            <span>No tienes una cuenta?
-                                <a [routerLink]="['/authentication/register']" class="text-info link">Registrate</a>
+                            <span class="float-right">
+                                <a [routerLink]="['/authentication/register']" class="text-primary link"
+                                    [ngClass]="{'font-12':device.isMovile,'font-14':!device.isMovile}">Registrate
+                                    en Giflo</a>
                             </span>
                         </div>
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
-                            <span>Creado por
+                            <span class="font-12 text-primary">Creado por
                                 <a href="http://www.keysist.com" rel="noopener" target="_blank">&copy; KeySist</a>
                             </span>
                         </div>

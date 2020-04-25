@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionService } from 'src/app/services/common/session.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { Empresa } from 'src/app/domain/giflo_db/empresa';
-import { DeviceService } from 'src/app/shared/device.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DireccionService } from 'src/app/services/direccion.service';

@@ -6,7 +6,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { DeviceService } from 'src/app/shared/device.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 
 @Component({
   selector: 'app-breadcrumb',

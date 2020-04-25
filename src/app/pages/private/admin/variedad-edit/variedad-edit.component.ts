@@ -9,6 +9,7 @@ import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { VariedadService } from '../../../../services/variedad.service';
 
 import { Variedad } from '../../../../domain/giflo_db/variedad';
+import { ColorRosa } from 'src/app/domain/dto/color-rosa';
 
 // START - USED SERVICES
 /**
@@ -39,8 +40,13 @@ export class VariedadEditComponent implements OnInit {
     itemDoc: AngularFirestoreDocument<Variedad>;
     isNew: Boolean = true;
     formValid: Boolean;
-
-
+    listColor: ColorRosa[] = [
+        { nombre: 'Rojo', codigo: '#A70A1C', codigoLetra: '#FFF' },
+        { nombre: 'Amarillo', codigo: '#E9E346', codigoLetra: '#000' },
+        { nombre: 'Verde', codigo: '#0E6730', codigoLetra: '#FFF' },
+        { nombre: 'Morado', codigo: '#801461', codigoLetra: '#FFF' },
+        { nombre: 'Blanco', codigo: '#F3F3ED', codigoLetra: '#000' }
+    ];
 
     constructor(
         private variedadService: VariedadService,
@@ -58,7 +64,9 @@ export class VariedadEditComponent implements OnInit {
             if (id !== 'new') {
                 this.isNew = false;
                 this.itemDoc = this.variedadService.get(id);
-                this.itemDoc.valueChanges().subscribe(item => this.item = item);
+                this.itemDoc.valueChanges().subscribe(item => {
+                    this.item = item;
+                });
 
             }
             // Get relations

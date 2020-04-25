@@ -27,8 +27,7 @@ import { environment } from '../../../environments/environment';
 
 // MODEL
 import { Cama } from '../../domain/giflo_db/cama';
-import { SessionService } from '../session.service';
-import { DiaTrabajoService } from '../dia-trabajo.service';
+import { SessionService } from '../common/session.service';
 
 /**
  * THIS SERVICE MAKE HTTP REQUEST TO SERVER, FOR CUSTOMIZE IT EDIT ../Cama.service.ts
@@ -71,31 +70,24 @@ import { DiaTrabajoService } from '../dia-trabajo.service';
  */
 @Injectable()
 export class CamaBaseService {
-
     idEmpresa: string;
     idEmpleado: string;
-    idDiaTrabajo: string;
     private camaCollection: AngularFirestoreCollection<Cama>;
-    private camaUserCollection: AngularFirestoreCollection<Cama>;
     constructor(
         private afs: AngularFirestore,
         private fns: AngularFireFunctions,
         private session: SessionService,
-        private diaTrabajoService: DiaTrabajoService
     ) {
-        this.idEmpleado = '-1';
         this.idEmpresa = '-1';
-        this.idDiaTrabajo = '-1'
-        session.getUser().subscribe(user => {
+        this.idEmpleado = '-1';
+        this.session.getUser().subscribe(user => {
             if (user) {
-                this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';
                 this.idEmpresa = user.currentIdEmpresa ? user.currentIdEmpresa : '-1';
-                this.idDiaTrabajo = diaTrabajoService.idDiaTrabajo;
-                this.camaCollection = afs.collection<Cama>('cama', ref => ref.where('empresa', '==', this.idEmpresa));
+                this.idEmpleado = user.currentEmpleado ? user.currentEmpleado : '-1';
+                this.camaCollection = this.afs.collection<Cama>('cama', ref => ref.where('empresa', '==', this.idEmpresa));
             }
         });
     }
-
 
     // CRUD METHODS
 

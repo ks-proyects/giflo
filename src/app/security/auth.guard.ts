@@ -12,15 +12,9 @@ export class AuthGuard implements CanActivate {
         private router: Router,
         private afAuth: AngularFireAuth,
     ) { }
-
-    /**
-     * Check routes permission
-     */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-        // Return observable
         return new Observable<boolean>((ob: any) => {
             this.afAuth.user.subscribe(user => {
-                // Get logged user
                 if (user) {
                     ob.next(true);
                 } else {
@@ -30,5 +24,4 @@ export class AuthGuard implements CanActivate {
             });
         });
     }
-
 }

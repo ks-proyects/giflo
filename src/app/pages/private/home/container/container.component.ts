@@ -5,7 +5,7 @@ import { PostcosechaComponent } from '../postcosecha/postcosecha.component';
 import { SupervisorComponent } from '../supervisor/supervisor.component';
 import { HomeDirective } from 'src/app/directives/home.directive';
 import { Subscription } from 'rxjs';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionService } from 'src/app/services/common/session.service';
 import { SuperAdminComponent } from '../super-admin/super-admin.component';
 import { DefaultComponent } from '../default/default.component';
 

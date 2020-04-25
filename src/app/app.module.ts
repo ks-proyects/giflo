@@ -19,8 +19,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SpinnerComponent } from './shared/spiner/spinner.component';
-import { LandingComponent } from './layout/landing/landing.component';
+import { LandingComponent } from './pages/public/landing/landing.component';
 import { FullComponent } from './layout/full/full.component';
 import { AppHeaderComponent } from './layout/full/header/header.component';
 import { AppSidebarComponent } from './layout/full/sidebar/sidebar.component';
@@ -32,6 +31,7 @@ import { RouterModule } from '@angular/router';
 import { CoreMaterialModule } from './core.material.module';
 import { DialogSelectComponent } from './layout/full/dialog-select/dialog-select.component';
 import { UtilModule } from './util/util.module';
+import { NoneComponent } from './pages/public/none/none.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -49,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppSidebarComponent,
     AppBreadcrumbComponent,
     LandingComponent,
+    NoneComponent,
     MailValidator,
     MatDialogComponent,
     DialogSelectComponent,

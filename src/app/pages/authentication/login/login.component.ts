@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthenticationService } from 'src/app/security/authentication.service';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { DeviceService } from 'src/app/shared/device.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required,Validators.email])],
       password: [null, Validators.compose([Validators.required])]
     });
   }

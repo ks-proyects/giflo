@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { SessionService } from 'src/app/services/session.service';
+import { SessionService } from 'src/app/services/common/session.service';
 import { AuthenticationService } from 'src/app/security/authentication.service';
-import { DeviceService } from 'src/app/shared/device.service';
+import { DeviceService } from 'src/app/services/common/device.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogDataGeneric } from 'src/app/domain/dto/dialog-data-generic';
 import { DialogSelectComponent } from './dialog-select/dialog-select.component';
@@ -70,7 +70,7 @@ export class FullComponent implements OnDestroy, OnInit {
       }
     });
     this.userInfoSuscription = this.sessionService.getBrowserInfo().subscribe(userInfo => {
-      console.log(userInfo);
+      
     });
   }
 

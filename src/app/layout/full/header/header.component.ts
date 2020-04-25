@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { SessionService } from 'src/app/services/session.service';
-import { User } from 'src/app/domain/giflo_db/user';
+import { SessionService } from 'src/app/services/common/session.service';
 
 
 
