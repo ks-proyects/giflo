@@ -39,10 +39,11 @@
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
 <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-    <mat-icon class="large-40">account_circle</mat-icon>
+    <mat-icon *ngIf="urlLogo.length===0" class="large-40">account_circle</mat-icon>
+    <img *ngIf="urlLogo>''" [src]="urlLogo" alt="user" class="profile-pic">
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-    <button mat-menu-item  [routerLink]="['/home/', 'setting']">
+    <button mat-menu-item [routerLink]="['/home/', 'setting']">
         <mat-icon>settings</mat-icon>Configuración
     </button>
     <button mat-menu-item [routerLink]="['/home/', 'profile']">
@@ -54,5 +55,5 @@
     <button mat-menu-item (click)="logoutOUT.emit()">
         <mat-icon>exit_to_app</mat-icon> Salir
     </button>
-    
+
 </mat-menu>

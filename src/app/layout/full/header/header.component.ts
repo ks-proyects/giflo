@@ -13,6 +13,7 @@ export class AppHeaderComponent {
   public config: PerfectScrollbarConfigInterface = {};
   @Output() public logoutOUT = new EventEmitter();
   @Input() public nombreEmpresa: boolean;
+  @Input() public urlLogo: string;
   @Output() public changeEmpresaOUT = new EventEmitter();
   user: any = {};
   notifications: Object[] = [

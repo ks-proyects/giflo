@@ -1,3 +1,23 @@
-<p>
-  default works!
-</p>
+<div class="p-20" [perfectScrollbar]="config">
+  <p class="text-center text-primary_default p-10 font-bold" [ngClass]="sizeTitle">Bienvenido a Giflo</p>
+  <div class="text-center" [ngClass]="paddingLogo">
+    <a [routerLink]="['/']"><img alt="Landing" src="assets/images/logo.png"></a>
+  </div>
+  <p class="text-center text-primary_default" [ngClass]="sizeInfo">Giflo te permitirá gestionar de mejor manera la
+    producción de tu florícola y obtener estadísticas y proyecciones de tu finca</p>
+  <p class="text-center text-primary_default" [ngClass]="sizeList">Giflo
+    te permitirá realizar las siguientes actividades.</p>
+  <ul class="list-unstyled" [ngClass]="sizeList">
+    <li class="p-0">Editar sus Datos Personales (<a [routerLink]="['/home/profile/', 'user']">aquí)</a></li>
+    <li class="p-0">Registrar su empresa florícola en Giflo(<a [routerLink]="['/home/', 'profile']">aquí)</a>
+    </li>
+    <li class="p-0">Registrar el lugar donde trabaja (<a [routerLink]="['/home/', 'profile']">aquí)</a></li>
+    <li class="p-0">Gestionar los roles de tu empresa(Ejm: Cultivador, Supervisor, Gerente, Postcosecha, entre
+      otros)</li>
+    <li class="p-0">Gestionar los bloques, naves, camas de tu finca.</li>
+    <li class="p-0">Gestionar el personal de tú finca.</li>
+    <li class="p-0">Registrar la producción diaria.</li>
+    <li class="p-0">Visualizar información en tiempo real de la producción de tu finca.</li>
+    <li class="p-0">Visualizar proyecciones, estadísticas de la producción florícola.</li>
+  </ul>
+</div>
