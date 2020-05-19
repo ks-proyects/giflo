@@ -29,6 +29,9 @@ export class ContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if(this.receptor){
+      this.receptor.viewContainerRef.clear();
+    }
     this.userSuscription = this.session.getUser().subscribe(user => {
       if (user) {
         if (user.roles.includes('CULT')) {
